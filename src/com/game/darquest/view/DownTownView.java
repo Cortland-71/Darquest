@@ -295,8 +295,7 @@ public class DownTownView {
 	                } else {
 	                    setText(w.getName());
 	                    tooltip.setText(w.toString());
-	                    setOnMouseEntered(e-> {
-	                    });
+	                    //setOnMouseEntered(e-> {});
 	                    setTooltip(tooltip);
 	                }
 	            }

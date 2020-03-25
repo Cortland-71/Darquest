@@ -46,7 +46,7 @@ public class ShopController implements EventHandler<ActionEvent>{
 	@Override
 	public void handle(ActionEvent e) {
 		if(((Button)e.getSource()).getId().equals("buy")) {
-			buyItems();
+			buyItem();
 			return;
 		}
 		String id = ((Button)e.getSource()).getId();
@@ -55,15 +55,22 @@ public class ShopController implements EventHandler<ActionEvent>{
 		
 	}
 	
-	private void buyItems() {
+	private void buyItem() {
 		player = (Player)c.getNewPlayerController().getPlayer();
-		player.addItemToPlayerInventory(getBoughtItem());
+		Item selectedItem = getBoughtItem();
+		if(player.getCash() >= selectedItem.getPrice()) {
+			player.setCash(player.getCash()-selectedItem.getPrice());
+			player.addItemToPlayerInventory(selectedItem);
+			
+			c.getView().getDownTownView().setPlayerStats(player);
+			c.getView().getDownTownView().clearAllInventoryItems();
+			c.getView().getDownTownView().setAllInventoryItems(player.getInventoryLists());
+			
+			c.getView().getShopView().setPlayerStats(player);
+			c.getView().getShopView().clearAllInventoryItems();
+			c.getView().getShopView().setAllInventoryItems(player.getInventoryLists());
+		}
 		
-		c.getView().getDownTownView().clearAllInventoryItems();
-		c.getView().getDownTownView().setAllInventoryItems(player.getInventoryLists());
-		
-		c.getView().getShopView().clearAllInventoryItems();
-		c.getView().getShopView().setAllInventoryItems(player.getInventoryLists());
 	}
 	
 	private Item getBoughtItem() {
