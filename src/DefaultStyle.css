@@ -1,0 +1,28 @@
+* {
+	dark: #0d0d0d;
+	almostDark: #1a1a1a;
+	average: #262626;
+	light :#333333;
+	extraLight: #404040;
+	
+	lightText: #d9d9d9;
+
+	_green: #00ff00;
+	_red: #ff0000;
+	_yellow: #ffff00;
+	_blue: #0093ff;
+	
+}
+
+.root {
+	-fx-background-color: dark;
+	-fx-font: 20px "Consolas";
+	-fx-text-fill: lightText;
+}
+
+.button {
+	-fx-font: 20px "Consolas";
+	-fx-text-fill: _green;
+	-fx-background-color: dark;
+	-fx-border-color: _green;
+}

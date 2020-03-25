@@ -1,0 +1,33 @@
+* {
+	dark: #0d0d0d;
+	average: #262626;
+	lightText: #d9d9d9;
+	_green: #00ff00;
+}
+
+.root {
+	-fx-background-color: dark;
+	-fx-font: 20px "Consolas";
+	-fx-text-fill: lightText;
+}
+
+.button {
+	-fx-font: 20px "Consolas";
+	-fx-text-fill: _green;
+	-fx-background-color: dark;
+	-fx-border-color: _green;
+}
+
+.button:hover {
+	-fx-background-color: average;
+}
+
+.button:pressed {
+	-fx-text-fill: dark;
+	-fx-background-color: _green;
+}
+
+#title {
+	-fx-font: 72px "Constantia";
+	-fx-text-fill: lightText;
+}

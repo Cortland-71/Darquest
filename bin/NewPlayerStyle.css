@@ -1,0 +1,22 @@
+* {
+	dark: #0d0d0d;
+	almostDark: #1a1a1a;
+	lightText: #d9d9d9;
+	_green: #00ff00;
+}
+
+.root {
+	-fx-background-color: dark;
+	-fx-font: 20px "Consolas";
+}
+
+.text-field {
+	-fx-background-color: dark;
+	-fx-text-fill: _green;
+	-fx-border-color: _green;
+	-fx-font: 22px "Consolas";
+}
+
+.label {
+	-fx-text-fill: _green;
+}

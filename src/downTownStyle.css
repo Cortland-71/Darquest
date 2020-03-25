@@ -1,0 +1,141 @@
+* {
+	dark: #0d0d0d;
+	almostDark: #0d0d0d;
+	average: #262626;
+	light :#333333;
+	extraLight: #404040;
+	
+	lightText: #d9d9d9;
+
+	_green: #00ff00;
+	_red: #ff0000;
+	_yellow: #ffff00;
+	_orange: #ff751a;
+	_blue: #0093ff;
+	
+}
+
+.root {
+	-fx-background-color: dark;
+	-fx-font: 20px "Consolas";
+}
+
+/*Buttons \/\/\/\/\/\/\/\/\/\/\/\/\/\*/
+.button {
+	-fx-font: 20px "Consolas";
+	-fx-text-fill: _green;
+	-fx-background-color: dark;
+	-fx-border-color: _green;
+}
+
+.button:hover {
+	-fx-background-color: average;
+}
+
+.button:pressed {
+	-fx-text-fill: dark;
+	-fx-background-color: _green;
+}
+
+/*Labels \/\/\/\/\/\/\/\/\/\/\/\/\/\*/
+.label {
+	-fx-font: 20px "Consolas";
+	-fx-text-fill: _green;
+}
+
+/*Tool tips \/\/\/\/\/\/\/\/\/\/\/\/\/\*/
+.tooltip {
+    -fx-text-fill: _green;
+    -fx-background-color: almostDark;
+    -fx-background-radius: 6px;
+    -fx-background-insets: 0;
+    -fx-padding: 0.667em 0.75em 0.667em 0.75em; /* 10px */
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.5) , 10, 0.0 , 0 , 3 );
+    -fx-font-size: 0.85em;
+}
+/*Bars \/\/\/\/\/\/\/\/\/\/\/\/\/\*/
+.progress-bar > .track {
+	-fx-text-box-border: transparent;
+ 	-fx-control-inner-background: light;
+ 	-fx-background-insets: 0;
+    -fx-padding: 0 0 0 0;
+    -fx-background-radius: 0 0 0 0;
+}
+
+.progress-bar .bar {
+	-fx-background-radius: 0 0 0 0;
+	-fx-background-insets: 1 1 2 1;
+    -fx-padding: 0.30em;
+}
+
+#hpBar .bar {
+	-fx-background-color: _red;
+}
+
+#engBar .bar {
+	-fx-background-color: _yellow;
+	
+}
+
+#xpBar .bar {
+	-fx-background-color: _green;
+}
+
+#esBar .bar {
+	-fx-background-color: _green;
+}
+
+/*Tabs \/\/\/\/\/\/\/\/\/\/\/\/\/\*/
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-opacity: 0;
+}
+
+.tab-pane {
+    -fx-tab-min-width:50px;
+    -fx-control-inner-background: extraLight;
+}
+
+.tab{
+    -fx-background-insets: 0 1 0 1,0,0;
+    -fx-background-color: dark;
+
+}
+.tab-pane .tab {
+    -fx-background-color: light;
+
+}
+
+.tab-pane .tab:selected {
+    -fx-background-color: extraLight;
+}
+
+.tab .tab-label { 
+    -fx-alignment: CENTER;
+    -fx-text-fill: _green;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+}
+
+
+
+.list-cell:filled:selected:focused, .list-cell:filled:selected {
+    -fx-background-color: linear-gradient(to right, #006622, #009933, #00cc44,  #009933, #006622);
+    -fx-text-fill: lightText;
+}
+
+.list-cell {
+	-fx-text-fill: orange;
+}
+
+.list-cell:even { 
+    -fx-background-color: extraLight;
+}
+
+.list-cell:odd { 
+    -fx-background-color: light;
+}
+
+.list-cell:filled:hover {
+    -fx-background-color: _blue;
+    -fx-text-fill: lightText;
+}

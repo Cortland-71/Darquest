@@ -1,0 +1,58 @@
+* {
+	dark: #0d0d0d;
+	almostDark: #1a1a1a;
+	average: #262626;
+	light :#333333;
+	extraLight: #404040;
+	
+	lightText: #d9d9d9;
+
+	_green: #00ff00;
+	_red: #ff0000;
+	_yellow: #ffff00;
+	_blue: #0093ff;
+	
+}
+
+.root {
+	-fx-background-color: dark;
+	-fx-font: 20px "Consolas";
+	-fx-text-fill: lightText;
+}
+
+
+#shopToolsTab .tab-label,
+#shopWeaponsTab .tab-label, 
+#shopArmorTab .tab-label { 
+    -fx-alignment: CENTER;
+    -fx-text-fill: orange;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+}
+
+#buyButtonBox, #itemTabBox, #itemInfoBox {
+	-fx-background-color: almostDark;
+}
+
+#buy {
+	-fx-font: 20px "Consolas";
+	-fx-text-fill: orange;
+	-fx-background-color: almostDark;
+	-fx-border-color: orange;
+	-fx-border-width: 2px;
+}
+
+#buy:hover {
+	-fx-border-color: _green;
+	-fx-text-fill: _green;
+}
+
+#buy:pressed {
+	-fx-text-fill: dark;
+	-fx-background-color: _green;
+}
+
+#itemInfoLabel {
+	-fx-font: 20px "Consolas";
+	-fx-text-fill: orange;
+}
