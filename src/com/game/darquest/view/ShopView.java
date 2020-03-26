@@ -27,7 +27,7 @@ public class ShopView extends DownTownView {
 	private ListView<Item> toolsListView = new ListView<>();
 	private ListView<Item> armorListView = new ListView<>();
 	private ListView<Item> weaponsListView = new ListView<>();
-	private List<ListView<Item>> listViewObjects = Arrays.asList(weaponsListView, 
+	private List<ListView<Item>> shopListViewObjects = Arrays.asList(weaponsListView, 
 			armorListView, toolsListView);
 	
 	
@@ -166,8 +166,8 @@ public class ShopView extends DownTownView {
 	public void setAllShopItems(List<List<Item>> allItems) {
 
 		for (int i = 0; i < allItems.size(); i++) {
-			listViewObjects.get(i).getItems().addAll(allItems.get(i));
-			listViewObjects.get(i).setCellFactory(cell->new ListCell<Item>() {
+			shopListViewObjects.get(i).getItems().addAll(allItems.get(i));
+			shopListViewObjects.get(i).setCellFactory(cell->new ListCell<Item>() {
 				Tooltip tooltip = new Tooltip();
 	            @Override
 	            protected void updateItem(Item w, boolean empty) {
@@ -194,7 +194,7 @@ public class ShopView extends DownTownView {
 		return this.shopScene;
 	}
 	
-	public List<ListView<Item>> getListViewObjects() {
-		return this.listViewObjects;
+	public List<ListView<Item>> getShopListViewObjects() {
+		return this.shopListViewObjects;
 	}
 }

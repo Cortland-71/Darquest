@@ -17,10 +17,6 @@ public class Player extends Person {
 	
 	private double weight = 0;
 	
-	public Player(String name) {
-		super(name); 
-	}
-	
 	public void addItemToPlayerInventory(Item item) {
 		if (item instanceof Weapon) weaponList.add(item);
 		else if (item instanceof Armor) armorList.add(item);

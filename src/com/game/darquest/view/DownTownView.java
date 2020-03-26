@@ -22,6 +22,7 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.Tooltip;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -35,11 +36,17 @@ public class DownTownView {
 			"Main Menu", "Save", "Tutorial");
 	private List<Button> buttonList = new ArrayList<>();
 	private DecimalFormat df = new DecimalFormat("#.##");
-	
+//	ObservableList<Item> obToolsList = FXCollections.observableArrayList();
+//	ObservableList<Item> obArmorList = FXCollections.observableArrayList();
+//	ObservableList<Item> obWeaponList = FXCollections.observableArrayList();
+//	
+//	private ListView<Item> toolsListView = new ListView<>(obToolsList);
+//	private ListView<Item> armorListView = new ListView<>(obArmorList);
+//	private ListView<Item> weaponsListView = new ListView<>(obWeaponList);
 	private ListView<Item> toolsListView = new ListView<>();
 	private ListView<Item> armorListView = new ListView<>();
 	private ListView<Item> weaponsListView = new ListView<>();
-	private List<ListView<Item>> listViewObjects = Arrays.asList(weaponsListView, 
+	private List<ListView<Item>> inventoryListViewObjects = Arrays.asList(weaponsListView, 
 			armorListView, toolsListView);
 	
 	public DownTownView() {
@@ -298,16 +305,17 @@ public class DownTownView {
 		return toolsTab;
 	}
 	
-	public void clearAllInventoryItems() {
-		listViewObjects.forEach(e->e.getItems().clear());
+	private void clearAllInventoryItems() {
+		inventoryListViewObjects.forEach(e->e.getItems().clear());
 	}
 	
 	public void setAllInventoryItems(List<List<Item>> allItems) {
+		clearAllInventoryItems();
 
 		for (int i = 0; i < allItems.size(); i++) {
-			listViewObjects.get(i).getItems().addAll(allItems.get(i));
+			inventoryListViewObjects.get(i).getItems().addAll(allItems.get(i));
 			
-			listViewObjects.get(i).setCellFactory(cell->new ListCell<Item>() {
+			inventoryListViewObjects.get(i).setCellFactory(cell->new ListCell<Item>() {
 				Tooltip tooltip = new Tooltip();
 	            @Override
 	            protected void updateItem(Item w, boolean empty) {
@@ -325,6 +333,20 @@ public class DownTownView {
 			});
 		}
 	}
+	
+	public int getSelectedIndex() {
+		return inventoryListViewObjects.get(0).getSelectionModel().getSelectedIndex();
+	}
+//	
+	public List<ListView<Item>> getInventoryListViewObjects() {
+		return this.inventoryListViewObjects;
+	}
+	
+	public void setInventoryListener(EventHandler<MouseEvent> l) {
+		inventoryListViewObjects.forEach(e->e.setOnMouseClicked(l));
+	}
+	
+	
 	
 	
 	//\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\-Bottom Box

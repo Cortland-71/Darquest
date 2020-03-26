@@ -59,7 +59,7 @@ public class ShopController implements EventHandler<ActionEvent>{
 	}
 	
 	private void buyItem() {
-		player = (Player)c.getNewPlayerController().getPlayer();
+		player = (Player)c.getPlayer();
 		Item selectedItem = getBoughtItem();
 		if(player.getCash() >= selectedItem.getPrice()) {
 			player.setCash(player.getCash()-selectedItem.getPrice());
@@ -67,12 +67,11 @@ public class ShopController implements EventHandler<ActionEvent>{
 			player.addItemToPlayerInventory(selectedItem);
 			
 			c.getView().getDownTownView().setPlayerStats(player);
-			c.getView().getDownTownView().clearAllInventoryItems();
-			c.getView().getDownTownView().setAllInventoryItems(player.getInventoryLists());
-			
 			c.getView().getShopView().setPlayerStats(player);
-			c.getView().getShopView().clearAllInventoryItems();
+			
+			c.getView().getDownTownView().setAllInventoryItems(player.getInventoryLists());
 			c.getView().getShopView().setAllInventoryItems(player.getInventoryLists());
+
 		}
 		
 	}
@@ -80,7 +79,7 @@ public class ShopController implements EventHandler<ActionEvent>{
 	private Item getBoughtItem() {
 		int tabIndex = c.getView().getShopView().getShopTabPane()
 				.getSelectionModel().getSelectedIndex();
-		Item boughtItem = c.getView().getShopView().getListViewObjects()
+		Item boughtItem = c.getView().getShopView().getShopListViewObjects()
 		.get(tabIndex).getSelectionModel().getSelectedItem();
 		return boughtItem;
 	}

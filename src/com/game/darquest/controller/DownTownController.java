@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.game.darquest.data.Person;
+import com.game.darquest.data.Player;
+import com.game.darquest.data.items.Weapon;
 import com.game.darquest.view.View;
 
 import javafx.event.ActionEvent;
@@ -12,17 +14,31 @@ import javafx.scene.control.Button;
 
 public class DownTownController implements EventHandler<ActionEvent>{
 
-	private List<Clickable> downTownActions;
-	private Person player;
+	
 	private View view;
 	private Controller c;
+	
+	private FightClub fightClub;
+	private Shop shop;
+	private Email email;
+	private MainMenu mainMenu;
+	private Save save;
+	private Tutorial tutorial;
+	private List<Clickable> downTownActions;
 	
 	public DownTownController(Controller c) {
 		this.c = c;
 		this.view = this.c.getView();
 		this.view.getDownTownView().addActionListener(this);
-		downTownActions = Arrays.asList(new FightClub(this.c), new Shop(this.c),
-				new Email(this.c), new MainMenu(this.c), new Save(this.c), new Tutorial(this.c));
+		
+		fightClub = new FightClub(this.c);
+		shop = new Shop(this.c);
+		email = new Email(this.c);
+		mainMenu = new MainMenu(this.c);
+		save = new Save(this.c);
+		tutorial = new Tutorial(this.c);
+		
+		downTownActions = Arrays.asList(fightClub, shop, email, mainMenu, save, tutorial);
 	}
 	
 	public List<Clickable> getDownTownActions() {
@@ -34,16 +50,6 @@ public class DownTownController implements EventHandler<ActionEvent>{
 		String id = ((Button)e.getSource()).getId();
 		int eventIndex = Integer.parseInt(id);
 		downTownActions.get(eventIndex).clickAction();
-	}
-	
-	public void setPlayer(Person player) {
-		this.player = player;
-		setPlayerStats();
-	}
-	
-	public void setPlayerStats() {
-		view.getDownTownView().setPlayerStats(this.player);
-		view.getShopView().setPlayerStats(this.player);
 	}
 }
 
@@ -70,7 +76,7 @@ class Shop implements Clickable {
 	public void clickAction() {
 		System.out.println("Clicked shop");
 		c.getView().getWindow().setScene(c.getView().getShopView().getShopScene());
-		c.getView().getShopView().getListViewObjects().forEach(o->o.getSelectionModel().select(0));
+		c.getView().getShopView().getShopListViewObjects().forEach(o->o.getSelectionModel().select(0));
 	}
 }
 

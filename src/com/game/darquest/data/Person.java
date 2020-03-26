@@ -33,11 +33,6 @@ public abstract class Person {
 	private double work = .5;
 	private double maxWork = 1;
 	private final double minWork = 0;
-	
-	public Person(String name) {
-		super();
-		this.name = name;
-	}
 
 	public String getName() {
 		return name;
