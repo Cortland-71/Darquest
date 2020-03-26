@@ -3,7 +3,7 @@ package com.game.darquest.view;
 import java.util.Arrays;
 import java.util.List;
 
-import com.game.darquest.data.Item;
+import com.game.darquest.data.items.Item;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -19,7 +19,6 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 import javafx.scene.paint.Color;
 
 public class ShopView extends DownTownView {

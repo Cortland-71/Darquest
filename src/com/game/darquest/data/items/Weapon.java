@@ -1,4 +1,4 @@
-package com.game.darquest.data;
+package com.game.darquest.data.items;
 
 public class Weapon extends Accessory {
 	

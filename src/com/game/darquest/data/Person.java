@@ -1,8 +1,6 @@
 package com.game.darquest.data;
 
 import java.text.NumberFormat;
-import java.util.Arrays;
-import java.util.List;
 
 public abstract class Person {
 	
@@ -35,8 +33,6 @@ public abstract class Person {
 	private double work = .5;
 	private double maxWork = 1;
 	private final double minWork = 0;
-	
-	private List<Double> statList;
 	
 	public Person(String name) {
 		super();

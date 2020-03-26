@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.game.darquest.data.Item;
 import com.game.darquest.data.Person;
 import com.game.darquest.data.Player;
+import com.game.darquest.data.items.Item;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -102,7 +102,7 @@ public class DownTownView {
 		leftBox.setPadding(new Insets(0,View.DEF_PAD,0,View.DEF_PAD));
 		leftBox.getChildren().addAll(nameLabel(), lvlLabel(), carryLabel(), weightBar(), hpLabel(), hpBar(),
 				engLabel(), engBar(), eatLabel(), eatBar(), sleepLabel(), sleepBar(),
-				workLabel(), workBar(), cashLabel());
+				workLabel(), workBar(), cashLabel(), equippedBox());
 		return leftBox;
 	}
 	
@@ -213,6 +213,14 @@ public class DownTownView {
 	private Label cashLabel() {
 		cashLabel = new Label();
 		return cashLabel;
+	}
+	
+	private VBox equippedBox() {
+		VBox equippedBox = new VBox();
+		equippedBox.setBackground(View.getBackground(Color.RED));
+		equippedBox.setMaxHeight(200);
+		equippedBox.setMinHeight(200);
+		return equippedBox;
 	}
 
 	public void setPlayerStats(Person p) {

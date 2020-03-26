@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.tools.Tool;
+import com.game.darquest.data.items.Armor;
+import com.game.darquest.data.items.Item;
+import com.game.darquest.data.items.Weapon;
 
 public class Player extends Person {
 	

@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.game.darquest.data.Person;
-import com.game.darquest.data.Player;
 import com.game.darquest.view.View;
 
 import javafx.event.ActionEvent;
@@ -22,8 +21,8 @@ public class DownTownController implements EventHandler<ActionEvent>{
 		this.c = c;
 		this.view = this.c.getView();
 		this.view.getDownTownView().addActionListener(this);
-		downTownActions = Arrays.asList(new FightClub(this.view), new Shop(this.c),
-				new Email(this.view), new MainMenu(this.c), new Save(this.view), new Tutorial(this.c));
+		downTownActions = Arrays.asList(new FightClub(this.c), new Shop(this.c),
+				new Email(this.c), new MainMenu(this.c), new Save(this.c), new Tutorial(this.c));
 	}
 	
 	public List<Clickable> getDownTownActions() {
@@ -51,9 +50,9 @@ public class DownTownController implements EventHandler<ActionEvent>{
 //\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/ -Action Classes for Main Menu
 class FightClub implements Clickable {
 	
-	private View view;
-	public FightClub(View view) {
-		this.view = view;
+	private Controller c;
+	public FightClub(Controller c) {
+		this.c = c;
 	}
 	
 	@Override
@@ -76,9 +75,9 @@ class Shop implements Clickable {
 }
 
 class Email implements Clickable {
-	private View view;
-	public Email(View view) {
-		this.view = view;
+	private Controller c;
+	public Email(Controller c) {
+		this.c = c;
 	}
 	@Override
 	public void clickAction() {
@@ -99,9 +98,9 @@ class MainMenu implements Clickable {
 }
 
 class Save implements Clickable {
-	private View view;
-	public Save(View view) {
-		this.view = view;
+	private Controller c;
+	public Save(Controller c) {
+		this.c = c;
 	}
 	@Override
 	public void clickAction() {

@@ -1,4 +1,4 @@
-package com.game.darquest.data;
+package com.game.darquest.data.items;
 
 public abstract class Accessory extends Item {
 

@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.game.darquest.data.Armor;
-import com.game.darquest.data.Item;
 import com.game.darquest.data.Player;
-import com.game.darquest.data.Weapon;
+import com.game.darquest.data.items.Armor;
+import com.game.darquest.data.items.Item;
+import com.game.darquest.data.items.Weapon;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
