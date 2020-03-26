@@ -1,13 +1,13 @@
 package com.game.darquest.view;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.swing.JProgressBar;
-
 import com.game.darquest.data.Item;
 import com.game.darquest.data.Person;
+import com.game.darquest.data.Player;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -34,6 +34,7 @@ public class DownTownView {
 	private List<String> downTownButtonTextList = Arrays.asList("Fight Club", "Shop", "Email",
 			"Main Menu", "Save", "Tutorial");
 	private List<Button> buttonList = new ArrayList<>();
+	private DecimalFormat df = new DecimalFormat("#.##");
 	
 	private ListView<Item> toolsListView = new ListView<>();
 	private ListView<Item> armorListView = new ListView<>();
@@ -43,6 +44,7 @@ public class DownTownView {
 	
 	public DownTownView() {
 		downTownScene = new Scene(getDownTownPane(), View.WIDTH, View.HEIGHT);
+		
 		downTownScene.getStylesheets().add("downTownStyle.css");
 	}
 	
@@ -97,8 +99,8 @@ public class DownTownView {
 		leftBox.setMaxWidth(300);
 		leftBox.setMinWidth(300);
 		leftBox.setAlignment(Pos.TOP_LEFT);
-		leftBox.setPadding(new Insets(View.DEF_PAD,View.DEF_PAD,0,View.DEF_PAD));
-		leftBox.getChildren().addAll(nameLabel(), lvlLabel(), hpLabel(), hpBar(),
+		leftBox.setPadding(new Insets(0,View.DEF_PAD,0,View.DEF_PAD));
+		leftBox.getChildren().addAll(nameLabel(), lvlLabel(), carryLabel(), weightBar(), hpLabel(), hpBar(),
 				engLabel(), engBar(), eatLabel(), eatBar(), sleepLabel(), sleepBar(),
 				workLabel(), workBar(), cashLabel());
 		return leftBox;
@@ -115,6 +117,21 @@ public class DownTownView {
 	private Label lvlLabel() {
 		lvlLabel = new Label();
 		return lvlLabel;
+	}
+	
+	private Label weightLabel;
+	private Label carryLabel() {
+		weightLabel = new Label();
+		return weightLabel;
+	}
+	
+	private ProgressBar weightBar;
+	private ProgressBar weightBar() {
+		weightBar = new ProgressBar();
+		weightBar.setId("weightBar");
+		weightBar.setMinSize(barLength, 15);
+		weightBar.setMaxSize(barLength, 15);
+		return weightBar;
 	}
 	
 	private Label hpLabel;
@@ -197,40 +214,36 @@ public class DownTownView {
 		cashLabel = new Label();
 		return cashLabel;
 	}
-	
+
 	public void setPlayerStats(Person p) {
-		xpAmountLabel.setText(p.getXp()+"/1.00");
-		xpBar.setProgress(p.getXp());
-		
+		xpAmountLabel.setText(p.getXp()+"/1.0");
 		nameLabel.setText("Name: \t"+p.getName());
 		lvlLabel.setText("Lvl: \t"+p.getLvl());
-		
-		hpLabel.setText("HP: \t"+p.getHp()+"/1.0");
-		hpBar.setProgress(p.getHp());
-		
-		engLabel.setText("ENG: \t"+p.getEng()+"/1.0");
-		engBar.setProgress(p.getEng());
-		
-		eatLabel.setText("Eat: \t"+p.getEat()+"/1.0");
-		eatBar.setProgress(p.getEat());
-		
-		sleepLabel.setText("Sleep: \t"+p.getSleep()+"/1.0");
-		sleepBar.setProgress(p.getSleep());
-		
-		workLabel.setText("Work: \t"+p.getWork()+"/1.0");
-		workBar.setProgress(p.getWork());
-		
 		cashLabel.setText("Cash: \t"+p.getCashFormatted());
+		weightLabel.setText("Weight: "+df.format(((Player)p).getWeight())+"/1.0");
+		hpLabel.setText("HP: \t"+p.getHp()+"/1.0");
+		engLabel.setText("Eng: \t"+p.getEng()+"/1.0");
+		eatLabel.setText("Eat: \t"+p.getEat()+"/1.0");
+		sleepLabel.setText("Sleep: \t"+p.getSleep()+"/1.0");
+		workLabel.setText("Work: \t"+p.getWork()+"/1.0");
+		
+		xpBar.setProgress(p.getXp());
+		weightBar.setProgress(((Player)p).getWeight());
+		hpBar.setProgress(p.getHp());
+		engBar.setProgress(p.getEng());
+		eatBar.setProgress(p.getEat());
+		sleepBar.setProgress(p.getSleep());
+		workBar.setProgress(p.getWork());
 	}
 	
 	//\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\- Right Box inventory
 	private VBox rightPane;
 	protected VBox rightPane() {
-		rightPane = new VBox(10);
+		rightPane = new VBox();
 		rightPane.setAlignment(Pos.TOP_CENTER);
 		rightPane.setMaxWidth(300);
 		rightPane.setMinWidth(300);
-		rightPane.setPadding(new Insets(View.DEF_PAD,View.DEF_PAD,0,View.DEF_PAD));
+		rightPane.setPadding(new Insets(0,View.DEF_PAD,0,View.DEF_PAD));
 		rightPane.getChildren().add(inventoryLabel());
 		rightPane.getChildren().add(inventoryPane());
 		return rightPane;
@@ -243,6 +256,8 @@ public class DownTownView {
 	private TabPane inventoryPane;
 	private TabPane inventoryPane() {
 		inventoryPane = new TabPane();
+		inventoryPane.setMaxHeight(540);
+		inventoryPane.setMinHeight(540);
 		inventoryPane.getTabs().add(weaponsTab());
 		inventoryPane.getTabs().add(armorTab());
 		inventoryPane.getTabs().add(toolsTab());

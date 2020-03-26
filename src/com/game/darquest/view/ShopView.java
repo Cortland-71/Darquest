@@ -122,6 +122,7 @@ public class ShopView extends DownTownView {
 	private TabPane shopTabPane;
 	private TabPane shopTabPane() {
 		shopTabPane = new TabPane();
+		shopTabPane.setId("shopTabPane");
 		shopTabPane.setMaxSize(950, 225);
 		shopTabPane.setMinSize(950, 225);
 		shopTabPane.getTabs().add(weaponsTab());
@@ -167,7 +168,6 @@ public class ShopView extends DownTownView {
 
 		for (int i = 0; i < allItems.size(); i++) {
 			listViewObjects.get(i).getItems().addAll(allItems.get(i));
-			
 			listViewObjects.get(i).setCellFactory(cell->new ListCell<Item>() {
 				Tooltip tooltip = new Tooltip();
 	            @Override
@@ -182,6 +182,7 @@ public class ShopView extends DownTownView {
 	                    setOnMouseEntered(e-> {
 	                    	itemInfoLabel.setText(w.toString());
 	                    });
+	                    
 	                    setTooltip(tooltip);
 	                }
 	            }

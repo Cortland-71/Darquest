@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.game.darquest.data.Person;
+import com.game.darquest.data.Player;
 import com.game.darquest.view.View;
 
 import javafx.event.ActionEvent;
@@ -70,6 +71,7 @@ class Shop implements Clickable {
 	public void clickAction() {
 		System.out.println("Clicked shop");
 		c.getView().getWindow().setScene(c.getView().getShopView().getShopScene());
+		c.getView().getShopView().getListViewObjects().forEach(o->o.getSelectionModel().select(0));
 	}
 }
 

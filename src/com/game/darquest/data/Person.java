@@ -1,8 +1,11 @@
 package com.game.darquest.data;
 
 import java.text.NumberFormat;
+import java.util.Arrays;
+import java.util.List;
 
 public abstract class Person {
+	
 
 	private String name;
 	private int lvl = 1;
@@ -33,6 +36,8 @@ public abstract class Person {
 	private double maxWork = 1;
 	private final double minWork = 0;
 	
+	private List<Double> statList;
+	
 	public Person(String name) {
 		super();
 		this.name = name;
@@ -57,6 +62,7 @@ public abstract class Person {
 	public double getXp() {
 		return xp;
 	}
+	
 
 	public void setXp(double xp) {
 		this.xp = xp;

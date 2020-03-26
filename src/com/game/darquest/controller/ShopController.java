@@ -29,17 +29,20 @@ public class ShopController implements EventHandler<ActionEvent>{
 	}
 	
 	private List<Item> getWeaponsList() {
-		return Arrays.asList(new Weapon("Test weapon",200,.5,9,1,5),
-				new Weapon("Katana 1",13000,.5,4,16,22),
-				new Weapon("Katana 2",2300,.5,10,50,99),
-				new Weapon("Katana 3",500000,.5,8,20,124));
+		return Arrays.asList(
+				new Weapon("Switch Blade",375,.03,9,1,5),
+				new Weapon("Tanto",13000,.1,4,16,22),
+				new Weapon("Bat (wood)",250,.07,10,50,99),
+				new Weapon("Bat (metal)",530,.12,8,20,124),
+				new Weapon("Brass Knuckles",400,.05,8,20,124));
 	}
 	
 	private List<Item> getArmorList() {
-		return Arrays.asList(new Armor("Raincoat", 150, .05, 10),
-				new Weapon("Katana 1",13000,.5,4,10,16),
-				new Weapon("Katana 2",2300,.5,10,10,50),
-				new Weapon("Katana 3",500000,.5,8,10,20));
+		return Arrays.asList(
+				new Armor("Raincoat", 150, .05, 10),
+				new Armor("Vest lvl.1",13000,.5,4),
+				new Armor("Leather Jacket",2300,.5,10),
+				new Armor("Cod Peice",500000,.5,8));
 	}
 	
 
@@ -60,6 +63,7 @@ public class ShopController implements EventHandler<ActionEvent>{
 		Item selectedItem = getBoughtItem();
 		if(player.getCash() >= selectedItem.getPrice()) {
 			player.setCash(player.getCash()-selectedItem.getPrice());
+			player.setWeight(player.getWeight()+selectedItem.getWeight());
 			player.addItemToPlayerInventory(selectedItem);
 			
 			c.getView().getDownTownView().setPlayerStats(player);

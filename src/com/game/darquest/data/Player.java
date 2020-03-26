@@ -13,6 +13,8 @@ public class Player extends Person {
 	private List<Item> toolList = new ArrayList<>();
 	private List<List<Item>> inventoryLists = Arrays.asList(weaponList, armorList, toolList);
 	
+	private double weight = 0;
+	
 	public Player(String name) {
 		super(name); 
 	}
@@ -26,6 +28,16 @@ public class Player extends Person {
 	public List<List<Item>> getInventoryLists() {
 		return this.inventoryLists;
 	}
+	
+	public void setWeight(double weight) {
+		this.weight = weight;
+	}
+	
+	public double getWeight() {
+		return this.weight;
+	}
+	
+	
 
 	
 	

@@ -1,6 +1,6 @@
 * {
 	dark: #0d0d0d;
-	almostDark: #0d0d0d;
+	almostDark:#1a1a1a;
 	average: #262626;
 	light :#333333;
 	extraLight: #404040;
@@ -68,6 +68,10 @@
     -fx-padding: 0.30em;
 }
 
+#weightBar .bar {
+	-fx-background-color: _blue;
+}
+
 #hpBar .bar {
 	-fx-background-color: _red;
 }
@@ -124,7 +128,7 @@
 }
 
 .list-cell {
-	-fx-text-fill: orange;
+	-fx-text-fill: _green;
 }
 
 .list-cell:even { 
