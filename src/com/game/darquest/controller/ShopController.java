@@ -7,6 +7,7 @@ import java.util.List;
 import com.game.darquest.data.Player;
 import com.game.darquest.data.items.Armor;
 import com.game.darquest.data.items.Item;
+import com.game.darquest.data.items.Tool;
 import com.game.darquest.data.items.Weapon;
 
 import javafx.event.ActionEvent;
@@ -22,9 +23,11 @@ public class ShopController implements EventHandler<ActionEvent>{
 	public ShopController(Controller c) {
 		this.c = c;
 		this.c.getView().getShopView().addActionListener(this);
+
 		this.c.getView().getShopView().addBuyButtonListener(this);
 		allItemsList.add(getWeaponsList());
 		allItemsList.add(getArmorList());
+		allItemsList.add(getToolList());
 		this.c.getView().getShopView().setAllShopItems(allItemsList);
 	}
 	
@@ -43,6 +46,14 @@ public class ShopController implements EventHandler<ActionEvent>{
 				new Armor("Vest lvl.1",13000,.5,4),
 				new Armor("Leather Jacket",2300,.5,10),
 				new Armor("Cod Peice",500000,.5,8));
+	}
+	
+	private List<Item> getToolList() {
+		return Arrays.asList(
+				new Tool("Reactor",3300, .04),
+				new Tool("HP Vial",13000,.5),
+				new Tool("ENG Vial",2300,.5),
+				new Tool("Bottle of Luck",500000,.5));
 	}
 	
 

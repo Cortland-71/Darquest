@@ -24,6 +24,6 @@ public abstract class Accessory extends Item {
 	}
 	@Override
 	public String toString() {
-		return super.toString() + "\nCondition: " + condition + "/" + MAX_CONDITION;
+		return super.toString() + "\nCond:\t" + condition + "/" + MAX_CONDITION;
 	}
 }

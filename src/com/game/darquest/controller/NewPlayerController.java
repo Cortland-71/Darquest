@@ -26,11 +26,8 @@ public class NewPlayerController implements EventHandler<KeyEvent> {
 			c.getInventoryController().setPlayerInventoryItemsForAllLocations();
 			setPlayerStatsInAllLocations();
 			view.getWindow().setScene(view.getDownTownView().getDownTownScene());
-			
 		}	
 	}
-	
-	
 	
 	private void setPlayerAttributes() {
 		c.getPlayer().setName(c.getView().getNewPlayerView().getNameText());
@@ -42,5 +39,4 @@ public class NewPlayerController implements EventHandler<KeyEvent> {
 		view.getDownTownView().setPlayerStats(c.getPlayer());
 		view.getShopView().setPlayerStats(c.getPlayer());
 	}
-
 }

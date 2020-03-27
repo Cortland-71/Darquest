@@ -51,6 +51,11 @@
 }
 
 #itemInfoLabel {
-	-fx-font: 20px "Consolas";
+	-fx-font: 18px "Consolas";
+	-fx-text-fill: _green;
+}
+
+#selectedItemInfoLabel {
+	-fx-font: 18px "Consolas";
 	-fx-text-fill: orange;
 }

@@ -22,7 +22,6 @@ public class InventoryController implements EventHandler<MouseEvent> {
 
 	@Override
 	public void handle(MouseEvent e) {
-		
 		Item item;
 		List<Integer> indexList;
 		if (c.getView().getWindow().getScene()==c.getView().getDownTownView().getDownTownScene()) {

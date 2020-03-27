@@ -43,7 +43,7 @@ public abstract class Item {
 	}
 	@Override
 	public String toString() {
-		return name + "\nPrice: " + getPriceFormatted() + "\nValue: " + getValueFormatted() + 
-				"\nWeight:" + weight;
+		return name + "\nPrice:\t" + getPriceFormatted() + "\nValue:\t" + getValueFormatted() + 
+				"\nWeight:\t" + weight;
 	}
 }

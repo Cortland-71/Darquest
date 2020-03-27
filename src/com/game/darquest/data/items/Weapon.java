@@ -30,6 +30,6 @@ public class Weapon extends Accessory {
 
 	@Override
 	public String toString() {
-		return super.toString() + "\nDamage: " + minDamage + "-" + maxDamage;
+		return super.toString() + "\nDamage:\t" + minDamage + "-" + maxDamage;
 	}
 }

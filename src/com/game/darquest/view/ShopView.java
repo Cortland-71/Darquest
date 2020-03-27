@@ -17,6 +17,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.Tooltip;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
@@ -93,21 +94,33 @@ public class ShopView extends DownTownView {
 	
 	// Item info \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 	private HBox itemInfoBox() {
-		HBox itemInfoBox = new HBox();
+		HBox itemInfoBox = new HBox(20);
 		itemInfoBox.setId("itemInfoBox");
-		itemInfoBox.setAlignment(Pos.CENTER_LEFT);
-		itemInfoBox.setMaxWidth(360);
-		itemInfoBox.setMinWidth(360);
-		itemInfoBox.getChildren().add(itemInfoLabel());
+		itemInfoBox.setAlignment(Pos.TOP_LEFT);
+		itemInfoBox.setMaxWidth(450);
+		itemInfoBox.setMinWidth(450);
+		itemInfoBox.getChildren().addAll(selectedItemInfoLabel(), itemInfoLabel());
 		return itemInfoBox;
 	}
 	
 	private Label itemInfoLabel;
 	private Label itemInfoLabel() {
-		itemInfoLabel = new Label();
-		itemInfoLabel.setPadding(new Insets(25,0,0,20));
+		itemInfoLabel = new Label("Browse:");
+		itemInfoLabel.setPadding(new Insets(25,0,0,10));
 		itemInfoLabel.setId("itemInfoLabel");
 		return itemInfoLabel;
+	}
+	
+	private Label selectedItemInfoLabel;
+	private Label selectedItemInfoLabel() {
+		selectedItemInfoLabel = new Label();
+		selectedItemInfoLabel.setPadding(new Insets(25,0,0,10));
+		selectedItemInfoLabel.setId("selectedItemInfoLabel");
+		return selectedItemInfoLabel;
+	}
+	
+	public void setSelectedItemInfoLabel(String text) {
+		selectedItemInfoLabel.setText("Selected:\n"+text);
 	}
 	
 	// Shop item list and tabs \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/
@@ -122,8 +135,8 @@ public class ShopView extends DownTownView {
 	private TabPane shopTabPane() {
 		shopTabPane = new TabPane();
 		shopTabPane.setId("shopTabPane");
-		shopTabPane.setMaxSize(950, 225);
-		shopTabPane.setMinSize(950, 225);
+		shopTabPane.setMaxSize(850, 225);
+		shopTabPane.setMinSize(850, 225);
 		shopTabPane.getTabs().add(weaponsTab());
 		shopTabPane.getTabs().add(armorTab());
 		shopTabPane.getTabs().add(toolsTab());
@@ -133,6 +146,8 @@ public class ShopView extends DownTownView {
 	public TabPane getShopTabPane() {
 		return this.shopTabPane;
 	}
+	
+	
 	
 	//List views and tabs for Shop \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 
@@ -179,7 +194,7 @@ public class ShopView extends DownTownView {
 	                    setText(w.getName());
 	                    tooltip.setText(w.toString());
 	                    setOnMouseEntered(e-> {
-	                    	itemInfoLabel.setText(w.toString());
+	                    	itemInfoLabel.setText("Browes:\n"+w.toString());
 	                    });
 	                    
 	                    setTooltip(tooltip);
@@ -196,5 +211,13 @@ public class ShopView extends DownTownView {
 	
 	public List<ListView<Item>> getShopListViewObjects() {
 		return this.shopListViewObjects;
+	}
+	
+	public void addShopTabListener(EventHandler<MouseEvent> l) {
+		shopTabPane.setOnMouseClicked(l);
+	}
+	
+	public void addShopListViewListener(EventHandler<MouseEvent> l) {
+		shopListViewObjects.forEach(e->e.setOnMouseClicked(l));
 	}
 }

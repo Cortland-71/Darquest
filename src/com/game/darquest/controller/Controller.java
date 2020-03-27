@@ -12,6 +12,7 @@ public class Controller {
 	private DownTownController downTownController;
 	private ShopController shopController;
 	private InventoryController inventoryController;
+	private ShopInventoryController shopInventoryController;
 	private View view;
 	private Person player;
 	
@@ -25,6 +26,7 @@ public class Controller {
 		this.downTownController = new DownTownController(this);
 		this.shopController = new ShopController(this);
 		this.inventoryController = new InventoryController(this);
+		this.shopInventoryController = new ShopInventoryController(this);
 	}
 
 	
@@ -61,5 +63,12 @@ public class Controller {
 	public InventoryController getInventoryController() {
 		return inventoryController;
 	}
+
+
+	public ShopInventoryController getShopInventoryController() {
+		return shopInventoryController;
+	}
+	
+	
 	
 }
