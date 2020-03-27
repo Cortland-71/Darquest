@@ -1,5 +1,8 @@
 package com.game.darquest.controller;
 
+import com.game.darquest.data.Player;
+import com.game.darquest.data.items.Armor;
+import com.game.darquest.data.items.Weapon;
 import com.game.darquest.view.View;
 
 import javafx.event.EventHandler;
@@ -19,11 +22,25 @@ public class NewPlayerController implements EventHandler<KeyEvent> {
 	@Override
 	public void handle(KeyEvent e) {
 		if(e.getCode() == KeyCode.ENTER) {
-			c.getPlayer().setName(c.getView().getNewPlayerView().getNameText());
+			setPlayerAttributes();
+			c.getInventoryController().setPlayerInventoryItemsForAllLocations();
+			setPlayerStatsInAllLocations();
 			view.getWindow().setScene(view.getDownTownView().getDownTownScene());
-			view.getDownTownView().setPlayerStats(c.getPlayer());
-			view.getShopView().setPlayerStats(c.getPlayer());
+			
 		}	
+	}
+	
+	
+	
+	private void setPlayerAttributes() {
+		c.getPlayer().setName(c.getView().getNewPlayerView().getNameText());
+		((Player)c.getPlayer()).addItemToPlayerInventory(new Weapon("none",0,0,10,1,5));
+		((Player)c.getPlayer()).addItemToPlayerInventory(new Armor("none",0,0,10));
+	}
+	
+	private void setPlayerStatsInAllLocations() {
+		view.getDownTownView().setPlayerStats(c.getPlayer());
+		view.getShopView().setPlayerStats(c.getPlayer());
 	}
 
 }

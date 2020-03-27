@@ -36,18 +36,25 @@ public class DownTownView {
 			"Main Menu", "Save", "Tutorial");
 	private List<Button> buttonList = new ArrayList<>();
 	private DecimalFormat df = new DecimalFormat("#.##");
-//	ObservableList<Item> obToolsList = FXCollections.observableArrayList();
-//	ObservableList<Item> obArmorList = FXCollections.observableArrayList();
-//	ObservableList<Item> obWeaponList = FXCollections.observableArrayList();
-//	
-//	private ListView<Item> toolsListView = new ListView<>(obToolsList);
-//	private ListView<Item> armorListView = new ListView<>(obArmorList);
-//	private ListView<Item> weaponsListView = new ListView<>(obWeaponList);
+
 	private ListView<Item> toolsListView = new ListView<>();
 	private ListView<Item> armorListView = new ListView<>();
 	private ListView<Item> weaponsListView = new ListView<>();
 	private List<ListView<Item>> inventoryListViewObjects = Arrays.asList(weaponsListView, 
 			armorListView, toolsListView);
+	
+	private Label nameLabel = new Label();
+	private Label lvlLabel = new Label();
+	private Label weightLabel = new Label();
+	private Label hpLabel = new Label();
+	private Label cashLabel = new Label();
+	private Label engLabel = new Label();
+	private Label eatLabel = new Label();
+	private Label sleepLabel = new Label();
+	private Label workLabel = new Label();
+	private Label equippedLabel = new Label("Equipped >");
+	private Label equippedWeaponLabel = new Label();
+	private Label equippedArmorLabel = new Label();
 	
 	public DownTownView() {
 		downTownScene = new Scene(getDownTownPane(), View.WIDTH, View.HEIGHT);
@@ -107,30 +114,11 @@ public class DownTownView {
 		leftBox.setMinWidth(300);
 		leftBox.setAlignment(Pos.TOP_LEFT);
 		leftBox.setPadding(new Insets(0,View.DEF_PAD,0,View.DEF_PAD));
-		leftBox.getChildren().addAll(nameLabel(), lvlLabel(), carryLabel(), weightBar(), hpLabel(), hpBar(),
-				engLabel(), engBar(), eatLabel(), eatBar(), sleepLabel(), sleepBar(),
-				workLabel(), workBar(), cashLabel(), equippedBox());
+		leftBox.getChildren().addAll(nameLabel, lvlLabel, cashLabel, weightLabel, weightBar(), statsBox(), equippedBox());
 		return leftBox;
 	}
 	
-	
-	private Label nameLabel;
-	private Label nameLabel() {
-		nameLabel = new Label();
-		return nameLabel;
-	}
-	
-	private Label lvlLabel;
-	private Label lvlLabel() {
-		lvlLabel = new Label();
-		return lvlLabel;
-	}
-	
-	private Label weightLabel;
-	private Label carryLabel() {
-		weightLabel = new Label();
-		return weightLabel;
-	}
+
 	
 	private ProgressBar weightBar;
 	private ProgressBar weightBar() {
@@ -141,114 +129,77 @@ public class DownTownView {
 		return weightBar;
 	}
 	
-	private Label hpLabel;
-	private Label hpLabel() {
-		hpLabel = new Label();
-		return hpLabel;
+	private VBox statsBox() {
+		VBox equippedBox = new VBox(8);
+		equippedBox.setPadding(new Insets(20,0,0,0));
+		equippedBox.getChildren().addAll(hpLabel, hpBar(),
+				engLabel, engBar(), eatLabel, eatBar(), sleepLabel, sleepBar(),
+				workLabel, workBar());
+		return equippedBox;
 	}
-	private int barLength = 270;
+	
+	private final int barLength = 270;
+	private final int barWidth = 15;
 	private ProgressBar hpBar;
 	private ProgressBar hpBar() {
 		hpBar = new ProgressBar();
 		hpBar.setId("hpBar");
-		hpBar.setMinSize(barLength, 15);
-		hpBar.setMaxSize(barLength, 15);
+		hpBar.setMinSize(barLength, barWidth);
+		hpBar.setMaxSize(barLength, barWidth);
 		return hpBar;
 	}
 	
-	private Label engLabel;
-	private Label engLabel() {
-		engLabel = new Label();
-		return engLabel;
-	}
 	
 	private ProgressBar engBar;
 	private ProgressBar engBar() {
-		engBar = new ProgressBar(0);
+		engBar = new ProgressBar();
 		engBar.setId("engBar");
-		engBar.setMinSize(barLength, 15);
-		engBar.setMaxSize(barLength, 15);
+		engBar.setMinSize(barLength, barWidth);
+		engBar.setMaxSize(barLength, barWidth);
 		return engBar;
 	}
 	
-	private Label eatLabel;
-	private Label eatLabel() {
-		eatLabel = new Label();
-		return eatLabel;
-	}
-	
+
+
 	private ProgressBar eatBar;
 	private ProgressBar eatBar() {
-		eatBar = new ProgressBar(0);
+		eatBar = new ProgressBar();
 		eatBar.setId("esBar");
-		eatBar.setMinSize(barLength, 15);
-		eatBar.setMaxSize(barLength, 15);
+		eatBar.setMinSize(barLength, barWidth);
+		eatBar.setMaxSize(barLength, barWidth);
 		return eatBar;
 	}
 	
-	private Label sleepLabel;
-	private Label sleepLabel() {
-		sleepLabel = new Label();
-		return sleepLabel;
-	}
+
 	
 	private ProgressBar sleepBar;
 	private ProgressBar sleepBar() {
-		sleepBar = new ProgressBar(0);
+		sleepBar = new ProgressBar();
 		sleepBar.setId("esBar");
-		sleepBar.setMinSize(barLength, 15);
-		sleepBar.setMaxSize(barLength, 15);
+		sleepBar.setMinSize(barLength, barWidth);
+		sleepBar.setMaxSize(barLength, barWidth);
 		return sleepBar;
 	}
 	
-	private Label workLabel;
-	private Label workLabel() {
-		workLabel = new Label();
-		return workLabel;
-	}
+
 	
 	private ProgressBar workBar;
 	private ProgressBar workBar() {
-		workBar = new ProgressBar(0);
+		workBar = new ProgressBar();
 		workBar.setId("esBar");
-		workBar.setMinSize(barLength, 15);
-		workBar.setMaxSize(barLength, 15);
+		workBar.setMinSize(barLength, barWidth);
+		workBar.setMaxSize(barLength, barWidth);
 		return workBar;
 	}
 	
-	private Label cashLabel;
-	private Label cashLabel() {
-		cashLabel = new Label();
-		return cashLabel;
-	}
-	
+	// Equipped Box \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/
 	private VBox equippedBox() {
-		VBox equippedBox = new VBox();
-		equippedBox.setBackground(View.getBackground(Color.RED));
+		VBox equippedBox = new VBox(10);
 		equippedBox.setMaxHeight(200);
 		equippedBox.setMinHeight(200);
+		equippedBox.setPadding(new Insets(20,0,0,0));
+		equippedBox.getChildren().addAll(equippedLabel, equippedWeaponLabel, equippedArmorLabel);
 		return equippedBox;
-	}
-
-	public void setPlayerStats(Person p) {
-		xpAmountLabel.setText(p.getXp()+"/1.0");
-		nameLabel.setText("Name: \t"+p.getName());
-		lvlLabel.setText("Lvl: \t"+p.getLvl());
-		cashLabel.setText("Cash: \t"+p.getCashFormatted());
-		weightLabel.setText("Weight: "+df.format(((Player)p).getWeight())+"/1.0");
-		hpLabel.setText("HP: \t"+p.getHp()+"/1.0");
-		engLabel.setText("Eng: \t"+p.getEng()+"/1.0");
-		eatLabel.setText("Eat: \t"+p.getEat()+"/1.0");
-		sleepLabel.setText("Sleep: \t"+p.getSleep()+"/1.0");
-		workLabel.setText("Work: \t"+p.getWork()+"/1.0");
-		
-		xpBar.setProgress(p.getXp());
-		weightBar.setProgress(((Player)p).getWeight());
-		hpBar.setProgress(p.getHp());
-		engBar.setProgress(p.getEng());
-		eatBar.setProgress(p.getEat());
-		sleepBar.setProgress(p.getSleep());
-		workBar.setProgress(p.getWork());
 	}
 	
 	//\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\- Right Box inventory
@@ -334,8 +285,10 @@ public class DownTownView {
 		}
 	}
 	
-	public int getSelectedIndex() {
-		return inventoryListViewObjects.get(0).getSelectionModel().getSelectedIndex();
+	public List<Integer> getSelectedIndexListOfWeaponAndArmorTabs() {
+		List<Integer> list = Arrays.asList(inventoryListViewObjects.get(0).getSelectionModel().getSelectedIndex(),
+				inventoryListViewObjects.get(1).getSelectionModel().getSelectedIndex());
+		return list;
 	}
 //	
 	public List<ListView<Item>> getInventoryListViewObjects() {
@@ -379,6 +332,30 @@ public class DownTownView {
 	
 	
 	//\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\- Helper
+	public void setPlayerStats(Person p) {
+		xpAmountLabel.setText(p.getXp()+"/1.0");
+		nameLabel.setText("Name: \t"+p.getName());
+		lvlLabel.setText("Lvl: \t"+p.getLvl());
+		cashLabel.setText("Cash: \t"+p.getCashFormatted());
+		weightLabel.setText("Weight: "+df.format(((Player)p).getWeight())+"/1.0");
+		hpLabel.setText("HP: \t"+p.getHp()+"/1.0");
+		engLabel.setText("Eng: \t"+p.getEng()+"/1.0");
+		eatLabel.setText("Eat: \t"+p.getEat()+"/1.0");
+		sleepLabel.setText("Sleep: \t"+p.getSleep()+"/1.0");
+		workLabel.setText("Work: \t"+p.getWork()+"/1.0");
+		
+		xpBar.setProgress(p.getXp());
+		weightBar.setProgress(((Player)p).getWeight());
+		hpBar.setProgress(p.getHp());
+		engBar.setProgress(p.getEng());
+		eatBar.setProgress(p.getEat());
+		sleepBar.setProgress(p.getSleep());
+		workBar.setProgress(p.getWork());
+		
+		equippedWeaponLabel.setText("Weapon:\n" + p.getEquippedWeaponString());
+		equippedArmorLabel.setText("Armor:\n" + p.getEquippedArmorString());
+	}
+	
 	public Scene getDownTownScene() {
 		return this.downTownScene;
 	}

@@ -66,11 +66,18 @@ public class ShopController implements EventHandler<ActionEvent>{
 			player.setWeight(player.getWeight()+selectedItem.getWeight());
 			player.addItemToPlayerInventory(selectedItem);
 			
+			List<Integer> list = c.getView().getDownTownView().getSelectedIndexListOfWeaponAndArmorTabs();
+			
 			c.getView().getDownTownView().setPlayerStats(player);
 			c.getView().getShopView().setPlayerStats(player);
 			
 			c.getView().getDownTownView().setAllInventoryItems(player.getInventoryLists());
 			c.getView().getShopView().setAllInventoryItems(player.getInventoryLists());
+			
+			for (int i = 0; i < list.size(); i++) {
+				c.getView().getDownTownView().getInventoryListViewObjects().get(i).getSelectionModel().select(list.get(i));
+				c.getView().getShopView().getInventoryListViewObjects().get(i).getSelectionModel().select(list.get(i));
+			}
 
 		}
 		

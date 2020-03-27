@@ -2,6 +2,10 @@ package com.game.darquest.data;
 
 import java.text.NumberFormat;
 
+import com.game.darquest.data.items.Armor;
+import com.game.darquest.data.items.Item;
+import com.game.darquest.data.items.Weapon;
+
 public abstract class Person {
 	
 
@@ -33,6 +37,30 @@ public abstract class Person {
 	private double work = .5;
 	private double maxWork = 1;
 	private final double minWork = 0;
+	
+	private Weapon equippedWeapon;
+	private Armor equippedArmor;
+	
+	public void setEquippedItems(Item item) {
+		if(item instanceof Weapon) this.equippedWeapon = (Weapon)item;
+		else if(item instanceof Armor) this.equippedArmor = (Armor)item;
+	}
+
+	public Weapon getEquippedWeapon() {
+		return equippedWeapon;
+	}
+
+	public void setEquippedWeapon(Weapon equippedWeapon) {
+		this.equippedWeapon = equippedWeapon;
+	}
+
+	public Armor getEquippedArmor() {
+		return equippedArmor;
+	}
+
+	public void setEquippedArmor(Armor equippedArmor) {
+		this.equippedArmor = equippedArmor;
+	}
 
 	public String getName() {
 		return name;
@@ -164,6 +192,15 @@ public abstract class Person {
 
 	public void setCash(double cash) {
 		this.cash = cash;
+	}
+
+	
+	public String getEquippedWeaponString() {
+		return equippedWeapon.getName() + " (" + equippedWeapon.getMinDamage() + "-" + equippedWeapon.getMaxDamage()+")";
+	}
+	
+	public String getEquippedArmorString() {
+		return equippedArmor.getName() + " (" + equippedArmor.getCondition() + "-" + equippedArmor.getMaxCondition()+")";
 	}
 
 	@Override
