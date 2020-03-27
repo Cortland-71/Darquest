@@ -16,6 +16,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
@@ -30,7 +31,7 @@ public class ShopView extends DownTownView {
 	private ListView<Item> weaponsListView = new ListView<>();
 	private List<ListView<Item>> shopListViewObjects = Arrays.asList(weaponsListView, 
 			armorListView, toolsListView);
-	
+	private final int shopDialogeBoxWidth = 645; 
 	
 	public ShopView() {
 		shopScene = new Scene(shopPane(), View.WIDTH, View.HEIGHT);
@@ -56,27 +57,86 @@ public class ShopView extends DownTownView {
 		return actualShopPane;
 	}
 	
-	private HBox center() {
-		HBox center = new HBox();
+	//Center of actual shop pane
+	private BorderPane center() {
+		BorderPane center = new BorderPane();
 		center.setBackground(View.getBackground(Color.BLACK));
+		center.setBottom(shopDialogeBox());
 		return center;
 	}
 	
+	private HBox shopDialogeBox() {
+		HBox shopDialogeBox = new HBox(10);
+		shopDialogeBox.setPadding(new Insets(0,10,10,10));
+		shopDialogeBox.getChildren().add(buyShopDialogeTextArea());
+		shopDialogeBox.getChildren().add(sellShopDialogeTextArea());
+		return shopDialogeBox;
+	}
+	
+	private TextArea buyShopDialogeTextArea;
+	private TextArea buyShopDialogeTextArea() {
+		buyShopDialogeTextArea = new TextArea();
+		buyShopDialogeTextArea.setId("buyShopDialoge");
+		buyShopDialogeTextArea.setWrapText(true);
+		buyShopDialogeTextArea.setEditable(false);
+		buyShopDialogeTextArea.setMinSize(shopDialogeBoxWidth,100);
+		buyShopDialogeTextArea.setMaxSize(shopDialogeBoxWidth,100);
+		return buyShopDialogeTextArea;
+	}
+	
+	public void setBuyShopDialogeTextArea(String text) {
+		buyShopDialogeTextArea.setText(text);
+	}
+	
+	public void setBuyShopDialogeRed() {
+		buyShopDialogeTextArea.setStyle("-fx-text-fill: red;");
+	}
+	
+	public void setBuyShopDialogeNormal() {
+		buyShopDialogeTextArea.setStyle("-fx-text-fill: orange;");
+	}
+	
+	private TextArea sellShopDialogeTextArea;
+	private TextArea sellShopDialogeTextArea() {
+		sellShopDialogeTextArea = new TextArea();
+		sellShopDialogeTextArea.setId("sellShopDialoge");
+		sellShopDialogeTextArea.setWrapText(true);
+		sellShopDialogeTextArea.setEditable(false);
+		sellShopDialogeTextArea.setMinSize(shopDialogeBoxWidth,100);
+		sellShopDialogeTextArea.setMaxSize(shopDialogeBoxWidth,100);
+		return sellShopDialogeTextArea;
+	}
+	
+	public void setSellShopDialogeTextArea(String text) {
+		sellShopDialogeTextArea.setText(text);
+	}
+	
+	public void setSellShopDialogeRed() {
+		sellShopDialogeTextArea.setStyle("-fx-text-fill: red;");
+	}
+	
+	public void setSellShopDialogeNormal() {
+		sellShopDialogeTextArea.setStyle("-fx-text-fill: orange;");
+	}
+	
+	
+	//Bottom of actual Shop Pane
 	private BorderPane bottom() {
 		BorderPane bottom = new BorderPane();
-		bottom.setTop(buyButtonBox());
+		bottom.setTop(buyAndSellButtonBox());
 		bottom.setCenter(itemTabBox());
 		bottom.setRight(itemInfoBox());
 		return bottom;
 	}
 	// Buy Button \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
-	private HBox buyButtonBox() {
-		HBox buyButtonBox = new HBox();
-		buyButtonBox.setAlignment(Pos.CENTER);
-		buyButtonBox.setId("buyButtonBox");
-		buyButtonBox.setPadding(new Insets(10,0,0,0));
-		buyButtonBox.getChildren().add(buyButton());
-		return buyButtonBox;
+	private HBox buyAndSellButtonBox() {
+		HBox buyAndSellButtonBox = new HBox(460);
+		buyAndSellButtonBox.setAlignment(Pos.CENTER);
+		buyAndSellButtonBox.setId("buyButtonBox");
+		buyAndSellButtonBox.setPadding(new Insets(10,0,0,0));
+		buyAndSellButtonBox.getChildren().add(buyButton());
+		buyAndSellButtonBox.getChildren().add(sellButton());
+		return buyAndSellButtonBox;
 	}
 	
 	private Button buyButton;
@@ -88,8 +148,18 @@ public class ShopView extends DownTownView {
 		return buyButton;
 	}
 	
+	private Button sellButton;
+	private Button sellButton() {
+		sellButton = new Button("Sell");
+		sellButton.setId("sell");
+		sellButton.setMinSize(200, 45);
+		sellButton.setMaxSize(200, 45);
+		return sellButton;
+	}
+	
 	public void addBuyButtonListener(EventHandler<ActionEvent> l) {
 		buyButton.setOnAction(l);
+		sellButton.setOnAction(l);
 	}
 	
 	// Item info \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\

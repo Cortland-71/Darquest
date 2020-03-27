@@ -211,7 +211,7 @@ public class DownTownView {
 		rightPane.setMinWidth(300);
 		rightPane.setPadding(new Insets(0,View.DEF_PAD,0,View.DEF_PAD));
 		rightPane.getChildren().add(inventoryLabel());
-		rightPane.getChildren().add(inventoryPane());
+		rightPane.getChildren().add(inventoryTabPane());
 		return rightPane;
 	}
 	
@@ -219,15 +219,19 @@ public class DownTownView {
 		return new Label("Inventory");
 	}
 	
-	private TabPane inventoryPane;
-	private TabPane inventoryPane() {
-		inventoryPane = new TabPane();
-		inventoryPane.setMaxHeight(540);
-		inventoryPane.setMinHeight(540);
-		inventoryPane.getTabs().add(weaponsTab());
-		inventoryPane.getTabs().add(armorTab());
-		inventoryPane.getTabs().add(toolsTab());
-		return inventoryPane;
+	private TabPane inventoryTabPane;
+	private TabPane inventoryTabPane() {
+		inventoryTabPane = new TabPane();
+		inventoryTabPane.setMaxHeight(540);
+		inventoryTabPane.setMinHeight(540);
+		inventoryTabPane.getTabs().add(weaponsTab());
+		inventoryTabPane.getTabs().add(armorTab());
+		inventoryTabPane.getTabs().add(toolsTab());
+		return inventoryTabPane;
+	}
+	
+	public TabPane getInventoryTabPane() {
+		return this.inventoryTabPane;
 	}
 	
 	private Tab weaponsTab;
@@ -284,6 +288,7 @@ public class DownTownView {
 			});
 		}
 	}
+	
 	
 	public List<Integer> getSelectedIndexListOfWeaponAndArmorTabs() {
 		List<Integer> list = Arrays.asList(inventoryListViewObjects.get(0).getSelectionModel().getSelectedIndex(),

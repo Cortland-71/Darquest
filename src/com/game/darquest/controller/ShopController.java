@@ -3,6 +3,7 @@ package com.game.darquest.controller;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 import com.game.darquest.data.Player;
 import com.game.darquest.data.items.Armor;
@@ -19,7 +20,10 @@ public class ShopController implements EventHandler<ActionEvent>{
 	private Controller c;
 	private List<List<Item>> allItemsList = new ArrayList<>();
 	private Player player;
-	
+	private List<String> odetteDialog = Arrays.asList("Nice choice.", "That should help.", 
+			"That's one of my most popular items.", "I like your style.", "Carful with that.", "One of my favorites.",
+			"I should get one of these myself.", "I rebuilt this one from scratch.", "Well worth the price.");
+	private Random rand = new Random();
 	public ShopController(Controller c) {
 		this.c = c;
 		this.c.getView().getShopView().addActionListener(this);
@@ -62,6 +66,9 @@ public class ShopController implements EventHandler<ActionEvent>{
 		if(((Button)e.getSource()).getId().equals("buy")) {
 			buyItem();
 			return;
+		} else if(((Button)e.getSource()).getId().equals("sell")) {
+			sellItem();
+			return;
 		}
 		String id = ((Button)e.getSource()).getId();
 		int eventIndex = Integer.parseInt(id);
@@ -69,6 +76,24 @@ public class ShopController implements EventHandler<ActionEvent>{
 		
 	}
 	
+	private void sellItem() {
+		player = (Player)c.getPlayer();
+		Item selectedItem = getSoldItem();
+		if(selectedItem.getName() != "none") {
+			player.setCash(player.getCash()+selectedItem.getValue());
+			player.setWeight(player.getWeight()-selectedItem.getWeight());
+			
+			player.removeItemFromPlayerInventory(selectedItem, getSoldItemIndex());
+			List<Integer> list = c.getInventoryController().getSelectedInventoryIndexForAllTabs();
+			
+			c.getInventoryController().setPlayerInventoryItemsForAllLocations();
+			c.getInventoryController().setSelectedInventoryItemsForAllTabs(list);
+			
+			c.getInventoryController().equipNoneItemWhenSelling();
+			c.getInventoryController().setPlayerStatsForAllLocations();
+		}
+	}
+
 	private void buyItem() {
 		player = (Player)c.getPlayer();
 		Item selectedItem = getBoughtItem();
@@ -77,21 +102,32 @@ public class ShopController implements EventHandler<ActionEvent>{
 			player.setWeight(player.getWeight()+selectedItem.getWeight());
 			player.addItemToPlayerInventory(selectedItem);
 			
-			List<Integer> list = c.getView().getDownTownView().getSelectedIndexListOfWeaponAndArmorTabs();
+			List<Integer> list = c.getInventoryController().getSelectedInventoryIndexForAllTabs();
+			c.getInventoryController().setPlayerInventoryItemsForAllLocations();
+			c.getInventoryController().setSelectedInventoryItemsForAllTabs(list);
+			c.getInventoryController().setPlayerStatsForAllLocations();
 			
-			c.getView().getDownTownView().setPlayerStats(player);
-			c.getView().getShopView().setPlayerStats(player);
-			
-			c.getView().getDownTownView().setAllInventoryItems(player.getInventoryLists());
-			c.getView().getShopView().setAllInventoryItems(player.getInventoryLists());
-			
-			for (int i = 0; i < list.size(); i++) {
-				c.getView().getDownTownView().getInventoryListViewObjects().get(i).getSelectionModel().select(list.get(i));
-				c.getView().getShopView().getInventoryListViewObjects().get(i).getSelectionModel().select(list.get(i));
-			}
-
+			shopDialogOutput(selectedItem);
+			return;
 		}
-		
+		c.getView().getShopView().setBuyShopDialogeRed();
+		c.getView().getShopView().setBuyShopDialogeTextArea("Odette: Sorry "+c.getPlayer().getName()+
+				", you don't have enough cash for this...");
+	}
+	private int getSoldItemIndex() {
+		int tabIndex = c.getView().getShopView().getInventoryTabPane()
+				.getSelectionModel().getSelectedIndex();
+		int itemIndex = c.getView().getShopView().getInventoryListViewObjects()
+				.get(tabIndex).getSelectionModel().getSelectedIndex();
+		return itemIndex;
+	}
+	
+	private Item getSoldItem() {
+		int tabIndex = c.getView().getShopView().getInventoryTabPane()
+				.getSelectionModel().getSelectedIndex();
+		Item selectedItem = c.getView().getShopView().getInventoryListViewObjects()
+				.get(tabIndex).getSelectionModel().getSelectedItem();
+		return selectedItem;
 	}
 	
 	private Item getBoughtItem() {
@@ -100,5 +136,11 @@ public class ShopController implements EventHandler<ActionEvent>{
 		Item boughtItem = c.getView().getShopView().getShopListViewObjects()
 		.get(tabIndex).getSelectionModel().getSelectedItem();
 		return boughtItem;
+	}
+	
+	private void shopDialogOutput(Item item) {
+		c.getView().getShopView().setBuyShopDialogeNormal();
+		c.getView().getShopView().setBuyShopDialogeTextArea("Odette: "+odetteDialog.get(rand.nextInt(odetteDialog.size()))+
+				"\n\tItem bought: "+item.getName()+"\n\tCost: -"+item.getPriceFormatted()+"\n\tWeight: +"+item.getWeight());
 	}
 }

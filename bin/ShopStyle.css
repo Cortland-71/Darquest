@@ -41,11 +41,29 @@
 }
 
 #buy:hover {
-	-fx-background-color: #331f00;
+	-fx-background-color: _superDarkOrange;
 	-fx-text-fill: lightText;
 }
 
 #buy:pressed {
+	-fx-text-fill: dark;
+	-fx-background-color: _green;
+}
+
+#sell {
+	-fx-font: 20px "Consolas";
+	-fx-text-fill: _green;
+	-fx-background-color: almostDark;
+	-fx-border-color: _green;
+	-fx-border-width: 2px;
+}
+
+#sell:hover {
+	-fx-background-color: _superDarkGreen;
+	-fx-text-fill: lightText;
+}
+
+#sell:pressed {
 	-fx-text-fill: dark;
 	-fx-background-color: _green;
 }
@@ -58,4 +76,32 @@
 #selectedItemInfoLabel {
 	-fx-font: 18px "Consolas";
 	-fx-text-fill: orange;
+
 }
+
+#buyShopDialoge {
+	-fx-font: 15px "Consolas";
+	-fx-text-fill: orange;
+	-fx-text-box-border: _darkOrange;
+	-fx-background-radius: 0px;
+} 
+
+#sellShopDialoge {
+	-fx-font: 15px "Consolas";
+	-fx-text-fill: _green;
+	-fx-text-box-border: _darkGreen;
+	-fx-background-radius: 0px;
+} 
+
+#buyShopDialoge .content,
+#sellShopDialoge .content {
+	-fx-background-color: almostDark;
+	-fx-background-radius: 0px;
+}
+
+#buyShopDialoge:focused,
+#sellShopDialoge:focused{
+	-fx-focus-color: #995c00; 
+}
+
+

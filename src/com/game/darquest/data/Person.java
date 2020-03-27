@@ -1,6 +1,7 @@
 package com.game.darquest.data;
 
 import java.text.NumberFormat;
+import java.util.List;
 
 import com.game.darquest.data.items.Armor;
 import com.game.darquest.data.items.Item;
@@ -41,25 +42,18 @@ public abstract class Person {
 	private Weapon equippedWeapon;
 	private Armor equippedArmor;
 	
-	public void setEquippedItems(Item item) {
+	public void setEquippedItem(Item item) {
 		if(item instanceof Weapon) this.equippedWeapon = (Weapon)item;
 		else if(item instanceof Armor) this.equippedArmor = (Armor)item;
+		
 	}
 
 	public Weapon getEquippedWeapon() {
 		return equippedWeapon;
 	}
 
-	public void setEquippedWeapon(Weapon equippedWeapon) {
-		this.equippedWeapon = equippedWeapon;
-	}
-
 	public Armor getEquippedArmor() {
 		return equippedArmor;
-	}
-
-	public void setEquippedArmor(Armor equippedArmor) {
-		this.equippedArmor = equippedArmor;
 	}
 
 	public String getName() {

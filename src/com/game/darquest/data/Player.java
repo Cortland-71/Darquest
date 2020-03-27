@@ -23,6 +23,12 @@ public class Player extends Person {
 		else toolList.add(item);
 	}
 	
+	public void removeItemFromPlayerInventory(Item item, int index) {
+		if (item instanceof Weapon) weaponList.remove(index);
+		else if (item instanceof Armor) armorList.remove(index);
+		else toolList.remove(index);
+	}
+	
 	public List<List<Item>> getInventoryLists() {
 		return this.inventoryLists;
 	}
