@@ -46,4 +46,9 @@ public abstract class Item {
 		return name + "\nPrice:\t" + getPriceFormatted() + "\nValue:\t" + getValueFormatted() + 
 				"\nWeight:\t" + weight;
 	}
+	
+	public String getToStringForPlayerInventory() {
+		return name + "\nValue:\t" + getValueFormatted() + 
+				"\nWeight:\t" + weight;
+	}
 }

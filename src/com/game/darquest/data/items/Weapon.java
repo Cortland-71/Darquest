@@ -32,4 +32,9 @@ public class Weapon extends Accessory {
 	public String toString() {
 		return super.toString() + "\nDamage:\t" + minDamage + "-" + maxDamage;
 	}
+	
+	@Override
+	public String getToStringForPlayerInventory() {
+		return super.getToStringForPlayerInventory() + "\nDamage:\t" + minDamage + "-" + maxDamage;
+	}
 }

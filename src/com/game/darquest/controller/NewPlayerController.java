@@ -23,10 +23,7 @@ public class NewPlayerController implements EventHandler<KeyEvent> {
 	public void handle(KeyEvent e) {
 		if(e.getCode() == KeyCode.ENTER) {
 			setPlayerAttributes();
-			c.getInventoryController().setPlayerInventoryItemsForAllLocations();
-			c.getInventoryController().setPlayerInventoryToFirstItem();
-			c.getInventoryController().equipEnventoryItemsAtDownTown();
-			c.getInventoryController().setPlayerStatsForAllLocations();
+			c.getPlayerInventoryAndStatsController().setNewPlayerInventoryAndStats();
 			view.getWindow().setScene(view.getDownTownView().getDownTownScene());
 		}	
 	}
@@ -37,6 +34,8 @@ public class NewPlayerController implements EventHandler<KeyEvent> {
 		((Player)c.getPlayer()).addItemToPlayerInventory(new Armor("none",0,0,10));
 
 	}
+	
+	
 	
 	
 }

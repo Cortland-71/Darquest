@@ -59,7 +59,7 @@ public class DownTownView {
 	public DownTownView() {
 		downTownScene = new Scene(getDownTownPane(), View.WIDTH, View.HEIGHT);
 		
-		downTownScene.getStylesheets().add("downTownStyle.css");
+		downTownScene.getStylesheets().add("DownTownStyle.css");
 	}
 	
 	public BorderPane getDownTownPane() {
@@ -78,7 +78,6 @@ public class DownTownView {
 		topBox.setMaxHeight(75);
 		topBox.setMinHeight(75);
 		topBox.setAlignment(Pos.CENTER);
-		topBox.setPadding(new Insets(View.DEF_PAD,0,View.DEF_PAD,0));
 		topBox.getChildren().add(xpLabel());
 		topBox.getChildren().add(xpBar());
 		topBox.getChildren().add(xpAmountLabel());
@@ -222,8 +221,8 @@ public class DownTownView {
 	private TabPane inventoryTabPane;
 	private TabPane inventoryTabPane() {
 		inventoryTabPane = new TabPane();
-		inventoryTabPane.setMaxHeight(540);
-		inventoryTabPane.setMinHeight(540);
+		inventoryTabPane.setMaxHeight(725);
+		inventoryTabPane.setMinHeight(725);
 		inventoryTabPane.getTabs().add(weaponsTab());
 		inventoryTabPane.getTabs().add(armorTab());
 		inventoryTabPane.getTabs().add(toolsTab());
@@ -280,8 +279,7 @@ public class DownTownView {
 	                    setTooltip(null);
 	                } else {
 	                    setText(w.getName());
-	                    tooltip.setText(w.toString());
-	                    //setOnMouseEntered(e-> {});
+	                    tooltip.setText(w.getToStringForPlayerInventory());
 	                    setTooltip(tooltip);
 	                }
 	            }

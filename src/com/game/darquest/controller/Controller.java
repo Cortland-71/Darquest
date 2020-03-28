@@ -10,8 +10,8 @@ public class Controller {
 	private TutorialController tutorialController;
 	private NewPlayerController newPlayerController;
 	private DownTownController downTownController;
-	private ShopController shopController;
-	private InventoryController inventoryController;
+	private ShopTransactionController shopController;
+	private PlayerInventoryAndStatsController playerInventoryAndStatsController;
 	private ShopInventoryController shopInventoryController;
 	private View view;
 	private Person player;
@@ -24,13 +24,13 @@ public class Controller {
 		this.tutorialController = new TutorialController(this);
 		this.newPlayerController = new NewPlayerController(this);
 		this.downTownController = new DownTownController(this);
-		this.shopController = new ShopController(this);
-		this.inventoryController = new InventoryController(this);
+		this.shopController = new ShopTransactionController(this);
+		this.playerInventoryAndStatsController = new PlayerInventoryAndStatsController(this);
 		this.shopInventoryController = new ShopInventoryController(this);
 	}
 
 	
-	public ShopController getShopController() {
+	public ShopTransactionController getShopController() {
 		return shopController;
 	}
 
@@ -60,8 +60,8 @@ public class Controller {
 	}
 
 
-	public InventoryController getInventoryController() {
-		return inventoryController;
+	public PlayerInventoryAndStatsController getPlayerInventoryAndStatsController() {
+		return playerInventoryAndStatsController;
 	}
 
 

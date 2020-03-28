@@ -20,6 +20,7 @@ public class View {
 	private DownTownView downTownView;
 	private TutorialView tutorialView;
 	private ShopView shopView;
+	private FightClubView fightClubView;
 	
 	public View(Stage primaryStage) {
 		this.window = primaryStage;
@@ -29,6 +30,7 @@ public class View {
 		this.downTownView = new DownTownView();
 		this.tutorialView = new TutorialView();
 		this.shopView = new ShopView();
+		this.fightClubView = new FightClubView();
 		
 		window.setScene(mainMenuView.getMainMenuScene());
 		window.setTitle("Darquest FX v1.0");
@@ -53,6 +55,10 @@ public class View {
 	
 	public MainMenuView getMainMenu() {
 		return this.mainMenuView;
+	}
+
+	public FightClubView getFightClubView() {
+		return fightClubView;
 	}
 	
 	public Stage getWindow() {

@@ -10,24 +10,10 @@
 	_green: #00ff00;
 	_red: #ff0000;
 	_yellow: #ffff00;
-	_orange: #ff751a;
 	_blue: #0093ff;
 	_superDarkOrange: #331f00;
 	_superDarkGreen: #003300;
 	_darkGreen: #006600;
 	_darkOrange: #995c00;
 	
-}
-
-.root {
-	-fx-background-color: dark;
-	-fx-font: 20px "Consolas";
-	-fx-text-fill: lightText;
-}
-
-.button {
-	-fx-font: 20px "Consolas";
-	-fx-text-fill: _green;
-	-fx-background-color: dark;
-	-fx-border-color: _green;
 }

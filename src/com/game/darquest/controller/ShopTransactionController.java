@@ -15,16 +15,18 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 
-public class ShopController implements EventHandler<ActionEvent>{
+public class ShopTransactionController implements EventHandler<ActionEvent>{
 	
 	private Controller c;
 	private List<List<Item>> allItemsList = new ArrayList<>();
 	private Player player;
-	private List<String> odetteDialog = Arrays.asList("Nice choice.", "That should help.", 
+	
+	private List<String> odetteBuyDialogue = Arrays.asList("Nice choice.", "That should help.", 
 			"That's one of my most popular items.", "I like your style.", "Carful with that.", "One of my favorites.",
 			"I should get one of these myself.", "I rebuilt this one from scratch.", "Well worth the price.");
+	
 	private Random rand = new Random();
-	public ShopController(Controller c) {
+	public ShopTransactionController(Controller c) {
 		this.c = c;
 		this.c.getView().getShopView().addActionListener(this);
 
@@ -82,15 +84,9 @@ public class ShopController implements EventHandler<ActionEvent>{
 		if(selectedItem.getName() != "none") {
 			player.setCash(player.getCash()+selectedItem.getValue());
 			player.setWeight(player.getWeight()-selectedItem.getWeight());
-			
 			player.removeItemFromPlayerInventory(selectedItem, getSoldItemIndex());
-			List<Integer> list = c.getInventoryController().getSelectedInventoryIndexForAllTabs();
-			
-			c.getInventoryController().setPlayerInventoryItemsForAllLocations();
-			c.getInventoryController().setSelectedInventoryItemsForAllTabs(list);
-			
-			c.getInventoryController().equipNoneItemWhenSelling();
-			c.getInventoryController().setPlayerStatsForAllLocations();
+			c.getPlayerInventoryAndStatsController().setPlayerInventoryAndStatsForSellItem();
+			shopSellDialogueOutput(selectedItem);
 		}
 	}
 
@@ -101,13 +97,8 @@ public class ShopController implements EventHandler<ActionEvent>{
 			player.setCash(player.getCash()-selectedItem.getPrice());
 			player.setWeight(player.getWeight()+selectedItem.getWeight());
 			player.addItemToPlayerInventory(selectedItem);
-			
-			List<Integer> list = c.getInventoryController().getSelectedInventoryIndexForAllTabs();
-			c.getInventoryController().setPlayerInventoryItemsForAllLocations();
-			c.getInventoryController().setSelectedInventoryItemsForAllTabs(list);
-			c.getInventoryController().setPlayerStatsForAllLocations();
-			
-			shopDialogOutput(selectedItem);
+			c.getPlayerInventoryAndStatsController().setPlayerInventoryAndStatsForBuyItem();
+			shopBuyDialogueOutput(selectedItem);
 			return;
 		}
 		c.getView().getShopView().setBuyShopDialogeRed();
@@ -138,9 +129,15 @@ public class ShopController implements EventHandler<ActionEvent>{
 		return boughtItem;
 	}
 	
-	private void shopDialogOutput(Item item) {
+	private void shopBuyDialogueOutput(Item item) {
 		c.getView().getShopView().setBuyShopDialogeNormal();
-		c.getView().getShopView().setBuyShopDialogeTextArea("Odette: "+odetteDialog.get(rand.nextInt(odetteDialog.size()))+
+		c.getView().getShopView().setBuyShopDialogeTextArea("Odette: "+odetteBuyDialogue.get(rand.nextInt(odetteBuyDialogue.size()))+
 				"\n\tItem bought: "+item.getName()+"\n\tCost: -"+item.getPriceFormatted()+"\n\tWeight: +"+item.getWeight());
+	}
+	
+	private void shopSellDialogueOutput(Item item) {
+		c.getView().getShopView().setSellShopDialogeNormal();
+		c.getView().getShopView().setSellShopDialogeTextArea("Item sold: "+item.getName()+
+				"\n\tValue: +"+item.getValueFormatted()+"\n\tWeight: -"+item.getWeight());
 	}
 }

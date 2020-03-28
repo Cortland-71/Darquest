@@ -64,7 +64,7 @@ class FightClub implements Clickable {
 	
 	@Override
 	public void clickAction() {
-		System.out.println("Clicked Fight club");
+		c.getView().getWindow().setScene(c.getView().getFightClubView().getFightClubScene());
 	}
 }
 

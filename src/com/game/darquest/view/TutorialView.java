@@ -28,10 +28,11 @@ public class TutorialView {
 	
 	private String fullOutput;
 	private Scene tutorialScene;
+	private Label titleLabel = new Label("How to play");
 	
 	public TutorialView() {
 		tutorialScene = new Scene(getTutorialPane(), View.WIDTH, View.HEIGHT);
-		tutorialScene.getStylesheets().add("orangeStyle.css");
+		tutorialScene.getStylesheets().add("TutorialStyle.css");
 	}
 	
 	public BorderPane getTutorialPane() {
@@ -62,20 +63,14 @@ public class TutorialView {
 	}
 	
 	private VBox leftBox() {
-		VBox leftBox = new VBox(5);
+		VBox leftBox = new VBox(10);
 		leftBox.setPadding(new Insets(0,20,0,20));
 		leftBox.setAlignment(Pos.CENTER);
-		leftBox.getChildren().add(commandLabel());
 		for (int i = 0; i < tutorialNameList.size(); i++) {
 			tutorialButtonList.add(View.getButton(tutorialNameList.get(i), tutorialButtonIDList.get(i)));
 			leftBox.getChildren().add(tutorialButtonList.get(i));
 		}
 		return leftBox;
-	}
-	
-	private Label commandLabel() {
-		Label commandLabel = new Label("Commands");
-		return commandLabel;
 	}
 	
 	private VBox rightBox() {
@@ -86,17 +81,20 @@ public class TutorialView {
 	}
 	
 	private VBox centerBox() {
-		VBox centerBox = new VBox();
+		VBox centerBox = new VBox(20);
 		centerBox.setPadding(new Insets(0,0,0,0));
 		centerBox.setAlignment(Pos.CENTER);
+		titleLabel.setId("tutorialTitle");
+		centerBox.getChildren().add(titleLabel);
 		centerBox.getChildren().add(tipsOutput());
 		return centerBox;
 	}
 	
+	
 	private TextArea tutorialOutput; 
 	private TextArea tipsOutput() {
 		tutorialOutput = new TextArea();
-		tutorialOutput.setPrefHeight(400);
+		tutorialOutput.setPrefHeight(600);
 		tutorialOutput.setWrapText(true);
 		tutorialOutput.setEditable(false);
 		return tutorialOutput;

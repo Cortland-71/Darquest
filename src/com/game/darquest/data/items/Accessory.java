@@ -22,8 +22,14 @@ public abstract class Accessory extends Item {
 	private double getDamagedPrice(int condition, double price) {
 		return price - (((10-condition)/10d) * price);
 	}
+	
 	@Override
 	public String toString() {
 		return super.toString() + "\nCond:\t" + condition + "/" + MAX_CONDITION;
+	}
+	
+	@Override
+	public String getToStringForPlayerInventory() {
+		return super.getToStringForPlayerInventory() + "\nCond:\t" + condition + "/" + MAX_CONDITION;
 	}
 }

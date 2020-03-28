@@ -38,7 +38,7 @@ public class ShopView extends DownTownView {
 		shopScene.getStylesheets().addAll("DownTownStyle.css", "ShopStyle.css");
 	}	
 	
-	public BorderPane shopPane() {
+	private BorderPane shopPane() {
 		BorderPane shopPane = new BorderPane();
 		shopPane.setTop(topBox());
 		shopPane.setLeft(leftBox());
@@ -116,7 +116,7 @@ public class ShopView extends DownTownView {
 	}
 	
 	public void setSellShopDialogeNormal() {
-		sellShopDialogeTextArea.setStyle("-fx-text-fill: orange;");
+		sellShopDialogeTextArea.setStyle("-fx-text-fill: _green;");
 	}
 	
 	

@@ -15,19 +15,40 @@
 	_superDarkOrange: #331f00;
 	_superDarkGreen: #003300;
 	_darkGreen: #006600;
-	_darkOrange: #995c00;
-	
+	_darkOrange: #4d2e00;
 }
 
 .root {
 	-fx-background-color: dark;
-	-fx-font: 20px "Consolas";
+	-fx-font: 12px "Constantia";
 	-fx-text-fill: lightText;
 }
 
 .button {
 	-fx-font: 20px "Consolas";
-	-fx-text-fill: _green;
+	-fx-text-fill: orange;
 	-fx-background-color: dark;
-	-fx-border-color: _green;
+	-fx-border-color: orange;
 }
+
+.button:hover {
+	-fx-background-color: _darkOrange;
+	-fx-text-fill: lightText;
+}
+
+.label {
+	-fx-font: 40px "Constantia";
+	-fx-text-fill: lightText;
+}
+
+.text-area {
+	-fx-text-fill: orange;
+	-fx-font: 15px "Consolas";
+}
+
+
+.text-area .content {
+	-fx-background-color: almostDark;
+}
+
+
