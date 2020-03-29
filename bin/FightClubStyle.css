@@ -4,6 +4,7 @@
 	average: #262626;
 	light :#333333;
 	extraLight: #404040;
+	extraExtraLight: #666666;
 	
 	lightText: #d9d9d9;
 
@@ -16,4 +17,68 @@
 	_darkGreen: #006600;
 	_darkOrange: #995c00;
 	
+}
+
+/*Player \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\*/
+
+.text-field {
+	-fx-background-color: dark;
+	-fx-text-fill: _green;
+	-fx-border-color: _green;
+	-fx-font: 22px "Consolas";
+}
+
+#commandLabel {
+	-fx-font: 15px "constantia";
+	-fx-text-fill: extraExtraLight;
+	-fx-font-style: italic;
+	
+}
+
+#playerOutputLabel, #enemyOutputLabel {
+	-fx-font: 15px "consolas";
+	-fx-font-style: italic;
+}
+
+#playerOutputLabel {
+	-fx-text-fill: _green;
+}
+
+#playerOutputTextArea {
+	-fx-font: 15px "Consolas";
+	-fx-text-fill: _green;
+	-fx-text-box-border: _darkGreen;
+	-fx-background-radius: 0px;
+} 
+
+#playerOutputTextArea:focused{
+	-fx-focus-color: _darkGreen; 
+}
+
+#centerEnemyPane {
+	-fx-background-color: black;
+}
+
+
+/*Enemy \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/*/
+#enemyOutputLabel {
+	-fx-text-fill: orange;
+}
+
+#enemyOutputTextArea {
+	-fx-font: 15px "Consolas";
+	-fx-text-fill: orange;
+	-fx-text-box-border: _darkOrange;
+	-fx-background-radius: 0px;
+} 
+
+
+#enemyOutputTextArea .content,
+#playerOutputTextArea .content {
+	-fx-background-color: almostDark;
+	-fx-background-radius: 0px;
+}
+
+#enemyOutputTextArea:focused{
+	-fx-focus-color: _darkOrange; 
 }

@@ -33,6 +33,7 @@ public class NewPlayerView {
 	private TextField nameField;
 	private TextField nameField() {
 		nameField = new TextField();
+		nameField.setAlignment(Pos.CENTER);
 		nameField.setMaxSize(450, 45);
 		nameField.setMinSize(450, 45);
 		return nameField;

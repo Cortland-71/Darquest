@@ -21,6 +21,7 @@ public class PlayerInventoryAndStatsController implements EventHandler<MouseEven
 		this.c = c;
 		c.getView().getDownTownView().setInventoryListener(this);
 		c.getView().getShopView().setInventoryListener(this);
+		c.getView().getFightClubView().setInventoryListener(this);
 	}
 
 	@Override
@@ -29,6 +30,8 @@ public class PlayerInventoryAndStatsController implements EventHandler<MouseEven
 			equipSelectedInventoryItemsForDownTown();
 		} else if(c.getView().getWindow().getScene()==c.getView().getShopView().getShopScene()) {
 			equipSelectedInventoryItemsForShop();
+		} else if(c.getView().getWindow().getScene()==c.getView().getFightClubView().getFightClubScene()) {
+			equipSelectedInventoryItemsForFightClub();
 		}
 		setPlayerStatsForAllLocations();
 	}
@@ -38,6 +41,7 @@ public class PlayerInventoryAndStatsController implements EventHandler<MouseEven
 		indexList = c.getView().getDownTownView().getSelectedIndexListOfWeaponAndArmorTabs();
 		for (int i = 0; i < indexList.size(); i++) {
 			selectCorrectInventoryItemInShopView(i);
+			selectCorrectInventoryItemInFightClubView(i);
 			item = c.getView().getDownTownView().getInventoryListViewObjects().get(i).getSelectionModel().getSelectedItem();
 			c.getPlayer().setEquippedItem(item);
 		}
@@ -47,10 +51,22 @@ public class PlayerInventoryAndStatsController implements EventHandler<MouseEven
 		 indexList = c.getView().getShopView().getSelectedIndexListOfWeaponAndArmorTabs();
 		 for (int i = 0; i < indexList.size(); i++) {
 			 selectCorrectInventoryItemInDownTownView(i);
+			 selectCorrectInventoryItemInFightClubView(i);
 			 item = c.getView().getShopView().getInventoryListViewObjects().get(i).getSelectionModel().getSelectedItem();
 			 c.getPlayer().setEquippedItem(item);
 		}
 	}
+	
+	private void equipSelectedInventoryItemsForFightClub() {
+		 indexList = c.getView().getFightClubView().getSelectedIndexListOfWeaponAndArmorTabs();
+		 for (int i = 0; i < indexList.size(); i++) {
+			 selectCorrectInventoryItemInDownTownView(i);
+			 selectCorrectInventoryItemInShopView(i);
+			 item = c.getView().getFightClubView().getInventoryListViewObjects().get(i).getSelectionModel().getSelectedItem();
+			 c.getPlayer().setEquippedItem(item);
+		}
+	}
+	
 	
 	private void selectCorrectInventoryItemInDownTownView(int i) {
 		 c.getView().getDownTownView().getInventoryListViewObjects()
@@ -61,6 +77,13 @@ public class PlayerInventoryAndStatsController implements EventHandler<MouseEven
 		c.getView().getShopView().getInventoryListViewObjects()
 		.get(i).getSelectionModel().select(indexList.get(i));
 	}
+	
+	private void selectCorrectInventoryItemInFightClubView(int i) {
+		c.getView().getFightClubView().getInventoryListViewObjects()
+		.get(i).getSelectionModel().select(indexList.get(i));
+	}
+	
+	
 	
 	///////////////////////////////////////////////////////////////////////- API
 	
@@ -76,7 +99,6 @@ public class PlayerInventoryAndStatsController implements EventHandler<MouseEven
 		List<Integer> list = getSelectedInventoryItemIndexForAllTabs();
 		updatePlayerInventoryForAllLocations();
 		setSelectedInventoryItemsForAllTabs(list);
-		
 	}
 	
 	public void setPlayerInventoryAndStatsForSellItem() {
@@ -86,25 +108,26 @@ public class PlayerInventoryAndStatsController implements EventHandler<MouseEven
 		setSelectedInventoryItemsForAllTabs(list);
 		equipSelectedInventoryItemsForShop();
 		setPlayerStatsForAllLocations();
-		
-		
 	}
 	
 	/////////////////////////////////////////////////////////////////// - helper
 	private void setPlayerStatsForAllLocations() {
 		c.getView().getShopView().setPlayerStats(c.getPlayer());
 		c.getView().getDownTownView().setPlayerStats(c.getPlayer());
+		c.getView().getFightClubView().setPlayerStats(c.getPlayer());
 	}
 	
 	private void updatePlayerInventoryForAllLocations() {
 		c.getView().getShopView().setAllInventoryItems(((Player)c.getPlayer()).getInventoryLists());
 		c.getView().getDownTownView().setAllInventoryItems(((Player)c.getPlayer()).getInventoryLists());
+		c.getView().getFightClubView().setAllInventoryItems(((Player)c.getPlayer()).getInventoryLists());
 	}
 	
 	private void setSelectedInventoryItemsForAllTabs(List<Integer> list) {
 		for (int i = 0; i < list.size(); i++) {
 			c.getView().getShopView().getInventoryListViewObjects().get(i).getSelectionModel().select(list.get(i));
 			c.getView().getDownTownView().getInventoryListViewObjects().get(i).getSelectionModel().select(list.get(i));
+			c.getView().getFightClubView().getInventoryListViewObjects().get(i).getSelectionModel().select(list.get(i));
 		}
 	}
 	
@@ -115,11 +138,8 @@ public class PlayerInventoryAndStatsController implements EventHandler<MouseEven
 	}
 	
 	
-	
 	private void setFirstItemOnSelectedTab() {
 		int tabIndex = c.getView().getShopView().getInventoryTabPane().getSelectionModel().getSelectedIndex();
 		c.getView().getShopView().getInventoryListViewObjects().get(tabIndex).getSelectionModel().select(0);
 	}
-	
-
 }
