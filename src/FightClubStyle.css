@@ -55,7 +55,7 @@
 	-fx-focus-color: _darkGreen; 
 }
 
-#centerEnemyPane {
+#centerEnemyBox {
 	-fx-background-color: black;
 }
 
@@ -81,4 +81,10 @@
 
 #enemyOutputTextArea:focused{
 	-fx-focus-color: _darkOrange; 
+}
+
+#enemyRightStatsBox .label,
+#enemyBottomStatsBox .label{
+	-fx-font: 15px "Consolas";
+	-fx-text-fill: black;
 }
