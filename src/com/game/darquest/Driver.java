@@ -15,6 +15,7 @@ public class Driver extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		View view = new View(primaryStage);
+		@SuppressWarnings("unused")
 		Controller controller  = new Controller(view);
 	}
 	

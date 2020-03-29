@@ -1,5 +1,6 @@
 package com.game.darquest.data;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -15,6 +16,7 @@ public class Player extends Person {
 	private List<Item> toolList = new ArrayList<>();
 	private List<List<Item>> inventoryLists = Arrays.asList(weaponList, armorList, toolList);
 	
+	private DecimalFormat f = new DecimalFormat("0.00");
 	private double weight = 0;
 	
 	public void addItemToPlayerInventory(Item item) {
@@ -34,7 +36,7 @@ public class Player extends Person {
 	}
 	
 	public void setWeight(double weight) {
-		this.weight = weight;
+		this.weight = Double.parseDouble(f.format(weight));
 	}
 	
 	public double getWeight() {

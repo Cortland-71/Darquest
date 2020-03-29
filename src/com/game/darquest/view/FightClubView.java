@@ -65,6 +65,10 @@ public class FightClubView extends DownTownView {
 		return playerOutputTextArea;
 	}
 	
+	public void setPlayerOutputTextArea(String text) {
+		playerOutputTextArea.setText(text);
+	}
+	
 	private Label playerOutputLabel() {
 		Label playerOutputLabel = new Label("Your output");
 		playerOutputLabel.setId("playerOutputLabel");
@@ -97,7 +101,7 @@ public class FightClubView extends DownTownView {
 		return enemyOutputLabel;
 	}
 	
-	//Cneter for enemy stats and pictures
+	//Center for enemy stat's and pictures
 	private BorderPane centerEnemyPane() {
 		BorderPane centerEnemyPane = new BorderPane();
 		centerEnemyPane.setId("centerEnemyPane");
@@ -133,6 +137,10 @@ public class FightClubView extends DownTownView {
 		commandField.setMinSize(600, 45);
 		commandField.setAlignment(Pos.CENTER);
 		return commandField;
+	}
+	 
+	public void clearCommandField() {
+		commandField.clear();
 	}
 	
 	public void addCommandFieldListener(EventHandler<KeyEvent> l) {

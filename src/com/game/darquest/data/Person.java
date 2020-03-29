@@ -1,7 +1,7 @@
 package com.game.darquest.data;
 
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.util.List;
 
 import com.game.darquest.data.items.Armor;
 import com.game.darquest.data.items.Item;
@@ -9,10 +9,12 @@ import com.game.darquest.data.items.Weapon;
 
 public abstract class Person {
 	
-
+	private DecimalFormat f2 = new DecimalFormat("0.00");
+	private DecimalFormat f1 = new DecimalFormat("0.0");
+	
 	private String name;
 	private int lvl = 1;
-	private double cash = 186666.75;
+	private double cash = 100.0;
 	
 	private double xp = .05;
 	private double xpAdded = .05;
@@ -23,19 +25,19 @@ public abstract class Person {
 	private double maxHp = 1;
 	private final double minHp = 0;
 
-	private double eng = .03;
+	private double eng = .5;
 	private double maxEng = 1;
 	private final double minEng = 0;
 
-	private double eat = .5;
+	private double eat = 0;
 	private double maxEat = 1;
 	private final double minEat = 0;
 
-	private double sleep = .5;
+	private double sleep = 0;
 	private double maxSleep = 1;
 	private final double minSleep = 0;
 
-	private double work = .5;
+	private double work = 0;
 	private double maxWork = 1;
 	private final double minWork = 0;
 	
@@ -102,7 +104,7 @@ public abstract class Person {
 	}
 
 	public void setHp(double hp) {
-		this.hp = hp;
+		this.hp = Double.parseDouble(f2.format(hp));
 	}
 
 	public double getMaxHp() {
@@ -118,7 +120,11 @@ public abstract class Person {
 	}
 
 	public void setEng(double eng) {
-		this.eng = eng;
+		if(eng < 0) {
+			this.eng = 0;
+			return;
+		}
+		this.eng = Double.parseDouble(f2.format(eng));
 	}
 
 	public double getMaxEng() {
@@ -134,7 +140,7 @@ public abstract class Person {
 	}
 
 	public void setEat(double eat) {
-		this.eat = eat;
+		this.eat = Double.parseDouble(f1.format(eat));
 	}
 
 	public double getMaxEat() {
@@ -150,7 +156,7 @@ public abstract class Person {
 	}
 
 	public void setSleep(double sleep) {
-		this.sleep = sleep;
+		this.sleep = Double.parseDouble(f1.format(sleep));
 	}
 
 	public double getMaxSleep() {
@@ -166,7 +172,7 @@ public abstract class Person {
 	}
 
 	public void setWork(double work) {
-		this.work = work;
+		this.work = Double.parseDouble(f1.format(work));
 	}
 
 	public double getMaxWork() {

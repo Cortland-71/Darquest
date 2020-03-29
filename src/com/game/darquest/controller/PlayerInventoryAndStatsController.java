@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.game.darquest.data.Player;
-import com.game.darquest.data.items.Armor;
 import com.game.darquest.data.items.Item;
-import com.game.darquest.data.items.Weapon;
 
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
@@ -99,6 +97,7 @@ public class PlayerInventoryAndStatsController implements EventHandler<MouseEven
 		List<Integer> list = getSelectedInventoryItemIndexForAllTabs();
 		updatePlayerInventoryForAllLocations();
 		setSelectedInventoryItemsForAllTabs(list);
+		setPlayerStatsForAllLocations();
 	}
 	
 	public void setPlayerInventoryAndStatsForSellItem() {
@@ -107,6 +106,10 @@ public class PlayerInventoryAndStatsController implements EventHandler<MouseEven
 		updatePlayerInventoryForAllLocations();
 		setSelectedInventoryItemsForAllTabs(list);
 		equipSelectedInventoryItemsForShop();
+		setPlayerStatsForAllLocations();
+	}
+	
+	public void updateAllPlayerStats() {
 		setPlayerStatsForAllLocations();
 	}
 	

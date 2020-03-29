@@ -3,10 +3,6 @@ package com.game.darquest.controller;
 import java.util.Arrays;
 import java.util.List;
 
-import com.game.darquest.data.Person;
-import com.game.darquest.data.Player;
-import com.game.darquest.data.items.Item;
-import com.game.darquest.data.items.Weapon;
 import com.game.darquest.view.View;
 
 import javafx.event.ActionEvent;
