@@ -19,12 +19,12 @@ public class Work implements Fireable {
 	
 	@Override
 	public String fire() {
-		if(p.getWork()+.1 <= 1) {
+		if(p.getWork()+.1 <= p.getMaxWork()) {
 			
 			p.setWork(p.getWork()+.1);
 			double finalPay = (p.getWork()*10) * basePay;
 			double lostEng = 0;
-			if(p.getEng() > 0) lostEng = p.getWork()/4;
+			if(p.getEng() > p.getMinEng()) lostEng = p.getWork()/4;
 			
 			p.setCash(p.getCash()+finalPay);
 			p.setEng(p.getEng()-lostEng);
@@ -32,7 +32,7 @@ public class Work implements Fireable {
 			return "Your hard work is paying off.\nYou gained: +"+NumberFormat.getCurrencyInstance().format(finalPay) +
 					"\nEng lost: "+lostEng;
 		}
-		p.setWork(1);
+		p.setWork(p.getMaxWork());
 		return "You cannot work anymore...\n"
 				+ "Try sleeping to recover.";
 	}

@@ -18,36 +18,73 @@ public abstract class Person {
 	
 	private double xp = .05;
 	private double xpAdded = .05;
-	private double maxXp = 1;
+	private final double maxXp = 1;
 	private final double minXp = 0;
 
 	private double hp = .5;
-	private double maxHp = 1;
+	private final double maxHp = 1;
 	private final double minHp = 0;
 
 	private double eng = .5;
-	private double maxEng = 1;
+	private final double maxEng = 1;
 	private final double minEng = 0;
 
 	private double eat = 0;
-	private double maxEat = 1;
+	private final double maxEat = 1;
 	private final double minEat = 0;
 
 	private double sleep = 0;
-	private double maxSleep = 1;
+	private final double maxSleep = 1;
 	private final double minSleep = 0;
 
 	private double work = 0;
-	private double maxWork = 1;
+	private final double maxWork = 1;
 	private final double minWork = 0;
 	
 	private Weapon equippedWeapon;
 	private Armor equippedArmor;
 	
+	private int def;
+	private int stealth;
+	private int awareness;
+	
+	public Person() {}
+	
+	public Person(String name, int def, int stealth, int awareness) {
+		this.name = name;
+		this.def = def;
+		this.stealth = stealth;
+		this.awareness = awareness;
+	}
+	
 	public void setEquippedItem(Item item) {
 		if(item instanceof Weapon) this.equippedWeapon = (Weapon)item;
 		else if(item instanceof Armor) this.equippedArmor = (Armor)item;
 		
+	}
+	
+	public int getDef() {
+		return def;
+	}
+
+	public void setDef(int def) {
+		this.def = def;
+	}
+
+	public int getStealth() {
+		return stealth;
+	}
+
+	public void setStealth(int stealth) {
+		this.stealth = stealth;
+	}
+
+	public int getAwareness() {
+		return awareness;
+	}
+
+	public void setAwareness(int awareness) {
+		this.awareness = awareness;
 	}
 
 	public Weapon getEquippedWeapon() {
@@ -95,10 +132,6 @@ public abstract class Person {
 		return maxXp;
 	}
 
-	public void setMaxXp(double maxXp) {
-		this.maxXp = maxXp;
-	}
-
 	public double getHp() {
 		return hp;
 	}
@@ -109,10 +142,6 @@ public abstract class Person {
 
 	public double getMaxHp() {
 		return maxHp;
-	}
-
-	public void setMaxHp(double maxHp) {
-		this.maxHp = maxHp;
 	}
 
 	public double getEng() {
@@ -131,10 +160,6 @@ public abstract class Person {
 		return maxEng;
 	}
 
-	public void setMaxEng(double maxEng) {
-		this.maxEng = maxEng;
-	}
-
 	public double getEat() {
 		return eat;
 	}
@@ -145,10 +170,6 @@ public abstract class Person {
 
 	public double getMaxEat() {
 		return maxEat;
-	}
-
-	public void setMaxEat(double maxEat) {
-		this.maxEat = maxEat;
 	}
 
 	public double getSleep() {
@@ -163,10 +184,6 @@ public abstract class Person {
 		return maxSleep;
 	}
 
-	public void setMaxSleep(double maxSleep) {
-		this.maxSleep = maxSleep;
-	}
-
 	public double getWork() {
 		return work;
 	}
@@ -179,10 +196,6 @@ public abstract class Person {
 		return maxWork;
 	}
 
-	public void setMaxWork(double maxWork) {
-		this.maxWork = maxWork;
-	}
-
 	public double getCash() {
 		return cash;
 	}
@@ -193,8 +206,31 @@ public abstract class Person {
 	public void setCash(double cash) {
 		this.cash = cash;
 	}
-
 	
+	public double getMinXp() {
+		return minXp;
+	}
+
+	public double getMinHp() {
+		return minHp;
+	}
+
+	public double getMinEng() {
+		return minEng;
+	}
+
+	public double getMinEat() {
+		return minEat;
+	}
+
+	public double getMinSleep() {
+		return minSleep;
+	}
+
+	public double getMinWork() {
+		return minWork;
+	}
+
 	public String getEquippedWeaponString() {
 		return equippedWeapon.getName() + " (" + equippedWeapon.getMinDamage() + "-" + equippedWeapon.getMaxDamage()+")";
 	}

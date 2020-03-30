@@ -19,7 +19,7 @@ public class Eat implements Fireable {
 
 	@Override
 	public String fire() {
-		if(p.getEat()+.1 <= 1) {
+		if(p.getEat()+.1 <= p.getMaxEat()) {
 			double costToEat = (p.getEat()+.1)*150.5;
 			if(p.getCash() >= costToEat) {
 				p.setEat(p.getEat()+.1);
@@ -34,7 +34,7 @@ public class Eat implements Fireable {
 			return "You can't aford to eat at this point...\n"
 					+ "It would cost: "+NumberFormat.getCurrencyInstance().format(costToEat);
 		}
-		p.setEat(1);
+		p.setEat(p.getMaxEat());
 		return "You can't eat anymore or you'll explode...";
 	}
 

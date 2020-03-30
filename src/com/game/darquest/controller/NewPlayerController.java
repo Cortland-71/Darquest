@@ -30,6 +30,9 @@ public class NewPlayerController implements EventHandler<KeyEvent> {
 	
 	private void setPlayerAttributes() {
 		c.getPlayer().setName(c.getView().getNewPlayerView().getNameText());
+		c.getPlayer().setDef(1);
+		c.getPlayer().setStealth(1);
+		c.getPlayer().setAwareness(1);
 		((Player)c.getPlayer()).addItemToPlayerInventory(new Weapon("none",0,0,10,1,5));
 		((Player)c.getPlayer()).addItemToPlayerInventory(new Armor("none",0,0,10));
 

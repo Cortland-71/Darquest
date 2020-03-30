@@ -19,6 +19,7 @@ public class Player extends Person {
 	private DecimalFormat f = new DecimalFormat("0.00");
 	private double weight = 0;
 	
+
 	public void addItemToPlayerInventory(Item item) {
 		if (item instanceof Weapon) weaponList.add(item);
 		else if (item instanceof Armor) armorList.add(item);

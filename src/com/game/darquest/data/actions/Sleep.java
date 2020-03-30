@@ -1,7 +1,5 @@
 package com.game.darquest.data.actions;
 
-import java.text.NumberFormat;
-
 import com.game.darquest.controller.Controller;
 import com.game.darquest.controller.Fireable;
 import com.game.darquest.data.Player;
@@ -18,8 +16,8 @@ public class Sleep implements Fireable {
 	@Override
 	public String fire() {
 
-		if(p.getSleep()+.1 <= 1) {
-			if(p.getWork() > 0 && p.getEat() > 0) {
+		if(p.getSleep()+.1 <= p.getMaxSleep()) {
+			if(p.getWork() > p.getMinWork() && p.getEat() > p.getMinEat()) {
 				p.setSleep(p.getSleep()+.1);
 				p.setWork(p.getWork()-.1);
 				p.setEat(p.getEat()-.1);
@@ -34,7 +32,7 @@ public class Sleep implements Fireable {
 			return "You can't sleep right now.\n"
 			+ "You must have at least .1 work and .1 eat...";
 		}
-		p.setSleep(1);
+		p.setSleep(p.getMaxSleep());
 		return "You have slept to your max capacity.";
 	}
 
