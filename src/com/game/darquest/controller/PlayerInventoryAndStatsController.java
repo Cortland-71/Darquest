@@ -115,9 +115,9 @@ public class PlayerInventoryAndStatsController implements EventHandler<MouseEven
 	
 	/////////////////////////////////////////////////////////////////// - helper
 	private void setPlayerStatsForAllLocations() {
-		c.getView().getShopView().setPlayerStats(c.getPlayer());
-		c.getView().getDownTownView().setPlayerStats(c.getPlayer());
-		c.getView().getFightClubView().setPlayerStats(c.getPlayer());
+		c.getView().getShopView().setPlayerStats((Player)c.getPlayer());
+		c.getView().getDownTownView().setPlayerStats((Player)c.getPlayer());
+		c.getView().getFightClubView().setPlayerStats((Player)c.getPlayer());
 	}
 	
 	private void updatePlayerInventoryForAllLocations() {

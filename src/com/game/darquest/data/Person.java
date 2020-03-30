@@ -50,11 +50,13 @@ public abstract class Person {
 	
 	public Person() {}
 	
-	public Person(String name, int def, int stealth, int awareness) {
+	public Person(String name, int def, int stealth, int awareness, Weapon equippedWeapon, Armor equippedArmor) {
 		this.name = name;
 		this.def = def;
 		this.stealth = stealth;
 		this.awareness = awareness;
+		this.equippedWeapon = equippedWeapon;
+		this.equippedArmor = equippedArmor;
 	}
 	
 	public void setEquippedItem(Item item) {

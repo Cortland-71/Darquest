@@ -1,5 +1,9 @@
 package com.game.darquest.view;
 
+import com.game.darquest.data.Enemy;
+import com.game.darquest.data.Person;
+import com.game.darquest.data.Player;
+
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -107,7 +111,7 @@ public class FightClubView extends DownTownView {
 	
 	//Center for enemy stat's and pictures
 	private HBox centerEnemyBox() {
-		HBox centerEnemyBox = new HBox(15);
+		HBox centerEnemyBox = new HBox();
 		centerEnemyBox.setAlignment(Pos.CENTER);
 		centerEnemyBox.getChildren().add(innerEnemyPane());
 //		for (int i = 0; i < 3; i++) {
@@ -140,7 +144,7 @@ public class FightClubView extends DownTownView {
 	
 	//Enemy right stats box \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/
 	private VBox enemyRightStatsBox() {
-		VBox enemyRightStatsBox = new VBox(5);
+		VBox enemyRightStatsBox = new VBox(3);
 		enemyRightStatsBox.setId("enemyRightStatsBox");
 		enemyRightStatsBox.setAlignment(Pos.TOP_LEFT);
 		enemyRightStatsBox.setPadding(new Insets(0,0,0,10));
@@ -337,4 +341,31 @@ public class FightClubView extends DownTownView {
 	public Scene getFightClubScene() {
 		return this.fightClubScene;
 	}
+	
+	// \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\- Helper
+		public void setEnemyStats(Enemy p) {
+			enemyNameLabel.setText("Name:\t" + p.getName());
+			enemyLvlLabel.setText("Lvl:\t" + p.getLvl());
+			enemyCashLabel.setText("Cash:\t" + p.getCashFormatted());
+			enemyHpLabel.setText("HP:\t" + p.getHp() + "/1.0");
+			enemyEngLabel.setText("Eng:\t" + p.getEng() + "/1.0");
+			enemyEatLabel.setText("Eat:\t" + p.getEat() + "/1.0");
+			enemySleepLabel.setText("Sleep:\t" + p.getSleep() + "/1.0");
+			enemyWorkLabel.setText("Work:\t" + p.getWork() + "/1.0");
+
+			enemyHpBar.setProgress(p.getHp());
+			enemyEngBar.setProgress(p.getEng());
+			enemyEatBar.setProgress(p.getEat());
+			enemySleepBar.setProgress(p.getSleep());
+			enemyWorkBar.setProgress(p.getWork());
+
+			enemyWeaponLabel.setText("Weapon:\n" + p.getEquippedWeaponString());
+			enemyArmorLabel.setText("Armor:\n" + p.getEquippedArmorString());
+			
+			enemyDefLabel.setText("Defense:   " + p.getDef());
+			enemyStealthLabel.setText("Stealth:   " + p.getStealth());
+			enemyAwarenessLabel.setText("Awareness: " + p.getAwareness());
+			enemyTypeLabel.setText("Type: "+p.getType());
+			enemyIDLabel.setText("ID: " + p.getId());
+		}
 }

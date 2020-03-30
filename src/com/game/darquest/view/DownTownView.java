@@ -342,12 +342,12 @@ public class DownTownView {
 	}
 
 	// \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\- Helper
-	public void setPlayerStats(Person p) {
+	public void setPlayerStats(Player p) {
 		xpAmountLabel.setText(p.getXp() + "/1.0");
 		nameLabel.setText("Name:\t" + p.getName());
 		lvlLabel.setText("Lvl:\t" + p.getLvl());
 		cashLabel.setText("Cash:\t" + p.getCashFormatted());
-		weightLabel.setText("Weight: " + df.format(((Player) p).getWeight()) + "/1.0");
+		weightLabel.setText("Weight: " + df.format(p.getWeight()) + "/1.0");
 		hpLabel.setText("HP:\t" + p.getHp() + "/1.0");
 		engLabel.setText("Eng:\t" + p.getEng() + "/1.0");
 		eatLabel.setText("Eat:\t" + p.getEat() + "/1.0");
@@ -355,7 +355,7 @@ public class DownTownView {
 		workLabel.setText("Work:\t" + p.getWork() + "/1.0");
 
 		xpBar.setProgress(p.getXp());
-		weightBar.setProgress(((Player) p).getWeight());
+		weightBar.setProgress(p.getWeight());
 		hpBar.setProgress(p.getHp());
 		engBar.setProgress(p.getEng());
 		eatBar.setProgress(p.getEat());
