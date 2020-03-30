@@ -83,8 +83,21 @@
 	-fx-focus-color: _darkOrange; 
 }
 
+#enemyBottomStatsBox {
+	-fx-background-color: dark;
+}
+
+#enemyRightStatsBox {
+	-fx-background-color: almostDark;
+}
+
 #enemyRightStatsBox .label,
 #enemyBottomStatsBox .label{
 	-fx-font: 15px "Consolas";
-	-fx-text-fill: black;
+	-fx-text-fill: orange;
+}
+
+#innerEnemyPane {
+	-fx-background-color: almostDark;
+	-fx-border-color: light;
 }

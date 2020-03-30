@@ -68,8 +68,8 @@ public class FightClubView extends DownTownView {
 		playerOutputTextArea = new TextArea();
 		playerOutputTextArea.setEditable(false);
 		playerOutputTextArea.setId("playerOutputTextArea");
-		playerOutputTextArea.setMaxSize(645, 200);
-		playerOutputTextArea.setMinSize(645, 200);
+		playerOutputTextArea.setMaxSize(645, 180);
+		playerOutputTextArea.setMinSize(645, 180);
 		return playerOutputTextArea;
 	}
 	
@@ -97,8 +97,8 @@ public class FightClubView extends DownTownView {
 		enemyOutputTextArea = new TextArea();
 		enemyOutputTextArea.setId("enemyOutputTextArea");
 		enemyOutputTextArea.setEditable(false);
-		enemyOutputTextArea.setMaxSize(645, 200);
-		enemyOutputTextArea.setMinSize(645, 200);
+		enemyOutputTextArea.setMaxSize(645, 180);
+		enemyOutputTextArea.setMinSize(645, 180);
 		return enemyOutputTextArea;
 	}
 	
@@ -111,25 +111,25 @@ public class FightClubView extends DownTownView {
 	
 	//Center for enemy stat's and pictures
 	private HBox centerEnemyBox() {
-		HBox centerEnemyBox = new HBox();
+		HBox centerEnemyBox = new HBox(12);
 		centerEnemyBox.setAlignment(Pos.CENTER);
-		centerEnemyBox.getChildren().add(innerEnemyPane());
-//		for (int i = 0; i < 3; i++) {
-//			centerEnemyBox.getChildren().add(innerEnemyPane());
-//		}
+//		centerEnemyBox.getChildren().add(innerEnemyPane());
+		for (int i = 0; i < 3; i++) {
+			centerEnemyBox.getChildren().add(innerEnemyPane());
+		}
 	
 		centerEnemyBox.setId("centerEnemyBox");
 		return centerEnemyBox;
 	}
 	
-	private final int innerHeight = 440;
-	private final int innerWidth = 420;
+	private final int innerHeight = 482;
+	private final int innerWidth = 422;
 	
 	private BorderPane innerEnemyPane() {
 		BorderPane innerEnemyPane = new BorderPane();
+		innerEnemyPane.setId("innerEnemyPane");
 		innerEnemyPane.setMinSize(innerWidth, innerHeight);
 		innerEnemyPane.setMaxSize(innerWidth, innerHeight);
-		innerEnemyPane.setBackground(View.getBackground(Color.RED));
 		innerEnemyPane.setCenter(enemyImage());
 		innerEnemyPane.setRight(enemyRightStatsBox());
 		innerEnemyPane.setBottom(enemyBottomStatsBox());
@@ -144,12 +144,12 @@ public class FightClubView extends DownTownView {
 	
 	//Enemy right stats box \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/
 	private VBox enemyRightStatsBox() {
-		VBox enemyRightStatsBox = new VBox(3);
+		VBox enemyRightStatsBox = new VBox(5);
 		enemyRightStatsBox.setId("enemyRightStatsBox");
 		enemyRightStatsBox.setAlignment(Pos.TOP_LEFT);
-		enemyRightStatsBox.setPadding(new Insets(0,0,0,10));
-		enemyRightStatsBox.setMinSize(200, 320);
-		enemyRightStatsBox.setMaxSize(200, 320);
+		enemyRightStatsBox.setPadding(new Insets(10,0,0,5));
+		enemyRightStatsBox.setMinSize(200, 360);
+		enemyRightStatsBox.setMaxSize(200, 360);
 		enemyRightStatsBox.setBackground(View.getBackground(Color.PINK));
 		enemyRightStatsBox.getChildren().addAll(enemyNameLabel, enemyLvlLabel,
 				enemyCashLabel, enemyHpLabel,enemyHpBar(), enemyEngLabel, enemyEngBar(), enemyWeaponLabel,
@@ -237,19 +237,20 @@ public class FightClubView extends DownTownView {
 	
 	//Enemy Bottom stats box \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 	private VBox enemyBottomStatsBox() {
-		VBox enemyBottomStatsBox = new VBox();
+		VBox enemyBottomStatsBox = new VBox(1);
 		enemyBottomStatsBox.setId("enemyBottomStatsBox");
-		enemyBottomStatsBox.setAlignment(Pos.CENTER_LEFT);
-		enemyBottomStatsBox.setMinSize(innerWidth, 120);
-		enemyBottomStatsBox.setMaxSize(innerWidth, 120);
+		enemyBottomStatsBox.setPadding(new Insets(10,0,0,20));
+		enemyBottomStatsBox.setAlignment(Pos.TOP_LEFT);
+		enemyBottomStatsBox.setMinSize(420, 120);
+		enemyBottomStatsBox.setMaxSize(420, 120);
 		enemyBottomStatsBox.setBackground(View.getBackground(Color.BLUE));
 		enemyBottomStatsBox.getChildren().addAll(enemyEatLabel, enemyEatBar(),
 				enemySleepLabel, enemySleepBar(), enemyWorkLabel, enemyWorkBar());
 		return enemyBottomStatsBox;
 	}
 	
-	private final int esBarLength = 200;
-	private final int esBarWidth = 15;
+	private final int esBarLength = 380;
+	private final int esBarWidth = 12;
 	
 	private Label enemyEatLabel = new Label("Eat");
 	public void setEnemyEatLabel(String Eat) {

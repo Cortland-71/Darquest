@@ -66,6 +66,7 @@ class FightClub implements Clickable {
 		Weapon w = new Weapon("test Weapon", 100, .2,10,5,20);
 		Armor a = new Armor("Test Armor", 3000, .3, 10);
 		Enemy e = new Enemy("Kodlack", 1,1,1,"Enforcer", w, a, 1);
+		
 		c.getView().getFightClubView().setEnemyStats(e);
 		c.getView().getWindow().setScene(c.getView().getFightClubView().getFightClubScene());
 		c.getView().getFightClubView().setCommandFeildFocused();
