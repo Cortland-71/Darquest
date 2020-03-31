@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Random;
 
 import com.game.darquest.controller.Controller;
-import com.game.darquest.data.enemyType.EnemyType;
+import com.game.darquest.data.enemyType.Classable;
 import com.game.darquest.data.enemyType.Enforcer;
 import com.game.darquest.data.enemyType.Observer;
 import com.game.darquest.data.enemyType.Runner;
@@ -31,14 +31,15 @@ public class EnemyGenerator {
 		for (int i = 0; i < numberOfEnemies; i++) {
 			String name = getRandomName();
 			int level = getRandomLevel();
-			EnemyType type = getRandomType();
+			Classable type = getRandomType();
+			type.setController(this.c);
 			type.setLevel(level);
 			enemyList.add(getEnemyObject(name, level, type, i));
 		}
 	}
 
-	private Enemy getEnemyObject(String name, int level, EnemyType type, int index) {
-		EnemyType t = type;
+	private Enemy getEnemyObject(String name, int level, Classable type, int index) {
+		Classable t = type;
 		String typeName = t.getType();
 		int def = t.getGenerateDef();
 		int stealth = t.getGenerateStealth();
@@ -51,8 +52,8 @@ public class EnemyGenerator {
 		return new Enemy(name, level, typeName, def, stealth, awareness, wep, armor, tool, index + 1, cash);
 	}
 
-	private EnemyType getRandomType() {
-		List<EnemyType> classList = Arrays.asList(new Enforcer(), new Observer(), new Runner(), new Shinobi());
+	private Classable getRandomType() {
+		List<Classable> classList = Arrays.asList(new Enforcer(), new Observer(), new Runner(), new Shinobi());
 		return classList.get(rand.nextInt(classList.size()));
 	}
 

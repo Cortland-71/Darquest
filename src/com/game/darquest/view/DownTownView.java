@@ -55,6 +55,7 @@ public class DownTownView {
 	private Label equippedLabel = new Label("Equipped >");
 	private Label equippedWeaponLabel = new Label();
 	private Label equippedArmorLabel = new Label();
+	private Label equippedToolLabel = new Label();
 	
 	private Label defLabel = new Label();
 	private Label stealthLabel = new Label();
@@ -193,7 +194,7 @@ public class DownTownView {
 	private VBox equippedBox() {
 		VBox equippedBox = new VBox(8);
 		equippedBox.setPadding(new Insets(20, 0, 0, 0));
-		equippedBox.getChildren().addAll(equippedLabel, equippedWeaponLabel, equippedArmorLabel);
+		equippedBox.getChildren().addAll(equippedLabel, equippedWeaponLabel, equippedArmorLabel, equippedToolLabel);
 		return equippedBox;
 	}
 	
@@ -301,9 +302,11 @@ public class DownTownView {
 		}
 	}
 
-	public List<Integer> getSelectedIndexListOfWeaponAndArmorTabs() {
-		List<Integer> list = Arrays.asList(inventoryListViewObjects.get(0).getSelectionModel().getSelectedIndex(),
-				inventoryListViewObjects.get(1).getSelectionModel().getSelectedIndex());
+	public List<Integer> getSelectedIndexListOfAllTabs() {
+		List<Integer> list = new ArrayList<>();
+		for (int i = 0; i < inventoryListViewObjects.size(); i++) {
+			list.add(inventoryListViewObjects.get(i).getSelectionModel().getSelectedIndex());
+		}
 		return list;
 	}
 
@@ -364,6 +367,7 @@ public class DownTownView {
 
 		equippedWeaponLabel.setText("Weapon:\n" + p.getEquippedWeaponString());
 		equippedArmorLabel.setText("Armor:\n" + p.getEquippedArmorString());
+		equippedToolLabel.setText("Tool:\n" + p.getEquippedToolString());
 		
 		defLabel.setText("Defense:   " + p.getDef());
 		stealthLabel.setText("Stealth:   " + p.getStealth());

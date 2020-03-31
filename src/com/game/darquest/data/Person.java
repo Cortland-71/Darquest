@@ -15,7 +15,7 @@ public abstract class Person {
 
 	private String name;
 	private int lvl = 1;
-	private double cash = 100.0;
+	private double cash = 1000000.0;
 
 	private double hp = 1;
 	private final double maxHp = 1;

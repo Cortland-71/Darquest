@@ -1,10 +1,15 @@
 package com.game.darquest.data.enemyType;
 
+import com.game.darquest.controller.Controller;
+import com.game.darquest.controller.ItemController;
 import com.game.darquest.data.items.Armor;
 import com.game.darquest.data.items.Tool;
 import com.game.darquest.data.items.Weapon;
 
-public class Enforcer extends EnemyType {
+public class Enforcer implements Classable {
+	private ItemController ic;
+	private int level;
+	
 
 	@Override
 	public int getGenerateDef() {
@@ -23,12 +28,12 @@ public class Enforcer extends EnemyType {
 
 	@Override
 	public Weapon getGenerateWeapon() {
-		return (Weapon)getHighWeaponsList().get(rand.nextInt(getHighWeaponsList().size()));
+		return (Weapon)ic.highWeaponsList().get(rand.nextInt(ic.highWeaponsList().size()));
 	}
 
 	@Override
 	public Armor getGenerateArmor() {
-		return (Armor)getHighArmorList().get(rand.nextInt(getHighArmorList().size()));
+		return (Armor)ic.highArmorList().get(rand.nextInt(ic.highArmorList().size()));
 	}
 	
 	@Override
@@ -51,6 +56,18 @@ public class Enforcer extends EnemyType {
 		double cents = rand.nextDouble();
 		
 		return dollars + cents;
+	}
+
+	@Override
+	public void setLevel(int level) {
+		this.level = level;
+		
+	}
+
+	@Override
+	public void setController(Controller c) {
+		this.ic = c.getItemController();
+		
 	}
 
 }

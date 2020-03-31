@@ -1,10 +1,15 @@
 package com.game.darquest.data.enemyType;
 
+import com.game.darquest.controller.Controller;
+import com.game.darquest.controller.ItemController;
 import com.game.darquest.data.items.Armor;
 import com.game.darquest.data.items.Tool;
 import com.game.darquest.data.items.Weapon;
 
-public class Runner extends EnemyType {
+public class Runner implements Classable {
+
+	private ItemController ic;
+	private int level;
 
 	@Override
 	public int getGenerateDef() {
@@ -23,12 +28,12 @@ public class Runner extends EnemyType {
 
 	@Override
 	public Weapon getGenerateWeapon() {
-		return (Weapon)getMidWeaponsList().get(rand.nextInt(getMidWeaponsList().size()));
+		return (Weapon)ic.midWeaponsList().get(rand.nextInt(ic.midWeaponsList().size()));
 	}
 
 	@Override
 	public Armor getGenerateArmor() {
-		return (Armor)getLowArmorList().get(rand.nextInt(getLowArmorList().size()));
+		return (Armor)ic.lowArmorList().get(rand.nextInt(ic.lowArmorList().size()));
 	}
 
 	@Override
@@ -51,5 +56,17 @@ public class Runner extends EnemyType {
 	public Tool getGenerateTool() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void setLevel(int level) {
+		this.level = level;
+		
+	}
+	
+	@Override
+	public void setController(Controller c) {
+		this.ic = c.getItemController();
+		
 	}
 }

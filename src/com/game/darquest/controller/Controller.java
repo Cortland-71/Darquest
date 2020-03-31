@@ -28,9 +28,10 @@ public class Controller {
 		this.downTownController = new DownTownController(this);
 		this.shopController = new ShopTransactionController(this);
 		this.playerInventoryAndStatsController = new PlayerInventoryAndStatsController(this);
+		this.itemController = new ItemController();
 		this.shopInventoryController = new ShopInventoryController(this);
 		this.fightClubController = new FightClubController(this);
-		this.itemController = new ItemController();
+		
 	}
 
 	

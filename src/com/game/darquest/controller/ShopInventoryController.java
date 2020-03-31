@@ -22,9 +22,9 @@ public class ShopInventoryController implements EventHandler<MouseEvent> {
 		this.c.getView().getShopView().addShopListViewListener(this);
 		this.c.getView().getShopView().addShopTabListener(this);
 		
-		allItemsList.add(c.getItemController().getWeaponsList());
-		allItemsList.add(c.getItemController().getArmorList());
-		allItemsList.add(c.getItemController().getToolList());
+		allItemsList.add(c.getItemController().getAllWeapons());
+		allItemsList.add(c.getItemController().getAllArmors());
+		allItemsList.add(c.getItemController().getAllTools());
 		this.c.getView().getShopView().setAllShopItems(allItemsList);
 		
 	}

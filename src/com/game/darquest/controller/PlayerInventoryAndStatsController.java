@@ -36,7 +36,7 @@ public class PlayerInventoryAndStatsController implements EventHandler<MouseEven
 	
 	////////////////////////////////////////////////////////////////// -Mouse event logic
 	private void equipSelectedInventoryItemsForDownTown() {
-		indexList = c.getView().getDownTownView().getSelectedIndexListOfWeaponAndArmorTabs();
+		indexList = c.getView().getDownTownView().getSelectedIndexListOfAllTabs();
 		for (int i = 0; i < indexList.size(); i++) {
 			selectCorrectInventoryItemInShopView(i);
 			selectCorrectInventoryItemInFightClubView(i);
@@ -46,7 +46,7 @@ public class PlayerInventoryAndStatsController implements EventHandler<MouseEven
 	}
 	
 	private void equipSelectedInventoryItemsForShop() {
-		 indexList = c.getView().getShopView().getSelectedIndexListOfWeaponAndArmorTabs();
+		 indexList = c.getView().getShopView().getSelectedIndexListOfAllTabs();
 		 for (int i = 0; i < indexList.size(); i++) {
 			 selectCorrectInventoryItemInDownTownView(i);
 			 selectCorrectInventoryItemInFightClubView(i);
@@ -56,7 +56,7 @@ public class PlayerInventoryAndStatsController implements EventHandler<MouseEven
 	}
 	
 	private void equipSelectedInventoryItemsForFightClub() {
-		 indexList = c.getView().getFightClubView().getSelectedIndexListOfWeaponAndArmorTabs();
+		 indexList = c.getView().getFightClubView().getSelectedIndexListOfAllTabs();
 		 for (int i = 0; i < indexList.size(); i++) {
 			 selectCorrectInventoryItemInDownTownView(i);
 			 selectCorrectInventoryItemInShopView(i);
