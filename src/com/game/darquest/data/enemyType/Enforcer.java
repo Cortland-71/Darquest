@@ -1,6 +1,7 @@
 package com.game.darquest.data.enemyType;
 
 import com.game.darquest.data.items.Armor;
+import com.game.darquest.data.items.Tool;
 import com.game.darquest.data.items.Weapon;
 
 public class Enforcer extends EnemyType {
@@ -29,6 +30,12 @@ public class Enforcer extends EnemyType {
 	public Armor getGenerateArmor() {
 		return (Armor)getHighArmorList().get(rand.nextInt(getHighArmorList().size()));
 	}
+	
+	@Override
+	public Tool getGenerateTool() {
+		return null;
+	}
+
 
 	@Override
 	public String getType() {

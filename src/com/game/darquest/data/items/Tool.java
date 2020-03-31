@@ -2,8 +2,13 @@ package com.game.darquest.data.items;
 
 public class Tool extends Item {
 
-	public Tool(String name, double price, double weight) {
-		super(name, price, weight);
-		// TODO Auto-generated constructor stub
+	private int minEffect;
+	private int maxEffect;
+
+	public Tool(String name, String description, double price, double weight, int condition, int maxCondition,
+			int minEffect, int maxEffect) {
+		super(name, description, price, weight, condition, maxCondition);
+		this.minEffect = minEffect;
+		this.maxEffect = maxEffect;
 	}
 }

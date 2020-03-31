@@ -1,13 +1,13 @@
 package com.game.darquest.data.items;
 
-public class Weapon extends Accessory {
+public class Weapon extends Item {
 	
 	private int minDamage;
 	private int maxDamage;
 
-	public Weapon(String name, double price, double weight, int condition,
+	public Weapon(String name, String description, double price, double weight, int condition, int maxCondition,
 			int minDamage, int maxDamage) {
-		super(name, price, weight, condition);
+		super(name, description, price, weight, condition, maxCondition);
 		this.minDamage = minDamage;
 		this.maxDamage = maxDamage;
 	}

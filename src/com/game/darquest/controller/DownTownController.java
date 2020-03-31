@@ -65,16 +65,14 @@ class FightClub implements Clickable {
 	@Override
 	public void clickAction() {
 		enemyGenerator.generateEnemys();
-		
 		List<Enemy> enemyList = enemyGenerator.getEnemyList();
-		enemyList.forEach(System.out::println);
+		c.getFightClubController().setEnemyList(enemyList);
 		
 		for (int i = 0; i < enemyList.size(); i++) {
-			c.getView().getFightClubView().getCenterEnemyBox().getChildren().add(c.getView().getFightClubView().getInnerEnemyPane());
+			c.getView().getFightClubView().getCenterEnemyBox().getChildren()
+			.add(c.getView().getFightClubView().getInnerEnemyPane());
 			c.getView().getFightClubView().setEnemyStats(enemyList.get(i));
 		}
-		
-		
 		c.getView().getWindow().setScene(c.getView().getFightClubView().getFightClubScene());
 		c.getView().getFightClubView().setCommandFeildFocused();
 	}

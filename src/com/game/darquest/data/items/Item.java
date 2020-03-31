@@ -5,15 +5,29 @@ import java.text.NumberFormat;
 public abstract class Item {
 	
 	private String name;
+	private String description;
 	private double price;
 	private double value;
 	private double weight;
+	private int maxCondition;
+	private int condition;
 	
-	public Item(String name, double price, double weight) {
+	public Item(String name, String description, double price, double weight, int condition, int maxCondition) {
 		this.name = name;
+		this.description = description;
 		this.price = price;
 		this.weight = weight;
+		this.setCondition(condition);
+		this.maxCondition = maxCondition;
 	}
+	
+	public String getDescription() {
+		return this.description;
+	}
+	
+//	private double getDamagedPrice() {
+//		return price - (((10-condition)/10d) * price);
+//	}
 	
 	public double getValue() {
 		return value;
@@ -50,5 +64,17 @@ public abstract class Item {
 	public String getToStringForPlayerInventory() {
 		return name + "\nValue:\t" + getValueFormatted() + 
 				"\nWeight:\t" + weight;
+	}
+
+	public int getMaxCondition() {
+		return maxCondition;
+	}
+
+	public int getCondition() {
+		return condition;
+	}
+
+	public void setCondition(int condition) {
+		this.condition = condition;
 	}
 }

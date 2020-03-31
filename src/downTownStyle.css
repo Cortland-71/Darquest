@@ -75,11 +75,13 @@
 	-fx-background-color: _blue;
 }
 
-#hpBar .bar {
+#hpBar .bar,
+#enemyHpBar .bar {
 	-fx-background-color: _red;
 }
 
-#engBar .bar {
+#engBar .bar,
+#enemyEngBar .bar {
 	-fx-background-color: _yellow;
 	
 }

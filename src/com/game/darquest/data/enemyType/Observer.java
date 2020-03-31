@@ -1,6 +1,7 @@
 package com.game.darquest.data.enemyType;
 
 import com.game.darquest.data.items.Armor;
+import com.game.darquest.data.items.Tool;
 import com.game.darquest.data.items.Weapon;
 
 public class Observer extends EnemyType {
@@ -29,6 +30,8 @@ public class Observer extends EnemyType {
 	public Armor getGenerateArmor() {
 		return (Armor)getMidArmorList().get(rand.nextInt(getMidArmorList().size()));
 	}
+	
+	
 
 	@Override
 	public String getType() {
@@ -44,6 +47,12 @@ public class Observer extends EnemyType {
 		double cents = rand.nextDouble();
 		
 		return dollars + cents;
+	}
+
+	@Override
+	public Tool getGenerateTool() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	

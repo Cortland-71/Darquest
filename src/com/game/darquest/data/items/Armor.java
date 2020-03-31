@@ -1,10 +1,10 @@
 package com.game.darquest.data.items;
 
-public class Armor extends Accessory {
+public class Armor extends Item {
 
 	private int rating;
-	public Armor(String name, double price, double weight, int condition, int rating) {
-		super(name, price, weight, condition);
+	public Armor(String name, String description, double price, double weight, int condition, int maxCondition, int rating) {
+		super(name, description, price, weight, condition, maxCondition);
 		this.setRating(rating);
 	}
 	public int getRating() {

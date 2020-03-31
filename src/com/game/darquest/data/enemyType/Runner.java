@@ -1,6 +1,7 @@
 package com.game.darquest.data.enemyType;
 
 import com.game.darquest.data.items.Armor;
+import com.game.darquest.data.items.Tool;
 import com.game.darquest.data.items.Weapon;
 
 public class Runner extends EnemyType {
@@ -44,5 +45,11 @@ public class Runner extends EnemyType {
 		double cents = rand.nextDouble();
 		
 		return dollars + cents;
+	}
+
+	@Override
+	public Tool getGenerateTool() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

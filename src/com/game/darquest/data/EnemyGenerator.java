@@ -12,6 +12,7 @@ import com.game.darquest.data.enemyType.Observer;
 import com.game.darquest.data.enemyType.Runner;
 import com.game.darquest.data.enemyType.Shinobi;
 import com.game.darquest.data.items.Armor;
+import com.game.darquest.data.items.Tool;
 import com.game.darquest.data.items.Weapon;
 
 public class EnemyGenerator {
@@ -44,9 +45,10 @@ public class EnemyGenerator {
 		int awareness = t.getGenerateAwareness();
 		Weapon wep = t.getGenerateWeapon();
 		Armor armor = t.getGenerateArmor();
+		Tool tool = t.getGenerateTool();
 		double cash = t.getGeneratedCash();
 
-		return new Enemy(name, level, typeName, def, stealth, awareness, wep, armor, index + 1, cash);
+		return new Enemy(name, level, typeName, def, stealth, awareness, wep, armor, tool, index + 1, cash);
 	}
 
 	private EnemyType getRandomType() {

@@ -1,9 +1,10 @@
 package com.game.darquest.controller;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.game.darquest.data.Player;
+import com.game.darquest.data.Enemy;
 import com.game.darquest.data.actions.Eat;
 import com.game.darquest.data.actions.Sleep;
 import com.game.darquest.data.actions.Work;
@@ -15,6 +16,8 @@ import javafx.scene.input.KeyEvent;
 public class FightClubController implements EventHandler<KeyEvent> {
 
 	private List<Fireable> fireList;
+	private List<Enemy> enemyList = new ArrayList<>();
+	
 	private Controller c;
 	public FightClubController(Controller c) {
 		c.getView().getFightClubView().addCommandFieldListener(this);
@@ -36,6 +39,10 @@ public class FightClubController implements EventHandler<KeyEvent> {
 				}
 			}
 		}
+	}
+	
+	public void setEnemyList(List<Enemy> enemyList) {
+		this.enemyList = enemyList;
 	}
 
 }
