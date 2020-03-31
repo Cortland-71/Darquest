@@ -37,6 +37,10 @@ public class View {
 		window.show();
 	}
 	
+	public void setFightClubView(FightClubView fightClubView) {
+		this.fightClubView = fightClubView;
+	}
+	
 	public ShopView getShopView() {
 		return this.shopView;
 	}

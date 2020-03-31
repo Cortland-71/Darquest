@@ -18,7 +18,7 @@ import javafx.scene.control.Button;
 public class ShopTransactionController implements EventHandler<ActionEvent>{
 	
 	private Controller c;
-	private List<List<Item>> allItemsList = new ArrayList<>();
+	
 	private Player player;
 	
 	private List<String> odetteBuyDialogue = Arrays.asList("Nice choice.", "That should help.", 
@@ -31,35 +31,7 @@ public class ShopTransactionController implements EventHandler<ActionEvent>{
 		this.c.getView().getShopView().addActionListener(this);
 
 		this.c.getView().getShopView().addBuyButtonListener(this);
-		allItemsList.add(getWeaponsList());
-		allItemsList.add(getArmorList());
-		allItemsList.add(getToolList());
-		this.c.getView().getShopView().setAllShopItems(allItemsList);
-	}
-	
-	private List<Item> getWeaponsList() {
-		return Arrays.asList(
-				new Weapon("Switch Blade",375,.03,9,1,5),
-				new Weapon("Tanto",13000,.1,4,16,22),
-				new Weapon("Bat (wood)",250,.07,10,50,99),
-				new Weapon("Bat (metal)",530,.12,8,20,124),
-				new Weapon("Brass Knuckles",400,.05,8,20,124));
-	}
-	
-	private List<Item> getArmorList() {
-		return Arrays.asList(
-				new Armor("Raincoat", 150, .05, 10),
-				new Armor("Vest lvl.1",13000,.5,4),
-				new Armor("Leather Jacket",2300,.5,10),
-				new Armor("Cod Peice",500000,.5,8));
-	}
-	
-	private List<Item> getToolList() {
-		return Arrays.asList(
-				new Tool("Reactor",3300, .04),
-				new Tool("HP Vial",13000,.5),
-				new Tool("ENG Vial",2300,.5),
-				new Tool("Bottle of Luck",500000,.5));
+		
 	}
 	
 

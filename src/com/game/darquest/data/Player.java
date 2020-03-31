@@ -18,6 +18,10 @@ public class Player extends Person {
 	
 	private DecimalFormat f = new DecimalFormat("0.00");
 	private double weight = 0;
+	private double xp = .05;
+	private double xpAdded = .05;
+	private final double maxXp = 1;
+	private final double minXp = 0;
 	
 
 	public void addItemToPlayerInventory(Item item) {
@@ -44,9 +48,29 @@ public class Player extends Person {
 		return this.weight;
 	}
 	
-	
+	public double getXp() {
+		return xp;
+	}
 
-	
+	public void setXp(double xp) {
+		this.xp = xp;
+	}
+
+	public double getXpAdded() {
+		return xpAdded;
+	}
+
+	public void setXpAdded(double xpAdded) {
+		this.xpAdded = xpAdded;
+	}
+
+	public double getMaxXp() {
+		return maxXp;
+	}
+
+	public double getMinXp() {
+		return minXp;
+	}
 	
 	
 	

@@ -1,8 +1,9 @@
 package com.game.darquest.view;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.game.darquest.data.Enemy;
-import com.game.darquest.data.Person;
-import com.game.darquest.data.Player;
 
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -23,6 +24,7 @@ import javafx.scene.paint.Color;
 public class FightClubView extends DownTownView {
 	
 	private Scene fightClubScene;
+	private List<Enemy> enemyList = new ArrayList<>();
 
 	public FightClubView() {
 		fightClubScene = new Scene(fightClubPane(), View.WIDTH, View.HEIGHT);
@@ -110,22 +112,22 @@ public class FightClubView extends DownTownView {
 	}
 	
 	//Center for enemy stat's and pictures
+	private HBox centerEnemyBox;
 	private HBox centerEnemyBox() {
-		HBox centerEnemyBox = new HBox(12);
+		centerEnemyBox = new HBox(12);
 		centerEnemyBox.setAlignment(Pos.CENTER);
-//		centerEnemyBox.getChildren().add(innerEnemyPane());
-		for (int i = 0; i < 3; i++) {
-			centerEnemyBox.getChildren().add(innerEnemyPane());
-		}
-	
 		centerEnemyBox.setId("centerEnemyBox");
 		return centerEnemyBox;
 	}
 	
+	public HBox getCenterEnemyBox() {
+		return centerEnemyBox;
+	}
+
 	private final int innerHeight = 482;
 	private final int innerWidth = 422;
 	
-	private BorderPane innerEnemyPane() {
+	public BorderPane innerEnemyPane() {
 		BorderPane innerEnemyPane = new BorderPane();
 		innerEnemyPane.setId("innerEnemyPane");
 		innerEnemyPane.setMinSize(innerWidth, innerHeight);
@@ -134,6 +136,10 @@ public class FightClubView extends DownTownView {
 		innerEnemyPane.setRight(enemyRightStatsBox());
 		innerEnemyPane.setBottom(enemyBottomStatsBox());
 		return innerEnemyPane;
+	}
+	
+	public BorderPane getInnerEnemyPane() {
+		return innerEnemyPane();
 	}
 	
 	private ImageView enemyImage() {
@@ -151,30 +157,49 @@ public class FightClubView extends DownTownView {
 		enemyRightStatsBox.setMinSize(200, 360);
 		enemyRightStatsBox.setMaxSize(200, 360);
 		enemyRightStatsBox.setBackground(View.getBackground(Color.PINK));
-		enemyRightStatsBox.getChildren().addAll(enemyNameLabel, enemyLvlLabel,
-				enemyCashLabel, enemyHpLabel,enemyHpBar(), enemyEngLabel, enemyEngBar(), enemyWeaponLabel,
-				enemyArmorLabel, enemyDefLabel, enemyStealthLabel, enemyAwarenessLabel, enemyTypeLabel,
-				enemyIDLabel);
+		enemyRightStatsBox.getChildren().addAll(enemyNameLabel(), enemyLvlLabel(),
+				enemyCashLabel(), enemyHpLabel() ,enemyHpBar(), enemyEngLabel(), enemyEngBar(), enemyWeaponLabel(),
+				enemyArmorLabel(), enemyDefLabel(), enemyStealthLabel(), enemyAwarenessLabel(), enemyTypeLabel(),
+				enemyIDLabel());
 		return enemyRightStatsBox;
 	}
 	
 	private final int barLength = 180;
 	private final int barWidth = 10;
 	
-	private Label enemyNameLabel = new Label("Name");
+	private Label enemyNameLabel;
+	private Label enemyNameLabel() {
+		enemyNameLabel = new Label("Name");
+		return enemyNameLabel;
+	}
 	public void setEnemyNameLabel(String name) {
 		enemyNameLabel.setText(name);
 	}
-	private Label enemyLvlLabel = new Label("Lvl");
+	
+	private Label enemyLvlLabel;
+	private Label enemyLvlLabel() {
+		enemyLvlLabel = new Label("Lvl");
+		return enemyLvlLabel;
+	}
 	public void setEnemyLvlLabel(String Lvl) {
 		enemyLvlLabel.setText(Lvl);
 	}
-	private Label enemyCashLabel = new Label("Cash");
+	
+	private Label enemyCashLabel;
+	private Label enemyCashLabel() {
+		enemyCashLabel = new Label("Cash");
+		return enemyCashLabel;
+	}
 	public void setEnemyCashLabel(String Cash) {
 		enemyCashLabel.setText(Cash);
 	}
 	
-	private Label enemyHpLabel = new Label("Hp");
+	
+	private Label enemyHpLabel;
+	private Label enemyHpLabel() {
+		enemyHpLabel = new Label("Hp");
+		return enemyHpLabel;
+	}
 	public void setEnemyHpLabel(String Hp) {
 		enemyHpLabel.setText(Hp);
 	}
@@ -187,7 +212,11 @@ public class FightClubView extends DownTownView {
 		return enemyHpBar;
 	}
 	
-	private Label enemyEngLabel = new Label("Eng");
+	private Label enemyEngLabel;
+	private Label enemyEngLabel() {
+		enemyEngLabel = new Label("Eng");
+		return enemyEngLabel;
+	}
 	public void setEnemyEngLabel(String Eng) {
 		enemyEngLabel.setText(Eng);
 	}
@@ -200,37 +229,65 @@ public class FightClubView extends DownTownView {
 		return enemyEngBar;
 	}
 	
-	private Label enemyWeaponLabel = new Label("Weapon");
+	private Label enemyWeaponLabel;
+	private Label enemyWeaponLabel() {
+		enemyWeaponLabel = new Label("Weapon");
+		return enemyWeaponLabel;
+	}
 	public void setEnemyWeaponLabel(String Weapon) {
 		enemyWeaponLabel.setText(Weapon);
 	}
 	
-	private Label enemyArmorLabel = new Label("Armor");
+	private Label enemyArmorLabel;
+	private Label enemyArmorLabel() {
+		enemyArmorLabel = new Label("Armor");
+		return enemyArmorLabel;
+	}
 	public void setEnemyArmorLabel(String Armor) {
 		enemyArmorLabel.setText(Armor);
 	}
 	
-	private Label enemyDefLabel = new Label("Def");
+	private Label enemyDefLabel;
+	private Label enemyDefLabel() {
+		enemyDefLabel = new Label("Def");
+		return enemyDefLabel;
+	}
 	public void setEnemyDefLabel(String Def) {
 		enemyDefLabel.setText(Def);
 	}
 	
-	private Label enemyStealthLabel = new Label("Stealth");
+	private Label enemyStealthLabel;
+	private Label enemyStealthLabel() {
+		enemyStealthLabel = new Label("Stealth");
+		return enemyStealthLabel;
+	}
 	public void setEnemyStealthLabel(String Stealth) {
 		enemyStealthLabel.setText(Stealth);
 	}
 	
-	private Label enemyAwarenessLabel = new Label("Awareness");
+	private Label enemyAwarenessLabel;
+	private Label enemyAwarenessLabel() {
+		enemyAwarenessLabel = new Label("Awareness");
+		return enemyAwarenessLabel;
+	}
 	public void setEnemyAwarenessLabel(String Awareness) {
 		enemyAwarenessLabel.setText(Awareness);
 	}
 	
-	private Label enemyTypeLabel = new Label("Type");
+	private Label enemyTypeLabel;
+	private Label enemyTypeLabel() {
+		enemyTypeLabel = new Label("Type");
+		return enemyTypeLabel;
+	}
 	public void setEnemyTypeLabel(String Type) {
 		enemyTypeLabel.setText(Type);
 	}
 	
-	private Label enemyIDLabel = new Label("ID");
+	private Label enemyIDLabel;
+	private Label enemyIDLabel() {
+		enemyIDLabel = new Label("ID");
+		return enemyIDLabel;
+	}
 	public void setEnemyIDLabel(String ID) {
 		enemyIDLabel.setText(ID);
 	}
@@ -244,15 +301,19 @@ public class FightClubView extends DownTownView {
 		enemyBottomStatsBox.setMinSize(420, 120);
 		enemyBottomStatsBox.setMaxSize(420, 120);
 		enemyBottomStatsBox.setBackground(View.getBackground(Color.BLUE));
-		enemyBottomStatsBox.getChildren().addAll(enemyEatLabel, enemyEatBar(),
-				enemySleepLabel, enemySleepBar(), enemyWorkLabel, enemyWorkBar());
+		enemyBottomStatsBox.getChildren().addAll(enemyEatLabel(), enemyEatBar(),
+				enemySleepLabel(), enemySleepBar(), enemyWorkLabel(), enemyWorkBar());
 		return enemyBottomStatsBox;
 	}
 	
 	private final int esBarLength = 380;
 	private final int esBarWidth = 12;
 	
-	private Label enemyEatLabel = new Label("Eat");
+	private Label enemyEatLabel;
+	private Label enemyEatLabel() {
+		enemyEatLabel = new Label("Eat");
+		return enemyEatLabel;
+	}
 	public void setEnemyEatLabel(String Eat) {
 		enemyEatLabel.setText(Eat);
 	}
@@ -265,7 +326,11 @@ public class FightClubView extends DownTownView {
 		return enemyEatBar;
 	}
 	
-	private Label enemySleepLabel = new Label("Sleep");
+	private Label enemySleepLabel;
+	private Label enemySleepLabel() {
+		enemySleepLabel = new Label("Sleep");
+		return enemySleepLabel;
+	}
 	public void setEnemySleepLabel(String Sleep) {
 		enemySleepLabel.setText(Sleep);
 	}
@@ -278,7 +343,12 @@ public class FightClubView extends DownTownView {
 		return enemySleepBar;
 	}
 	
-	private Label enemyWorkLabel = new Label("Work");
+	private Label enemyWorkLabel;
+	private Label enemyWorkLabel() {
+		enemyWorkLabel = new Label("Work");
+		return enemyWorkLabel;
+	}
+	
 	public void setEnemyWorkLabel(String Work) {
 		enemyWorkLabel.setText(Work);
 	}
@@ -344,29 +414,29 @@ public class FightClubView extends DownTownView {
 	}
 	
 	// \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\- Helper
-		public void setEnemyStats(Enemy p) {
-			enemyNameLabel.setText("Name:\t" + p.getName());
-			enemyLvlLabel.setText("Lvl:\t" + p.getLvl());
-			enemyCashLabel.setText("Cash:\t" + p.getCashFormatted());
-			enemyHpLabel.setText("HP:\t" + p.getHp() + "/1.0");
-			enemyEngLabel.setText("Eng:\t" + p.getEng() + "/1.0");
-			enemyEatLabel.setText("Eat:\t" + p.getEat() + "/1.0");
-			enemySleepLabel.setText("Sleep:\t" + p.getSleep() + "/1.0");
-			enemyWorkLabel.setText("Work:\t" + p.getWork() + "/1.0");
+	public void setEnemyStats(Enemy p) {
+		enemyNameLabel.setText("Name:\t" + p.getName());
+		enemyLvlLabel.setText("Lvl:\t" + p.getLvl());
+		enemyCashLabel.setText("Cash:\t" + p.getCashFormatted());
+		enemyHpLabel.setText("HP:\t" + p.getHp() + "/1.0");
+		enemyEngLabel.setText("Eng:\t" + p.getEng() + "/1.0");
+		enemyEatLabel.setText("Eat:\t" + p.getEat() + "/1.0");
+		enemySleepLabel.setText("Sleep:\t" + p.getSleep() + "/1.0");
+		enemyWorkLabel.setText("Work:\t" + p.getWork() + "/1.0");
 
-			enemyHpBar.setProgress(p.getHp());
-			enemyEngBar.setProgress(p.getEng());
-			enemyEatBar.setProgress(p.getEat());
-			enemySleepBar.setProgress(p.getSleep());
-			enemyWorkBar.setProgress(p.getWork());
+		enemyHpBar.setProgress(p.getHp());
+		enemyEngBar.setProgress(p.getEng());
+		enemyEatBar.setProgress(p.getEat());
+		enemySleepBar.setProgress(p.getSleep());
+		enemyWorkBar.setProgress(p.getWork());
 
-			enemyWeaponLabel.setText("Weapon:\n" + p.getEquippedWeaponString());
-			enemyArmorLabel.setText("Armor:\n" + p.getEquippedArmorString());
-			
-			enemyDefLabel.setText("Defense:   " + p.getDef());
-			enemyStealthLabel.setText("Stealth:   " + p.getStealth());
-			enemyAwarenessLabel.setText("Awareness: " + p.getAwareness());
-			enemyTypeLabel.setText("Type: "+p.getType());
-			enemyIDLabel.setText("ID: " + p.getId());
-		}
+		enemyWeaponLabel.setText("Weapon:\n" + p.getEquippedWeaponString());
+		enemyArmorLabel.setText("Armor:\n" + p.getEquippedArmorString());
+		
+		enemyDefLabel.setText("Defense:   " + p.getDef());
+		enemyStealthLabel.setText("Stealth:   " + p.getStealth());
+		enemyAwarenessLabel.setText("Awareness: " + p.getAwareness());
+		enemyTypeLabel.setText("Type: "+p.getType());
+		enemyIDLabel.setText("ID: " + p.getId());
+	}
 }

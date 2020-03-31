@@ -13,13 +13,8 @@ public abstract class Person {
 	private DecimalFormat f1 = new DecimalFormat("0.0");
 	
 	private String name;
-	private int lvl = 1;
+	private int lvl = 5;
 	private double cash = 100.0;
-	
-	private double xp = .05;
-	private double xpAdded = .05;
-	private final double maxXp = 1;
-	private final double minXp = 0;
 
 	private double hp = .5;
 	private final double maxHp = 1;
@@ -50,13 +45,15 @@ public abstract class Person {
 	
 	public Person() {}
 	
-	public Person(String name, int def, int stealth, int awareness, Weapon equippedWeapon, Armor equippedArmor) {
+	public Person(String name, int def, int stealth, int awareness, Weapon equippedWeapon, Armor equippedArmor, int lvl, double cash) {
 		this.name = name;
 		this.def = def;
 		this.stealth = stealth;
 		this.awareness = awareness;
 		this.equippedWeapon = equippedWeapon;
 		this.equippedArmor = equippedArmor;
+		this.lvl = lvl;
+		this.cash = cash;
 	}
 	
 	public void setEquippedItem(Item item) {
@@ -111,27 +108,6 @@ public abstract class Person {
 
 	public void setLvl(int lvl) {
 		this.lvl = lvl;
-	}
-
-	public double getXp() {
-		return xp;
-	}
-	
-
-	public void setXp(double xp) {
-		this.xp = xp;
-	}
-
-	public double getXpAdded() {
-		return xpAdded;
-	}
-
-	public void setXpAdded(double xpAdded) {
-		this.xpAdded = xpAdded;
-	}
-
-	public double getMaxXp() {
-		return maxXp;
 	}
 
 	public double getHp() {
@@ -208,10 +184,6 @@ public abstract class Person {
 	public void setCash(double cash) {
 		this.cash = cash;
 	}
-	
-	public double getMinXp() {
-		return minXp;
-	}
 
 	public double getMinHp() {
 		return minHp;
@@ -243,8 +215,7 @@ public abstract class Person {
 
 	@Override
 	public String toString() {
-		return "Person [name=" + name + ", lvl=" + lvl + ", cash=" + cash + ", xp=" + xp + ", xpAdded=" + xpAdded
-				+ ", maxXp=" + maxXp + ", minXp=" + minXp + ", hp=" + hp + ", maxHp=" + maxHp + ", minHp=" + minHp
+		return "Person [name=" + name + ", lvl=" + lvl + ", cash=" + cash + ", hp=" + hp + ", maxHp=" + maxHp + ", minHp=" + minHp
 				+ ", eng=" + eng + ", maxEng=" + maxEng + ", minEng=" + minEng + ", eat=" + eat + ", maxEat=" + maxEat
 				+ ", minEat=" + minEat + ", sleep=" + sleep + ", maxSleep=" + maxSleep + ", minSleep=" + minSleep
 				+ ", work=" + work + ", maxWork=" + maxWork + ", minWork=" + minWork + "]";

@@ -4,8 +4,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.game.darquest.data.Enemy;
-import com.game.darquest.data.items.Armor;
-import com.game.darquest.data.items.Weapon;
+import com.game.darquest.data.EnemyGenerator;
+import com.game.darquest.view.FightClubView;
 import com.game.darquest.view.View;
 
 import javafx.event.ActionEvent;
@@ -55,19 +55,26 @@ public class DownTownController implements EventHandler<ActionEvent>{
 
 //\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/ -Action Classes for Main Menu
 class FightClub implements Clickable {
-	
+	private EnemyGenerator enemyGenerator;
 	private Controller c;
 	public FightClub(Controller c) {
 		this.c = c;
+		this.enemyGenerator = new EnemyGenerator(this.c);
 	}
 	
 	@Override
 	public void clickAction() {
-		Weapon w = new Weapon("test Weapon", 100, .2,10,5,20);
-		Armor a = new Armor("Test Armor", 3000, .3, 10);
-		Enemy e = new Enemy("Kodlack", 1,1,1,"Enforcer", w, a, 1);
+		enemyGenerator.generateEnemys();
 		
-		c.getView().getFightClubView().setEnemyStats(e);
+		List<Enemy> enemyList = enemyGenerator.getEnemyList();
+		enemyList.forEach(System.out::println);
+		
+		for (int i = 0; i < enemyList.size(); i++) {
+			c.getView().getFightClubView().getCenterEnemyBox().getChildren().add(c.getView().getFightClubView().getInnerEnemyPane());
+			c.getView().getFightClubView().setEnemyStats(enemyList.get(i));
+		}
+		
+		
 		c.getView().getWindow().setScene(c.getView().getFightClubView().getFightClubScene());
 		c.getView().getFightClubView().setCommandFeildFocused();
 	}
