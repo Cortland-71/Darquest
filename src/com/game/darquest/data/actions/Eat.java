@@ -4,22 +4,20 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
 import com.game.darquest.controller.Controller;
+import com.game.darquest.data.Person;
 import com.game.darquest.data.Player;
 
 public class Eat implements Fireable {
 	
 	private Controller c;
-	private Player p;
 	private DecimalFormat f2 = new DecimalFormat("0.00");
-	private boolean isValid;
-	
+	private String output;
 	public Eat(Controller c) {
 		this.c = c;
-		this.p = (Player)this.c.getPlayer();
 	}
 
 	@Override
-	public String fire() {
+	public boolean fire(Person p) {
 		if(p.getEat()+.1 <= p.getMaxEat()) {
 			double costToEat = (p.getEat()+.1)*150.5;
 			if(p.getCash() >= costToEat) {
@@ -28,18 +26,19 @@ public class Eat implements Fireable {
 				
 				double hpGained = p.getEat()*.1;
 				p.setHp(p.getHp()+hpGained);
-				isValid = true;
-				return "You ate and feel much better.\n"
+				output = "You ate and feel much better.\n"
 						+ "HP gained: +"+f2.format(hpGained)+"\n"
 						+ "Cost: "+NumberFormat.getCurrencyInstance().format(costToEat);
+				return true;
 			}
-			isValid = false;
-			return "You can't aford to eat at this point...\n"
+			output = "You can't aford to eat at this point...\n"
 					+ "It would cost: "+NumberFormat.getCurrencyInstance().format(costToEat);
+			return false;
 		}
-		isValid = false;
 		p.setEat(p.getMaxEat());
-		return "You can't eat anymore or you'll explode...";
+		output = "You can't eat anymore or you'll explode...";
+		return false;
+		
 	}
 
 	@Override
@@ -48,8 +47,8 @@ public class Eat implements Fireable {
 	}
 
 	@Override
-	public boolean isValid() {
-		return isValid;
+	public String getOutput() {
+		return output;
 	}
 }
 

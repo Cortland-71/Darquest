@@ -439,6 +439,7 @@ public class FightClubView extends DownTownView {
 	}
 	
 	public void setEnemyStats(Enemy p) {
+		System.out.println(p);
 		enemyNameLabel.setText("Name:\t" + p.getName());
 		enemyLvlLabel.setText("Lvl:\t" + p.getLvl());
 		enemyCashLabel.setText("Cash:\t" + p.getCashFormatted());

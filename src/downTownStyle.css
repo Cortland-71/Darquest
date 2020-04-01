@@ -86,7 +86,10 @@
 	
 }
 
-#xpBar .bar {
+#xpBar .bar,
+#enemyEatBar .bar,
+#enemySleepBar .bar,
+#enemyWorkBar .bar {
 	-fx-background-color: _green;
 }
 

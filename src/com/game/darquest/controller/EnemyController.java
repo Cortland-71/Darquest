@@ -1,35 +1,52 @@
 package com.game.darquest.controller;
 
-import java.util.TimerTask;
-import java.util.concurrent.TimeUnit;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
 
-import javafx.concurrent.Task;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
 
-public class EnemyController extends TimerTask {
+public class EnemyController {
 	
-
 	private Controller c;
+	private Random rand = new Random();
+	
 	public EnemyController(Controller c) {
 		this.c = c;
 	}
 	
-	@Override
-	public void run() {
-		for (int i = 0; i < 3; i++) {
-			holdOn(500);
-			c.getView().getFightClubView().setEnemyOutputTextArea("move " + i);
-		}
-
-		this.cancel();
-		c.getView().getFightClubView().setDisableCommandField(false);
-		c.getPlayer().setMoves(c.getPlayer().getMaxMoves());
+	int count = 0;
+	
+	public void enemyTurn() {
+		Timeline timeline = new Timeline(
+				new KeyFrame(Duration.millis(500), 
+						ae-> enemyWork()),
+				new KeyFrame(Duration.millis(500*2), 
+						ae->enemyWork()),
+				new KeyFrame(Duration.millis(500*3), 
+						ae->enemyWork()),
+				new KeyFrame(Duration.millis(500*3), 
+						ae-> enemyTurnEnd())
+				);
+			timeline.playFromStart();
 	}
 	
-	private void holdOn(int time) {
-		try {
-			TimeUnit.MILLISECONDS.sleep(500);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+	private List<String> commandList = Arrays.asList("eat", "sleep", "work");
+	
+	private void enemyWork() {
+		c.getFightClubController().runFireList(
+				commandList.get(rand.nextInt(commandList.size())), 
+				c.getFightClubController().getEnemyList().get(0));
 	}
+	
+	private void enemyTurnEnd() {
+		count = 0;
+		c.getView().getFightClubView().setDisableCommandField(false);
+		c.getView().getFightClubView().setCommandFeildFocused();
+		c.getPlayer().setMoves(c.getPlayer().getMaxMoves());
+		c.getView().getFightClubView().setPlayerMovesLeft(c.getPlayer());
+	}
+	
 }

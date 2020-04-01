@@ -1,20 +1,19 @@
 package com.game.darquest.data.actions;
 
 import com.game.darquest.controller.Controller;
+import com.game.darquest.data.Person;
 import com.game.darquest.data.Player;
 
 public class Sleep implements Fireable {
 	
 	private Controller c;
-	private Player p;
-	private boolean isValid;
+	private String output;
 	
 	public Sleep(Controller c) {
 		this.c = c;
-		this.p = (Player)this.c.getPlayer();
 	}
 	@Override
-	public String fire() {
+	public boolean fire(Person p) {
 
 		if(p.getSleep()+.1 <= p.getMaxSleep()) {
 			if(p.getWork() > p.getMinWork() && p.getEat() > p.getMinEat()) {
@@ -24,17 +23,19 @@ public class Sleep implements Fireable {
 				
 				double gainedEng = p.getSleep()/4;
 				p.setEng(p.getEng()+gainedEng);
-				isValid = true;
-				return "You feel rested.\nYou gained Eng: +"+gainedEng+
+				output = "You feel rested.\nYou gained Eng: +"+gainedEng+
 						"\nEat lost: -"+.1+
 						"\nWork lost: -"+.1;
+				return true;
+				
 			}
-			isValid = false;
-			return "You can't sleep right now.\n"
+			output = "You can't sleep right now.\n"
 			+ "You must have at least .1 work and .1 eat...";
+			return false;
 		}
 		p.setSleep(p.getMaxSleep());
-		return "You have slept to your max capacity.";
+		output = "You have slept to your max capacity.";
+		return false;
 	}
 
 	@Override
@@ -42,7 +43,8 @@ public class Sleep implements Fireable {
 		return "sleep";
 	}
 	@Override
-	public boolean isValid() {
-		return isValid;
+	public String getOutput() {
+		return output;
 	}
+
 }

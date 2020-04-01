@@ -1,9 +1,11 @@
 package com.game.darquest.data.actions;
 
+import com.game.darquest.data.Person;
+
 public interface Fireable {
 	
-	String fire();
+	boolean fire(Person p);
 	String getCommandId();
-	boolean isValid();
+	String getOutput();
 
 }
