@@ -3,28 +3,23 @@ package com.game.darquest.data.actions;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
-import com.game.darquest.controller.Controller;
 import com.game.darquest.data.Person;
-import com.game.darquest.data.Player;
 
 public class Eat implements Fireable {
 	
-	private Controller c;
 	private DecimalFormat f2 = new DecimalFormat("0.00");
 	private String output;
-	public Eat(Controller c) {
-		this.c = c;
-	}
+	
 
 	@Override
 	public boolean fire(Person p) {
-		if(p.getEat()+.1 <= p.getMaxEat()) {
+		if(p.getEat()+.1 <= p.getMAX_BAR()) {
 			double costToEat = (p.getEat()+.1)*150.5;
 			if(p.getCash() >= costToEat) {
 				p.setEat(p.getEat()+.1);
 				p.setCash(p.getCash()-costToEat);
 				
-				double hpGained = p.getEat()*.1;
+				double hpGained = p.getEat()*.01;
 				p.setHp(p.getHp()+hpGained);
 				output = "You ate and feel much better.\n"
 						+ "HP gained: +"+f2.format(hpGained)+"\n"
@@ -35,7 +30,7 @@ public class Eat implements Fireable {
 					+ "It would cost: "+NumberFormat.getCurrencyInstance().format(costToEat);
 			return false;
 		}
-		p.setEat(p.getMaxEat());
+		p.setEat(p.getMAX_BAR());
 		output = "You can't eat anymore or you'll explode...";
 		return false;
 		
@@ -49,6 +44,12 @@ public class Eat implements Fireable {
 	@Override
 	public String getOutput() {
 		return output;
+	}
+
+	@Override
+	public void setChoosenID(String id) {
+		// TODO Auto-generated method stub
+		
 	}
 }
 

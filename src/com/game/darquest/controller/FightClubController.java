@@ -7,6 +7,7 @@ import java.util.List;
 import com.game.darquest.data.Enemy;
 import com.game.darquest.data.Person;
 import com.game.darquest.data.Player;
+import com.game.darquest.data.actions.Attack;
 import com.game.darquest.data.actions.Eat;
 import com.game.darquest.data.actions.Fireable;
 import com.game.darquest.data.actions.Sleep;
@@ -25,23 +26,25 @@ public class FightClubController implements EventHandler<KeyEvent> {
 	public FightClubController(Controller c) {
 		c.getView().getFightClubView().addCommandFieldListener(this);
 		this.c = c;
-		fireList = Arrays.asList(new Eat(this.c), new Sleep(this.c), new Work(this.c));
+		fireList = Arrays.asList(new Eat(), new Sleep(), new Work(), new Attack(this.c));
 	}
 	
 	@Override
 	public void handle(KeyEvent e) {
 		if(e.getCode() == KeyCode.ENTER) {
 			String command = c.getView().getFightClubView().getCommand();
-			runFireList(command, c.getPlayer());
+			runFire(command, c.getPlayer());
 		}
 	}
 	
-	public void runFireList(String command, Person person) {
+	public void runFire(String command, Person person) {
 		for (int i = 0; i < fireList.size(); i++) {
 			if(command.toLowerCase().equals(fireList.get(i).getCommandId())) {
+				fireList.get(i).setChoosenID(Character.toString(command.charAt(command.length()-1)));
 				boolean valid = fireList.get(i).fire(person);
 				String output = fireList.get(i).getOutput();
 				if(valid) setPersonStats(person);
+				c.getView().getFightClubView().setEnemyStats(enemyList.get(0));
 				setOutput(output, person);
 			}
 		}
@@ -50,7 +53,7 @@ public class FightClubController implements EventHandler<KeyEvent> {
 	private void setOutput(String output, Person person) {
 		if(person instanceof Player) {
 			c.getView().getFightClubView().setPlayerOutputTextArea(output);
-			return;
+			return; 
 		}
 		c.getView().getFightClubView().setEnemyOutputTextArea(output+"\n");
 	}
@@ -64,7 +67,6 @@ public class FightClubController implements EventHandler<KeyEvent> {
 			doEnemyTurnIfPlayerTurnHasEnded();
 			return;
 		}
-		c.getView().getFightClubView().setEnemyStats(enemyList.get(0));
 	}
 	
 	private void doEnemyTurnIfPlayerTurnHasEnded() {

@@ -2,6 +2,7 @@ package com.game.darquest.data;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.Random;
 
 import com.game.darquest.data.items.Armor;
 import com.game.darquest.data.items.Item;
@@ -12,33 +13,24 @@ public abstract class Person {
 
 	private DecimalFormat f2 = new DecimalFormat("0.00");
 	private DecimalFormat f1 = new DecimalFormat("0.0");
-	
+
+	private Random rand = new Random();
+
 	private final int maxMoves = 3;
 	private int moves;
 
 	private String name;
-	private int lvl = 1;
+	private int lvl = 5;
 	private double cash = 1000.0;
 
 	private double hp = 1;
-	private final double maxHp = 1;
-	private final double minHp = 0;
-
 	private double eng = 0;
-	private final double maxEng = 1;
-	private final double minEng = 0;
-
 	private double eat = 0;
-	private final double maxEat = 1;
-	private final double minEat = 0;
-
 	private double sleep = 0;
-	private final double maxSleep = 1;
-	private final double minSleep = 0;
-
 	private double work = 0;
-	private final double maxWork = 1;
-	private final double minWork = 0;
+
+	private final int MIN = 0;
+	private final int MAX_BAR = 1;
 
 	private Weapon equippedWeapon;
 	private Armor equippedArmor;
@@ -74,11 +66,28 @@ public abstract class Person {
 
 	}
 
+	public double getRandomDamageAmount() {
+		int min = this.equippedWeapon.getMinDamage();
+		int max = this.equippedWeapon.getMaxDamage();
+
+		double weaponDamage = rand.nextInt((max - min) + 1) + min;
+		System.out.println("Weapon damage random: " + weaponDamage);
+
+		double engMult = this.getEng();
+		System.out.println("Eng: " + engMult);
+
+		return (weaponDamage / 100d) + (engMult / 2);
+	}
+
 	public int getDef() {
 		return def;
 	}
 
 	public void setDef(int def) {
+		if (def < 0) {
+			this.def = MIN;
+			return;
+		}
 		this.def = def;
 	}
 
@@ -87,6 +96,10 @@ public abstract class Person {
 	}
 
 	public void setStealth(int stealth) {
+		if (stealth < 0) {
+			this.stealth = MIN;
+			return;
+		}
 		this.stealth = stealth;
 	}
 
@@ -95,6 +108,10 @@ public abstract class Person {
 	}
 
 	public void setAwareness(int awareness) {
+		if (awareness < 0) {
+			this.awareness = MIN;
+			return;
+		}
 		this.awareness = awareness;
 	}
 
@@ -131,11 +148,15 @@ public abstract class Person {
 	}
 
 	public void setHp(double hp) {
+		if (hp > 1) {
+			this.hp = MAX_BAR;
+			return;
+		}
+		if (hp < 0) {
+			this.hp = MIN;
+			return;
+		}
 		this.hp = Double.parseDouble(f2.format(hp));
-	}
-
-	public double getMaxHp() {
-		return maxHp;
 	}
 
 	public double getEng() {
@@ -143,15 +164,15 @@ public abstract class Person {
 	}
 
 	public void setEng(double eng) {
+		if (eng > 1) {
+			this.eng = MAX_BAR;
+			return;
+		}
 		if (eng < 0) {
-			this.eng = 0;
+			this.eng = MIN;
 			return;
 		}
 		this.eng = Double.parseDouble(f2.format(eng));
-	}
-
-	public double getMaxEng() {
-		return maxEng;
 	}
 
 	public double getEat() {
@@ -159,11 +180,15 @@ public abstract class Person {
 	}
 
 	public void setEat(double eat) {
+		if (eat > 1) {
+			this.eat = MAX_BAR;
+			return;
+		}
+		if (eat < 0) {
+			this.eat = MIN;
+			return;
+		}
 		this.eat = Double.parseDouble(f1.format(eat));
-	}
-
-	public double getMaxEat() {
-		return maxEat;
 	}
 
 	public double getSleep() {
@@ -171,11 +196,15 @@ public abstract class Person {
 	}
 
 	public void setSleep(double sleep) {
+		if (sleep > 1) {
+			this.sleep = MAX_BAR;
+			return;
+		}
+		if (sleep < 0) {
+			this.sleep = MIN;
+			return;
+		}
 		this.sleep = Double.parseDouble(f1.format(sleep));
-	}
-
-	public double getMaxSleep() {
-		return maxSleep;
 	}
 
 	public double getWork() {
@@ -183,43 +212,31 @@ public abstract class Person {
 	}
 
 	public void setWork(double work) {
+		if (work > 1) {
+			this.work = MAX_BAR;
+			return;
+		}
+		if (work < 0) {
+			this.work = MIN;
+			return;
+		}
 		this.work = Double.parseDouble(f1.format(work));
-	}
-
-	public double getMaxWork() {
-		return maxWork;
 	}
 
 	public double getCash() {
 		return cash;
 	}
 
-	public String getCashFormatted() {
-		return NumberFormat.getCurrencyInstance().format(cash);
-	}
-
 	public void setCash(double cash) {
+		if (cash < 0) {
+			this.cash = MIN;
+			return;
+		}
 		this.cash = cash;
 	}
 
-	public double getMinHp() {
-		return minHp;
-	}
-
-	public double getMinEng() {
-		return minEng;
-	}
-
-	public double getMinEat() {
-		return minEat;
-	}
-
-	public double getMinSleep() {
-		return minSleep;
-	}
-
-	public double getMinWork() {
-		return minWork;
+	public String getCashFormatted() {
+		return NumberFormat.getCurrencyInstance().format(cash);
 	}
 
 	public String getEquippedWeaponString() {
@@ -236,10 +253,11 @@ public abstract class Person {
 
 	@Override
 	public String toString() {
-		return "Person [name=" + name + ", lvl=" + lvl + ", cash=" + cash + ", hp=" + hp + ", maxHp=" + maxHp
-				+ ", minHp=" + minHp + ", eng=" + eng + ", maxEng=" + maxEng + ", minEng=" + minEng + ", eat=" + eat
-				+ ", maxEat=" + maxEat + ", minEat=" + minEat + ", sleep=" + sleep + ", maxSleep=" + maxSleep
-				+ ", minSleep=" + minSleep + ", work=" + work + ", maxWork=" + maxWork + ", minWork=" + minWork + "]";
+		return "Person [f2=" + f2 + ", f1=" + f1 + ", rand=" + rand + ", moves=" + moves + ", name=" + name + ", lvl="
+				+ lvl + ", cash=" + cash + ", hp=" + hp + ", eng=" + eng + ", eat=" + eat + ", sleep=" + sleep
+				+ ", work=" + work + ", equippedWeapon=" + equippedWeapon + ", equippedArmor=" + equippedArmor
+				+ ", equippedTool=" + equippedTool + ", def=" + def + ", stealth=" + stealth + ", awareness="
+				+ awareness + "]";
 	}
 
 	public int getMaxMoves() {
@@ -252,6 +270,14 @@ public abstract class Person {
 
 	public void setMoves(int moves) {
 		this.moves = moves;
+	}
+
+	public int getMIN() {
+		return MIN;
+	}
+
+	public int getMAX_BAR() {
+		return MAX_BAR;
 	}
 
 }

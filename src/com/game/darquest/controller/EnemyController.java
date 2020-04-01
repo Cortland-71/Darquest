@@ -33,10 +33,10 @@ public class EnemyController {
 			timeline.playFromStart();
 	}
 	
-	private List<String> commandList = Arrays.asList("eat", "sleep", "work");
+	private List<String> commandList = Arrays.asList("eat", "sleep", "work", "attack");
 	
 	private void enemyWork() {
-		c.getFightClubController().runFireList(
+		c.getFightClubController().runFire(
 				commandList.get(rand.nextInt(commandList.size())), 
 				c.getFightClubController().getEnemyList().get(0));
 	}
