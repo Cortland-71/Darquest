@@ -1,15 +1,11 @@
 package com.game.darquest.controller;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
 import com.game.darquest.data.Player;
-import com.game.darquest.data.items.Armor;
 import com.game.darquest.data.items.Item;
-import com.game.darquest.data.items.Tool;
-import com.game.darquest.data.items.Weapon;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

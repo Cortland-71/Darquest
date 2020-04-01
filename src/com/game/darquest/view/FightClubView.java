@@ -1,9 +1,7 @@
 package com.game.darquest.view;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.game.darquest.data.Enemy;
+import com.game.darquest.data.Person;
 
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -24,7 +22,6 @@ import javafx.scene.paint.Color;
 public class FightClubView extends DownTownView {
 	
 	private Scene fightClubScene;
-	private List<Enemy> enemyList = new ArrayList<>();
 
 	public FightClubView() {
 		fightClubScene = new Scene(fightClubPane(), View.WIDTH, View.HEIGHT);
@@ -103,7 +100,9 @@ public class FightClubView extends DownTownView {
 		enemyOutputTextArea.setMinSize(645, 180);
 		return enemyOutputTextArea;
 	}
-	
+	public void setEnemyOutputTextArea(String text) {
+		enemyOutputTextArea.appendText(text+"\n");
+	}
 	
 	private Label enemyOutputLabel() {
 		Label enemyOutputLabel = new Label("Enemy output");
@@ -362,26 +361,43 @@ public class FightClubView extends DownTownView {
 	}
 	
 	
-	//Bottom for player input \/\/\/\/\/\/\/\/\/\/\\/\/\/\/\/\/\
+	//Bottom for player input \/\/\/\/\/\/\/\/\/\/\\/\/\/\/\/\/\ Bottom player input
 	private BorderPane bottomFightClubPane() {
 		BorderPane bottomPane = new BorderPane();
-		bottomPane.setTop(commandFieldBox());
+		bottomPane.setTop(inputLabelMovesBox());
+		bottomPane.setCenter(commandFieldBox());
 		return bottomPane;
 	}
 	
 	private VBox commandFieldBox() {
 		VBox commandFieldBox = new VBox(15);
 		commandFieldBox.setAlignment(Pos.CENTER);
-		commandFieldBox.setPadding(new Insets(20,0,200,0));
-		commandFieldBox.getChildren().add(commandLabel());
+		commandFieldBox.setPadding(new Insets(5,0,200,0));
 		commandFieldBox.getChildren().add(commandField());
 		return commandFieldBox;
+	}
+	
+	private HBox inputLabelMovesBox() {
+		HBox inputLabelMovesBox = new HBox(15);
+		inputLabelMovesBox.setAlignment(Pos.CENTER);
+		inputLabelMovesBox.setPadding(new Insets(20,0,0,0));
+		inputLabelMovesBox.getChildren().add(commandLabel());
+		inputLabelMovesBox.getChildren().add(playerMovesLabel());
+		return inputLabelMovesBox;
 	}
 	
 	private Label commandLabel() {
 		Label commandLabel = new Label("Enter commands here or type \"help\" for additional info.");
 		commandLabel.setId("commandLabel");
 		return commandLabel;
+	}
+	
+	private Label playerMovesLabel;
+	private Label playerMovesLabel() {
+		playerMovesLabel = new Label("Moves");
+		playerMovesLabel.setId(""
+				+ "");
+		return playerMovesLabel;
 	}
 	
 	private TextField commandField;
@@ -391,6 +407,10 @@ public class FightClubView extends DownTownView {
 		commandField.setMinSize(600, 45);
 		commandField.setAlignment(Pos.CENTER);
 		return commandField;
+	}
+	
+	public void setDisableCommandField(boolean b) {
+		commandField.setDisable(b);
 	}
 	 
 	public void clearCommandField() {
@@ -414,6 +434,10 @@ public class FightClubView extends DownTownView {
 	}
 	
 	// \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\- Helper
+	public void setPlayerMovesLeft(Person p) {
+		playerMovesLabel.setText("Moves left: "+p.getMoves()+"/"+p.getMaxMoves());
+	}
+	
 	public void setEnemyStats(Enemy p) {
 		enemyNameLabel.setText("Name:\t" + p.getName());
 		enemyLvlLabel.setText("Lvl:\t" + p.getLvl());

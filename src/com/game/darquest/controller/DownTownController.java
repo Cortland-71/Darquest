@@ -73,6 +73,8 @@ class FightClub implements Clickable {
 			.add(c.getView().getFightClubView().getInnerEnemyPane());
 			c.getView().getFightClubView().setEnemyStats(enemyList.get(i));
 		}
+		c.getPlayer().setMoves(3);
+		c.getView().getFightClubView().setPlayerMovesLeft(c.getPlayer());
 		c.getView().getWindow().setScene(c.getView().getFightClubView().getFightClubScene());
 		c.getView().getFightClubView().setCommandFeildFocused();
 	}

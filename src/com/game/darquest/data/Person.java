@@ -12,10 +12,13 @@ public abstract class Person {
 
 	private DecimalFormat f2 = new DecimalFormat("0.00");
 	private DecimalFormat f1 = new DecimalFormat("0.0");
+	
+	private final int maxMoves = 3;
+	private int moves;
 
 	private String name;
 	private int lvl = 1;
-	private double cash = 1000000.0;
+	private double cash = 1000.0;
 
 	private double hp = 1;
 	private final double maxHp = 1;
@@ -237,6 +240,18 @@ public abstract class Person {
 				+ ", minHp=" + minHp + ", eng=" + eng + ", maxEng=" + maxEng + ", minEng=" + minEng + ", eat=" + eat
 				+ ", maxEat=" + maxEat + ", minEat=" + minEat + ", sleep=" + sleep + ", maxSleep=" + maxSleep
 				+ ", minSleep=" + minSleep + ", work=" + work + ", maxWork=" + maxWork + ", minWork=" + minWork + "]";
+	}
+
+	public int getMaxMoves() {
+		return maxMoves;
+	}
+
+	public int getMoves() {
+		return moves;
+	}
+
+	public void setMoves(int moves) {
+		this.moves = moves;
 	}
 
 }

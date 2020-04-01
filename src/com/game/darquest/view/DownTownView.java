@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.game.darquest.data.Person;
 import com.game.darquest.data.Player;
 import com.game.darquest.data.items.Item;
 
@@ -52,7 +51,6 @@ public class DownTownView {
 	private Label eatLabel = new Label();
 	private Label sleepLabel = new Label();
 	private Label workLabel = new Label();
-	private Label equippedLabel = new Label("Equipped >");
 	private Label equippedWeaponLabel = new Label();
 	private Label equippedArmorLabel = new Label();
 	private Label equippedToolLabel = new Label();
@@ -192,9 +190,9 @@ public class DownTownView {
 	
 	// Equipped Box \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/
 	private VBox equippedBox() {
-		VBox equippedBox = new VBox(8);
+		VBox equippedBox = new VBox(5);
 		equippedBox.setPadding(new Insets(20, 0, 0, 0));
-		equippedBox.getChildren().addAll(equippedLabel, equippedWeaponLabel, equippedArmorLabel, equippedToolLabel);
+		equippedBox.getChildren().addAll(equippedWeaponLabel, equippedArmorLabel, equippedToolLabel);
 		return equippedBox;
 	}
 	

@@ -15,6 +15,7 @@ public class Controller {
 	private ShopInventoryController shopInventoryController;
 	private FightClubController fightClubController;
 	private ItemController itemController;
+	private EnemyController enemyController;
 	private View view;
 	private Person player;
 	
@@ -31,7 +32,7 @@ public class Controller {
 		this.itemController = new ItemController();
 		this.shopInventoryController = new ShopInventoryController(this);
 		this.fightClubController = new FightClubController(this);
-		
+		this.enemyController = new EnemyController(this);
 	}
 
 	
@@ -82,6 +83,11 @@ public class Controller {
 
 	public ItemController getItemController() {
 		return itemController;
+	}
+
+
+	public EnemyController getEnemyController() {
+		return enemyController;
 	}
 	
 	
