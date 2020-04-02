@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
+import com.game.darquest.data.Enemy;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
@@ -33,12 +35,17 @@ public class EnemyController {
 			timeline.playFromStart();
 	}
 	
-	private List<String> commandList = Arrays.asList("eat", "sleep", "work", "attack");
+	private List<String> commandList = Arrays.asList("eat", "sleep", "work", "attack 0");
 	
 	private void enemyWork() {
 		c.getFightClubController().runFire(
 				commandList.get(rand.nextInt(commandList.size())), 
 				c.getFightClubController().getEnemyList().get(0));
+		
+		List<Enemy> list = c.getFightClubController().getEnemyList();
+		
+		c.getView().getFightClubView().getCenterEnemyBox().getChildren().clear();
+		c.getDownTownController().drawAllEnemyBoxes(list);
 	}
 	
 	private void enemyTurnEnd() {

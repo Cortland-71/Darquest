@@ -7,7 +7,7 @@ public class Sleep implements Fireable {
 	private String output;
 
 	@Override
-	public boolean fire(Person p) {
+	public boolean fire(Person p, Person choosen) {
 
 		if (p.getSleep() + .1 <= p.getMAX_BAR()) {
 			if (p.getWork() > p.getMIN() && p.getEat() > p.getMIN()) {
@@ -37,11 +37,5 @@ public class Sleep implements Fireable {
 	@Override
 	public String getOutput() {
 		return output;
-	}
-
-	@Override
-	public void setChoosenID(String id) {
-		// TODO Auto-generated method stub
-
 	}
 }

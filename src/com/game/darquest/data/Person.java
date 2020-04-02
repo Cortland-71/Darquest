@@ -20,7 +20,7 @@ public abstract class Person {
 	private int moves;
 
 	private String name;
-	private int lvl = 5;
+	private int lvl = 1;
 	private double cash = 1000.0;
 
 	private double hp = 1;
@@ -69,13 +69,8 @@ public abstract class Person {
 	public double getRandomDamageAmount() {
 		int min = this.equippedWeapon.getMinDamage();
 		int max = this.equippedWeapon.getMaxDamage();
-
 		double weaponDamage = rand.nextInt((max - min) + 1) + min;
-		System.out.println("Weapon damage random: " + weaponDamage);
-
 		double engMult = this.getEng();
-		System.out.println("Eng: " + engMult);
-
 		return (weaponDamage / 100d) + (engMult / 2);
 	}
 

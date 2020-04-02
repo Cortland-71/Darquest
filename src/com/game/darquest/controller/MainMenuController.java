@@ -42,7 +42,6 @@ class NewGame implements Clickable {
 	
 	@Override
 	public void clickAction() {
-		System.out.println("Clicked New game");
 		view.getWindow().setScene(view.getNewPlayerView().getEnterNameScene());
 	}
 }

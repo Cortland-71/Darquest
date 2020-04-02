@@ -10,7 +10,7 @@ public class Work implements Fireable {
 	private String output;
 
 	@Override
-	public boolean fire(Person p) {
+	public boolean fire(Person p, Person choosen) {
 		if (p.getWork() + .1 <= p.getMAX_BAR()) {
 
 			p.setWork(p.getWork() + .1);
@@ -39,11 +39,5 @@ public class Work implements Fireable {
 	@Override
 	public String getOutput() {
 		return output;
-	}
-
-	@Override
-	public void setChoosenID(String id) {
-		// TODO Auto-generated method stub
-
 	}
 }

@@ -51,6 +51,14 @@ public class DownTownController implements EventHandler<ActionEvent>{
 		int eventIndex = Integer.parseInt(id);
 		downTownActions.get(eventIndex).clickAction();
 	}
+	
+	public void drawAllEnemyBoxes(List<Enemy> list) {
+		for (int i = 0; i < list.size(); i++) {
+			c.getView().getFightClubView().getCenterEnemyBox().getChildren()
+			.add(c.getView().getFightClubView().getInnerEnemyPane());
+			c.getView().getFightClubView().setEnemyStats(list.get(i));
+		}
+	}
 }
 
 //\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/ -Action Classes for Main Menu
@@ -68,15 +76,13 @@ class FightClub implements Clickable {
 		List<Enemy> enemyList = enemyGenerator.getEnemyList();
 		c.getFightClubController().setEnemyList(enemyList);
 		
-		for (int i = 0; i < enemyList.size(); i++) {
-			c.getView().getFightClubView().getCenterEnemyBox().getChildren()
-			.add(c.getView().getFightClubView().getInnerEnemyPane());
-			c.getView().getFightClubView().setEnemyStats(enemyList.get(i));
-		}
+		c.getDownTownController().drawAllEnemyBoxes(enemyList);
+		
 		c.getPlayer().setMoves(3);
 		c.getView().getFightClubView().setPlayerMovesLeft(c.getPlayer());
 		c.getView().getWindow().setScene(c.getView().getFightClubView().getFightClubScene());
 		c.getView().getFightClubView().setCommandFeildFocused();
+		
 	}
 }
 
@@ -87,7 +93,6 @@ class Shop implements Clickable {
 	}
 	@Override
 	public void clickAction() {
-		System.out.println("Clicked shop");
 		c.getView().getWindow().setScene(c.getView().getShopView().getShopScene());
 		c.getView().getShopView().getShopTabPane().getSelectionModel().selectFirst();
 		c.getView().getShopView().getShopListViewObjects().forEach(o->o.getSelectionModel().selectFirst());

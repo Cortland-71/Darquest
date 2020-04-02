@@ -100,6 +100,11 @@ public class FightClubView extends DownTownView {
 		enemyOutputTextArea.setMinSize(645, 180);
 		return enemyOutputTextArea;
 	}
+	
+	public void clearEnemyOutputTextArea() {
+		enemyOutputTextArea.clear();
+	}
+	
 	public void setEnemyOutputTextArea(String text) {
 		enemyOutputTextArea.appendText(text+"\n");
 	}
@@ -439,7 +444,6 @@ public class FightClubView extends DownTownView {
 	}
 	
 	public void setEnemyStats(Enemy p) {
-		System.out.println(p);
 		enemyNameLabel.setText("Name:\t" + p.getName());
 		enemyLvlLabel.setText("Lvl:\t" + p.getLvl());
 		enemyCashLabel.setText("Cash:\t" + p.getCashFormatted());

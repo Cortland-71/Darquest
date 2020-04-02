@@ -26,7 +26,7 @@ public class FightClubController implements EventHandler<KeyEvent> {
 	public FightClubController(Controller c) {
 		c.getView().getFightClubView().addCommandFieldListener(this);
 		this.c = c;
-		fireList = Arrays.asList(new Eat(), new Sleep(), new Work(), new Attack(this.c));
+		fireList = Arrays.asList(new Eat(), new Sleep(), new Work(), new Attack());
 	}
 	
 	@Override
@@ -34,20 +34,60 @@ public class FightClubController implements EventHandler<KeyEvent> {
 		if(e.getCode() == KeyCode.ENTER) {
 			String command = c.getView().getFightClubView().getCommand();
 			runFire(command, c.getPlayer());
+			
 		}
 	}
 	
 	public void runFire(String command, Person person) {
+		
+		Person choosen = person;
+		String finalCommand = command;
+		if(hasModifier(command)) {
+			choosen = assignReceivingPerson(command);
+			finalCommand = getCommandWithoutModifiers(command);
+		}
+		
 		for (int i = 0; i < fireList.size(); i++) {
-			if(command.toLowerCase().equals(fireList.get(i).getCommandId())) {
-				fireList.get(i).setChoosenID(Character.toString(command.charAt(command.length()-1)));
-				boolean valid = fireList.get(i).fire(person);
+			if(finalCommand.toLowerCase().equals(fireList.get(i).getCommandId())) {
+				boolean valid = fireList.get(i).fire(person, choosen);
 				String output = fireList.get(i).getOutput();
-				if(valid) setPersonStats(person);
-				c.getView().getFightClubView().setEnemyStats(enemyList.get(0));
+				if(valid) {
+					if(person instanceof Player)
+						afterPlayerMove();
+				};
 				setOutput(output, person);
 			}
 		}
+	}
+	
+	private String[] modifiers = {"0", "1", "2", "3"};
+	
+	private String getCommandWithoutModifiers(String command) {
+		String mod = command.substring(command.length()-2, command.length());
+		int indexAtMod = command.indexOf(mod);
+		return command.substring(0, indexAtMod);
+	}
+	
+	private boolean hasModifier(String command) {
+		for (String e : modifiers) 
+			if(command.contains(e)) 
+				return true;
+		return false;
+	}
+	
+	private Person assignReceivingPerson(String command) {
+		
+		String mod = "";
+		Person person = null;
+		if(command.contains("0")) return c.getPlayer();
+		for(String m : modifiers) {
+			if(command.contains(m)) mod = m;
+		}
+		
+		for(Enemy e : enemyList) {
+			if(e.getId() == Integer.parseInt(mod)) person = e;
+		}
+		return person;
 	}
 	
 	private void setOutput(String output, Person person) {
@@ -58,19 +98,19 @@ public class FightClubController implements EventHandler<KeyEvent> {
 		c.getView().getFightClubView().setEnemyOutputTextArea(output+"\n");
 	}
 	
-	private void setPersonStats(Person person) {
-		if(person instanceof Player) {
-			c.getView().getFightClubView().clearCommandField();
-			c.getPlayer().setMoves(c.getPlayer().getMoves()-1);
-			c.getView().getFightClubView().setPlayerMovesLeft(c.getPlayer());
-			c.getPlayerInventoryAndStatsController().updateAllPlayerStats();
-			doEnemyTurnIfPlayerTurnHasEnded();
-			return;
-		}
+	private void afterPlayerMove() {
+		c.getView().getFightClubView().clearCommandField();
+		c.getPlayer().setMoves(c.getPlayer().getMoves()-1);
+		c.getView().getFightClubView().setPlayerMovesLeft(c.getPlayer());
+		c.getPlayerInventoryAndStatsController().updateAllPlayerStats();
+		c.getView().getFightClubView().getCenterEnemyBox().getChildren().clear();
+		c.getDownTownController().drawAllEnemyBoxes(enemyList);
+		doEnemyTurnIfPlayerTurnHasEnded();
 	}
 	
 	private void doEnemyTurnIfPlayerTurnHasEnded() {
 		if(c.getPlayer().getMoves()<1) {
+			c.getView().getFightClubView().clearEnemyOutputTextArea();
 			c.getView().getFightClubView().setDisableCommandField(true);
 			c.getEnemyController().enemyTurn();
 		}

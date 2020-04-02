@@ -10,40 +10,25 @@ import com.game.darquest.data.Player;
 
 public class Attack implements Fireable {
 
-	private Controller c;
 	private String output;
-	private String id = "0";
 	private DecimalFormat f2 = new DecimalFormat("0.00");
-	public Attack(Controller c) {
-		this.c = c;
-	}
 	
 	@Override
-	public void setChoosenID(String id) {
-		this.id = id;
-	}
-
-	@Override
-	public boolean fire(Person p) {
+	public boolean fire(Person p, Person choosen) {
 		if(p.getEat() >= .1 && p.getSleep() >= .1 && p.getWork() >= .1) {
 			
 			int def = 0;
 			double finalDamage = 0;
 			double damageAmount = p.getRandomDamageAmount();
 			
-			if(p instanceof Player) {
-				List<Enemy> enemyList = c.getFightClubController().getEnemyList();
-				
-				for (int i = 0; i < enemyList.size(); i++) {
-					def = enemyList.get(i).getDef();
-					finalDamage = damageAmount - ((def/2d)/100d);
-					enemyList.get(i).setHp(enemyList.get(i).getHp() - finalDamage);
-				}
-			} else {
-				def = c.getPlayer().getDef();
-				finalDamage = damageAmount - ((def/2d)/100d);
-				c.getPlayer().setHp(c.getPlayer().getHp() - finalDamage);
-			}
+			p.setEng(p.getEng() - .1);
+			p.setEat(p.getEat() - .1);
+			p.setSleep(p.getSleep() - .1);
+			p.setWork(p.getWork() - .1);
+			
+			def = choosen.getDef();
+			finalDamage = damageAmount - ((def/2d)/100d);
+			choosen.setHp(choosen.getHp() - finalDamage);
 			
 			output = "Attack landed successfully!"
 					+ "\nInit Damage: "+f2.format(damageAmount)
