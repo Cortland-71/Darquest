@@ -22,12 +22,12 @@ public class Work implements Fireable {
 			p.setCash(p.getCash() + finalPay);
 			p.setEng(p.getEng() - lostEng);
 
-			output = "Your hard work is paying off.\nYou gained: +"
+			output = p.getName() + "'s hard work is paying off.\nYou gained: +"
 					+ NumberFormat.getCurrencyInstance().format(finalPay) + "\nEng lost: " + lostEng;
 			return true;
 		}
 		p.setWork(p.getMAX_BAR());
-		output = "You cannot work anymore...\n" + "Try sleeping to recover.";
+		output = p.getName() + " cannot work anymore...\n" + "Try sleeping to recover.";
 		return false;
 	}
 

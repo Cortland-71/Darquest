@@ -29,7 +29,7 @@ public class ItemController {
 		return Arrays.asList(
 			new Weapon("Tanto", tantoDes(), 800, .08, 30, 30, 7, 12),
 			new Weapon("Machete", macheteDes(), 1200, .07, 25, 25, 8, 15),
-			new Weapon("Katana", katanaDes(), 2200, .1, 10, 50, 50, 20),
+			new Weapon("Katana", katanaDes(), 2200, .1, 10, 50, 20, 50),
 			new Weapon("Throwing Star", throwingStarDes(), 1500, .01, 3, 3, 10, 13),
 			new Weapon("G26 9mm", g26Des(), 1800, .35, 13, 13, 12, 22),
 			new Weapon("Reefer .38", reeferDes(), 1800, .25, 8, 8, 10, 20));
@@ -68,36 +68,36 @@ public class ItemController {
 	//Tools \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 	public List<Item> lowToolList() {
 		return Arrays.asList(
-			new Tool("Weak Hp Vial", hpVileDes(), 50, .01, 1, 1, 5, 10),
-			new Tool("Weak Eng Vial", engVileDes(), 200, .02, 1, 1, 1, 5),
-			new Tool("Cup of Fear", fearDes(), 250, .01, 1, 1, 2, 5),
-			new Tool("Cup of Valor", valorDes(), 250, .01, 1, 1, 2, 5),
-			new Tool("Cup of Light", lightDes(), 250, .01, 1, 1, 2, 5),
-			new Tool("Cup of Shadow", shadowDes(), 250, .01, 1, 1, 2, 5),
-			new Tool("Cup of Truth", truthDes(), 250, .01, 1, 1, 2, 5),
-			new Tool("Cup of Deception", deceptionDes(), 250, .01, 1, 1, 2, 5));
+			new Tool("Weak Hp Vial", hpVileDes(), "hp", 50, .01, 1, 1, 5, 10),
+			new Tool("Weak Eng Vial", engVileDes(), "eng", 200, .02, 1, 1, 1, 5),
+			new Tool("Cup of Fear", fearDes(), "def", 250, .01, 1, 1, 2, 5),
+			new Tool("Cup of Valor", valorDes(), "def", 250, .01, 1, 1, 2, 5),
+			new Tool("Cup of Light", lightDes(), "stealth", 250, .01, 1, 1, 2, 5),
+			new Tool("Cup of Shadow", shadowDes(), "stealth", 250, .01, 1, 1, 2, 5),
+			new Tool("Cup of Truth", truthDes(), "awareness", 250, .01, 1, 1, 2, 5),
+			new Tool("Cup of Deception", deceptionDes(), "awareness", 250, .01, 1, 1, 2, 5));
 	}
 	
 	public List<Item> midToolList() {
 		return Arrays.asList(
-			new Tool("Strong Hp Vial", hpVileDes(), 150, .02, 1, 1, 20, 50),
-			new Tool("Strong Eng Vial", engVileDes(), 400, .03, 1, 1, 5, 15),
-			new Tool("Bottle of Fear", fearDes(), 850, .02, 1, 1, 20, 30),
-			new Tool("Bottle of Valor", valorDes(), 850, .02, 1, 1, 20, 30),
-			new Tool("Bottle of Light", lightDes(), 850, .02, 1, 1, 20, 30),
-			new Tool("Bottle of Shadow", shadowDes(), 850, .02, 1, 1, 20, 30),
-			new Tool("Bottle of Truth", truthDes(), 850, .02, 1, 1, 20, 30),
-			new Tool("Bottle of Deception", deceptionDes(), 850, .02, 1, 1, 20, 30));
+			new Tool("Strong Hp Vial", hpVileDes(), "hp", 150, .02, 1, 1, 20, 50),
+			new Tool("Strong Eng Vial", engVileDes(), "eng", 400, .03, 1, 1, 5, 15),
+			new Tool("Bottle of Fear", fearDes(),"def",  850, .02, 1, 1, 20, 30),
+			new Tool("Bottle of Valor", valorDes(), "def", 850, .02, 1, 1, 20, 30),
+			new Tool("Bottle of Light", lightDes(), "stealth", 850, .02, 1, 1, 20, 30),
+			new Tool("Bottle of Shadow", shadowDes(), "stealth", 850, .02, 1, 1, 20, 30),
+			new Tool("Bottle of Truth", truthDes(), "awareness", 850, .02, 1, 1, 20, 30),
+			new Tool("Bottle of Deception",  deceptionDes(), "awareness", 850, .02, 1, 1, 20, 30));
 	}
 	
 	public List<Item> highToolList() {
 		return Arrays.asList(
-			new Tool("Raw Fear", fearDes(), 2500, .01, 1, 1, 100, 100),
-			new Tool("Raw Valor",valorDes(), 2500, .01, 1, 1, 100, 100),
-			new Tool("Raw Light", lightDes(), 2500, .01, 1, 1, 100, 100),
-			new Tool("Raw Shadow", shadowDes(), 2500, .01, 1, 1, 100, 100),
-			new Tool("Raw Truth", truthDes(), 2500, .01, 1, 1, 100, 100),
-			new Tool("Raw Deception", deceptionDes(), 2500, .01, 1, 1, 100, 100));
+			new Tool("Raw Fear", fearDes(), "def", 2500, .01, 1, 1, 100, 100),
+			new Tool("Raw Valor", valorDes(), "def", 2500, .01, 1, 1, 100, 100),
+			new Tool("Raw Light", lightDes(),"stealth", 2500, .01, 1, 1, 100, 100),
+			new Tool("Raw Shadow",shadowDes(), "stealth", 2500, .01, 1, 1, 100, 100),
+			new Tool("Raw Truth", truthDes(), "awareness", 2500, .01, 1, 1, 100, 100),
+			new Tool("Raw Deception", deceptionDes(), "awareness",  2500, .01, 1, 1, 100, 100));
 	}
 	
 	private String truthDes() {

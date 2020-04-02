@@ -10,6 +10,8 @@ public class Enforcer implements Classable {
 	private ItemController ic;
 	private int level;
 	
+	
+	
 
 	@Override
 	public int getGenerateDef() {

@@ -11,6 +11,7 @@ import com.game.darquest.data.actions.Attack;
 import com.game.darquest.data.actions.Eat;
 import com.game.darquest.data.actions.Fireable;
 import com.game.darquest.data.actions.Sleep;
+import com.game.darquest.data.actions.Use;
 import com.game.darquest.data.actions.Work;
 
 import javafx.event.EventHandler;
@@ -26,7 +27,7 @@ public class FightClubController implements EventHandler<KeyEvent> {
 	public FightClubController(Controller c) {
 		c.getView().getFightClubView().addCommandFieldListener(this);
 		this.c = c;
-		fireList = Arrays.asList(new Eat(), new Sleep(), new Work(), new Attack());
+		fireList = Arrays.asList(new Eat(), new Sleep(), new Work(), new Attack(), new Use());
 	}
 	
 	@Override
@@ -52,8 +53,9 @@ public class FightClubController implements EventHandler<KeyEvent> {
 				boolean valid = fireList.get(i).fire(person, choosen);
 				String output = fireList.get(i).getOutput();
 				if(valid) {
-					if(person instanceof Player)
+					if(person instanceof Player) {
 						afterPlayerMove();
+					}
 				};
 				setOutput(output, person);
 			}
@@ -108,11 +110,14 @@ public class FightClubController implements EventHandler<KeyEvent> {
 		doEnemyTurnIfPlayerTurnHasEnded();
 	}
 	
+	private int enemyIndex = 0;
 	private void doEnemyTurnIfPlayerTurnHasEnded() {
 		if(c.getPlayer().getMoves()<1) {
 			c.getView().getFightClubView().clearEnemyOutputTextArea();
 			c.getView().getFightClubView().setDisableCommandField(true);
-			c.getEnemyController().enemyTurn();
+			c.getEnemyController().enemyTurn(enemyList.get(enemyIndex));
+			enemyIndex++;
+			if(enemyIndex >= enemyList.size()) enemyIndex = 0;
 		}
 	}
 

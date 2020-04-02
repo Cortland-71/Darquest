@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 import com.game.darquest.data.Enemy;
+import com.game.darquest.data.Person;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -14,6 +15,7 @@ public class EnemyController {
 	
 	private Controller c;
 	private Random rand = new Random();
+	private Person currentEnemy;
 	
 	public EnemyController(Controller c) {
 		this.c = c;
@@ -21,14 +23,15 @@ public class EnemyController {
 	
 	int count = 0;
 	
-	public void enemyTurn() {
+	public void enemyTurn(Person enemy) {
+		this.currentEnemy = enemy;
 		Timeline timeline = new Timeline(
 				new KeyFrame(Duration.millis(500), 
-						ae-> enemyWork()),
+						ae-> moveOne()),
 				new KeyFrame(Duration.millis(500*2), 
-						ae->enemyWork()),
+						ae->moveTwo()),
 				new KeyFrame(Duration.millis(500*3), 
-						ae->enemyWork()),
+						ae->moveThree()),
 				new KeyFrame(Duration.millis(500*3), 
 						ae-> enemyTurnEnd())
 				);
@@ -37,15 +40,73 @@ public class EnemyController {
 	
 	private List<String> commandList = Arrays.asList("eat", "sleep", "work", "attack 0");
 	
-	private void enemyWork() {
-		c.getFightClubController().runFire(
-				commandList.get(rand.nextInt(commandList.size())), 
-				c.getFightClubController().getEnemyList().get(0));
+	private void moveOne() {
+		rulesForAttack();
+		updateAllStats();
+	}
+	
+	private void moveTwo() {
+		rulesForAttack();
+		updateAllStats();
+	}
+	
+	private void moveThree() {
+		rulesForAttack();
+		updateAllStats();
+	}
+	
+	private void rulesForAttack() {
+		double eatRequired = .1;
+		double sleepRequired = .1;
 		
+		if(currentEnemy.getEat() < eatRequired) {
+			rulesForEat();
+			return;
+		} else if(currentEnemy.getSleep() < sleepRequired) {
+			rulesForSleep();
+			return;
+		}
+		if(currentEnemy.getEng() >= .5 && currentEnemy.getEng() < 1) {
+			boolean coinFlip = rand.nextBoolean();
+			if(coinFlip) {
+				rulesForSleep();
+				return;
+			} 
+			c.getFightClubController().runFire("attack 0", currentEnemy);
+			return;
+		}
+		int coinFlip = rand.nextInt(10);
+		if(coinFlip < 7) {
+			rulesForSleep();
+			return;
+		} 
+		c.getFightClubController().runFire("attack 0", currentEnemy);
+		
+	}
+	
+	private void rulesForEat() {
+		double cashRequired = (currentEnemy.getEat() + .1) * 150.5;
+		if(currentEnemy.getCash() >= cashRequired) {
+			c.getFightClubController().runFire("eat", currentEnemy);
+			return;
+		}
+		c.getFightClubController().runFire("work", currentEnemy);
+	}
+	
+	private void rulesForSleep() {
+		double workRequired = .1;
+		if(currentEnemy.getWork() >= workRequired) {
+			c.getFightClubController().runFire("sleep", currentEnemy);
+			return;
+		}
+		c.getFightClubController().runFire("work", currentEnemy);
+	}
+	
+	private void updateAllStats() {
 		List<Enemy> list = c.getFightClubController().getEnemyList();
-		
 		c.getView().getFightClubView().getCenterEnemyBox().getChildren().clear();
 		c.getDownTownController().drawAllEnemyBoxes(list);
+		c.getPlayerInventoryAndStatsController().updateAllPlayerStats();
 	}
 	
 	private void enemyTurnEnd() {

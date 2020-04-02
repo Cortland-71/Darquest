@@ -20,16 +20,16 @@ public class Eat implements Fireable {
 
 				double hpGained = p.getEat() * .01;
 				p.setHp(p.getHp() + hpGained);
-				output = "You ate and feel much better.\n" + "HP gained: +" + f2.format(hpGained) + "\n" + "Cost: "
+				output = p.getName() + " ate and feels much better.\n" + "HP gained: +" + f2.format(hpGained) + "\n" + "Cost: "
 						+ NumberFormat.getCurrencyInstance().format(costToEat);
 				return true;
 			}
-			output = "You can't aford to eat at this point...\n" + "It would cost: "
+			output = p.getName() + " can't aford to eat at this point...\n" + "It would cost: "
 					+ NumberFormat.getCurrencyInstance().format(costToEat);
 			return false;
 		}
 		p.setEat(p.getMAX_BAR());
-		output = "You can't eat anymore or you'll explode...";
+		output = p.getName() + "... if you eat anymore you'll explode.";
 		return false;
 	}
 

@@ -34,7 +34,7 @@ public class NewPlayerController implements EventHandler<KeyEvent> {
 		c.getPlayer().setDef(1);
 		c.getPlayer().setStealth(1);
 		c.getPlayer().setAwareness(1);
-		((Player)c.getPlayer()).addItemToPlayerInventory(new Tool("none","none",0,0,10,10,0,0));
+		((Player)c.getPlayer()).addItemToPlayerInventory(new Tool("none","none","none",0,0,10,10,0,0));
 		((Player)c.getPlayer()).addItemToPlayerInventory(new Weapon("none","none",0,0,10,10,1,5));
 		((Player)c.getPlayer()).addItemToPlayerInventory(new Armor("none","none",0,0,10,10,0));
 

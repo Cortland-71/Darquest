@@ -15,7 +15,7 @@ public class Attack implements Fireable {
 	
 	@Override
 	public boolean fire(Person p, Person choosen) {
-		if(p.getEat() >= .1 && p.getSleep() >= .1 && p.getWork() >= .1) {
+		if(p.getEat() >= .1 && p.getSleep() >= .1) {
 			
 			int def = 0;
 			double finalDamage = 0;
@@ -24,20 +24,19 @@ public class Attack implements Fireable {
 			p.setEng(p.getEng() - .1);
 			p.setEat(p.getEat() - .1);
 			p.setSleep(p.getSleep() - .1);
-			p.setWork(p.getWork() - .1);
 			
 			def = choosen.getDef();
 			finalDamage = damageAmount - ((def/2d)/100d);
 			choosen.setHp(choosen.getHp() - finalDamage);
 			
-			output = "Attack landed successfully!"
+			output = "Attacked: " + choosen.getName()
 					+ "\nInit Damage: "+f2.format(damageAmount)
 					+"\nEnemy Def: "+def
 					+"\nFinal Damage: "+ f2.format(finalDamage);
 			return true;
 			
 		}
-		output = "You failed to attack. You must have .1 Eat, .1 Sleep and .1 Work...";
+		output = "Failed to attack. You must have .1 Eat, .1 Sleep.";
 		return false;
 	}
 

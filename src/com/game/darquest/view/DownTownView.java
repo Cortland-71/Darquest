@@ -8,6 +8,8 @@ import java.util.List;
 import com.game.darquest.data.Player;
 import com.game.darquest.data.items.Item;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -27,6 +29,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.util.Duration;
 
 public class DownTownView {
 
@@ -343,6 +346,8 @@ public class DownTownView {
 	}
 
 	// \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\- Helper
+	Timeline timeline;
+	
 	public void setPlayerStats(Player p) {
 		xpAmountLabel.setText(p.getXp() + "/1.0");
 		nameLabel.setText("Name:\t" + p.getName());
@@ -355,6 +360,7 @@ public class DownTownView {
 		sleepLabel.setText("Sleep:\t" + p.getSleep() + "/1.0");
 		workLabel.setText("Work:\t" + p.getWork() + "/1.0");
 
+		
 		xpBar.setProgress(p.getXp());
 		weightBar.setProgress(p.getWeight());
 		hpBar.setProgress(p.getHp());
@@ -370,6 +376,10 @@ public class DownTownView {
 		defLabel.setText("Defense:   " + p.getDef());
 		stealthLabel.setText("Stealth:   " + p.getStealth());
 		awarenessLabel.setText("Awareness: " + p.getAwareness());
+	}
+	
+	public Timeline getTimeLine() {
+		return timeline;
 	}
 
 	public Scene getDownTownScene() {
