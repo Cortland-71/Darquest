@@ -27,17 +27,17 @@ public class PlayerInvStatsController implements EventHandler<MouseEvent> {
 	public void handle(MouseEvent e) {
 		Scene scene = c.getView().getWindow().getScene();
 		if (scene==c.getView().getDownTownView().getDownTownScene()) {
-			equipSelectedInventoryItemsForDownTown();
+			equipItemFromDownTownToAllLoc();
 		} else if(scene==c.getView().getShopView().getShopScene()) {
-			equipSelectedInventoryItemsForShop();
+			equipItemFromShopToAllLoc();
 		} else if(scene==c.getView().getFightClubView().getFightClubScene()) {
-			equipSelectedInventoryItemsForFightClub();
+			equipItemFromFightClubToAllLoc();
 		}
 		updateAllPlayerStats();
 	}
 	
-	////////////////////////////////////////////////////////////////// -Mouse event logic
-	private void equipSelectedInventoryItemsForDownTown() {
+	////////////////////////////////////////////////////////////////// -Equip logic
+	private void equipItemFromDownTownToAllLoc() {
 		indexList = c.getView().getDownTownView().getSelectedIndexListOfAllTabs();
 		for (int i = 0; i < indexList.size(); i++) {
 			selectCorrectInventoryItemInShopView(i);
@@ -47,7 +47,7 @@ public class PlayerInvStatsController implements EventHandler<MouseEvent> {
 		}
 	}
 	
-	private void equipSelectedInventoryItemsForShop() {
+	private void equipItemFromShopToAllLoc() {
 		 indexList = c.getView().getShopView().getSelectedIndexListOfAllTabs();
 		 for (int i = 0; i < indexList.size(); i++) {
 			 selectCorrectInventoryItemInDownTownView(i);
@@ -57,7 +57,7 @@ public class PlayerInvStatsController implements EventHandler<MouseEvent> {
 		}
 	}
 	
-	private void equipSelectedInventoryItemsForFightClub() {
+	private void equipItemFromFightClubToAllLoc() {
 		 indexList = c.getView().getFightClubView().getSelectedIndexListOfAllTabs();
 		 for (int i = 0; i < indexList.size(); i++) {
 			 selectCorrectInventoryItemInDownTownView(i);
@@ -82,40 +82,38 @@ public class PlayerInvStatsController implements EventHandler<MouseEvent> {
 		.get(i).getSelectionModel().select(indexList.get(i));
 	}
 	
-///////////////////////////////////////////////
-	public void removeItemWhenUsed() {
-		Item selectedItem = c.getPlayer().getEquippedTool();
-		((Player)c.getPlayer()).removeItemFromPlayerInventory(selectedItem, 
-				getSelectedItemIndexFight());
-		
-		setNoneSelectedFight();
-		List<Integer> list = getAllSelectedIndexListFight();
-		updateAllPlayerInv();
-		updateAllSelectionsPlayerInv(list);
-		equipSelectedInventoryItemsForFightClub();
+	///////////////////////////////////////////////
+	public void removeItemWhenUsedUp(Item item) {
+		if(item.getCondition() < 1) {
+			int tab = ((Player)c.getPlayer()).removeItemFromPlayerInventory(item, 
+					getSelectedItemIndexFight());
+			setNoneSelectedFight(tab);
+		}
+		refreshAllInvFight();
 	}
 	
 	public void setNewPlayerInventoryAndStats() {
 		updateAllPlayerInv();
 		c.getView().getDownTownView().getInventoryListViewObjects()
 		.forEach(o->o.getSelectionModel().select(0));
-		equipSelectedInventoryItemsForDownTown();
+		equipItemFromDownTownToAllLoc();
 		updateAllPlayerStats();
 	}
 	
 	public void setPlayerInventoryAndStatsForBuyItem() {
-		List<Integer> list = getAllSelectedIndexListShop();
-		updateAllPlayerInv();
-		updateAllSelectionsPlayerInv(list);
-		updateAllPlayerStats();
+		refreshAllInvShop();
 	}
 	
 	public void setPlayerInventoryAndStatsForSellItem() {
 		setNoneSelectedShop();
+		refreshAllInvShop();
+		equipItemFromShopToAllLoc();
+	}
+	
+	private void refreshAllInvShop() {
 		List<Integer> list = getAllSelectedIndexListShop();
 		updateAllPlayerInv();
 		updateAllSelectionsPlayerInv(list);
-		equipSelectedInventoryItemsForShop();
 		updateAllPlayerStats();
 	}
 	
@@ -166,8 +164,7 @@ public class PlayerInvStatsController implements EventHandler<MouseEvent> {
 				.get(tabIndex).getSelectionModel().getSelectedItem();
 	}
 	
-	private void setNoneSelectedFight() {
-		int tabIndex = getSelectedTabIndexFight();
+	private void setNoneSelectedFight(int tabIndex) {
 		c.getView().getFightClubView().getInventoryListViewObjects()
 		.get(tabIndex).getSelectionModel().select(0);
 	}
@@ -213,5 +210,12 @@ public class PlayerInvStatsController implements EventHandler<MouseEvent> {
 		c.getView().getShopView().getInventoryListViewObjects().forEach(e->
 		list.add(e.getSelectionModel().getSelectedIndex()));
 		return list;
+	}
+	
+	public void refreshAllInvFight() {
+		List<Integer> list = getAllSelectedIndexListFight();
+		updateAllPlayerInv();
+		updateAllSelectionsPlayerInv(list);
+		equipItemFromFightClubToAllLoc();
 	}
 }

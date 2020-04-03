@@ -27,7 +27,7 @@ public class FightClubController implements EventHandler<KeyEvent> {
 	public FightClubController(Controller c) {
 		c.getView().getFightClubView().addCommandFieldListener(this);
 		this.c = c;
-		fireList = Arrays.asList(new Eat(), new Sleep(), new Work(), new Attack(), new Use(this.c));
+		fireList = Arrays.asList(new Eat(), new Sleep(), new Work(), new Attack(this.c), new Use(this.c));
 	}
 	
 	@Override
@@ -40,7 +40,6 @@ public class FightClubController implements EventHandler<KeyEvent> {
 	}
 	
 	public void runFire(String command, Person person) {
-		
 		Person choosen = person;
 		String finalCommand = command;
 		if(hasModifier(command)) {
@@ -107,6 +106,7 @@ public class FightClubController implements EventHandler<KeyEvent> {
 		c.getPlayerInvStatsController().updateAllPlayerStats();
 		c.getView().getFightClubView().getCenterEnemyBox().getChildren().clear();
 		c.getDownTownController().drawAllEnemyBoxes(enemyList);
+		c.getPlayerInvStatsController();
 		doEnemyTurnIfPlayerTurnHasEnded();
 	}
 	

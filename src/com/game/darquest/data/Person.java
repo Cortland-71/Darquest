@@ -66,19 +66,7 @@ public abstract class Person {
 
 	}
 	
-	public int getRandomToolAmount() {
-		int min = this.equippedTool.getMinEffect();
-		int max = this.equippedTool.getMaxEffect();
-		return rand.nextInt((max - min) + 1) + min;
-	}
-
-	public double getRandomDamageAmount() {
-		int min = this.equippedWeapon.getMinDamage();
-		int max = this.equippedWeapon.getMaxDamage();
-		double weaponDamage = rand.nextInt((max - min) + 1) + min;
-		double engMult = this.getEng();
-		return (weaponDamage / 100d) + (engMult / 2);
-	}
+	
 
 	public int getDef() {
 		return def;
