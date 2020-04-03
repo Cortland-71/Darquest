@@ -11,7 +11,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 
-public class ShopTransactionController implements EventHandler<ActionEvent>{
+public class ShopController implements EventHandler<ActionEvent>{
 	
 	private Controller c;
 	
@@ -22,12 +22,10 @@ public class ShopTransactionController implements EventHandler<ActionEvent>{
 			"I should get one of these myself.", "I rebuilt this one from scratch.", "Well worth the price.");
 	
 	private Random rand = new Random();
-	public ShopTransactionController(Controller c) {
+	public ShopController(Controller c) {
 		this.c = c;
 		this.c.getView().getShopView().addActionListener(this);
-
 		this.c.getView().getShopView().addBuyButtonListener(this);
-		
 	}
 	
 
@@ -48,24 +46,25 @@ public class ShopTransactionController implements EventHandler<ActionEvent>{
 	
 	private void sellItem() {
 		player = (Player)c.getPlayer();
-		Item selectedItem = getSoldItem();
+		Item selectedItem = c.getPlayerInvStatsController().getSelectedItemShop();
 		if(selectedItem.getName() != "none") {
 			player.setCash(player.getCash()+selectedItem.getValue());
 			player.setWeight(player.getWeight()-selectedItem.getWeight());
-			player.removeItemFromPlayerInventory(selectedItem, getSoldItemIndex());
-			c.getPlayerInventoryAndStatsController().setPlayerInventoryAndStatsForSellItem();
+			player.removeItemFromPlayerInventory(selectedItem, c.getPlayerInvStatsController()
+					.getSelectedItemIndexShop());
+			c.getPlayerInvStatsController().setPlayerInventoryAndStatsForSellItem();
 			shopSellDialogueOutput(selectedItem);
 		}
 	}
 
 	private void buyItem() {
 		player = (Player)c.getPlayer();
-		Item selectedItem = getBoughtItem();
+		Item selectedItem = getSelectedItemShopInventory();
 		if(player.getCash() >= selectedItem.getPrice()) {
 			player.setCash(player.getCash()-selectedItem.getPrice());
 			player.setWeight(player.getWeight()+selectedItem.getWeight());
 			player.addItemToPlayerInventory(selectedItem);
-			c.getPlayerInventoryAndStatsController().setPlayerInventoryAndStatsForBuyItem();
+			c.getPlayerInvStatsController().setPlayerInventoryAndStatsForBuyItem();
 			shopBuyDialogueOutput(selectedItem);
 			return;
 		}
@@ -73,28 +72,13 @@ public class ShopTransactionController implements EventHandler<ActionEvent>{
 		c.getView().getShopView().setBuyShopDialogeTextArea("Odette: Sorry "+c.getPlayer().getName()+
 				", you don't have enough cash for this...");
 	}
-	private int getSoldItemIndex() {
-		int tabIndex = c.getView().getShopView().getInventoryTabPane()
-				.getSelectionModel().getSelectedIndex();
-		int itemIndex = c.getView().getShopView().getInventoryListViewObjects()
-				.get(tabIndex).getSelectionModel().getSelectedIndex();
-		return itemIndex;
-	}
 	
-	private Item getSoldItem() {
-		int tabIndex = c.getView().getShopView().getInventoryTabPane()
-				.getSelectionModel().getSelectedIndex();
-		Item selectedItem = c.getView().getShopView().getInventoryListViewObjects()
-				.get(tabIndex).getSelectionModel().getSelectedItem();
-		return selectedItem;
-	}
-	
-	private Item getBoughtItem() {
+	private Item getSelectedItemShopInventory() {
 		int tabIndex = c.getView().getShopView().getShopTabPane()
 				.getSelectionModel().getSelectedIndex();
-		Item boughtItem = c.getView().getShopView().getShopListViewObjects()
+		Item selectedItem = c.getView().getShopView().getShopListViewObjects()
 		.get(tabIndex).getSelectionModel().getSelectedItem();
-		return boughtItem;
+		return selectedItem;
 	}
 	
 	private void shopBuyDialogueOutput(Item item) {

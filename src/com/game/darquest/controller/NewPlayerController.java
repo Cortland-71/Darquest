@@ -24,7 +24,7 @@ public class NewPlayerController implements EventHandler<KeyEvent> {
 	public void handle(KeyEvent e) {
 		if(e.getCode() == KeyCode.ENTER) {
 			setPlayerAttributes();
-			c.getPlayerInventoryAndStatsController().setNewPlayerInventoryAndStats();
+			c.getPlayerInvStatsController().setNewPlayerInventoryAndStats();
 			view.getWindow().setScene(view.getDownTownView().getDownTownScene());
 		}	
 	}

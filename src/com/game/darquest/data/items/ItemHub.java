@@ -1,4 +1,4 @@
-package com.game.darquest.controller;
+package com.game.darquest.data.items;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -6,12 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import com.game.darquest.data.items.Armor;
-import com.game.darquest.data.items.Item;
-import com.game.darquest.data.items.Tool;
-import com.game.darquest.data.items.Weapon;
-
-public class ItemController {
+public class ItemHub {
 	
 	//Weapons \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 	public List<Item> lowWeaponsList() {

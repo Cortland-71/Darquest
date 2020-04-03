@@ -2,6 +2,7 @@ package com.game.darquest.controller;
 
 import com.game.darquest.data.Person;
 import com.game.darquest.data.Player;
+import com.game.darquest.data.items.ItemHub;
 import com.game.darquest.view.View;
 
 public class Controller {
@@ -10,11 +11,11 @@ public class Controller {
 	private TutorialController tutorialController;
 	private NewPlayerController newPlayerController;
 	private DownTownController downTownController;
-	private ShopTransactionController shopController;
-	private PlayerInventoryAndStatsController playerInventoryAndStatsController;
+	private ShopController shopController;
+	private PlayerInvStatsController playerInvStatsController;
 	private ShopInventoryController shopInventoryController;
 	private FightClubController fightClubController;
-	private ItemController itemController;
+	private ItemHub itemController;
 	private EnemyController enemyController;
 	private View view;
 	private Person player;
@@ -27,16 +28,16 @@ public class Controller {
 		this.tutorialController = new TutorialController(this);
 		this.newPlayerController = new NewPlayerController(this);
 		this.downTownController = new DownTownController(this);
-		this.shopController = new ShopTransactionController(this);
-		this.playerInventoryAndStatsController = new PlayerInventoryAndStatsController(this);
-		this.itemController = new ItemController();
+		this.shopController = new ShopController(this);
+		this.playerInvStatsController = new PlayerInvStatsController(this);
+		this.itemController = new ItemHub();
 		this.shopInventoryController = new ShopInventoryController(this);
 		this.fightClubController = new FightClubController(this);
 		this.enemyController = new EnemyController(this);
 	}
 
 	
-	public ShopTransactionController getShopController() {
+	public ShopController getShopController() {
 		return shopController;
 	}
 
@@ -66,8 +67,8 @@ public class Controller {
 	}
 
 
-	public PlayerInventoryAndStatsController getPlayerInventoryAndStatsController() {
-		return playerInventoryAndStatsController;
+	public PlayerInvStatsController getPlayerInvStatsController() {
+		return playerInvStatsController;
 	}
 
 
@@ -81,7 +82,7 @@ public class Controller {
 	}
 
 
-	public ItemController getItemController() {
+	public ItemHub getItemController() {
 		return itemController;
 	}
 

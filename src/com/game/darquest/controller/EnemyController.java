@@ -106,7 +106,7 @@ public class EnemyController {
 		List<Enemy> list = c.getFightClubController().getEnemyList();
 		c.getView().getFightClubView().getCenterEnemyBox().getChildren().clear();
 		c.getDownTownController().drawAllEnemyBoxes(list);
-		c.getPlayerInventoryAndStatsController().updateAllPlayerStats();
+		c.getPlayerInvStatsController().updateAllPlayerStats();
 	}
 	
 	private void enemyTurnEnd() {

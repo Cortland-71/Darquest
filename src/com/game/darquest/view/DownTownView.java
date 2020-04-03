@@ -232,20 +232,19 @@ public class DownTownView {
 		return new Label("Inventory");
 	}
 
-	private TabPane inventoryTabPane;
-
+	private TabPane playerInventoryTabPane;
 	private TabPane inventoryTabPane() {
-		inventoryTabPane = new TabPane();
-		inventoryTabPane.setMaxHeight(725);
-		inventoryTabPane.setMinHeight(725);
-		inventoryTabPane.getTabs().add(weaponsTab());
-		inventoryTabPane.getTabs().add(armorTab());
-		inventoryTabPane.getTabs().add(toolsTab());
-		return inventoryTabPane;
+		playerInventoryTabPane = new TabPane();
+		playerInventoryTabPane.setMaxHeight(725);
+		playerInventoryTabPane.setMinHeight(725);
+		playerInventoryTabPane.getTabs().add(weaponsTab());
+		playerInventoryTabPane.getTabs().add(armorTab());
+		playerInventoryTabPane.getTabs().add(toolsTab());
+		return playerInventoryTabPane;
 	}
 
-	public TabPane getInventoryTabPane() {
-		return this.inventoryTabPane;
+	public TabPane getPlayerInventoryTabPane() {
+		return this.playerInventoryTabPane;
 	}
 
 	private Tab weaponsTab;

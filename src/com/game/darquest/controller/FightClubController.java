@@ -27,7 +27,7 @@ public class FightClubController implements EventHandler<KeyEvent> {
 	public FightClubController(Controller c) {
 		c.getView().getFightClubView().addCommandFieldListener(this);
 		this.c = c;
-		fireList = Arrays.asList(new Eat(), new Sleep(), new Work(), new Attack(), new Use());
+		fireList = Arrays.asList(new Eat(), new Sleep(), new Work(), new Attack(), new Use(this.c));
 	}
 	
 	@Override
@@ -104,7 +104,7 @@ public class FightClubController implements EventHandler<KeyEvent> {
 		c.getView().getFightClubView().clearCommandField();
 		c.getPlayer().setMoves(c.getPlayer().getMoves()-1);
 		c.getView().getFightClubView().setPlayerMovesLeft(c.getPlayer());
-		c.getPlayerInventoryAndStatsController().updateAllPlayerStats();
+		c.getPlayerInvStatsController().updateAllPlayerStats();
 		c.getView().getFightClubView().getCenterEnemyBox().getChildren().clear();
 		c.getDownTownController().drawAllEnemyBoxes(enemyList);
 		doEnemyTurnIfPlayerTurnHasEnded();

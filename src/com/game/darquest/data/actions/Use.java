@@ -4,6 +4,7 @@ import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.List;
 
+import com.game.darquest.controller.Controller;
 import com.game.darquest.data.Person;
 import com.game.darquest.data.actions.use.HpTool;
 import com.game.darquest.data.actions.use.Useable;
@@ -12,12 +13,14 @@ public class Use implements Fireable {
 
 	private String output;
 	private DecimalFormat f2 = new DecimalFormat("0.00");
-	public Use() {
-		
-	}
 	
 	private List<Useable> useableTools = Arrays.asList(new HpTool());
 
+	private Controller c;
+	public Use(Controller c) {
+		this.c = c;
+	}
+	
 	@Override
 	public boolean fire(Person p, Person choosen) {
 		String catagory = p.getEquippedTool().getCatagory();
@@ -28,6 +31,7 @@ public class Use implements Fireable {
 				output = useableTools.get(i).use(choosen, effect);
 			}
 		}
+		c.getPlayerInvStatsController().removeItemWhenUsed();
 		return true;
 	}
 	

@@ -1,14 +1,14 @@
 package com.game.darquest.data.enemyType;
 
 import com.game.darquest.controller.Controller;
-import com.game.darquest.controller.ItemController;
 import com.game.darquest.data.items.Armor;
+import com.game.darquest.data.items.ItemHub;
 import com.game.darquest.data.items.Tool;
 import com.game.darquest.data.items.Weapon;
 
 public class Runner implements Classable {
 
-	private ItemController ic;
+	private ItemHub ic;
 	private int level;
 
 	@Override

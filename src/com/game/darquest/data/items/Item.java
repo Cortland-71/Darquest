@@ -16,6 +16,7 @@ public abstract class Item {
 		this.name = name;
 		this.description = description;
 		this.price = price;
+		this.value = price;
 		this.weight = weight;
 		this.setCondition(condition);
 		this.maxCondition = maxCondition;
@@ -25,16 +26,13 @@ public abstract class Item {
 		return this.description;
 	}
 	
-//	private double getDamagedPrice() {
-//		return price - (((10-condition)/10d) * price);
-//	}
-	
 	public double getValue() {
 		return value;
 	}
 	public void setValue(double value) {
-		this.value = value;
+		this.value = value - (((10-condition)/10d) * value);
 	}
+	
 	public double getWeight() {
 		return weight;
 	}
@@ -55,15 +53,18 @@ public abstract class Item {
 	public String getValueFormatted() {
 		return NumberFormat.getCurrencyInstance().format(this.value);
 	}
+	
 	@Override
 	public String toString() {
 		return name + "\nPrice:\t" + getPriceFormatted() + "\nValue:\t" + getValueFormatted() + 
-				"\nWeight:\t" + weight;
+				"\nWeight:\t" + weight +
+				"\nCond:\t" + condition + "/" + maxCondition;
 	}
 	
 	public String getToStringForPlayerInventory() {
 		return name + "\nValue:\t" + getValueFormatted() + 
-				"\nWeight:\t" + weight;
+				"\nWeight:\t" + weight + 
+				"\nCond:\t" + condition + "/" + maxCondition;
 	}
 
 	public int getMaxCondition() {
