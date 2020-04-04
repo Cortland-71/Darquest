@@ -2,10 +2,10 @@ package com.game.darquest.controller;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 import com.game.darquest.data.Enemy;
 import com.game.darquest.data.EnemyGenerator;
-import com.game.darquest.view.FightClubView;
 import com.game.darquest.view.View;
 
 import javafx.event.ActionEvent;
@@ -53,9 +53,13 @@ public class DownTownController implements EventHandler<ActionEvent>{
 	}
 	
 	public void drawAllEnemyBoxes(List<Enemy> list) {
+		Random rand = new Random();
+		List<String> enemyPics = Arrays.asList("Enforcer1Big.png", "Shinobi1Big.png");
+		
 		for (int i = 0; i < list.size(); i++) {
+			String picture = enemyPics.get(rand.nextInt(enemyPics.size()));
 			c.getView().getFightClubView().getCenterEnemyBox().getChildren()
-			.add(c.getView().getFightClubView().getInnerEnemyPane());
+			.add(c.getView().getFightClubView().getInnerEnemyPane(picture));
 			c.getView().getFightClubView().setEnemyStats(list.get(i));
 		}
 	}

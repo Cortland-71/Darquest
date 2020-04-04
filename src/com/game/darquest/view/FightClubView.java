@@ -131,23 +131,23 @@ public class FightClubView extends DownTownView {
 	private final int innerHeight = 482;
 	private final int innerWidth = 422;
 	
-	public BorderPane innerEnemyPane() {
+	public BorderPane innerEnemyPane(String picture) {
 		BorderPane innerEnemyPane = new BorderPane();
 		innerEnemyPane.setId("innerEnemyPane");
 		innerEnemyPane.setMinSize(innerWidth, innerHeight);
 		innerEnemyPane.setMaxSize(innerWidth, innerHeight);
-		innerEnemyPane.setCenter(enemyImage());
+		innerEnemyPane.setCenter(enemyImage(picture));
 		innerEnemyPane.setRight(enemyRightStatsBox());
 		innerEnemyPane.setBottom(enemyBottomStatsBox());
 		return innerEnemyPane;
 	}
 	
-	public BorderPane getInnerEnemyPane() {
-		return innerEnemyPane();
+	public BorderPane getInnerEnemyPane(String picture) {
+		return innerEnemyPane(picture);
 	}
 	
-	private ImageView enemyImage() {
-		Image image = new Image("file:test.png");
+	private ImageView enemyImage(String picture) {
+		Image image = new Image("file:"+picture);
 		ImageView enemyImage = new ImageView(image);
 		return enemyImage;
 	}
