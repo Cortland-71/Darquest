@@ -8,7 +8,6 @@ import java.util.List;
 import com.game.darquest.data.Player;
 import com.game.darquest.data.items.Item;
 
-import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -23,13 +22,14 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.Tooltip;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.util.Duration;
 
 public class DownTownView {
 
@@ -340,7 +340,11 @@ public class DownTownView {
 	// \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\- Center
 	private VBox centerBox() {
 		VBox centerBox = new VBox();
+		Image image = new Image("file:downTownBig.png");
+		ImageView enemyImage = new ImageView(image);
+		centerBox.setAlignment(Pos.CENTER);
 		centerBox.setBackground(View.getBackground(Color.BLACK));
+		centerBox.getChildren().add(enemyImage);
 		return centerBox;
 	}
 
