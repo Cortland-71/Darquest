@@ -2,13 +2,14 @@ package com.game.darquest.controller.rules;
 
 import com.game.darquest.controller.Controller;
 
-public class AttackRuleController extends RuleController {
+public class AttackRuleController extends RuleController implements Ruleable {
 
 	public AttackRuleController(Controller c) {
 		super(c);
 	}
 
-	public void rulesForAttack() {
+	@Override
+	public void getRule() {
 		double eatRequired = .1;
 		double sleepRequired = .1;
 		

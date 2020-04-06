@@ -1,5 +1,6 @@
 package com.game.darquest.data.enemyType;
 
+import java.util.List;
 import java.util.Random;
 
 import com.game.darquest.controller.Controller;
@@ -16,7 +17,8 @@ public interface Classable {
 	Weapon getGenerateWeapon();
 	Armor getGenerateArmor();
 	Tool getGenerateTool();
-	String getType();
+	String getName();
 	void setLevel(int level);
 	void setController(Controller c);
+	List<Integer> getAllScores();
 }

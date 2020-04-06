@@ -465,7 +465,7 @@ public class FightClubView extends DownTownView {
 		enemyDefLabel.setText("Defense:   " + p.getDef());
 		enemyStealthLabel.setText("Stealth:   " + p.getStealth());
 		enemyAwarenessLabel.setText("Awareness: " + p.getAwareness());
-		enemyTypeLabel.setText("Type: "+p.getType());
+		enemyTypeLabel.setText("Type: "+p.getType().getName());
 		enemyIDLabel.setText("ID: " + p.getId());
 	}
 }

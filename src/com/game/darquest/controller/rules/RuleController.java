@@ -27,8 +27,6 @@ public class RuleController {
 		this.enemyList = enemyList;
 	}
 	
-	
-	
 	protected void rulesForEat() {
 		double cashRequired = (currentEnemy.getEat() + .1) * 150.5;
 		if(currentEnemy.getCash() >= cashRequired) {
@@ -45,6 +43,10 @@ public class RuleController {
 			return;
 		}
 		c.getFightClubController().runFire("work", currentEnemy);
+	}
+	
+	public Person getCurrentEnemy() {
+		return currentEnemy;
 	}
 
 }

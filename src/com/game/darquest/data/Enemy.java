@@ -1,16 +1,17 @@
 package com.game.darquest.data;
 
+import com.game.darquest.data.enemyType.Classable;
 import com.game.darquest.data.items.Armor;
 import com.game.darquest.data.items.Tool;
 import com.game.darquest.data.items.Weapon;
 
 public class Enemy extends Person {
 
-	private String type;
+	private Classable type;
 	private int id;
 	private String imagePath;
 
-	public Enemy(String name, int lvl, String type, int def, int stealth, int awareness, Weapon equippedWeapon,
+	public Enemy(String name, int lvl, Classable type, int def, int stealth, int awareness, Weapon equippedWeapon,
 			Armor equippedArmor, Tool equippedTool, int id, double cash, String imagePath) {
 		super(name, def, stealth, awareness, equippedWeapon, equippedArmor, equippedTool, lvl, cash);
 		this.type = type;
@@ -18,7 +19,7 @@ public class Enemy extends Person {
 		this.imagePath = imagePath;
 	}
 
-	public String getType() {
+	public Classable getType() {
 		return type;
 	}
 

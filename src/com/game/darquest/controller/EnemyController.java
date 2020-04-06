@@ -1,11 +1,10 @@
 package com.game.darquest.controller;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 
 import com.game.darquest.data.Enemy;
-import com.game.darquest.data.Person;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -14,6 +13,7 @@ import javafx.util.Duration;
 public class EnemyController {
 	
 	private Controller c;
+	private Enemy enemy;
 
 	
 	public EnemyController(Controller c) {
@@ -22,7 +22,10 @@ public class EnemyController {
 	
 	int count = 0;
 	
-	public void enemyTurn(Person enemy) {
+	public void enemyTurn(Enemy enemy, List<Enemy> enemyList) {
+		this.enemy = enemy;
+		c.getRuleController().setCurrentEnemy(enemy);
+		c.getRuleController().setEnemyList(enemyList);
 		Timeline timeline = new Timeline(
 				new KeyFrame(Duration.millis(500), 
 						ae-> moveOne()),
@@ -38,19 +41,23 @@ public class EnemyController {
 	
 	
 	private List<String> commandList = Arrays.asList("eat", "sleep", "work", "attack 0", "steal 0");
-	
+	private List<Integer> allScores = new ArrayList<>();
 	private void moveOne() {
-		//c.getRulesController().rulesForAttack();
+		System.out.println(enemy.getType().getName());
+		allScores = enemy.getType().getAllScores();
+		allScores.forEach(System.out::println);
 		updateAllStats();
 	}
 	
 	private void moveTwo() {
-		//c.getRulesController().rulesForAttack();
+		allScores = enemy.getType().getAllScores();
+		allScores.forEach(System.out::println);
 		updateAllStats();
 	}
 	
 	private void moveThree() {
-		//c.getRulesController().rulesForAttack();
+		allScores = enemy.getType().getAllScores();
+		allScores.forEach(System.out::println);
 		updateAllStats();
 	}
 	

@@ -150,7 +150,7 @@ public class FightClubController implements EventHandler<KeyEvent> {
 			c.getView().getFightClubView().clearEnemyOutputTextArea();
 			c.getView().getFightClubView().setDisableCommandField(true);
 
-			c.getEnemyController().enemyTurn(enemyList.get(currentEnemyIndex));
+			c.getEnemyController().enemyTurn(enemyList.get(currentEnemyIndex), enemyList);
 
 			currentEnemyIndex++;
 

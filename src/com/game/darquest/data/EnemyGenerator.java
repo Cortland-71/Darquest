@@ -44,7 +44,6 @@ public class EnemyGenerator {
 
 	private Enemy getEnemyObject(String name, int level, Classable type, int index, String imagePath) {
 		Classable t = type;
-		String typeName = t.getType();
 		int def = t.getGenerateDef();
 		int stealth = t.getGenerateStealth();
 		int awareness = t.getGenerateAwareness();
@@ -54,7 +53,7 @@ public class EnemyGenerator {
 		Tool tool = t.getGenerateTool();
 		double cash = t.getGeneratedCash();
 
-		return new Enemy(name, level, typeName, def, stealth, awareness, wep, armor, tool, index + 1, cash, imagePath);
+		return new Enemy(name, level, type, def, stealth, awareness, wep, armor, tool, index + 1, cash, imagePath);
 	}
 
 	private Classable getRandomType() {

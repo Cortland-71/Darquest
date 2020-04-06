@@ -1,5 +1,8 @@
 package com.game.darquest.data.enemyType;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.game.darquest.controller.Controller;
 import com.game.darquest.data.items.Armor;
 import com.game.darquest.data.items.ItemHub;
@@ -9,6 +12,7 @@ import com.game.darquest.data.items.Weapon;
 public class Observer implements Classable {
 
 	private ItemHub ic;
+	private Controller c;
 	private int level;
 
 	@Override
@@ -39,7 +43,7 @@ public class Observer implements Classable {
 	
 
 	@Override
-	public String getType() {
+	public String getName() {
 		return "Observer";
 	}
 
@@ -69,7 +73,30 @@ public class Observer implements Classable {
 	@Override
 	public void setController(Controller c) {
 		this.ic = c.getItemHub();
+		this.c = c;
 		
+	}
+
+	public int attackQuestions() {
+		int score = 0;
+		score += c.getPlayer().getHp() == 1 ? 3 : 2;
+		score += c.getPlayer().getHp() < .5 ? 3 : 2;
+		return score;
+	}
+	
+	public int stealQuestions() {
+		int score = 0;
+		score += c.getPlayer().getCash() > c.getRuleController().getCurrentEnemy().getCash() ? 5 : 3;
+		score += c.getPlayer().getCash() > 500 ? 5 : 3;
+		return score;
+	}
+
+	@Override
+	public List<Integer> getAllScores() {
+		List<Integer> allScores = new ArrayList<>();
+		allScores.add(stealQuestions());
+		allScores.add(attackQuestions());
+		return allScores;
 	}
 
 }
