@@ -84,6 +84,7 @@ public class PlayerInvStatsController implements EventHandler<MouseEvent> {
 	
 	///////////////////////////////////////////////
 	public void removeItemWhenUsedUp(Item item) {
+		if(item.getName().equals("none")) { item.setCondition(10); return; };
 		if(item.getCondition() < 1) {
 			int tab = ((Player)c.getPlayer()).removeItemFromPlayerInventory(item, 
 					getSelectedItemIndexFight());

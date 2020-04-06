@@ -63,7 +63,7 @@ public class ItemHub {
 	//Tools \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 	public List<Item> lowToolList() {
 		return Arrays.asList(
-			new Tool("Weak Hp Vial", hpVileDes(), "hp", 50, .01, 1, 1, 5, 10),
+			new Tool("Weak Hp Vial", hpVileDes(), "hp", 50, .01, 3, 3, 5, 10),
 			new Tool("Weak Eng Vial", engVileDes(), "eng", 200, .02, 1, 1, 1, 5),
 			new Tool("Cup of Fear", fearDes(), "def", 250, .01, 1, 1, 2, 5),
 			new Tool("Cup of Valor", valorDes(), "def", 250, .01, 1, 1, 2, 5),
@@ -75,7 +75,7 @@ public class ItemHub {
 	
 	public List<Item> midToolList() {
 		return Arrays.asList(
-			new Tool("Strong Hp Vial", hpVileDes(), "hp", 150, .02, 1, 1, 20, 50),
+			new Tool("Strong Hp Vial", hpVileDes(), "hp", 150, .02, 3, 3, 20, 50),
 			new Tool("Strong Eng Vial", engVileDes(), "eng", 400, .03, 1, 1, 5, 15),
 			new Tool("Bottle of Fear", fearDes(),"def",  850, .02, 1, 1, 20, 30),
 			new Tool("Bottle of Valor", valorDes(), "def", 850, .02, 1, 1, 20, 30),
@@ -119,7 +119,7 @@ public class ItemHub {
 		return "";
 	}
 	
-	private String hpVileDes() {
+	public String hpVileDes() {
 		return "";
 	}
 	

@@ -8,12 +8,14 @@ public class Enemy extends Person {
 
 	private String type;
 	private int id;
+	private String imagePath;
 
 	public Enemy(String name, int lvl, String type, int def, int stealth, int awareness, Weapon equippedWeapon,
-			Armor equippedArmor, Tool equippedTool, int id, double cash) {
+			Armor equippedArmor, Tool equippedTool, int id, double cash, String imagePath) {
 		super(name, def, stealth, awareness, equippedWeapon, equippedArmor, equippedTool, lvl, cash);
 		this.type = type;
 		this.id = id;
+		this.imagePath = imagePath;
 	}
 
 	public String getType() {
@@ -27,5 +29,9 @@ public class Enemy extends Person {
 
 	public int getId() {
 		return id;
+	}
+
+	public String getImagePath() {
+		return imagePath;
 	}
 }

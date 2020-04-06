@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -20,6 +21,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 
@@ -49,6 +51,8 @@ public class ShopView extends DownTownView {
 		return shopPane;
 	}
 	
+	
+
 	private BorderPane actualShopPane;
 	private BorderPane actualShopPane() {
 		actualShopPane = new BorderPane();
@@ -157,9 +161,10 @@ public class ShopView extends DownTownView {
 		return sellButton;
 	}
 	
-	public void addBuyButtonListener(EventHandler<ActionEvent> l) {
+	public void addShopActionListener(EventHandler<ActionEvent> l) {
 		buyButton.setOnAction(l);
 		sellButton.setOnAction(l);
+		backButton.setOnAction(l);
 	}
 	
 	// Item info \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
@@ -273,6 +278,27 @@ public class ShopView extends DownTownView {
 			});
 		}
 	}
+	
+	
+	protected GridPane bottomPane() {
+		GridPane bottomPane = new GridPane();
+		bottomPane.setAlignment(Pos.CENTER);
+		bottomPane.setPadding(new Insets(20, 0, 120, 0));
+		bottomPane.setVgap(15);
+		bottomPane.setHgap(15);
+		bottomPane.getChildren().add(backButton());
+		return bottomPane;
+	}
+	
+	
+	private Button backButton;
+	private Button backButton() {
+		backButton = new Button("Back");
+		backButton.setId("back");
+		backButton.setMinSize(225, 50);
+		return backButton;
+	}
+	
 	
 	
 	public Scene getShopScene() {

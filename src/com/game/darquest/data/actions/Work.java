@@ -15,15 +15,11 @@ public class Work implements Fireable {
 
 			p.setWork(p.getWork() + .1);
 			double finalPay = (p.getWork() * 10) * basePay;
-			double lostEng = 0;
-			if (p.getEng() > p.getMIN())
-				lostEng = p.getWork() / 4;
 
 			p.setCash(p.getCash() + finalPay);
-			p.setEng(p.getEng() - lostEng);
-
+			
 			output = p.getName() + "'s hard work is paying off.\nYou gained: +"
-					+ NumberFormat.getCurrencyInstance().format(finalPay) + "\nEng lost: " + lostEng;
+					+ NumberFormat.getCurrencyInstance().format(finalPay);
 			return true;
 		}
 		p.setWork(p.getMAX_BAR());

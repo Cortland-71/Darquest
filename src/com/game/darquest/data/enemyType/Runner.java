@@ -66,7 +66,7 @@ public class Runner implements Classable {
 	
 	@Override
 	public void setController(Controller c) {
-		this.ic = c.getItemController();
+		this.ic = c.getItemHub();
 		
 	}
 }

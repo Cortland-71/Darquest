@@ -38,7 +38,7 @@ public class EnemyController {
 			timeline.playFromStart();
 	}
 	
-	private List<String> commandList = Arrays.asList("eat", "sleep", "work", "attack 0");
+	private List<String> commandList = Arrays.asList("eat", "sleep", "work", "attack 0", "steal");
 	
 	private void moveOne() {
 		rulesForAttack();

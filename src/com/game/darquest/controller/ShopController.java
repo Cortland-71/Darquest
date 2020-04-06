@@ -24,8 +24,7 @@ public class ShopController implements EventHandler<ActionEvent>{
 	private Random rand = new Random();
 	public ShopController(Controller c) {
 		this.c = c;
-		this.c.getView().getShopView().addActionListener(this);
-		this.c.getView().getShopView().addBuyButtonListener(this);
+		this.c.getView().getShopView().addShopActionListener(this);
 	}
 	
 
@@ -36,6 +35,9 @@ public class ShopController implements EventHandler<ActionEvent>{
 			return;
 		} else if(((Button)e.getSource()).getId().equals("sell")) {
 			sellItem();
+			return;
+		} else if(((Button)e.getSource()).getId().equals("back")) {
+			goBackToDownTown();
 			return;
 		}
 		String id = ((Button)e.getSource()).getId();
@@ -91,5 +93,9 @@ public class ShopController implements EventHandler<ActionEvent>{
 		c.getView().getShopView().setSellShopDialogeNormal();
 		c.getView().getShopView().setSellShopDialogeTextArea("Item sold: "+item.getName()+
 				"\n\tValue: +"+item.getValueFormatted()+"\n\tWeight: -"+item.getWeight());
+	}
+	
+	private void goBackToDownTown() {
+		c.getView().getWindow().setScene(c.getView().getDownTownView().getDownTownScene());
 	}
 }

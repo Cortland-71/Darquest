@@ -53,13 +53,10 @@ public class DownTownController implements EventHandler<ActionEvent>{
 	}
 	
 	public void drawAllEnemyBoxes(List<Enemy> list) {
-		Random rand = new Random();
-		List<String> enemyPics = Arrays.asList("Enforcer1Big.png", "Shinobi1Big.png");
-		
+		c.getView().getFightClubView().getCenterEnemyBox().getChildren().clear();
 		for (int i = 0; i < list.size(); i++) {
-			String picture = enemyPics.get(rand.nextInt(enemyPics.size()));
 			c.getView().getFightClubView().getCenterEnemyBox().getChildren()
-			.add(c.getView().getFightClubView().getInnerEnemyPane(picture));
+			.add(c.getView().getFightClubView().getInnerEnemyPane(list.get(i).getImagePath()));
 			c.getView().getFightClubView().setEnemyStats(list.get(i));
 		}
 	}
@@ -71,11 +68,11 @@ class FightClub implements Clickable {
 	private Controller c;
 	public FightClub(Controller c) {
 		this.c = c;
-		this.enemyGenerator = new EnemyGenerator(this.c);
 	}
 	
 	@Override
 	public void clickAction() {
+		enemyGenerator = new EnemyGenerator(this.c);
 		enemyGenerator.generateEnemys();
 		List<Enemy> enemyList = enemyGenerator.getEnemyList();
 		c.getFightClubController().setEnemyList(enemyList);

@@ -8,6 +8,7 @@ import java.util.List;
 import com.game.darquest.data.Player;
 import com.game.darquest.data.items.Item;
 
+import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -30,6 +31,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.util.Duration;
 
 public class DownTownView {
 
@@ -349,7 +351,6 @@ public class DownTownView {
 	}
 
 	// \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\- Helper
-	Timeline timeline;
 	
 	public void setPlayerStats(Player p) {
 		xpAmountLabel.setText(p.getXp() + "/1.0");
@@ -370,6 +371,10 @@ public class DownTownView {
 		engBar.setProgress(p.getEng());
 		eatBar.setProgress(p.getEat());
 		sleepBar.setProgress(p.getSleep());
+		
+		
+			
+		
 		workBar.setProgress(p.getWork());
 
 		equippedWeaponLabel.setText("Weapon:\n" + p.getEquippedWeaponString());
@@ -381,9 +386,23 @@ public class DownTownView {
 		awarenessLabel.setText("Awareness: " + p.getAwareness());
 	}
 	
-	public Timeline getTimeLine() {
-		return timeline;
-	}
+//	public void animateWorkBar(Player p) {
+//		Timeline timeline = new Timeline(
+//				new KeyFrame(Duration.millis(25), 
+//						ae-> workBar.setProgress(p.getWork()-.1)),
+//				new KeyFrame(Duration.millis(25*2), 
+//						ae->workBar.setProgress(p.getWork()-.08)),
+//				new KeyFrame(Duration.millis(25*3), 
+//						ae->workBar.setProgress(p.getWork()-.06)),
+//				new KeyFrame(Duration.millis(25*4), 
+//						ae-> workBar.setProgress(p.getWork()-.04)),
+//				new KeyFrame(Duration.millis(25*5), 
+//						ae-> workBar.setProgress(p.getWork()-.02)),
+//				new KeyFrame(Duration.millis(25*5), 
+//						ae-> workBar.setProgress(p.getWork()))
+//				);
+//		timeline.playFromStart();
+//	}
 
 	public Scene getDownTownScene() {
 		return this.downTownScene;

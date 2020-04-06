@@ -15,7 +15,7 @@ public class Controller {
 	private PlayerInvStatsController playerInvStatsController;
 	private ShopInventoryController shopInventoryController;
 	private FightClubController fightClubController;
-	private ItemHub itemController;
+	private ItemHub itemHub;
 	private EnemyController enemyController;
 	private View view;
 	private Person player;
@@ -30,7 +30,7 @@ public class Controller {
 		this.downTownController = new DownTownController(this);
 		this.shopController = new ShopController(this);
 		this.playerInvStatsController = new PlayerInvStatsController(this);
-		this.itemController = new ItemHub();
+		this.itemHub = new ItemHub();
 		this.shopInventoryController = new ShopInventoryController(this);
 		this.fightClubController = new FightClubController(this);
 		this.enemyController = new EnemyController(this);
@@ -82,8 +82,8 @@ public class Controller {
 	}
 
 
-	public ItemHub getItemController() {
-		return itemController;
+	public ItemHub getItemHub() {
+		return itemHub;
 	}
 
 
