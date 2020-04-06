@@ -19,6 +19,8 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.Tooltip;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -65,6 +67,9 @@ public class ShopView extends DownTownView {
 	private BorderPane center() {
 		BorderPane center = new BorderPane();
 		center.setBackground(View.getBackground(Color.BLACK));
+		Image image = new Image("file:Shoptest.png");
+		ImageView shopImage = new ImageView(image);
+		center.setCenter(shopImage);
 		center.setBottom(shopDialogeBox());
 		return center;
 	}
@@ -210,8 +215,8 @@ public class ShopView extends DownTownView {
 	private TabPane shopTabPane() {
 		shopTabPane = new TabPane();
 		shopTabPane.setId("shopTabPane");
-		shopTabPane.setMaxSize(850, 225);
-		shopTabPane.setMinSize(850, 225);
+		shopTabPane.setMaxSize(750, 225);
+		shopTabPane.setMinSize(750, 225);
 		shopTabPane.getTabs().add(weaponsTab());
 		shopTabPane.getTabs().add(armorTab());
 		shopTabPane.getTabs().add(toolsTab());
@@ -283,7 +288,7 @@ public class ShopView extends DownTownView {
 	protected GridPane bottomPane() {
 		GridPane bottomPane = new GridPane();
 		bottomPane.setAlignment(Pos.CENTER);
-		bottomPane.setPadding(new Insets(20, 0, 120, 0));
+		bottomPane.setPadding(new Insets(20, 0, 75, 0));
 		bottomPane.setVgap(15);
 		bottomPane.setHgap(15);
 		bottomPane.getChildren().add(backButton());
@@ -295,7 +300,7 @@ public class ShopView extends DownTownView {
 	private Button backButton() {
 		backButton = new Button("Back");
 		backButton.setId("back");
-		backButton.setMinSize(225, 50);
+		backButton.setMinSize(200, 50);
 		return backButton;
 	}
 	

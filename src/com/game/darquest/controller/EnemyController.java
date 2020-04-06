@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.game.darquest.controller.rules.AttackRuleController;
+import com.game.darquest.controller.rules.HealRuleController;
+import com.game.darquest.controller.rules.Ruleable;
+import com.game.darquest.controller.rules.StealRuleController;
 import com.game.darquest.data.Enemy;
 
 import javafx.animation.KeyFrame;
@@ -14,18 +18,25 @@ public class EnemyController {
 	
 	private Controller c;
 	private Enemy enemy;
-
+	private List<Enemy> enemyList;
+	private List<Ruleable> ruleList;
+	private int index = 0;
+	private int holder = 0;
+	
 	
 	public EnemyController(Controller c) {
 		this.c = c;
+		this.ruleList = Arrays.asList(
+				new AttackRuleController(this.c), 
+				new StealRuleController(this.c),
+				new HealRuleController(this.c));
 	}
 	
 	int count = 0;
 	
 	public void enemyTurn(Enemy enemy, List<Enemy> enemyList) {
 		this.enemy = enemy;
-		c.getRuleController().setCurrentEnemy(enemy);
-		c.getRuleController().setEnemyList(enemyList);
+		this.enemyList = enemyList;
 		Timeline timeline = new Timeline(
 				new KeyFrame(Duration.millis(500), 
 						ae-> moveOne()),
@@ -40,24 +51,51 @@ public class EnemyController {
 	}
 	
 	
-	private List<String> commandList = Arrays.asList("eat", "sleep", "work", "attack 0", "steal 0");
 	private List<Integer> allScores = new ArrayList<>();
 	private void moveOne() {
 		System.out.println(enemy.getType().getName());
 		allScores = enemy.getType().getAllScores();
 		allScores.forEach(System.out::println);
+		for (int i = 0; i < allScores.size(); i++) {
+			if(allScores.get(i) > holder) {
+				holder = allScores.get(i);
+				index = i;
+			}
+		}
+		
+		System.out.println("index " + index);
+
+		ruleList.get(index).getRule();
 		updateAllStats();
 	}
 	
 	private void moveTwo() {
 		allScores = enemy.getType().getAllScores();
 		allScores.forEach(System.out::println);
+		for (int i = 0; i < allScores.size(); i++) {
+			if(allScores.get(i) > holder) {
+				holder = allScores.get(i);
+				index = i;
+			}
+		}
+		
+		System.out.println("index " + index);
+		ruleList.get(index).getRule();
 		updateAllStats();
 	}
 	
 	private void moveThree() {
 		allScores = enemy.getType().getAllScores();
 		allScores.forEach(System.out::println);
+		for (int i = 0; i < allScores.size(); i++) {
+			if(allScores.get(i) > holder) {
+				holder = allScores.get(i);
+				index = i;
+			}
+		}
+		
+		System.out.println("index " + index);
+		ruleList.get(index).getRule();
 		updateAllStats();
 	}
 	
@@ -74,5 +112,30 @@ public class EnemyController {
 		c.getView().getFightClubView().setCommandFeildFocused();
 		c.getPlayer().setMoves(c.getPlayer().getMaxMoves());
 		c.getView().getFightClubView().setPlayerMovesLeft(c.getPlayer());
+	}
+
+	public Enemy getEnemy() {
+		return enemy;
+	}
+	public List<Enemy> getEnemyList() {
+		return enemyList;
+	}
+	
+	public void rulesForEat() {
+		double cashRequired = (getEnemy().getEat() + .1) * 150.5;
+		if(getEnemy().getCash() >= cashRequired) {
+			c.getFightClubController().runFire("eat", getEnemy());
+			return;
+		}
+		c.getFightClubController().runFire("work", getEnemy());
+	}
+	
+	public void rulesForSleep() {
+		double workRequired = .1;
+		if(getEnemy().getWork() >= workRequired) {
+			c.getFightClubController().runFire("sleep", getEnemy());
+			return;
+		}
+		c.getFightClubController().runFire("work", getEnemy());
 	}
 }

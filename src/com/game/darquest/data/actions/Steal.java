@@ -15,7 +15,7 @@ public class Steal implements Fireable {
 		
 		if(p.getWork() >= .2) {
 			
-			if(choosen instanceof Player) {
+			if(choosen instanceof Player && p instanceof Player) {
 				output = "You can't steal from yourself...";
 				return false;
 			}
