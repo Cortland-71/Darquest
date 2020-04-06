@@ -58,7 +58,7 @@ public class FightClubController implements EventHandler<KeyEvent> {
 						afterPlayerMove();
 					}
 				}
-				;
+				
 				setOutput(output, person);
 			}
 		}
@@ -147,7 +147,6 @@ public class FightClubController implements EventHandler<KeyEvent> {
 	private void doEnemyTurnIfPlayerTurnHasEnded() {
 
 		if (c.getPlayer().getMoves() < 1) {
-
 			c.getView().getFightClubView().clearEnemyOutputTextArea();
 			c.getView().getFightClubView().setDisableCommandField(true);
 

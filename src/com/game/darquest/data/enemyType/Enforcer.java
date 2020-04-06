@@ -8,6 +8,7 @@ import com.game.darquest.data.items.Weapon;
 
 public class Enforcer implements Classable {
 	private ItemHub ic;
+	private Controller c;
 	private int level;
 	
 	
@@ -68,6 +69,7 @@ public class Enforcer implements Classable {
 
 	@Override
 	public void setController(Controller c) {
+		this.c = c;
 		this.ic = c.getItemHub();
 		
 	}

@@ -11,6 +11,8 @@ public class Steal implements Fireable {
 
 	@Override
 	public boolean fire(Person p, Person choosen) {
+		if(badId(choosen)) return false;
+		
 		if(p.getWork() >= .2) {
 			
 			if(choosen instanceof Player) {
@@ -56,4 +58,11 @@ public class Steal implements Fireable {
 		return output;
 	}
 
+	public boolean badId(Person choosen) {
+		if(choosen==null) {
+			output = "That id is not recognized.";
+			return true;
+		}
+		return false;
+	}
 }

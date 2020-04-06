@@ -14,8 +14,7 @@ import javafx.util.Duration;
 public class EnemyController {
 	
 	private Controller c;
-	private Random rand = new Random();
-	private Person currentEnemy;
+
 	
 	public EnemyController(Controller c) {
 		this.c = c;
@@ -24,7 +23,6 @@ public class EnemyController {
 	int count = 0;
 	
 	public void enemyTurn(Person enemy) {
-		this.currentEnemy = enemy;
 		Timeline timeline = new Timeline(
 				new KeyFrame(Duration.millis(500), 
 						ae-> moveOne()),
@@ -38,68 +36,22 @@ public class EnemyController {
 			timeline.playFromStart();
 	}
 	
-	private List<String> commandList = Arrays.asList("eat", "sleep", "work", "attack 0", "steal");
+	
+	private List<String> commandList = Arrays.asList("eat", "sleep", "work", "attack 0", "steal 0");
 	
 	private void moveOne() {
-		rulesForAttack();
+		//c.getRulesController().rulesForAttack();
 		updateAllStats();
 	}
 	
 	private void moveTwo() {
-		rulesForAttack();
+		//c.getRulesController().rulesForAttack();
 		updateAllStats();
 	}
 	
 	private void moveThree() {
-		rulesForAttack();
+		//c.getRulesController().rulesForAttack();
 		updateAllStats();
-	}
-	
-	private void rulesForAttack() {
-		double eatRequired = .1;
-		double sleepRequired = .1;
-		
-		if(currentEnemy.getEat() < eatRequired) {
-			rulesForEat();
-			return;
-		} else if(currentEnemy.getSleep() < sleepRequired) {
-			rulesForSleep();
-			return;
-		}
-		if(currentEnemy.getEng() >= .5 && currentEnemy.getEng() < 1) {
-			boolean coinFlip = rand.nextBoolean();
-			if(coinFlip) {
-				rulesForSleep();
-				return;
-			} 
-			c.getFightClubController().runFire("attack 0", currentEnemy);
-			return;
-		}
-		int coinFlip = rand.nextInt(10);
-		if(coinFlip < 7) {
-			rulesForSleep();
-			return;
-		} 
-		c.getFightClubController().runFire("attack 0", currentEnemy);
-		
-	}
-	
-	private void rulesForEat() {
-		double cashRequired = (currentEnemy.getEat() + .1) * 150.5;
-		if(currentEnemy.getCash() >= cashRequired) {
-			c.getFightClubController().runFire("eat", currentEnemy);
-			return;
-		}
-		c.getFightClubController().runFire("work", currentEnemy);
-	}
-	
-	private void rulesForSleep() {
-		double workRequired = .1;
-		if(currentEnemy.getWork() >= workRequired) {
-			c.getFightClubController().runFire("sleep", currentEnemy);
-			return;
-		}
-		c.getFightClubController().runFire("work", currentEnemy);
 	}
 	
 	private void updateAllStats() {
@@ -116,5 +68,4 @@ public class EnemyController {
 		c.getPlayer().setMoves(c.getPlayer().getMaxMoves());
 		c.getView().getFightClubView().setPlayerMovesLeft(c.getPlayer());
 	}
-	
 }

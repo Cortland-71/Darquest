@@ -1,5 +1,6 @@
 package com.game.darquest.controller;
 
+import com.game.darquest.controller.rules.RuleController;
 import com.game.darquest.data.Person;
 import com.game.darquest.data.Player;
 import com.game.darquest.data.items.ItemHub;
@@ -7,18 +8,19 @@ import com.game.darquest.view.View;
 
 public class Controller {
 	
-	private MainMenuController mainMenuController;
-	private TutorialController tutorialController;
-	private NewPlayerController newPlayerController;
-	private DownTownController downTownController;
-	private ShopController shopController;
-	private PlayerInvStatsController playerInvStatsController;
-	private ShopInventoryController shopInventoryController;
-	private FightClubController fightClubController;
-	private ItemHub itemHub;
-	private EnemyController enemyController;
-	private View view;
+	private final MainMenuController mainMenuController;
+	private final TutorialController tutorialController;
+	private final NewPlayerController newPlayerController;
+	private final DownTownController downTownController;
+	private final ShopController shopController;
+	private final PlayerInvStatsController playerInvStatsController;
+	private final ShopInventoryController shopInventoryController;
+	private final FightClubController fightClubController;
+	private final ItemHub itemHub;
+	private final EnemyController enemyController;
+	private final View view;
 	private Person player;
+	private final RuleController ruleController;
 	
 
 	public Controller(View view) {
@@ -34,6 +36,7 @@ public class Controller {
 		this.shopInventoryController = new ShopInventoryController(this);
 		this.fightClubController = new FightClubController(this);
 		this.enemyController = new EnemyController(this);
+		this.ruleController = new RuleController(this);
 	}
 
 	
@@ -90,7 +93,11 @@ public class Controller {
 	public EnemyController getEnemyController() {
 		return enemyController;
 	}
-	
-	
+
+
+	public RuleController getRuleController() {
+		return ruleController;
+	}
+
 	
 }

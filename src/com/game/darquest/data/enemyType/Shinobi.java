@@ -9,6 +9,7 @@ import com.game.darquest.data.items.Weapon;
 public class Shinobi implements Classable {
 
 	private ItemHub ic;
+	private Controller c;
 	private int level;
 
 	@Override
@@ -66,6 +67,7 @@ public class Shinobi implements Classable {
 
 	@Override
 	public void setController(Controller c) {
+		this.c = c;
 		this.ic = c.getItemHub();
 		
 	}
