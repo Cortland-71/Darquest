@@ -1,8 +1,7 @@
 package com.game.darquest.controller.rules;
 
-import java.util.Random;
-
 import com.game.darquest.controller.Controller;
+import com.game.darquest.data.Enemy;
 
 public class HealRuleController implements Ruleable {
 
@@ -15,10 +14,10 @@ public class HealRuleController implements Ruleable {
 	@Override
 	public void getRule() {
 		double sleepRequired = .2;
-		if(c.getEnemyController().getEnemy().getSleep() < sleepRequired) {
-			c.getEnemyController().rulesForSleep();
-			return;
-		}
+		double eatRequired = 0;
+		double workRequired = 0;
+		Enemy e = c.getEnemyController().getEnemy();
+		if (Rules.failedBasicCheck(c, e, eatRequired, sleepRequired, workRequired)) return;
 		c.getFightClubController().runFire("heal", c.getEnemyController().getEnemy());
 		
 	}

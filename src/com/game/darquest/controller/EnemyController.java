@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Random;
 
 import com.game.darquest.controller.rules.AttackRuleController;
+import com.game.darquest.controller.rules.DeceptionRuleController;
 import com.game.darquest.controller.rules.HealRuleController;
 import com.game.darquest.controller.rules.Ruleable;
 import com.game.darquest.controller.rules.StealRuleController;
@@ -25,15 +26,24 @@ public class EnemyController {
 	private List<Integer> allScores = new ArrayList<>();
 	private int holder = 0;
 	
+	private DeceptionRuleController deceptionRuleController;
+	
 	
 	public EnemyController(Controller c) {
 		this.c = c;
+		deceptionRuleController = new DeceptionRuleController(this.c);
 		this.ruleList = Arrays.asList(
 				new AttackRuleController(this.c), 
 				new StealRuleController(this.c),
-				new HealRuleController(this.c));
+				new HealRuleController(this.c),
+				deceptionRuleController);
+		
 	}
 	
+	public DeceptionRuleController getDeceptionRuleController() {
+		return deceptionRuleController;
+	}
+
 	int count = 0;
 	
 	public void enemyTurn(Enemy enemy, List<Enemy> enemyList) {
@@ -64,10 +74,13 @@ public class EnemyController {
 	
 	private int getChoosenActionIndex() {
 		List<Integer> highScoreIndexes = new ArrayList<>();
+		int choosenIndex = 0;
+		holder = 0;
 		Random rand = new Random();
 		for (int i = 0; i < allScores.size(); i++) {
 			if(allScores.get(i) > holder) {
 				holder = allScores.get(i);
+				choosenIndex = i;
 			}
 		}
 		
@@ -78,9 +91,9 @@ public class EnemyController {
 		}
 		
 		highScoreIndexes.forEach(e->System.out.println("Enemy Controller: High Score index: " + e));
-		int choosenIndex = 0;
-		if(highScoreIndexes.size() > 1)
+		if(highScoreIndexes.size() > 1) 
 			choosenIndex = highScoreIndexes.get(rand.nextInt(highScoreIndexes.size()));
+		
 		System.out.println("Choosen index: " + choosenIndex + "\n");
 		return choosenIndex;
 	}

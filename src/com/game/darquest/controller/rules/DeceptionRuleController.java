@@ -16,16 +16,7 @@ public class DeceptionRuleController implements Ruleable {
 		double sleepRequired = .1;
 		double workRequired = .1;
 		Enemy e = c.getEnemyController().getEnemy();
-		if(e.getEat() < eatRequired) {
-			c.getEnemyController().rulesForEat();
-			return;
-		} else if(e.getSleep() < sleepRequired) {
-			c.getEnemyController().rulesForSleep();
-			return;
-		} else if(e.getWork() < workRequired) {
-			c.getEnemyController().rulesForWork();
-			return;
-		}
+		if (Rules.failedBasicCheck(c, e, eatRequired, sleepRequired, workRequired)) return;
 		
 		c.getFightClubController().runFire("dec 0", e);
 	}

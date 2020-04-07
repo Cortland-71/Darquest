@@ -17,14 +17,10 @@ public class AttackRuleController implements Ruleable {
 	public void getRule() {
 		double eatRequired = .1;
 		double sleepRequired = .1;
+		double workRequired = 0;
 		Enemy e = c.getEnemyController().getEnemy();
-		if(e.getEat() < eatRequired) {
-			c.getEnemyController().rulesForEat();
-			return;
-		} else if(e.getSleep() < sleepRequired) {
-			c.getEnemyController().rulesForSleep();
-			return;
-		}
+		if (Rules.failedBasicCheck(c, e, eatRequired, sleepRequired, workRequired)) return;
+		
 		if(e.getEng() >= .5 && e.getEng() < 1) {
 			boolean coinFlip = rand.nextBoolean();
 			if(coinFlip) {
