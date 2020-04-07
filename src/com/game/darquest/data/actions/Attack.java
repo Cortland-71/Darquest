@@ -20,7 +20,11 @@ public class Attack implements Fireable {
 	
 	@Override
 	public boolean fire(Person p, Person choosen) {
-		if(badId(choosen)) return false;
+		if(Action.badId(choosen)) {
+			output = "That id is not recognized.";
+			return false;
+		}
+		
 		if(p.getEat() >= .1 && p.getSleep() >= .1) {
 			Weapon w = p.getEquippedWeapon();
 			int def = 0;
@@ -56,14 +60,6 @@ public class Attack implements Fireable {
 		double engMult = p.getEng();
 		w.setCondition(w.getCondition() - 1);
 		return (weaponDamage / 100d) + (engMult / 2);
-	}
-	
-	public boolean badId(Person choosen) {
-		if(choosen==null) {
-			output = "That id is not recognized.";
-			return true;
-		}
-		return false;
 	}
 
 	@Override

@@ -8,6 +8,7 @@ import com.game.darquest.data.Enemy;
 import com.game.darquest.data.Person;
 import com.game.darquest.data.Player;
 import com.game.darquest.data.actions.Attack;
+import com.game.darquest.data.actions.Deception;
 import com.game.darquest.data.actions.Eat;
 import com.game.darquest.data.actions.Fireable;
 import com.game.darquest.data.actions.Heal;
@@ -30,7 +31,8 @@ public class FightClubController implements EventHandler<KeyEvent> {
 	public FightClubController(Controller c) {
 		c.getView().getFightClubView().addCommandFieldListener(this);
 		this.c = c;
-		fireList = Arrays.asList(new Eat(), new Sleep(), new Work(), new Attack(this.c), new Use(this.c), new Steal(), new Heal());
+		fireList = Arrays.asList(new Eat(), new Sleep(), new Work(), new Attack(this.c), new Use(this.c), new Steal(),
+				new Heal(), new Deception());
 	}
 
 	@Override
@@ -46,7 +48,6 @@ public class FightClubController implements EventHandler<KeyEvent> {
 		Person choosen = person;
 		String finalCommand = command;
 		if (hasModifier(command)) {
-			System.out.println(command);
 			choosen = assignReceivingPerson(command);
 			finalCommand = getCommandWithoutModifiers(command);
 		}
@@ -60,7 +61,7 @@ public class FightClubController implements EventHandler<KeyEvent> {
 						afterPlayerMove();
 					}
 				}
-				
+
 				setOutput(output, person);
 			}
 		}
@@ -70,7 +71,6 @@ public class FightClubController implements EventHandler<KeyEvent> {
 			return;
 		}
 
-		
 	}
 
 	private String[] modifiers = { "0", "1", "2", "3" };
@@ -117,23 +117,25 @@ public class FightClubController implements EventHandler<KeyEvent> {
 	private void afterPlayerMove() {
 
 		removeDeadEnemyFromList();
-		checkIfPlayerWins();
+		if (playerWins())
+			return;
 		c.getView().getFightClubView().clearCommandField();
 		c.getPlayer().setMoves(c.getPlayer().getMoves() - 1);
 		c.getView().getFightClubView().setPlayerMovesLeft(c.getPlayer());
-		//c.getView().getFightClubView().animateWorkBar((Player)c.getPlayer());
+		// c.getView().getFightClubView().animateWorkBar((Player)c.getPlayer());
 		c.getPlayerInvStatsController().updateAllPlayerStats();
 		c.getDownTownController().drawAllEnemyBoxes(enemyList);
 		doEnemyTurnIfPlayerTurnHasEnded();
 	}
-	
-	private void checkIfPlayerWins() {
+
+	private boolean playerWins() {
 		if (enemyList.size() <= 0) {
 			c.getView().getWindow().setScene(c.getView().getDownTownView().getDownTownScene());
-			return;
+			return true;
 		}
+		return false;
 	}
-	
+
 	private void removeDeadEnemyFromList() {
 		for (int i = 0; i < enemyList.size(); i++) {
 			if (enemyList.get(i).getHp() <= 0) {

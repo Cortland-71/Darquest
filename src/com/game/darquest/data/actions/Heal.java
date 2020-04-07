@@ -16,10 +16,13 @@ public class Heal implements Fireable {
 
 	@Override
 	public boolean fire(Person p, Person choosen) {
-		if(badId(choosen)) return false;
+		if(Action.badId(choosen)) {
+			output = "That id is not recognized.";
+			return false;
+		}
 		
-		if(p.getSleep() >= .3) {
-			double sleepLost = .3;
+		if(p.getSleep() >= .2) {
+			double sleepLost = .2;
 			p.setSleep(p.getSleep() - sleepLost);
 			double hpGained = rand.nextDouble();
 			choosen.setHp(choosen.getHp() + hpGained);
@@ -28,7 +31,8 @@ public class Heal implements Fireable {
 					"\n" + "Sleep lost: " + NumberFormat.getCurrencyInstance().format(sleepLost);
 			return true;
 		}
-		output = p.getName() + " failed to heal. Must have at least .3 sleep.";
+		
+		output = p.getName() + " failed to heal. Must have at least .2 sleep.";
 		return false;
 	}
 
@@ -42,12 +46,5 @@ public class Heal implements Fireable {
 		return output;
 	}
 	
-	public boolean badId(Person choosen) {
-		if(choosen==null) {
-			output = "That id is not recognized.";
-			return true;
-		}
-		return false;
-	}
-
+	
 }

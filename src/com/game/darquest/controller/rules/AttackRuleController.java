@@ -3,6 +3,7 @@ package com.game.darquest.controller.rules;
 import java.util.Random;
 
 import com.game.darquest.controller.Controller;
+import com.game.darquest.data.Enemy;
 
 public class AttackRuleController implements Ruleable {
 
@@ -16,21 +17,21 @@ public class AttackRuleController implements Ruleable {
 	public void getRule() {
 		double eatRequired = .1;
 		double sleepRequired = .1;
-		
-		if(c.getEnemyController().getEnemy().getEat() < eatRequired) {
+		Enemy e = c.getEnemyController().getEnemy();
+		if(e.getEat() < eatRequired) {
 			c.getEnemyController().rulesForEat();
 			return;
-		} else if(c.getEnemyController().getEnemy().getSleep() < sleepRequired) {
+		} else if(e.getSleep() < sleepRequired) {
 			c.getEnemyController().rulesForSleep();
 			return;
 		}
-		if(c.getEnemyController().getEnemy().getEng() >= .5 && c.getEnemyController().getEnemy().getEng() < 1) {
+		if(e.getEng() >= .5 && e.getEng() < 1) {
 			boolean coinFlip = rand.nextBoolean();
 			if(coinFlip) {
 				c.getEnemyController().rulesForSleep();
 				return;
 			} 
-			c.getFightClubController().runFire("attack 0", c.getEnemyController().getEnemy());
+			c.getFightClubController().runFire("attack 0", e);
 			return;
 		}
 		int coinFlip = rand.nextInt(10);
@@ -38,7 +39,7 @@ public class AttackRuleController implements Ruleable {
 			c.getEnemyController().rulesForSleep();
 			return;
 		} 
-		c.getFightClubController().runFire("attack 0", c.getEnemyController().getEnemy());
+		c.getFightClubController().runFire("attack 0", e);
 		
 	}
 	

@@ -14,13 +14,12 @@ public class HealRuleController implements Ruleable {
 
 	@Override
 	public void getRule() {
-		double sleepRequired = .3;
+		double sleepRequired = .2;
 		if(c.getEnemyController().getEnemy().getSleep() < sleepRequired) {
-			c.getFightClubController().runFire("sleep", c.getEnemyController().getEnemy());
+			c.getEnemyController().rulesForSleep();
 			return;
 		}
 		c.getFightClubController().runFire("heal", c.getEnemyController().getEnemy());
-		
 		
 	}
 

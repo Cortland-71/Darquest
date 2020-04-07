@@ -3,6 +3,7 @@ package com.game.darquest.controller;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 import com.game.darquest.controller.rules.AttackRuleController;
 import com.game.darquest.controller.rules.HealRuleController;
@@ -20,7 +21,8 @@ public class EnemyController {
 	private Enemy enemy;
 	private List<Enemy> enemyList;
 	private List<Ruleable> ruleList;
-	private int index = 0;
+	
+	private List<Integer> allScores = new ArrayList<>();
 	private int holder = 0;
 	
 	
@@ -39,64 +41,48 @@ public class EnemyController {
 		this.enemyList = enemyList;
 		Timeline timeline = new Timeline(
 				new KeyFrame(Duration.millis(500), 
-						ae-> moveOne()),
+						ae-> move()),
 				new KeyFrame(Duration.millis(500*2), 
-						ae->moveTwo()),
+						ae-> move()),
 				new KeyFrame(Duration.millis(500*3), 
-						ae->moveThree()),
+						ae-> move()),
 				new KeyFrame(Duration.millis(500*3), 
 						ae-> enemyTurnEnd())
 				);
 			timeline.playFromStart();
 	}
 	
-	
-	private List<Integer> allScores = new ArrayList<>();
-	private void moveOne() {
+
+	private void move() {
 		System.out.println(enemy.getType().getName());
 		allScores = enemy.getType().getAllScores();
-		allScores.forEach(System.out::println);
-		for (int i = 0; i < allScores.size(); i++) {
-			if(allScores.get(i) > holder) {
-				holder = allScores.get(i);
-				index = i;
-			}
-		}
-		
-		System.out.println("index " + index);
-
+		int index = getChoosenActionIndex();
 		ruleList.get(index).getRule();
 		updateAllStats();
 	}
 	
-	private void moveTwo() {
-		allScores = enemy.getType().getAllScores();
-		allScores.forEach(System.out::println);
-		for (int i = 0; i < allScores.size(); i++) {
-			if(allScores.get(i) > holder) {
-				holder = allScores.get(i);
-				index = i;
-			}
-		}
-		
-		System.out.println("index " + index);
-		ruleList.get(index).getRule();
-		updateAllStats();
-	}
 	
-	private void moveThree() {
-		allScores = enemy.getType().getAllScores();
-		allScores.forEach(System.out::println);
+	private int getChoosenActionIndex() {
+		List<Integer> highScoreIndexes = new ArrayList<>();
+		Random rand = new Random();
 		for (int i = 0; i < allScores.size(); i++) {
 			if(allScores.get(i) > holder) {
 				holder = allScores.get(i);
-				index = i;
 			}
 		}
 		
-		System.out.println("index " + index);
-		ruleList.get(index).getRule();
-		updateAllStats();
+		for (int i = 0; i < allScores.size(); i++) {
+			if(allScores.get(i) == holder) {
+				highScoreIndexes.add(i);
+			}
+		}
+		
+		highScoreIndexes.forEach(e->System.out.println("Enemy Controller: High Score index: " + e));
+		int choosenIndex = 0;
+		if(highScoreIndexes.size() > 1)
+			choosenIndex = highScoreIndexes.get(rand.nextInt(highScoreIndexes.size()));
+		System.out.println("Choosen index: " + choosenIndex + "\n");
+		return choosenIndex;
 	}
 	
 	private void updateAllStats() {
@@ -127,7 +113,7 @@ public class EnemyController {
 			c.getFightClubController().runFire("eat", getEnemy());
 			return;
 		}
-		c.getFightClubController().runFire("work", getEnemy());
+		rulesForWork();
 	}
 	
 	public void rulesForSleep() {
@@ -136,6 +122,10 @@ public class EnemyController {
 			c.getFightClubController().runFire("sleep", getEnemy());
 			return;
 		}
+		rulesForWork();
+	}
+	
+	public void rulesForWork() {
 		c.getFightClubController().runFire("work", getEnemy());
 	}
 }

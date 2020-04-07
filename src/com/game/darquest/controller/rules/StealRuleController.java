@@ -3,6 +3,7 @@ package com.game.darquest.controller.rules;
 import java.util.Random;
 
 import com.game.darquest.controller.Controller;
+import com.game.darquest.data.Enemy;
 
 public class StealRuleController implements Ruleable {
 
@@ -14,9 +15,14 @@ public class StealRuleController implements Ruleable {
 
 	@Override
 	public void getRule() {
+		Enemy e = c.getEnemyController().getEnemy();
 		double workRequired = .2;
-		if(c.getEnemyController().getEnemy().getWork() < workRequired) {
-			c.getFightClubController().runFire("work", c.getEnemyController().getEnemy());
+		if(e.getWork() < workRequired) {
+			c.getEnemyController().rulesForWork();
+			return;
+		}
+		if(e.getStealth() < c.getPlayer().getAwareness()) {
+			c.getFightClubController().runFire("dec", e);
 			return;
 		}
 		c.getFightClubController().runFire("steal 0", c.getEnemyController().getEnemy());
