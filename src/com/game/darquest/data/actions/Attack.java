@@ -64,7 +64,7 @@ public class Attack implements Fireable {
 
 	@Override
 	public String getCommandId() {
-		return "attack";
+		return "at";
 	}
 
 	@Override

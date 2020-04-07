@@ -30,7 +30,7 @@ public class Sleep implements Fireable {
 
 	@Override
 	public String getCommandId() {
-		return "sleep";
+		return "zz";
 	}
 
 	@Override

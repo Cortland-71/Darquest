@@ -48,7 +48,7 @@ public class Use implements Fireable {
 
 	@Override
 	public String getCommandId() {
-		return "use";
+		return "se";
 	}
 
 	@Override

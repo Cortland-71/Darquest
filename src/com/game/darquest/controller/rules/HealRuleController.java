@@ -18,7 +18,7 @@ public class HealRuleController implements Ruleable {
 		double workRequired = 0;
 		Enemy e = c.getEnemyController().getEnemy();
 		if (Rules.failedBasicCheck(c, e, eatRequired, sleepRequired, workRequired)) return;
-		c.getFightClubController().runFire("heal", c.getEnemyController().getEnemy());
+		c.getFightClubController().runFire("ea", c.getEnemyController().getEnemy());
 		
 	}
 

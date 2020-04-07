@@ -132,13 +132,13 @@ public class EnemyController {
 	public void rulesForSleep() {
 		double workRequired = .1;
 		if(getEnemy().getWork() >= workRequired) {
-			c.getFightClubController().runFire("sleep", getEnemy());
+			c.getFightClubController().runFire("zz", getEnemy());
 			return;
 		}
 		rulesForWork();
 	}
 	
 	public void rulesForWork() {
-		c.getFightClubController().runFire("work", getEnemy());
+		c.getFightClubController().runFire("wq", getEnemy());
 	}
 }

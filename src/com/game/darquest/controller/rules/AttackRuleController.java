@@ -27,7 +27,7 @@ public class AttackRuleController implements Ruleable {
 				c.getEnemyController().rulesForSleep();
 				return;
 			} 
-			c.getFightClubController().runFire("attack 0", e);
+			c.getFightClubController().runFire("at 0", e);
 			return;
 		}
 		int coinFlip = rand.nextInt(10);
@@ -35,7 +35,7 @@ public class AttackRuleController implements Ruleable {
 			c.getEnemyController().rulesForSleep();
 			return;
 		} 
-		c.getFightClubController().runFire("attack 0", e);
+		c.getFightClubController().runFire("at 0", e);
 		
 	}
 	

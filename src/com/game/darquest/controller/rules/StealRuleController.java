@@ -20,7 +20,11 @@ public class StealRuleController implements Ruleable {
 		double sleepRequired = 0;
 		double eatRequired = 0;
 		if (Rules.failedBasicCheck(c, e, eatRequired, sleepRequired, workRequired)) return;
-		c.getFightClubController().runFire("steal 0", c.getEnemyController().getEnemy());
+		if (e.getStealth() < c.getPlayer().getAwareness()) {
+			c.getEnemyController().getDeceptionRuleController().getRule();
+			return;
+		}
+		c.getFightClubController().runFire("st 0", c.getEnemyController().getEnemy());
 		
 	}
 	

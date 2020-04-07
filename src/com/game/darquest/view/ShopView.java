@@ -67,7 +67,7 @@ public class ShopView extends DownTownView {
 	private BorderPane center() {
 		BorderPane center = new BorderPane();
 		center.setBackground(View.getBackground(Color.BLACK));
-		Image image = new Image("file:Shoptest.png");
+		Image image = new Image("file:shop2.png");
 		ImageView shopImage = new ImageView(image);
 		center.setCenter(shopImage);
 		center.setBottom(shopDialogeBox());

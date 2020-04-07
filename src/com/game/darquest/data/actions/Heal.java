@@ -38,7 +38,7 @@ public class Heal implements Fireable {
 
 	@Override
 	public String getCommandId() {
-		return "heal";
+		return "ea";
 	}
 
 	@Override

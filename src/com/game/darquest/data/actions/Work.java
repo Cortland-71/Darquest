@@ -29,7 +29,7 @@ public class Work implements Fireable {
 
 	@Override
 	public String getCommandId() {
-		return "work";
+		return "wq";
 	}
 
 	@Override

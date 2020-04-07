@@ -81,8 +81,8 @@ public class EnemyGenerator {
 	}
 
 	private int getRandomNumberOfEnemies() {
-		return rand.nextInt((3 - 3) + 1) + 3;
-		//return rand.nextInt((1 - 1) + 1) + 1;
+		//return rand.nextInt((3 - 3) + 1) + 3;
+		return rand.nextInt((1 - 1) + 1) + 1;
 	}
 
 	public List<Enemy> getEnemyList() {

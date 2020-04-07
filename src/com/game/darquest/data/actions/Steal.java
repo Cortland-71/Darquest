@@ -54,7 +54,7 @@ public class Steal implements Fireable {
 
 	@Override
 	public String getCommandId() {
-		return "steal";
+		return "st";
 	}
 
 	@Override
