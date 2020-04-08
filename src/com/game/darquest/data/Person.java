@@ -46,20 +46,20 @@ public abstract class Person {
 	public Person() {
 	}
 
-	public Person(String name, int def, int stealth, int awareness, Weapon equippedWeapon, Armor equippedArmor,
+	public Person(String name, int maxDef, int maxStealth, int maxAwareness, Weapon equippedWeapon, Armor equippedArmor,
 			Tool equippedTool, int lvl, double cash) {
 		this.name = name;
-		this.setDef(def);
-		this.setStealth(stealth);
-		this.setAwareness(awareness);
 		this.equippedWeapon = equippedWeapon;
 		this.equippedArmor = equippedArmor;
 		this.equippedTool = equippedTool;
 		this.lvl = lvl;
 		this.cash = cash;
-		this.setMaxDef(def);
-		this.setMaxStealth(stealth);
-		this.setMaxAwareness(awareness);
+		this.setMaxDef(maxDef);
+		this.setMaxStealth(maxStealth);
+		this.setMaxAwareness(maxAwareness);
+		this.setDef(maxDef);
+		this.setStealth(maxStealth);
+		this.setAwareness(maxAwareness);
 	}
 
 	public void setEquippedItem(Item item) {
@@ -82,6 +82,9 @@ public abstract class Person {
 		if (def < 1) {
 			this.def = 1;
 			return;
+		} else if (def > this.getMaxDef()) {
+			this.def = this.getMaxDef();
+			return;
 		}
 		this.def = def;
 	}
@@ -94,6 +97,9 @@ public abstract class Person {
 		if (stealth < 1) {
 			this.stealth = 1;
 			return;
+		} else if (stealth > this.getMaxStealth()) {
+			this.stealth = this.getMaxStealth();
+			return;
 		}
 		this.stealth = stealth;
 	}
@@ -105,6 +111,9 @@ public abstract class Person {
 	public void setAwareness(int awareness) {
 		if (awareness < 1) {
 			this.awareness = 1;
+			return;
+		} else if (awareness > this.getMaxAwareness()) {
+			this.awareness = this.getMaxAwareness();
 			return;
 		}
 		this.awareness = awareness;

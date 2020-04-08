@@ -16,7 +16,7 @@ public class StealRuleController implements Ruleable {
 	@Override
 	public void getRule() {
 		Enemy e = c.getEnemyController().getEnemy();
-		double workRequired = .2;
+		double workRequired = .1;
 		double sleepRequired = 0;
 		double eatRequired = 0;
 		if (Rules.failedBasicCheck(c, e, eatRequired, sleepRequired, workRequired)) return;

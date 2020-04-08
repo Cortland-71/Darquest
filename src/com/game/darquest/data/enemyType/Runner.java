@@ -49,7 +49,7 @@ public class Runner implements Classable {
 	@Override
 	public double getGeneratedCash() {
 		int min = 100;
-		int max = 5000;
+		int max = 1000;
 		
 		int dollars = rand.nextInt((max-min)+1)+min;
 		double cents = rand.nextDouble();

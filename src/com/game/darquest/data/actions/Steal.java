@@ -19,7 +19,7 @@ public class Steal implements Fireable {
 		}
 		
 		
-		if(p.getWork() >= .2) {
+		if(p.getWork() >= .1) {
 			
 			if(choosen instanceof Player && p instanceof Player) {
 				output = "You can't steal from yourself...";
@@ -52,7 +52,7 @@ public class Steal implements Fireable {
 	}
 	
 	private void stealTransaction(Person p, Person choosen, double finalAmountStolen, double choosenCash) {
-		p.setWork(p.getWork()-.2);
+		p.setWork(p.getWork()-.1);
 		if(finalAmountStolen > choosenCash) {
 			p.setCash(p.getCash() + choosenCash);
 			choosen.setCash(0);

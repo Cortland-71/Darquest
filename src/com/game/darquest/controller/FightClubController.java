@@ -14,6 +14,7 @@ import com.game.darquest.data.actions.Fireable;
 import com.game.darquest.data.actions.Heal;
 import com.game.darquest.data.actions.Sleep;
 import com.game.darquest.data.actions.Steal;
+import com.game.darquest.data.actions.Truth;
 import com.game.darquest.data.actions.Use;
 import com.game.darquest.data.actions.Work;
 
@@ -32,7 +33,7 @@ public class FightClubController implements EventHandler<KeyEvent> {
 		c.getView().getFightClubView().addCommandFieldListener(this);
 		this.c = c;
 		fireList = Arrays.asList(new Eat(), new Sleep(), new Work(), new Attack(this.c), new Use(this.c), new Steal(),
-				new Heal(), new Deception());
+				new Heal(), new Deception(), new Truth());
 	}
 
 	@Override
@@ -61,7 +62,6 @@ public class FightClubController implements EventHandler<KeyEvent> {
 						afterPlayerMove();
 					}
 				}
-
 				setOutput(output, person);
 			}
 		}
@@ -70,7 +70,6 @@ public class FightClubController implements EventHandler<KeyEvent> {
 			c.getView().getWindow().setScene(c.getView().getDownTownView().getDownTownScene());
 			return;
 		}
-
 	}
 
 	private String[] modifiers = { "0", "1", "2", "3" };

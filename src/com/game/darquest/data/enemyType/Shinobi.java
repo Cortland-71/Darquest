@@ -48,8 +48,8 @@ public class Shinobi implements Classable {
 
 	@Override
 	public double getGeneratedCash() {
-		int min = 1000;
-		int max = 100000;
+		int min = 100;
+		int max = 5000;
 		
 		int dollars = rand.nextInt((max-min)+1)+min;
 		double cents = rand.nextDouble();
@@ -82,11 +82,15 @@ public class Shinobi implements Classable {
 		int score = 0;
 		score += c.getPlayer().getHp() == 1 ? 1 : 0;
 		score += c.getPlayer().getHp() > .5 ? 1 : 0;
+		score += c.getPlayer().getHp() < .4 ? 1 : 0;
+		score += c.getPlayer().getHp() < .3 ? 1 : 0;
 		score += c.getPlayer().getHp() < .2 ? 1 : 0;
+		score += c.getPlayer().getHp() < .1 ? 1 : 0;
 		score += c.getPlayer().getHp() > e.getHp() ? 1 : 0;
 		score += c.getPlayer().getHp() == e.getHp() ? 1 : 0;
 		score += c.getPlayer().getDef() <= e.getDef() ? 1 : 0;
 		score += e.getEng() > .3 ? 1 : 0;
+		score += e.getEng() > .5 ? 1 : 0;
 		for(Enemy enemy : enemyList) {
 			score += enemy.getType().getName().equals("Enforcer") ? 1 : 0;
 		}

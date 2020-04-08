@@ -31,12 +31,14 @@ public class NewPlayerController implements EventHandler<KeyEvent> {
 	
 	private void setPlayerAttributes() {
 		c.getPlayer().setName(c.getView().getNewPlayerView().getNameText());
-		c.getPlayer().setDef(5);
-		c.getPlayer().setStealth(5);
-		c.getPlayer().setAwareness(5);
+		
 		c.getPlayer().setMaxDef(5);
 		c.getPlayer().setMaxStealth(5);
 		c.getPlayer().setMaxAwareness(5);
+		
+		c.getPlayer().setDef(5);
+		c.getPlayer().setStealth(5);
+		c.getPlayer().setAwareness(5);
 		((Player)c.getPlayer()).addItemToPlayerInventory(new Tool("none","none","none",0,0,10,10,0,0));
 		
 		for (int i = 0; i < 5; i++) {

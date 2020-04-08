@@ -16,6 +16,11 @@ public class Deception implements Fireable {
 			return false;
 		}
 		
+		if(choosen.getAwareness() < 2) {
+			output = "Target's Awareness is already at it's minimum.";
+			return false;
+		}
+		
 		if(p.getWork() >= .1 && p.getSleep() >= .1 && p.getEat() >= .1) {
 			p.setWork(p.getWork() - .1);
 			p.setSleep(p.getSleep() - .1);
@@ -23,7 +28,7 @@ public class Deception implements Fireable {
 			
 			choosen.setAwareness(choosen.getAwareness() - 3);
 			
-			output = "Deception successful: " + choosen.getName() + "\n" 
+			output = "Deception successful: " + p.getName() + "\n" 
 					+ "Eat: -.1\n"
 					+ "Sleep: -.1\n"
 					+ "Work: -.1\n"
