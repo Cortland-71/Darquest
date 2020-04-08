@@ -37,8 +37,11 @@ public abstract class Person {
 	private Tool equippedTool;
 
 	private int def;
+	private int maxDef;
 	private int stealth;
+	private int maxStealth;
 	private int awareness;
+	private int maxAwareness;
 
 	public Person() {
 	}
@@ -46,14 +49,17 @@ public abstract class Person {
 	public Person(String name, int def, int stealth, int awareness, Weapon equippedWeapon, Armor equippedArmor,
 			Tool equippedTool, int lvl, double cash) {
 		this.name = name;
-		this.def = def;
-		this.stealth = stealth;
-		this.awareness = awareness;
+		this.setDef(def);
+		this.setStealth(stealth);
+		this.setAwareness(awareness);
 		this.equippedWeapon = equippedWeapon;
 		this.equippedArmor = equippedArmor;
 		this.equippedTool = equippedTool;
 		this.lvl = lvl;
 		this.cash = cash;
+		this.setMaxDef(def);
+		this.setMaxStealth(stealth);
+		this.setMaxAwareness(awareness);
 	}
 
 	public void setEquippedItem(Item item) {
@@ -73,8 +79,8 @@ public abstract class Person {
 	}
 
 	public void setDef(int def) {
-		if (def < 0) {
-			this.def = MIN;
+		if (def < 1) {
+			this.def = 1;
 			return;
 		}
 		this.def = def;
@@ -85,8 +91,8 @@ public abstract class Person {
 	}
 
 	public void setStealth(int stealth) {
-		if (stealth < 0) {
-			this.stealth = MIN;
+		if (stealth < 1) {
+			this.stealth = 1;
 			return;
 		}
 		this.stealth = stealth;
@@ -97,8 +103,8 @@ public abstract class Person {
 	}
 
 	public void setAwareness(int awareness) {
-		if (awareness < 0) {
-			this.awareness = MIN;
+		if (awareness < 1) {
+			this.awareness = 1;
 			return;
 		}
 		this.awareness = awareness;
@@ -267,6 +273,30 @@ public abstract class Person {
 
 	public int getMAX_BAR() {
 		return MAX_BAR;
+	}
+
+	public int getMaxAwareness() {
+		return maxAwareness;
+	}
+
+	public void setMaxAwareness(int maxAwareness) {
+		this.maxAwareness = maxAwareness;
+	}
+
+	public int getMaxStealth() {
+		return maxStealth;
+	}
+
+	public void setMaxStealth(int maxStealth) {
+		this.maxStealth = maxStealth;
+	}
+
+	public int getMaxDef() {
+		return maxDef;
+	}
+
+	public void setMaxDef(int maxDef) {
+		this.maxDef = maxDef;
 	}
 
 }

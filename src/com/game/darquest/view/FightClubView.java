@@ -462,6 +462,24 @@ public class FightClubView extends DownTownView {
 		enemyWeaponLabel.setText("Weapon:\n" + p.getEquippedWeaponString());
 		enemyArmorLabel.setText("Armor:\n" + p.getEquippedArmorString());
 		
+		if(p.getDef() < p.getMaxDef()) {
+			enemyDefLabel.setStyle("-fx-text-fill: red");
+		} else {
+			enemyDefLabel.setStyle("-fx-text-fill: orange");
+		}
+		
+		if(p.getStealth() < p.getMaxStealth()) {
+			enemyStealthLabel.setStyle("-fx-text-fill: red");
+		} else {
+			enemyStealthLabel.setStyle("-fx-text-fill: orange");
+		}
+		
+		if(p.getAwareness() < p.getMaxAwareness()) {
+			enemyAwarenessLabel.setStyle("-fx-text-fill: red");
+		} else {
+			enemyAwarenessLabel.setStyle("-fx-text-fill: orange");
+		}
+		
 		enemyDefLabel.setText("Defense:   " + p.getDef());
 		enemyStealthLabel.setText("Stealth:   " + p.getStealth());
 		enemyAwarenessLabel.setText("Awareness: " + p.getAwareness());

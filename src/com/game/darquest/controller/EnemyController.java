@@ -27,14 +27,16 @@ public class EnemyController {
 	private int holder = 0;
 	
 	private DeceptionRuleController deceptionRuleController;
+	private StealRuleController stealRuleController;
 	
 	
 	public EnemyController(Controller c) {
 		this.c = c;
 		deceptionRuleController = new DeceptionRuleController(this.c);
+		stealRuleController = new StealRuleController(this.c);
 		this.ruleList = Arrays.asList(
 				new AttackRuleController(this.c), 
-				new StealRuleController(this.c),
+				stealRuleController,
 				new HealRuleController(this.c),
 				deceptionRuleController);
 		
@@ -43,6 +45,14 @@ public class EnemyController {
 	public DeceptionRuleController getDeceptionRuleController() {
 		return deceptionRuleController;
 	}
+	
+	
+
+	public StealRuleController getStealRuleController() {
+		return stealRuleController;
+	}
+
+
 
 	int count = 0;
 	
@@ -50,13 +60,13 @@ public class EnemyController {
 		this.enemy = enemy;
 		this.enemyList = enemyList;
 		Timeline timeline = new Timeline(
-				new KeyFrame(Duration.millis(500), 
+				new KeyFrame(Duration.millis(600), 
 						ae-> move()),
-				new KeyFrame(Duration.millis(500*2), 
+				new KeyFrame(Duration.millis(600*2), 
 						ae-> move()),
-				new KeyFrame(Duration.millis(500*3), 
+				new KeyFrame(Duration.millis(600*3), 
 						ae-> move()),
-				new KeyFrame(Duration.millis(500*3), 
+				new KeyFrame(Duration.millis(600*3), 
 						ae-> enemyTurnEnd())
 				);
 			timeline.playFromStart();

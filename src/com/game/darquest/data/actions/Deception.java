@@ -23,10 +23,11 @@ public class Deception implements Fireable {
 			
 			choosen.setAwareness(choosen.getAwareness() - 3);
 			
-			output = p.getName() + " has lowered " + choosen.getName() + " Awareness by 3.\n"
+			output = "Deception successful: " + choosen.getName() + "\n" 
 					+ "Eat: -.1\n"
 					+ "Sleep: -.1\n"
-					+ "Work: -.1";
+					+ "Work: -.1\n"
+					+ choosen.getName() + " Awareness -3";
 			return true;
 		}
 		

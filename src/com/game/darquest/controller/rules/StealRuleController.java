@@ -24,7 +24,7 @@ public class StealRuleController implements Ruleable {
 			c.getEnemyController().getDeceptionRuleController().getRule();
 			return;
 		}
-		c.getFightClubController().runFire("st 0", c.getEnemyController().getEnemy());
+		c.getFightClubController().runFire("st 0", e);
 		
 	}
 	

@@ -371,15 +371,30 @@ public class DownTownView {
 		engBar.setProgress(p.getEng());
 		eatBar.setProgress(p.getEat());
 		sleepBar.setProgress(p.getSleep());
-		
-		
-			
-		
 		workBar.setProgress(p.getWork());
 
 		equippedWeaponLabel.setText("Weapon:\n" + p.getEquippedWeaponString());
 		equippedArmorLabel.setText("Armor:\n" + p.getEquippedArmorString());
 		equippedToolLabel.setText("Tool:\n" + p.getEquippedToolString());
+		
+		
+		if(p.getDef() < p.getMaxDef()) {
+			defLabel.setStyle("-fx-text-fill: red");
+		} else {
+			defLabel.setStyle("-fx-text-fill: _green");
+		}
+		
+		if(p.getStealth() < p.getMaxStealth()) {
+			stealthLabel.setStyle("-fx-text-fill: red");
+		} else {
+			stealthLabel.setStyle("-fx-text-fill: _green");
+		}
+		
+		if(p.getAwareness() < p.getMaxAwareness()) {
+			awarenessLabel.setStyle("-fx-text-fill: red");
+		} else {
+			awarenessLabel.setStyle("-fx-text-fill: _green");
+		}
 		
 		defLabel.setText("Defense:   " + p.getDef());
 		stealthLabel.setText("Stealth:   " + p.getStealth());

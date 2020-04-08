@@ -25,7 +25,20 @@ public class Use implements Fireable {
 	
 	@Override
 	public boolean fire(Person p, Person choosen) {
+		if(Action.badId(choosen)) {
+			output = "That id is not recognized.";
+			return false;
+		}
+
 		String catagory = p.getEquippedTool().getCatagory();
+		if(catagory.equals("none")) {
+			output = "You can't use nothing...";
+			return false;
+		}
+		if(choosen.getHp() >= 0) {
+			output = "Your HP is already full...";
+			return false;
+		}
 		Tool t = p.getEquippedTool();
 		int effect = getRandomToolAmount(t);
 		

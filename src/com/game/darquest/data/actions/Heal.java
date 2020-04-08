@@ -21,18 +21,24 @@ public class Heal implements Fireable {
 			return false;
 		}
 		
-		if(p.getSleep() >= .2) {
-			double sleepLost = .2;
-			p.setSleep(p.getSleep() - sleepLost);
-			double hpGained = rand.nextDouble();
-			choosen.setHp(choosen.getHp() + hpGained);
-			
-			output = p.getName() + " healed " + choosen.getName() + "\nHP gained: +" + f2.format(hpGained) + 
-					"\n" + "Sleep lost: " + NumberFormat.getCurrencyInstance().format(sleepLost);
-			return true;
-		}
+		double requiredSleep = .2;
+		double requiredCash = 50;
 		
-		output = p.getName() + " failed to heal. Must have at least .2 sleep.";
+		if(p.getCash() >= requiredCash) {
+			if(p.getSleep() >= requiredSleep) {
+				p.setSleep(p.getSleep() - requiredSleep);
+				double hpGained = rand.nextDouble();
+				choosen.setHp(choosen.getHp() + hpGained);
+				
+				output = "Heal successful: " + choosen.getName() + "\nHP: +" + f2.format(hpGained) + 
+						"\nSleep: -" +requiredSleep +
+						"\nCash: -" + NumberFormat.getCurrencyInstance().format(requiredCash);
+				return true;
+			}
+			output = "Heal Failed: Must have at least " + requiredSleep + " Sleep";
+			return false;
+		}
+		output = "Heal Failed: Must have at least " + NumberFormat.getCurrencyInstance().format(requiredCash);
 		return false;
 	}
 

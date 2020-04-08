@@ -75,7 +75,7 @@ public class EnemyGenerator {
 	}
 
 	private String getRandomName() {
-		List<String> enemyNames = Arrays.asList("Joclop", "Dead Martin", "XB71", "Scog", "Wool", "Forek", "Beatle",
+		List<String> enemyNames = Arrays.asList("Joclop", "Dead Martin", "71", "Scog", "Wool", "Forek", "Beatle",
 				"Amarillo", "Rotter", "Fat Head", "Solomon", "Jac", "Kieron", "Xanhast", "Thoth", "The Bastard");
 		return enemyNames.get(rand.nextInt(enemyNames.size()));
 	}

@@ -13,7 +13,7 @@ public class HpTool implements Useable {
 		double finalEffect = (effect/100d);
 		choosen.setHp(choosen.getHp() + finalEffect);
 		return "Healed: " + choosen.getName()
-		+ "\nInit Damage: "+f2.format(finalEffect);
+		+ "\nHP +: "+f2.format(finalEffect);
 	}
 
 	@Override

@@ -16,8 +16,8 @@ public class Sleep implements Fireable {
 
 				double gainedEng = p.getSleep() / 4;
 				p.setEng(p.getEng() + gainedEng);
-				output = p.getName() + " feels rested.\nGained Eng: +" + gainedEng 
-						+ "\nWork lost: -" + .1;
+				output = "Sleep successful: " + choosen.getName() + "\nEng: +" + gainedEng 
+						+ "\nWork: -" + .1;
 				return true;
 			}
 			output = p.getName() + " can't sleep right now.\n" + "You must have at least .1 work and .1 eat...";

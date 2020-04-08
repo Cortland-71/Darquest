@@ -18,9 +18,7 @@ public class Eat implements Fireable {
 				p.setEat(p.getEat() + .1);
 				p.setCash(p.getCash() - costToEat);
 
-				double hpGained = p.getEat() * .01;
-				p.setHp(p.getHp() + hpGained);
-				output = p.getName() + " ate and feels much better.\n" + "HP gained: +" + f2.format(hpGained) + "\n" + "Cost: "
+				output = "Eat successful: " + choosen.getName() + "\nCash: -"
 						+ NumberFormat.getCurrencyInstance().format(costToEat);
 				return true;
 			}
