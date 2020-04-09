@@ -20,7 +20,7 @@ public abstract class Person {
 	private int moves;
 
 	private String name;
-	private int lvl = 5;
+	private int lvl = 1;
 	private double cash = 1000.0;
 
 	private double hp = 1;

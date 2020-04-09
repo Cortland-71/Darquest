@@ -1,6 +1,7 @@
 package com.game.darquest.data.actions;
 
 import com.game.darquest.data.Person;
+import com.game.darquest.data.Player;
 
 public class Sleep implements Fireable {
 
@@ -13,8 +14,15 @@ public class Sleep implements Fireable {
 			if (p.getWork() > p.getMIN()) {
 				p.setSleep(p.getSleep() + .1);
 				p.setWork(p.getWork() - .1);
+				
+				double gainedEng = 0;
 
-				double gainedEng = p.getSleep() / 4;
+				if(p instanceof Player) {
+					gainedEng = p.getSleep() / 4;
+				} else {
+					gainedEng = p.getSleep() / 2;
+				}
+				
 				p.setEng(p.getEng() + gainedEng);
 				output = "Sleep successful: " + choosen.getName() + "\nEng: +" + gainedEng 
 						+ "\nWork: -" + .1;

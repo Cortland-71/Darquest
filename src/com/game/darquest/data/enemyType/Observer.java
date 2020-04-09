@@ -80,7 +80,6 @@ public class Observer implements Classable {
 
 	public int attackQuestions() {
 		Enemy e = (Enemy)c.getEnemyController().getEnemy();
-		List<Enemy> enemyList = c.getEnemyController().getEnemyList();
 		int score = 0;
 		score += c.getPlayer().getHp() == 1 ? 1 : 0;
 		score += c.getPlayer().getHp() > .5 ? 1 : 0;
@@ -89,9 +88,8 @@ public class Observer implements Classable {
 		score += c.getPlayer().getHp() == e.getHp() ? 1 : 0;
 		score += c.getPlayer().getDef() <= e.getDef() ? 1 : 0;
 		score += e.getEng() > .3 ? 1 : 0;
-		for(Enemy enemy : enemyList) {
-			score += enemy.getType().getName().equals("Enforcer") ? 1 : 0;
-		}
+		score += e.getEng() > .4 ? 1 : 0;
+	
 		
 		System.out.println("attack score: " + score);
 		return score;
@@ -112,13 +110,7 @@ public class Observer implements Classable {
 	}
 	
 	public int engQuestions() {
-		Enemy e = (Enemy)c.getEnemyController().getEnemy();
 		int score = 0;
-		
-		score += c.getPlayer().getEng() > e.getEng() ? 1 : 0;
-		score += e.getEng() < 1 ? 1 : 0;
-		score += e.getEng() < .5 ? 1 : 0;
-		score += e.getEng() < .4 ? 1 : 0;
 		System.out.println("Eng score: " + score);
 		return score;
 	}
@@ -140,6 +132,19 @@ public class Observer implements Classable {
 		System.out.println("Heal score: " + score);
 		return score;
  	}
+	
+	private int deceptionQuestions() {
+		int score = 0;
+		Enemy e = (Enemy)c.getEnemyController().getEnemy();
+		List<Enemy> enemyList = c.getEnemyController().getEnemyList();
+		score += c.getPlayer().getAwareness() == c.getPlayer().getMaxAwareness() ? 2 : 0;
+		for(Enemy enemy : enemyList) {
+			score += c.getPlayer().getAwareness() >= enemy.getAwareness() ? 2 : 0;
+		}
+		System.out.println("Truth score: " + score);
+		return score;
+	}
+
 
 	public int truthQuestions() {
 		Enemy e = (Enemy)c.getEnemyController().getEnemy();
@@ -164,8 +169,8 @@ public class Observer implements Classable {
 		allScores.add(healQuestions());
 		allScores.add(truthQuestions());
 		allScores.add(engQuestions());
+		allScores.add(deceptionQuestions());
 		
 		return allScores;
 	}
-
 }

@@ -78,7 +78,6 @@ public class Shinobi implements Classable {
 	
 	public int attackQuestions() {
 		Enemy e = (Enemy)c.getEnemyController().getEnemy();
-		List<Enemy> enemyList = c.getEnemyController().getEnemyList();
 		int score = 0;
 		score += c.getPlayer().getHp() == 1 ? 1 : 0;
 		score += c.getPlayer().getHp() > .5 ? 1 : 0;
@@ -87,9 +86,10 @@ public class Shinobi implements Classable {
 		score += c.getPlayer().getHp() == e.getHp() ? 1 : 0;
 		score += c.getPlayer().getDef() <= e.getDef() ? 1 : 0;
 		score += e.getEng() > .3 ? 1 : 0;
-		for(Enemy enemy : enemyList) {
-			score += enemy.getType().getName().equals("Enforcer") ? 1 : 0;
-		}
+		score += e.getEng() > .4 ? 1 : 0;
+		score += e.getEng() > .5 ? 1 : 0;
+		score += e.getEng() > .6 ? 1 : 0;
+		score += e.getEng() > .7 ? 1 : 0;
 		
 		System.out.println("attack score: " + score);
 		return score;
@@ -99,12 +99,13 @@ public class Shinobi implements Classable {
 		Enemy e = (Enemy)c.getEnemyController().getEnemy();
 		int score = 0;
 		score += c.getPlayer().getCash() > e.getCash() ? 1 : 0;
-		score += c.getPlayer().getCash() > 500 ? 1 : 0;
-		score += c.getPlayer().getWork() <= .2 ? 1 : 0;
-		score += c.getPlayer().getEat() > .2 ? 1 : 0;
-		score += e.getCash() > 1000 ? 1 : 0;
-		score += e.getCash() < 1000 ? 1 : 0;
-		
+		score += c.getPlayer().getCash() > 500 ? 2 : 0;
+		score += e.getCash() < 500 ? 1 : 0;
+		score += c.getPlayer().getAwareness() < c.getPlayer().getMaxAwareness() ? 1 : 0;
+		score += c.getPlayer().getAwareness() > e.getAwareness() ? 1 : 0;
+		score += c.getPlayer().getAwareness() == e.getAwareness() ? 1 : 0;
+		score += e.getAwareness() > c.getPlayer().getAwareness() ? 1 : 0;
+		score += e.getAwareness() < c.getPlayer().getAwareness() ? 2 : 0;
 		System.out.println("Steal score: " + score);
 		return score;
 	}
@@ -116,8 +117,8 @@ public class Shinobi implements Classable {
 		score += e.getHp() < 1 ? 1 : 0;
 		score += e.getHp() < .8 ? 1 : 0;
 		score += e.getHp() < .5 ? 1 : 0;
-		score += e.getHp() < .3 ? 1 : 0;
-		score += e.getHp() < .2 ? 1 : 0;
+		score += e.getHp() < .3 ? 2 : 0;
+		score += e.getHp() < .2 ? 2 : 0;
 		score += c.getPlayer().getHp() > e.getHp() ? 1 : 0;
 		for(Enemy enemy : enemyList) {
 			score += enemy.getHp() > e.getHp() ? 1 : 0;
@@ -128,27 +129,21 @@ public class Shinobi implements Classable {
  	}
 
 	public int truthQuestions() {
-		Enemy e = (Enemy)c.getEnemyController().getEnemy();
-		List<Enemy> enemyList = c.getEnemyController().getEnemyList();
 		int score = 0;
-		score += e.getAwareness() < e.getMaxAwareness() ? 2 : 0;
-		for(Enemy enemy : enemyList) {
-			score += enemy.getAwareness() < enemy.getMaxAwareness() ? 2 : 0;
-		}
-		
 		System.out.println("Truth score: " + score);
 		return score;
-		
 	}
 	
 	public int engQuestions() {
 		Enemy e = (Enemy)c.getEnemyController().getEnemy();
 		int score = 0;
-		
-		score += c.getPlayer().getEng() > e.getEng() ? 1 : 0;
-		score += e.getEng() < 1 ? 1 : 0;
+	
+		score += c.getPlayer().getHp() > .8 ? 1 : 0;
 		score += e.getEng() < .5 ? 1 : 0;
 		score += e.getEng() < .4 ? 1 : 0;
+		score += e.getEng() < .3 ? 1 : 0;
+		score += e.getEng() < .2 ? 1 : 0;
+		score += e.getEng() < .1 ? 1 : 0;
 		System.out.println("Eng score: " + score);
 		return score;
 	}

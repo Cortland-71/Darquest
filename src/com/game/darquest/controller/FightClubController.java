@@ -129,6 +129,10 @@ public class FightClubController implements EventHandler<KeyEvent> {
 
 	private boolean playerWins() {
 		if (enemyList.size() <= 0) {
+			c.getView().getFightClubView().clearEnemyOutputTextArea();
+			c.getView().getFightClubView().setPlayerOutputTextArea("");
+			c.getView().getFightClubView().clearCommandField();
+			c.getPlayerInvStatsController().updateAllPlayerStats();
 			c.getView().getWindow().setScene(c.getView().getDownTownView().getDownTownScene());
 			return true;
 		}

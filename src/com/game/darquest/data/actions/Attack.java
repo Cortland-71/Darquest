@@ -31,7 +31,7 @@ public class Attack implements Fireable {
 			double finalDamage = 0;
 			double damageAmount = getRandomDamageAmount(w, p);
 			
-			p.setEng(p.getEng() - .1);
+			p.setEng(p.getEng() - .3);
 			p.setEat(p.getEat() - .1);
 			p.setSleep(p.getSleep() - .1);
 			

@@ -25,11 +25,7 @@ public class HealRuleController implements Ruleable {
 		if (Rules.failedBasicCheck(c, e, eatRequired, sleepRequired, workRequired)) return;
 		
 		if (e.getCash() < cashRequired) {
-			if(rand.nextBoolean()) {
-				c.getEnemyController().rulesForWork();
-				return;
-			}
-			c.getEnemyController().getStealRuleController().getRule();
+			c.getEnemyController().rulesForWork();
 			return;
 		}
 		
