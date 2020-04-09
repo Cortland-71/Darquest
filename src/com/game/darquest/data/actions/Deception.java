@@ -17,8 +17,8 @@ public class Deception implements Fireable {
 		}
 		
 		if(choosen.getAwareness() < 2) {
-			output = "Target's Awareness is already at it's minimum.";
-			return false;
+			output = "Target's Awareness was already at it's minimum but deception took place.";
+			return true;
 		}
 		
 		if(p.getWork() >= .1 && p.getSleep() >= .1 && p.getEat() >= .1) {

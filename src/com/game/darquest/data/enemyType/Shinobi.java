@@ -82,15 +82,11 @@ public class Shinobi implements Classable {
 		int score = 0;
 		score += c.getPlayer().getHp() == 1 ? 1 : 0;
 		score += c.getPlayer().getHp() > .5 ? 1 : 0;
-		score += c.getPlayer().getHp() < .4 ? 1 : 0;
-		score += c.getPlayer().getHp() < .3 ? 1 : 0;
 		score += c.getPlayer().getHp() < .2 ? 1 : 0;
-		score += c.getPlayer().getHp() < .1 ? 1 : 0;
 		score += c.getPlayer().getHp() > e.getHp() ? 1 : 0;
 		score += c.getPlayer().getHp() == e.getHp() ? 1 : 0;
 		score += c.getPlayer().getDef() <= e.getDef() ? 1 : 0;
 		score += e.getEng() > .3 ? 1 : 0;
-		score += e.getEng() > .5 ? 1 : 0;
 		for(Enemy enemy : enemyList) {
 			score += enemy.getType().getName().equals("Enforcer") ? 1 : 0;
 		}
@@ -131,12 +127,41 @@ public class Shinobi implements Classable {
 		return score;
  	}
 
+	public int truthQuestions() {
+		Enemy e = (Enemy)c.getEnemyController().getEnemy();
+		List<Enemy> enemyList = c.getEnemyController().getEnemyList();
+		int score = 0;
+		score += e.getAwareness() < e.getMaxAwareness() ? 2 : 0;
+		for(Enemy enemy : enemyList) {
+			score += enemy.getAwareness() < enemy.getMaxAwareness() ? 2 : 0;
+		}
+		
+		System.out.println("Truth score: " + score);
+		return score;
+		
+	}
+	
+	public int engQuestions() {
+		Enemy e = (Enemy)c.getEnemyController().getEnemy();
+		int score = 0;
+		
+		score += c.getPlayer().getEng() > e.getEng() ? 1 : 0;
+		score += e.getEng() < 1 ? 1 : 0;
+		score += e.getEng() < .5 ? 1 : 0;
+		score += e.getEng() < .4 ? 1 : 0;
+		System.out.println("Eng score: " + score);
+		return score;
+	}
+	
+
 	@Override
 	public List<Integer> getAllScores() {
 		List<Integer> allScores = new ArrayList<>();
 		allScores.add(attackQuestions());
 		allScores.add(stealQuestions());
 		allScores.add(healQuestions());
+		allScores.add(truthQuestions());
+		allScores.add(engQuestions());
 		
 		return allScores;
 	}

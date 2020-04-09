@@ -7,9 +7,11 @@ import java.util.Random;
 
 import com.game.darquest.controller.rules.AttackRuleController;
 import com.game.darquest.controller.rules.DeceptionRuleController;
+import com.game.darquest.controller.rules.EngRuleController;
 import com.game.darquest.controller.rules.HealRuleController;
 import com.game.darquest.controller.rules.Ruleable;
 import com.game.darquest.controller.rules.StealRuleController;
+import com.game.darquest.controller.rules.TruthRuleController;
 import com.game.darquest.data.Enemy;
 
 import javafx.animation.KeyFrame;
@@ -28,20 +30,37 @@ public class EnemyController {
 	
 	private DeceptionRuleController deceptionRuleController;
 	private StealRuleController stealRuleController;
-	
+	private HealRuleController healRuleController;
+	private AttackRuleController attackRuleController;
+	private TruthRuleController truthRuleController;
+	private EngRuleController engRuleController;
 	
 	public EnemyController(Controller c) {
 		this.c = c;
 		deceptionRuleController = new DeceptionRuleController(this.c);
 		stealRuleController = new StealRuleController(this.c);
+		healRuleController = new HealRuleController(this.c);
+		attackRuleController = new AttackRuleController(this.c);
+		truthRuleController = new TruthRuleController(this.c);
+		engRuleController = new EngRuleController(this.c);
 		this.ruleList = Arrays.asList(
-				new AttackRuleController(this.c), 
+				attackRuleController, 
 				stealRuleController,
-				new HealRuleController(this.c),
+				healRuleController,
+				truthRuleController,
+				engRuleController,
 				deceptionRuleController);
 		
 	}
 	
+	public HealRuleController getHealRuleController() {
+		return healRuleController;
+	}
+
+	public AttackRuleController getAttackRuleController() {
+		return attackRuleController;
+	}
+
 	public DeceptionRuleController getDeceptionRuleController() {
 		return deceptionRuleController;
 	}
@@ -87,6 +106,8 @@ public class EnemyController {
 		int choosenIndex = 0;
 		holder = 0;
 		Random rand = new Random();
+		
+		//Finds Highest score in the list of all scores.
 		for (int i = 0; i < allScores.size(); i++) {
 			if(allScores.get(i) > holder) {
 				holder = allScores.get(i);
@@ -94,6 +115,7 @@ public class EnemyController {
 			}
 		}
 		
+		//Adds the index of duplicates of the highest score found to a list of highScoreIndexes.
 		for (int i = 0; i < allScores.size(); i++) {
 			if(allScores.get(i) == holder) {
 				highScoreIndexes.add(i);
@@ -101,6 +123,8 @@ public class EnemyController {
 		}
 		
 		highScoreIndexes.forEach(e->System.out.println("Enemy Controller: High Score index: " + e));
+		
+		//If it finds there are two indexes with same high scores it will choose one randomly.
 		if(highScoreIndexes.size() > 1) 
 			choosenIndex = highScoreIndexes.get(rand.nextInt(highScoreIndexes.size()));
 		

@@ -127,6 +127,33 @@ public class Runner implements Classable {
 		System.out.println("Heal score: " + score);
 		return score;
  	}
+	
+	public int engQuestions() {
+		Enemy e = (Enemy)c.getEnemyController().getEnemy();
+		int score = 0;
+		
+		score += c.getPlayer().getEng() > e.getEng() ? 1 : 0;
+		score += e.getEng() < 1 ? 1 : 0;
+		score += e.getEng() < .5 ? 1 : 0;
+		score += e.getEng() < .4 ? 1 : 0;
+		System.out.println("Eng score: " + score);
+		return score;
+	}
+
+	public int truthQuestions() {
+		Enemy e = (Enemy)c.getEnemyController().getEnemy();
+		List<Enemy> enemyList = c.getEnemyController().getEnemyList();
+		int score = 0;
+		score += e.getAwareness() < e.getMaxAwareness() ? 2 : 0;
+		for(Enemy enemy : enemyList) {
+			score += enemy.getAwareness() < enemy.getMaxAwareness() ? 2 : 0;
+		}
+		
+		System.out.println("Truth score: " + score);
+		return score;
+		
+	}
+	
 
 	@Override
 	public List<Integer> getAllScores() {
@@ -134,6 +161,8 @@ public class Runner implements Classable {
 		allScores.add(attackQuestions());
 		allScores.add(stealQuestions());
 		allScores.add(healQuestions());
+		allScores.add(truthQuestions());
+		allScores.add(engQuestions());
 		
 		return allScores;
 	}
