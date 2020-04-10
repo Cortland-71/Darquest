@@ -2,6 +2,7 @@ package com.game.darquest.data.actions;
 
 import java.text.NumberFormat;
 
+import com.game.darquest.data.Enemy;
 import com.game.darquest.data.Person;
 import com.game.darquest.data.Player;
 
@@ -18,7 +19,6 @@ public class Steal implements Fireable {
 			return false;
 		}
 		
-		
 		if(p.getWork() >= .1) {
 			
 			if(choosen instanceof Player && p instanceof Player) {
@@ -26,21 +26,29 @@ public class Steal implements Fireable {
 				return false;
 			}
 			
+			
+			
 			double choosenCash = choosen.getCash();
 			int stealthAmount = p.getStealth();
 			int awarenessAmount = choosen.getAwareness();
-			double amountStolen = stealthAmount * 50;
+			double amountStolen = stealthAmount * stealthAmount;
+			double engBonus = (p.getEng() * 100d) * 3d;
+			
+			if(p instanceof Enemy) {
+				engBonus = (p.getEng() * 100d) * 10d;
+			} 
+			
+			if(p.getEng() > 0) amountStolen += engBonus;
 			
 			if(stealthAmount == awarenessAmount) {
 				stealTransaction(p, choosen, amountStolen, choosenCash);
-				output = "Steal: " + NumberFormat.getCurrencyInstance().format(amountStolen);
 				return true;
 			}
 			
-			double finalAmountStolen = amountStolen - (awarenessAmount * 50);
+			double finalAmountStolen = amountStolen - (awarenessAmount * awarenessAmount);
+			System.out.println("Steal class finalAmount" + finalAmountStolen);
 			if(finalAmountStolen > 0) {
 				stealTransaction(p, choosen, finalAmountStolen, choosenCash);
-				output = "Steal: " + NumberFormat.getCurrencyInstance().format(amountStolen);
 				return true;
 			}
 			
@@ -53,13 +61,12 @@ public class Steal implements Fireable {
 	
 	private void stealTransaction(Person p, Person choosen, double finalAmountStolen, double choosenCash) {
 		p.setWork(p.getWork()-.1);
-		if(finalAmountStolen > choosenCash) {
-			p.setCash(p.getCash() + choosenCash);
-			choosen.setCash(0);
-		} else {
-			p.setCash(p.getCash() + finalAmountStolen);
-			choosen.setCash(choosen.getCash() - finalAmountStolen);
-		}
+		p.setEng(p.getEng() - .2);
+		
+		if(finalAmountStolen > choosenCash) finalAmountStolen = choosenCash;
+		p.setCash(p.getCash() + finalAmountStolen);
+		choosen.setCash(choosen.getCash() - finalAmountStolen);
+		output = "Steal: " + NumberFormat.getCurrencyInstance().format(finalAmountStolen);
 	}
 
 	@Override

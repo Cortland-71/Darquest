@@ -35,7 +35,7 @@ public class Use implements Fireable {
 			output = "You can't use nothing...";
 			return false;
 		}
-		if(choosen.getHp() >= 0) {
+		if(choosen.getHp() >= 1) {
 			output = "Your HP is already full...";
 			return false;
 		}

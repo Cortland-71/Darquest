@@ -12,6 +12,7 @@ import com.game.darquest.data.actions.Deception;
 import com.game.darquest.data.actions.Eat;
 import com.game.darquest.data.actions.Fireable;
 import com.game.darquest.data.actions.Heal;
+import com.game.darquest.data.actions.Help;
 import com.game.darquest.data.actions.Sleep;
 import com.game.darquest.data.actions.Steal;
 import com.game.darquest.data.actions.Truth;
@@ -32,7 +33,7 @@ public class FightClubController implements EventHandler<KeyEvent> {
 	public FightClubController(Controller c) {
 		c.getView().getFightClubView().addCommandFieldListener(this);
 		this.c = c;
-		fireList = Arrays.asList(new Eat(), new Sleep(), new Work(), new Attack(this.c), new Use(this.c), new Steal(),
+		fireList = Arrays.asList(new Help(), new Eat(), new Sleep(), new Work(), new Attack(this.c), new Use(this.c), new Steal(),
 				new Heal(), new Deception(), new Truth());
 	}
 

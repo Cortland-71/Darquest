@@ -24,7 +24,7 @@ public class Sleep implements Fireable {
 				}
 				
 				p.setEng(p.getEng() + gainedEng);
-				output = "Sleep successful: " + choosen.getName() + "\nEng: +" + gainedEng 
+				output = "Sleep successful: " + p.getName() + "\nEng: +" + gainedEng 
 						+ "\nWork: -" + .1;
 				return true;
 			}

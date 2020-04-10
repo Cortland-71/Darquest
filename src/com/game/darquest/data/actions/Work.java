@@ -18,7 +18,7 @@ public class Work implements Fireable {
 
 			p.setCash(p.getCash() + finalPay);
 			
-			output = "Work successful: " + choosen.getName() + "\nCash: +"
+			output = "Work successful: " + p.getName() + "\nCash: +"
 					+ NumberFormat.getCurrencyInstance().format(finalPay);
 			return true;
 		}

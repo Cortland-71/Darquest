@@ -30,11 +30,6 @@ public class AttackRuleController implements Ruleable {
 			c.getFightClubController().runFire("att 0", e);
 			return;
 		}
-		int coinFlip = rand.nextInt(10);
-		if(coinFlip < 7) {
-			c.getEnemyController().rulesForSleep();
-			return;
-		} 
 		c.getFightClubController().runFire("att 0", e);
 		
 	}

@@ -78,6 +78,7 @@ public class Shinobi implements Classable {
 	
 	public int attackQuestions() {
 		Enemy e = (Enemy)c.getEnemyController().getEnemy();
+		List<Enemy> enemyList = c.getEnemyController().getEnemyList();
 		int score = 0;
 		score += c.getPlayer().getHp() == 1 ? 1 : 0;
 		score += c.getPlayer().getHp() > .5 ? 1 : 0;
@@ -90,6 +91,11 @@ public class Shinobi implements Classable {
 		score += e.getEng() > .5 ? 1 : 0;
 		score += e.getEng() > .6 ? 1 : 0;
 		score += e.getEng() > .7 ? 1 : 0;
+		
+		for(Enemy enemy : enemyList) {
+			score += enemy.getType().getName() != "Enforcer" ? 1 : 0;
+		}
+		
 		
 		System.out.println("attack score: " + score);
 		return score;
