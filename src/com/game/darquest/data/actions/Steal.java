@@ -19,14 +19,7 @@ public class Steal implements Fireable {
 			return false;
 		}
 		
-		if(p.getWork() >= .1) {
-			
-			if(choosen instanceof Player && p instanceof Player) {
-				output = "You can't steal from yourself...";
-				return false;
-			}
-			
-			
+		if(p.getWork() >= .1 && p.getSleep() >= .1) {
 			
 			double choosenCash = choosen.getCash();
 			int stealthAmount = p.getStealth();
@@ -34,8 +27,22 @@ public class Steal implements Fireable {
 			double amountStolen = stealthAmount * stealthAmount;
 			double engBonus = (p.getEng() * 100d) * 3d;
 			
+			
+			if(choosen instanceof Player && p instanceof Player) {
+				output = "You can't steal from yourself...";
+				return false;
+			}
+			
+			if(stealthAmount < awarenessAmount) {
+				output = "Steal Failed. "+ choosen.getName() +"'s Awareness to to high.";
+				return false;
+			}
+			
 			if(p instanceof Enemy) {
-				engBonus = (p.getEng() * 100d) * 10d;
+				if(((Enemy) p).getType().getName().equals("Shinobi") || 
+						((Enemy) p).getType().getName().equals("Observer")) {
+					engBonus = (p.getEng() * 100d) * 50d;
+				}
 			} 
 			
 			if(p.getEng() > 0) amountStolen += engBonus;
@@ -46,21 +53,18 @@ public class Steal implements Fireable {
 			}
 			
 			double finalAmountStolen = amountStolen - (awarenessAmount * awarenessAmount);
-			System.out.println("Steal class finalAmount" + finalAmountStolen);
 			if(finalAmountStolen > 0) {
 				stealTransaction(p, choosen, finalAmountStolen, choosenCash);
 				return true;
 			}
-			
-			output = "Steal Failed. "+ choosen.getName() +"'s Awareness to to high.";
-			return false;
 		}
-		output = "You must have at least .2 work to steal...";
+		output = "You must have at least .1 Work and .1 Sleep to steal...";
 		return false;
 	}
 	
 	private void stealTransaction(Person p, Person choosen, double finalAmountStolen, double choosenCash) {
 		p.setWork(p.getWork()-.1);
+		p.setSleep(p.getSleep() - .1);
 		p.setEng(p.getEng() - .2);
 		
 		if(finalAmountStolen > choosenCash) finalAmountStolen = choosenCash;

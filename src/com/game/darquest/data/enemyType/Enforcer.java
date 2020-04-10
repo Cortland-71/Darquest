@@ -14,23 +14,26 @@ public class Enforcer implements Classable {
 	private ItemHub ic;
 	private Controller c;
 	private int level;
+	private int minStat = 5;
+	private int maxStat;
 	
 	
-	
-
 	@Override
 	public int getGenerateDef() {
-		return rand.nextInt(level*5);
+		System.out.println(maxStat);
+		return rand.nextInt((maxStat - minStat)+1)+minStat;
 	}
 
 	@Override
 	public int getGenerateStealth() {
-		return rand.nextInt(level);
+		
+		return rand.nextInt((maxStat - minStat)+1)+minStat;
 	}
 
 	@Override
 	public int getGenerateAwareness() {
-		return rand.nextInt(level);
+	
+		return rand.nextInt((maxStat - minStat)+1)+minStat;
 	}
 
 	@Override
@@ -67,6 +70,7 @@ public class Enforcer implements Classable {
 
 	@Override
 	public void setLevel(int level) {
+		maxStat = minStat + level;
 		this.level = level;
 		
 	}

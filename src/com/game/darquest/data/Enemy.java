@@ -11,9 +11,11 @@ public class Enemy extends Person {
 	private int id;
 	private String imagePath;
 
-	public Enemy(String name, int lvl, Classable type, int def, int stealth, int awareness, Weapon equippedWeapon,
-			Armor equippedArmor, Tool equippedTool, int id, double cash, String imagePath) {
-		super(name, def, stealth, awareness, equippedWeapon, equippedArmor, equippedTool, lvl, cash);
+	
+
+	public Enemy(String name, int maxDef, int maxStealth, int maxAwareness, Weapon equippedWeapon, Armor equippedArmor,
+			Tool equippedTool, int lvl, double cash, Classable type, int id, String imagePath) {
+		super(name, maxDef, maxStealth, maxAwareness, equippedWeapon, equippedArmor, equippedTool, lvl, cash);
 		this.type = type;
 		this.id = id;
 		this.imagePath = imagePath;

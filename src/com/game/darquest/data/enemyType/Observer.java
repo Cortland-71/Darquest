@@ -16,19 +16,23 @@ public class Observer implements Classable {
 	private Controller c;
 	private int level;
 
+	private int minStat = 5;
+	private int maxStat;
+	
+	
 	@Override
 	public int getGenerateDef() {
-		return rand.nextInt(level*2);
+		return rand.nextInt((maxStat - minStat)+1)+minStat;
 	}
 
 	@Override
 	public int getGenerateStealth() {
-		return rand.nextInt(level);
+		return rand.nextInt((maxStat - minStat)+1)+minStat;
 	}
 
 	@Override
 	public int getGenerateAwareness() {
-		return rand.nextInt(level*5);
+		return rand.nextInt((maxStat - minStat)+1)+minStat;
 	}
 
 	@Override
@@ -67,6 +71,7 @@ public class Observer implements Classable {
 
 	@Override
 	public void setLevel(int level) {
+		maxStat = minStat + level;
 		this.level = level;
 		
 	}
@@ -141,7 +146,7 @@ public class Observer implements Classable {
 		for(Enemy enemy : enemyList) {
 			score += c.getPlayer().getAwareness() >= enemy.getAwareness() ? 2 : 0;
 		}
-		System.out.println("Truth score: " + score);
+		System.out.println("Dec score: " + score);
 		return score;
 	}
 
