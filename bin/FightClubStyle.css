@@ -91,9 +91,13 @@
 	-fx-background-color: almostDark;
 }
 
-#enemyRightStatsBox .label,
-#enemyBottomStatsBox .label{
+#enemyRightStatsBox .label {
 	-fx-font: 15px "Consolas";
+	-fx-text-fill: orange;
+}
+
+#enemyBottomStatsBox .label {
+	-fx-font: 12px "Consolas";
 	-fx-text-fill: orange;
 }
 

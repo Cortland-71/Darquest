@@ -298,20 +298,21 @@ public class FightClubView extends DownTownView {
 	
 	//Enemy Bottom stats box \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 	private VBox enemyBottomStatsBox() {
-		VBox enemyBottomStatsBox = new VBox(1);
+		VBox enemyBottomStatsBox = new VBox(2);
 		enemyBottomStatsBox.setId("enemyBottomStatsBox");
-		enemyBottomStatsBox.setPadding(new Insets(10,0,0,20));
+		enemyBottomStatsBox.setPadding(new Insets(5,0,0,20));
 		enemyBottomStatsBox.setAlignment(Pos.TOP_LEFT);
 		enemyBottomStatsBox.setMinSize(420, 120);
 		enemyBottomStatsBox.setMaxSize(420, 120);
 		enemyBottomStatsBox.setBackground(View.getBackground(Color.BLUE));
-		enemyBottomStatsBox.getChildren().addAll(enemyEatLabel(), enemyEatBar(),
-				enemySleepLabel(), enemySleepBar(), enemyWorkLabel(), enemyWorkBar());
+		enemyBottomStatsBox.getChildren().addAll(enemyLimitLabel(), enemyLimitBar(),
+				enemyEatLabel(), enemyEatBar(), enemySleepLabel(), enemySleepBar(), 
+				enemyWorkLabel(), enemyWorkBar());
 		return enemyBottomStatsBox;
 	}
 	
 	private final int esBarLength = 380;
-	private final int esBarWidth = 12;
+	private final int esBarWidth = 9;
 	
 	private Label enemyEatLabel;
 	private Label enemyEatLabel() {
@@ -363,6 +364,24 @@ public class FightClubView extends DownTownView {
 		enemyWorkBar.setMinSize(esBarLength, esBarWidth);
 		enemyWorkBar.setMaxSize(esBarLength, esBarWidth);
 		return enemyWorkBar;
+	}
+	
+	private Label enemyLimitLabel;
+	private Label enemyLimitLabel() {
+		enemyLimitLabel = new Label("Limit");
+		return enemyLimitLabel;
+	}
+	
+	public void setEnemyLimitLabel(String Limit) {
+		enemyLimitLabel.setText(Limit);
+	}
+	private ProgressBar enemyLimitBar;
+	private ProgressBar enemyLimitBar() {
+		enemyLimitBar = new ProgressBar();
+		enemyLimitBar.setId("enemyLimitBar");
+		enemyLimitBar.setMinSize(esBarLength, esBarWidth);
+		enemyLimitBar.setMaxSize(esBarLength, esBarWidth);
+		return enemyLimitBar;
 	}
 	
 	
