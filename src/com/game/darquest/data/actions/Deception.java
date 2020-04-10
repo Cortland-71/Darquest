@@ -11,10 +11,6 @@ public class Deception implements Fireable {
 
 	@Override
 	public boolean fire(Person p, Person choosen) {
-		if(Action.badId(choosen)) {
-			output = "That id is not recognized.";
-			return false;
-		}
 		
 		if(choosen.getAwareness() < 2) {
 			output = "Target's Awareness was already at it's minimum but deception took place.";
@@ -39,7 +35,7 @@ public class Deception implements Fireable {
 		output = "You must have at least .1 Eat .1 Sleep and .1 Work to Decept";
 		return false;
 	}
-
+	
 	@Override
 	public String getCommandId() {
 		return "dec";

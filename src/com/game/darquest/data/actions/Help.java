@@ -13,7 +13,7 @@ public class Help implements Fireable {
 	@Override
 	public boolean fire(Person p, Person choosen) {
 		output = "Commands fall under 3 categories.\n"
-				+ "Essential, Hostile and Deffensive\n\n"
+				+ "Essential, Hostile and Defensive\n\n"
 				
 				+ "Essential:\n"
 				+ "eat - Eat [eat] raises the eat bar by .1 and\n"

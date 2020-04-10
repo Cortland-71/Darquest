@@ -25,10 +25,6 @@ public class Use implements Fireable {
 	
 	@Override
 	public boolean fire(Person p, Person choosen) {
-		if(Action.badId(choosen)) {
-			output = "That id is not recognized.";
-			return false;
-		}
 
 		String catagory = p.getEquippedTool().getCatagory();
 		if(catagory.equals("none")) {
@@ -58,7 +54,7 @@ public class Use implements Fireable {
 		t.setCondition(t.getCondition() - 1);
 		return rand.nextInt((max - min) + 1) + min;
 	}
-
+	
 	@Override
 	public String getCommandId() {
 		return "se";

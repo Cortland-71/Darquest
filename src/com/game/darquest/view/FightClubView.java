@@ -477,6 +477,7 @@ public class FightClubView extends DownTownView {
 		enemyEatBar.setProgress(p.getEat());
 		enemySleepBar.setProgress(p.getSleep());
 		enemyWorkBar.setProgress(p.getWork());
+		enemyLimitBar.setProgress(p.getLimit());
 
 		enemyWeaponLabel.setText("Weapon:\n" + p.getEquippedWeaponString());
 		enemyArmorLabel.setText("Armor:\n" + p.getEquippedArmorString());
@@ -504,5 +505,7 @@ public class FightClubView extends DownTownView {
 		enemyAwarenessLabel.setText("Awareness: " + p.getAwareness());
 		enemyTypeLabel.setText("Type: "+p.getType().getName());
 		enemyIDLabel.setText("ID: " + p.getId());
+		enemyLimitLabel.setText("Limit: " + p.getLimit());
+		
 	}
 }

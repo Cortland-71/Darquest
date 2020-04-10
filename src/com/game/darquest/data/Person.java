@@ -160,7 +160,7 @@ public abstract class Person {
 			this.hp = MIN;
 			return;
 		}
-		this.hp = Double.parseDouble(f2.format(hp));
+		this.hp = Math.round(hp * 100.0) / 100.0;
 	}
 
 	public double getEng() {
@@ -176,7 +176,7 @@ public abstract class Person {
 			this.eng = MIN;
 			return;
 		}
-		this.eng = Double.parseDouble(f2.format(eng));
+		this.eng = Math.round(eng * 100.0) / 100.0;
 	}
 
 	public double getEat() {
@@ -192,7 +192,7 @@ public abstract class Person {
 			this.eat = MIN;
 			return;
 		}
-		this.eat = Double.parseDouble(f1.format(eat));
+		this.eat = Math.round(eat * 100.0) / 100.0;
 	}
 
 	public double getSleep() {
@@ -208,7 +208,7 @@ public abstract class Person {
 			this.sleep = MIN;
 			return;
 		}
-		this.sleep = Double.parseDouble(f1.format(sleep));
+		this.sleep = Math.round(sleep * 100.0) / 100.0;
 	}
 
 	public double getWork() {
@@ -224,7 +224,7 @@ public abstract class Person {
 			this.work = MIN;
 			return;
 		}
-		this.work = Double.parseDouble(f1.format(work));
+		this.work = Math.round(work * 100.0) / 100.0;
 	}
 
 	public double getCash() {

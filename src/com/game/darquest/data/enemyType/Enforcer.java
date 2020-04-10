@@ -13,15 +13,14 @@ import com.game.darquest.data.items.Weapon;
 public class Enforcer implements Classable {
 	private ItemHub ic;
 	private Controller c;
-	private int level;
 	private int minStat = 5;
 	private int maxStat;
 	
 	
 	@Override
 	public int getGenerateDef() {
-		System.out.println(maxStat);
-		return rand.nextInt((maxStat - minStat)+1)+minStat;
+		int defBuff = maxStat + (maxStat/2);
+		return rand.nextInt((defBuff - minStat)+1)+minStat;
 	}
 
 	@Override
@@ -70,9 +69,7 @@ public class Enforcer implements Classable {
 
 	@Override
 	public void setLevel(int level) {
-		maxStat = minStat + level;
-		this.level = level;
-		
+		maxStat = minStat + level;		
 	}
 
 	@Override

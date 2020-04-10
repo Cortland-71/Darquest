@@ -14,10 +14,6 @@ public class Steal implements Fireable {
 
 	@Override
 	public boolean fire(Person p, Person choosen) {
-		if(Action.badId(choosen)) {
-			output = "That id is not recognized.";
-			return false;
-		}
 		
 		if(p.getWork() >= .1 && p.getSleep() >= .1) {
 			

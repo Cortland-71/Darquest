@@ -12,10 +12,6 @@ public class Truth implements Fireable {
 
 	@Override
 	public boolean fire(Person p, Person choosen) {
-		if(Action.badId(choosen)) {
-			output = "That id is not recognized.";
-			return false;
-		}
 		
 		if(choosen.getAwareness() >= choosen.getMaxAwareness()) {
 			output = "Target's Awareness is already at it's maximum.";
@@ -33,7 +29,8 @@ public class Truth implements Fireable {
 		output = "You must have 0 Eat 0 Sleep and 0 Work to know the Truth.";
 		return false;
 	}
-
+	
+	
 	@Override
 	public String getCommandId() {
 		return "tr";

@@ -16,10 +16,6 @@ public class Heal implements Fireable {
 
 	@Override
 	public boolean fire(Person p, Person choosen) {
-		if(Action.badId(choosen)) {
-			output = "That id is not recognized.";
-			return false;
-		}
 		
 		double requiredSleep = .2;
 		double requiredCash = 50;
@@ -41,6 +37,7 @@ public class Heal implements Fireable {
 		output = "Heal Failed: Must have at least " + NumberFormat.getCurrencyInstance().format(requiredCash);
 		return false;
 	}
+	
 
 	@Override
 	public String getCommandId() {
