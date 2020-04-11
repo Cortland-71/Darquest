@@ -59,9 +59,9 @@ public class EnemyGenerator {
 
 	private Classable getRandomType() {
 		List<Classable> classList = Arrays.asList(
-				new Enforcer(),
-				new Observer());
-				//new Shinobi());
+				//new Enforcer(),
+				//new Observer(),
+				new Shinobi());
 		return classList.get(rand.nextInt(classList.size()));
 	}
 

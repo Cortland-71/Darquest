@@ -9,64 +9,84 @@ import com.game.darquest.data.Player;
 public class Steal implements Fireable {
 
 	private String output;
+
 	public Steal() {
 	}
 
 	@Override
 	public boolean fire(Person p, Person choosen) {
-		
-		if(p.getWork() >= .1 && p.getSleep() >= .1) {
-			
-			double choosenCash = choosen.getCash();
-			int stealthAmount = p.getStealth();
+
+		if (playerStealFromThemselves(p, choosen))
+			return false;
+
+		if (p.getWork() >= .1 && p.getSleep() >= .1) {
+
 			int awarenessAmount = choosen.getAwareness();
-			double amountStolen = stealthAmount * stealthAmount;
-			double engBonus = (p.getEng() * 100d) * 3d;
-			
-			
-			if(choosen instanceof Player && p instanceof Player) {
-				output = "You can't steal from yourself...";
-				return false;
+			int stealthAmount = p.getStealth();
+			double eng = p.getEng();
+
+			double initStolen = getInitStolen(stealthAmount);
+
+			double stolenWithEngMult = getStealWithEngMult(eng, initStolen);
+			double finalAmountStolen = getFinalStealAmount(stealthAmount, awarenessAmount, stolenWithEngMult);
+			double limitRaised = 0;
+
+			p.setWork(p.getWork() - .1);
+			p.setSleep(p.getSleep() - .1);
+			p.setEng(p.getEng() - .2);
+
+			if (p.getStealth() < choosen.getAwareness()) {
+				output = "Steal failed." + "\nStealth: " + p.getStealth() + "\n" + choosen.getName() + "'s Awareness: "
+						+ choosen.getAwareness() + "\nAwareness to high.";
+				return true;
 			}
-			
-			if(stealthAmount < awarenessAmount) {
-				output = "Steal Failed. "+ choosen.getName() +"'s Awareness to to high.";
-				return false;
-			}
-			
-			if(p instanceof Enemy) {
-				if(((Enemy) p).getType().getName().equals("Shinobi") || 
-						((Enemy) p).getType().getName().equals("Observer")) {
-					engBonus = (p.getEng() * 100d) * 50d;
+
+			if (choosen instanceof Enemy) {
+				Enemy e = (Enemy) choosen;
+				if (e.getType().getName().equals("Shinobi")) {
+					if (e.getLimit() < 1) {
+						limitRaised = initStolen / 1000;
+						e.setLimit(e.getLimit() + limitRaised);
+					}
 				}
-			} 
-			
-			if(p.getEng() > 0) amountStolen += engBonus;
-			
-			if(stealthAmount == awarenessAmount) {
-				stealTransaction(p, choosen, amountStolen, choosenCash);
-				return true;
 			}
-			
-			double finalAmountStolen = amountStolen - (awarenessAmount * awarenessAmount);
-			if(finalAmountStolen > 0) {
-				stealTransaction(p, choosen, finalAmountStolen, choosenCash);
-				return true;
-			}
+
+			p.setCash(p.getCash() + finalAmountStolen);
+			choosen.setCash(choosen.getCash() - finalAmountStolen);
+			output = "Limit raised: +" + Math.round(limitRaised * 100d) / 100d + "\n\nStolen from: " + choosen.getName()
+					+ "\nInit stolen: " + initStolen + "\nInit stolen + Eng multiplyer: " + stolenWithEngMult + "\n"
+					+ choosen.getName() + "'s Awareness: " + choosen.getAwareness() + "\nFinal amount Stolen: "
+					+ NumberFormat.getCurrencyInstance().format(finalAmountStolen);
+			return true;
 		}
 		output = "You must have at least .1 Work and .1 Sleep to steal...";
 		return false;
 	}
-	
-	private void stealTransaction(Person p, Person choosen, double finalAmountStolen, double choosenCash) {
-		p.setWork(p.getWork()-.1);
-		p.setSleep(p.getSleep() - .1);
-		p.setEng(p.getEng() - .2);
-		
-		if(finalAmountStolen > choosenCash) finalAmountStolen = choosenCash;
-		p.setCash(p.getCash() + finalAmountStolen);
-		choosen.setCash(choosen.getCash() - finalAmountStolen);
-		output = "Steal: " + NumberFormat.getCurrencyInstance().format(finalAmountStolen);
+
+	private double getInitStolen(int stealthAmount) {
+		return stealthAmount * 50;
+	}
+
+	private double getStealWithEngMult(double eng, double initStolen) {
+		if (eng > 0)
+			return initStolen + (eng * 200);
+		return initStolen;
+	}
+
+	private double getFinalStealAmount(int stealth, int awareness, double stealWithEngMult) {
+		if (stealth == awareness)
+			return stealWithEngMult;
+
+		double amount = stealWithEngMult + ((stealth - awareness) * 10);
+		return amount;
+	}
+
+	private boolean playerStealFromThemselves(Person p, Person choosen) {
+		if (choosen instanceof Player && p instanceof Player) {
+			output = "You can't steal from yourself...";
+			return true;
+		}
+		return false;
 	}
 
 	@Override

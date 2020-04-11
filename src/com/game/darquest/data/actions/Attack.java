@@ -24,19 +24,16 @@ public class Attack implements Fireable {
 	public boolean fire(Person p, Person choosen) {
 		
 		if(playerAttackedThemselves(p, choosen)) return false;
-		
-		
-		
+
 		if(p.getEat() >= .1 && p.getSleep() >= .1) {
-			
-			
-				
 			
 			Weapon w = p.getEquippedWeapon();
 			int weaponDamage = getWeaponDamage(w);
-			double weaponDamageWithEngMult = getWeaponDamageWithEngMult(p, weaponDamage);
 			int def = choosen.getDef();
+			
+			double weaponDamageWithEngMult = getWeaponDamageWithEngMult(p, weaponDamage);
 			double finalDamage = getFinalWeaponDamage(def, weaponDamageWithEngMult);
+			double limitRaised = 0;
 			
 			w.setCondition(w.getCondition() - 1);
 			p.setEng(p.getEng() - .3);
@@ -51,7 +48,7 @@ public class Attack implements Fireable {
 				return true;
 			}
 			
-			double limitRaised = 0;
+			
 			if(choosen instanceof Enemy) {
 				Enemy e = (Enemy)choosen;
 				if(e.getType().getName().equals("Enforcer")) {
@@ -67,7 +64,6 @@ public class Attack implements Fireable {
 					}
 				}
 			} 
-			
 			
 			choosen.setHp(choosen.getHp() - finalDamage);
 			c.getPlayerInvStatsController().removeItemWhenUsedUp(w);
@@ -90,15 +86,6 @@ public class Attack implements Fireable {
 		}
 		return false;
 	}
-	
-//	private boolean enteredBadId(Person choosen) {
-//		if(choosen==null) {
-//			System.out.println("inside bad id");
-//			output = "That id is not recognized.";
-//			return true;
-//		}
-//		return false;
-//	}
 	
 	private double getFinalWeaponDamage(int def, double weaponDamageWithEngMult) {
 		return weaponDamageWithEngMult - ((def/2d)/100d);
