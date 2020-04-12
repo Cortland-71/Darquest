@@ -46,11 +46,11 @@ public class Attack implements Fireable {
 				
 				for(Enemy enemy : enemyList) {
 					if(enemy.getType().getName().equals("Shinobi")) {
-						enemy.setLimit(enemy.getLimit() + .2);
-						sb.append("Shinobi: " + enemy.getName() + " +.2 Limit");
+						enemy.setLimit(enemy.getLimit() + finalDamage);
+						sb.append("Shinobi: " + enemy.getName() + " +" + f2.format(finalDamage) + " Limit\n");
 					}
 				}
-				choosen.setHp(choosen.getHp() - .2);
+				choosen.setHp(choosen.getHp() - finalDamage);
 				c.getPlayerInvStatsController().removeItemWhenUsedUp(w);
 				output = "You attacked yourself.\n" + sb;
 				return true;
