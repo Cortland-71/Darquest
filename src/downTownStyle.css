@@ -7,10 +7,13 @@
 	
 	lightText: #d9d9d9;
 
-	_green: #00ff00;
+	_green: #00cc00;
+	_firstGreen:#00ff00;
 	_red: #ff0000;
 	_yellow: #ffff00;
 	_blue: #0093ff;
+	_lightBlue: #00b8e6;
+	_darkBlue: #001a33;
 	_superDarkOrange: #331f00;
 	_superDarkGreen: #003300;
 	_darkGreen: #006600;
@@ -91,6 +94,10 @@
 #enemySleepBar .bar,
 #enemyWorkBar .bar {
 	-fx-background-color: _green;
+}
+
+#enemyLimitBar .bar {
+	-fx-background-color: _blue;
 }
 
 #esBar .bar {

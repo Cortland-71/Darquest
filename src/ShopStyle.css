@@ -24,7 +24,7 @@
 }
 
 #shopTabPane .list-cell:filled:selected:focused, .list-cell:filled:selected {
-    -fx-background-color: linear-gradient(to right, #663d00, #995c00, #ff9900,  #995c00, #663d00);
+    -fx-background-color: linear-gradient(to right, #cc5200, #ff8000);
     -fx-text-fill: lightText;
 }
 
@@ -52,14 +52,14 @@
 
 #sell {
 	-fx-font: 20px "Consolas";
-	-fx-text-fill: _green;
+	-fx-text-fill: _lightBlue;
 	-fx-background-color: almostDark;
-	-fx-border-color: _green;
+	-fx-border-color: _lightBlue;
 	-fx-border-width: 2px;
 }
 
 #sell:hover {
-	-fx-background-color: _superDarkGreen;
+	-fx-background-color: _darkBlue;
 	-fx-text-fill: lightText;
 }
 

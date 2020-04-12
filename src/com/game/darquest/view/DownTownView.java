@@ -342,7 +342,7 @@ public class DownTownView {
 	// \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\- Center
 	private VBox centerBox() {
 		VBox centerBox = new VBox();
-		Image image = new Image("file:downTownBig.png");
+		Image image = new Image("file:downTownSoft.png");
 		ImageView enemyImage = new ImageView(image);
 		centerBox.setAlignment(Pos.CENTER);
 		centerBox.setBackground(View.getBackground(Color.BLACK));
@@ -381,19 +381,19 @@ public class DownTownView {
 		if(p.getDef() < p.getMaxDef()) {
 			defLabel.setStyle("-fx-text-fill: red");
 		} else {
-			defLabel.setStyle("-fx-text-fill: _green");
+			defLabel.setStyle("-fx-text-fill: _lightBlue");
 		}
 		
 		if(p.getStealth() < p.getMaxStealth()) {
 			stealthLabel.setStyle("-fx-text-fill: red");
 		} else {
-			stealthLabel.setStyle("-fx-text-fill: _green");
+			stealthLabel.setStyle("-fx-text-fill: _lightBlue");
 		}
 		
 		if(p.getAwareness() < p.getMaxAwareness()) {
 			awarenessLabel.setStyle("-fx-text-fill: red");
 		} else {
-			awarenessLabel.setStyle("-fx-text-fill: _green");
+			awarenessLabel.setStyle("-fx-text-fill: _lightBlue");
 		}
 		
 		defLabel.setText("Defense:   " + p.getDef());

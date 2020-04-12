@@ -485,19 +485,19 @@ public class FightClubView extends DownTownView {
 		if(p.getDef() < p.getMaxDef()) {
 			enemyDefLabel.setStyle("-fx-text-fill: red");
 		} else {
-			enemyDefLabel.setStyle("-fx-text-fill: orange");
+			enemyDefLabel.setStyle("-fx-text-fill: #cc6600");
 		}
 		
 		if(p.getStealth() < p.getMaxStealth()) {
 			enemyStealthLabel.setStyle("-fx-text-fill: red");
 		} else {
-			enemyStealthLabel.setStyle("-fx-text-fill: orange");
+			enemyStealthLabel.setStyle("-fx-text-fill: #cc6600");
 		}
 		
 		if(p.getAwareness() < p.getMaxAwareness()) {
 			enemyAwarenessLabel.setStyle("-fx-text-fill: red");
 		} else {
-			enemyAwarenessLabel.setStyle("-fx-text-fill: orange");
+			enemyAwarenessLabel.setStyle("-fx-text-fill: #cc6600");
 		}
 		
 		enemyDefLabel.setText("Defense:   " + p.getDef());

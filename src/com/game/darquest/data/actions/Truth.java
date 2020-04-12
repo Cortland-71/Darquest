@@ -19,10 +19,13 @@ public class Truth implements Fireable {
 		}
 		
 		if(p.getWork() == 0 && p.getSleep() == 0 && p.getEat() == 0) {
-			choosen.setAwareness(choosen.getAwareness() + 3);
+			
+			choosen.setAwareness(choosen.getAwareness() + 1);
+			p.setEng(p.getEng() - .2);
 			
 			output = "Truth successful: " + p.getName() + "\n" 
-					+ choosen.getName() + " Awareness +3";
+					+ "Eng lost: -" + .2 + "\n"
+					+ choosen.getName() + " Awareness +" + 1;
 			return true;
 		}
 		

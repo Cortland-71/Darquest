@@ -14,7 +14,6 @@ public class Shinobi implements Classable {
 
 	private ItemHub ic;
 	private Controller c;
-	private int level;
 
 	private int minStat = 5;
 	private int maxStat;
@@ -36,7 +35,7 @@ public class Shinobi implements Classable {
 
 	@Override
 	public Weapon getGenerateWeapon() {
-		return (Weapon)ic.highWeaponsList().get(rand.nextInt(ic.highWeaponsList().size()));
+		return (Weapon)ic.midWeaponsList().get(rand.nextInt(ic.midWeaponsList().size()));
 	}
 
 	@Override
@@ -69,8 +68,6 @@ public class Shinobi implements Classable {
 	@Override
 	public void setLevel(int level) {
 		maxStat = minStat + level;
-		this.level = level;
-		
 	}
 
 	@Override

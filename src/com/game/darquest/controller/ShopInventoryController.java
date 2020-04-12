@@ -27,13 +27,13 @@ public class ShopInventoryController implements EventHandler<MouseEvent> {
 
 	@Override
 	public void handle(MouseEvent e) {
-		setSelectedShopItemToLabel();
+		setSelectedShopItemToTextArea();
 	}
 	
-	public void setSelectedShopItemToLabel() {
+	public void setSelectedShopItemToTextArea() {
 		int tabIndex = c.getView().getShopView().getShopTabPane().getSelectionModel().getSelectedIndex();
 		Item itemSelected = c.getView().getShopView().getShopListViewObjects().get(tabIndex).getSelectionModel().getSelectedItem();
-		c.getView().getShopView().setSelectedItemInfoLabel(itemSelected.toString());
+		c.getView().getShopView().setBuyShopDialogeTextArea(itemSelected.toString());
 	}
 
 }

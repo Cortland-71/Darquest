@@ -23,10 +23,13 @@ public class Heal implements Fireable {
 		if(p.getCash() >= requiredCash) {
 			if(p.getSleep() >= requiredSleep) {
 				p.setSleep(p.getSleep() - requiredSleep);
+				p.setCash(p.getCash() - requiredCash);
 				double hpGained = rand.nextDouble();
 				choosen.setHp(choosen.getHp() + hpGained);
 				
-				output = "Heal successful: " + choosen.getName() + "\nHP: +" + f2.format(hpGained) + 
+				output = "Heal successful: " + p.getName() +
+						"\nTarget: " + choosen.getName() +
+						"\nHP: +" + f2.format(hpGained) +
 						"\nSleep: -" +requiredSleep +
 						"\nCash: -" + NumberFormat.getCurrencyInstance().format(requiredCash);
 				return true;

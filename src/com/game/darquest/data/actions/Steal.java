@@ -36,14 +36,14 @@ public class Steal implements Fireable {
 			p.setEng(p.getEng() - .2);
 
 			if (p.getStealth() < choosen.getAwareness()) {
-				output = "Steal failed." + "\nStealth: " + p.getStealth() + "\n" + choosen.getName() + "'s Awareness: "
+				output = "You got caught." + "\nStealth: " + p.getStealth() + "\n" + choosen.getName() + "'s Awareness: "
 						+ choosen.getAwareness() + "\nAwareness to high.";
 				return true;
 			}
 
 			if (choosen instanceof Enemy) {
 				Enemy e = (Enemy) choosen;
-				if (e.getType().getName().equals("Shinobi")) {
+				if (e.getType().getName().equals("Observer")) {
 					if (e.getLimit() < 1) {
 						limitRaised = initStolen / 1000;
 						e.setLimit(e.getLimit() + limitRaised);

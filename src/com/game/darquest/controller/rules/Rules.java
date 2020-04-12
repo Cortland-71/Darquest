@@ -39,7 +39,6 @@ public class Rules {
 		} else if(e.getEat() > 0) {
 			System.out.println("eat is more than 0. Enemy trying to use Truth. Heal rule");
 			c.getEnemyController().getAttackRuleController().getRule();
-			
 			return true;
 		} else if(e.getSleep() > 0) {
 			System.out.println("Eat is more than 0. Enemy trying to use Truth. Attacking rule");

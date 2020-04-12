@@ -97,7 +97,7 @@ class Shop implements Clickable {
 		c.getView().getWindow().setScene(c.getView().getShopView().getShopScene());
 		c.getView().getShopView().getShopTabPane().getSelectionModel().selectFirst();
 		c.getView().getShopView().getShopListViewObjects().forEach(o->o.getSelectionModel().selectFirst());
-		c.getShopInventoryController().setSelectedShopItemToLabel();
+		c.getShopInventoryController().setSelectedShopItemToTextArea();
 		c.getView().getShopView().setBuyShopDialogeTextArea("Odette: Welcome, please have a look around.");
 		c.getView().getShopView().setSellShopDialogeTextArea("Select an item from your inventory and "
 				+ "click the \"Sell\" Button to sell it.");

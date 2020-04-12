@@ -14,7 +14,6 @@ public class Observer implements Classable {
 
 	private ItemHub ic;
 	private Controller c;
-	private int level;
 
 	private int minStat = 5;
 	private int maxStat;
@@ -32,12 +31,13 @@ public class Observer implements Classable {
 
 	@Override
 	public int getGenerateAwareness() {
-		return rand.nextInt((maxStat - minStat)+1)+minStat;
+		int awarenessBuff = maxStat + (maxStat/2);
+		return rand.nextInt((awarenessBuff - minStat)+1)+minStat;
 	}
 
 	@Override
 	public Weapon getGenerateWeapon() {
-		return (Weapon)ic.lowWeaponsList().get(rand.nextInt(ic.lowWeaponsList().size()));
+		return (Weapon)ic.midWeaponsList().get(rand.nextInt(ic.midWeaponsList().size()));
 	}
 
 	@Override
@@ -72,8 +72,6 @@ public class Observer implements Classable {
 	@Override
 	public void setLevel(int level) {
 		maxStat = minStat + level;
-		this.level = level;
-		
 	}
 
 	@Override
@@ -101,15 +99,7 @@ public class Observer implements Classable {
 	}
 	
 	public int stealQuestions() {
-		Enemy e = (Enemy)c.getEnemyController().getEnemy();
 		int score = 0;
-		score += c.getPlayer().getCash() > e.getCash() ? 1 : 0;
-		score += c.getPlayer().getCash() > 500 ? 1 : 0;
-		score += c.getPlayer().getWork() <= .2 ? 1 : 0;
-		score += c.getPlayer().getEat() > .2 ? 1 : 0;
-		score += e.getCash() > 1000 ? 1 : 0;
-		score += e.getCash() < 1000 ? 1 : 0;
-		
 		System.out.println("Steal score: " + score);
 		return score;
 	}
@@ -131,7 +121,7 @@ public class Observer implements Classable {
 		score += e.getHp() < .2 ? 1 : 0;
 		score += c.getPlayer().getHp() > e.getHp() ? 1 : 0;
 		for(Enemy enemy : enemyList) {
-			score += enemy.getHp() > e.getHp() ? 1 : 0;
+			score += enemy.getHp() < 3 ? 1 : 0;
 		}
 		
 		System.out.println("Heal score: " + score);
@@ -156,6 +146,7 @@ public class Observer implements Classable {
 		List<Enemy> enemyList = c.getEnemyController().getEnemyList();
 		int score = 0;
 		score += e.getAwareness() < e.getMaxAwareness() ? 2 : 0;
+		score += e.getAwareness() < c.getPlayer().getStealth() ? 2 : 0;
 		for(Enemy enemy : enemyList) {
 			score += enemy.getAwareness() < enemy.getMaxAwareness() ? 2 : 0;
 		}

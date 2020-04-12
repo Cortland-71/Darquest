@@ -1,6 +1,8 @@
 package com.game.darquest.data.actions;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import com.game.darquest.controller.Controller;
@@ -22,8 +24,6 @@ public class Attack implements Fireable {
 	
 	@Override
 	public boolean fire(Person p, Person choosen) {
-		
-		if(playerAttackedThemselves(p, choosen)) return false;
 
 		if(p.getEat() >= .1 && p.getSleep() >= .1) {
 			
@@ -40,8 +40,24 @@ public class Attack implements Fireable {
 			p.setEat(p.getEat() - .1);
 			p.setSleep(p.getSleep() - .1);
 			
+			if(p instanceof Player && choosen instanceof Player) {
+				List<Enemy> enemyList = c.getEnemyController().getEnemyList();
+				StringBuilder sb = new StringBuilder();
+				
+				for(Enemy enemy : enemyList) {
+					if(enemy.getType().getName().equals("Shinobi")) {
+						enemy.setLimit(enemy.getLimit() + .2);
+						sb.append("Shinobi: " + enemy.getName() + " +.2 Limit");
+					}
+				}
+				choosen.setHp(choosen.getHp() - .2);
+				c.getPlayerInvStatsController().removeItemWhenUsedUp(w);
+				output = "You attacked yourself.\n" + sb;
+				return true;
+			}
+			
 			if(weaponDamage < choosen.getDef()) {
-				output = "Attack failed."
+				output = "Attack missed."
 						+ "\nAttack damage: " + weaponDamage 
 						+ "\n" + choosen.getName() + "'s Deffense: " + choosen.getDef()
 						+ "\nDeffense to high.";
@@ -76,14 +92,6 @@ public class Attack implements Fireable {
 			return true;
 		}
 		output = "Failed to attack. You must have .1 Eat, .1 Sleep.";
-		return false;
-	}
-	
-	private boolean playerAttackedThemselves(Person p, Person choosen) {
-		if(p instanceof Player && choosen instanceof Player) {
-			output = "You can't attack yourself.";
-			return true;
-		}
 		return false;
 	}
 	

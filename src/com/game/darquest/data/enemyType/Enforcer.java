@@ -37,12 +37,12 @@ public class Enforcer implements Classable {
 
 	@Override
 	public Weapon getGenerateWeapon() {
-		return (Weapon)ic.highWeaponsList().get(rand.nextInt(ic.highWeaponsList().size()));
+		return (Weapon)ic.midWeaponsList().get(rand.nextInt(ic.midWeaponsList().size()));
 	}
 
 	@Override
 	public Armor getGenerateArmor() {
-		return (Armor)ic.highArmorList().get(rand.nextInt(ic.highArmorList().size()));
+		return (Armor)ic.midArmorList().get(rand.nextInt(ic.midArmorList().size()));
 	}
 	
 	@Override
@@ -101,19 +101,7 @@ public class Enforcer implements Classable {
 	
 	
 	public int healQuestions() {
-		Enemy e = (Enemy)c.getEnemyController().getEnemy();
-		List<Enemy> enemyList = c.getEnemyController().getEnemyList();
 		int score = 0;
-		score += e.getHp() < 1 ? 1 : 0;
-		score += e.getHp() < .8 ? 1 : 0;
-		score += e.getHp() < .5 ? 1 : 0;
-		score += e.getHp() < .3 ? 2 : 0;
-		score += e.getHp() < .2 ? 2 : 0;
-		score += c.getPlayer().getHp() > e.getHp() ? 1 : 0;
-		for(Enemy enemy : enemyList) {
-			score += enemy.getHp() > e.getHp() ? 1 : 0;
-		}
-		
 		System.out.println("Heal score: " + score);
 		return score;
  	}

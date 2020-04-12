@@ -27,8 +27,6 @@ public class AttackRuleController implements Ruleable {
 				c.getEnemyController().rulesForSleep();
 				return;
 			} 
-			c.getFightClubController().runFire("att 0", e);
-			return;
 		}
 		c.getFightClubController().runFire("att 0", e);
 		
