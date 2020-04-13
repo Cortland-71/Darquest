@@ -2,6 +2,8 @@ package com.game.darquest.data.actions.hostile;
 
 import java.text.NumberFormat;
 
+import javax.swing.text.NumberFormatter;
+
 import com.game.darquest.data.Enemy;
 import com.game.darquest.data.Person;
 import com.game.darquest.data.Player;
@@ -22,23 +24,24 @@ public class Steal implements Fireable {
 
 		if (p.getWork() >= .1 && p.getSleep() >= .1) {
 
+			// current stats from person stealing and target
 			int awarenessAmount = choosen.getAwareness();
 			int stealthAmount = p.getStealth();
+			double choosenCash = choosen.getCash();
 			double eng = p.getEng();
 
 			double initStolen = getInitStolen(stealthAmount);
-
 			double stolenWithEngMult = getStealWithEngMult(eng, initStolen);
-			double finalAmountStolen = getFinalStealAmount(stealthAmount, awarenessAmount, stolenWithEngMult);
 			double limitRaised = 0;
+			double finalAmountStolen = 0;
 
 			p.setWork(p.getWork() - .1);
 			p.setSleep(p.getSleep() - .1);
 			p.setEng(p.getEng() - .2);
 
 			if (p.getStealth() < choosen.getAwareness()) {
-				output = "You got caught." + "\nStealth: " + p.getStealth() + "\n" + choosen.getName() + "'s Awareness: "
-						+ choosen.getAwareness() + "\nAwareness to high.";
+				output = "You got caught." + "\nStealth: " + p.getStealth() + "\n" + choosen.getName()
+						+ "'s Awareness: " + choosen.getAwareness() + "\nAwareness to high.";
 				return true;
 			}
 
@@ -52,12 +55,17 @@ public class Steal implements Fireable {
 				}
 			}
 
+			finalAmountStolen = getFinalStealAmount(stealthAmount, awarenessAmount, stolenWithEngMult, choosenCash);
+
 			p.setCash(p.getCash() + finalAmountStolen);
 			choosen.setCash(choosen.getCash() - finalAmountStolen);
-			output = "Limit raised: +" + Math.round(limitRaised * 100d) / 100d + "\n\nStolen from: " + choosen.getName()
-					+ "\nInit stolen: " + initStolen + "\nInit stolen + Eng multiplyer: " + stolenWithEngMult + "\n"
-					+ choosen.getName() + "'s Awareness: " + choosen.getAwareness() + "\nFinal amount Stolen: "
-					+ NumberFormat.getCurrencyInstance().format(finalAmountStolen);
+			output = "Stolen from: " + choosen.getName() 
+					+"\nInit stolen: " + initStolen 
+					+ "\nInit stolen + Eng multiplyer: " + stolenWithEngMult
+					+ "\nLimit raised: +" + Math.round(limitRaised * 100d) / 100d 
+					+ "\nStealth multiplyer: " + (p.getStealth() - choosen.getAwareness()) + "\n"
+					+ choosen.getName() + "'s Cash: " + NumberFormat.getCurrencyInstance().format(choosenCash) 
+					+ "\nFinal amount Stolen: " + NumberFormat.getCurrencyInstance().format(finalAmountStolen);
 			return true;
 		}
 		output = "You must have at least .1 Work and .1 Sleep to steal...";
@@ -74,12 +82,13 @@ public class Steal implements Fireable {
 		return initStolen;
 	}
 
-	private double getFinalStealAmount(int stealth, int awareness, double stealWithEngMult) {
-		if (stealth == awareness)
-			return stealWithEngMult;
-
-		double amount = stealWithEngMult + ((stealth - awareness) * 10);
-		return amount;
+	private double getFinalStealAmount(int stealth, int awareness, double stealWithEngMult, double choosenCash) {
+		double amount = 0;
+		if (stealth == awareness) amount = stealWithEngMult;
+		else amount = stealWithEngMult + ((stealth - awareness) * 10);
+		
+		if (amount <= choosenCash) return amount;
+		return choosenCash;
 	}
 
 	private boolean playerStealFromThemselves(Person p, Person choosen) {

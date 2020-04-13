@@ -96,11 +96,11 @@ public class Observer implements Classable {
 		Enemy e = (Enemy)c.getEnemyController().getEnemy();
 		int score = 0;
 	
-		score += c.getPlayer().getHp() > .8 ? 1 : 0;
+		score += c.getPlayer().getHp() >= .8 ? 1 : 0;
 		score += e.getHp() < 1 ? 1 : 0;
 		score += e.getEng() < .4 ? 1 : 0;
 		score += e.getEng() < .3 ? 1 : 0;
-		score += e.getEng() < .2 ? 1 : 0;
+		score += e.getEng() < .2 ? 2 : 0;
 		score += e.getEng() < .1 ? 3 : 0;
 		System.out.println("Eng score: " + score);
 		return score;
@@ -141,10 +141,11 @@ public class Observer implements Classable {
 		Enemy e = (Enemy)c.getEnemyController().getEnemy();
 		List<Enemy> enemyList = c.getEnemyController().getEnemyList();
 		int score = 0;
-		score += e.getAwareness() < e.getMaxAwareness() ? 2 : 0;
-		score += e.getAwareness() < c.getPlayer().getStealth() ? 2 : 0;
+		score += e.getAwareness() < e.getMaxAwareness() ? 1 : 0;
+		score += e.getAwareness() < c.getPlayer().getStealth() ? 1 : 0;
+		score += e.getLimit() > .5 ? 2 : 0;
 		for(Enemy enemy : enemyList) {
-			score += enemy.getAwareness() < enemy.getMaxAwareness() ? 2 : 0;
+			score += enemy.getAwareness() < enemy.getMaxAwareness() ? 1 : 0;
 		}
 		
 		System.out.println("Truth score: " + score);

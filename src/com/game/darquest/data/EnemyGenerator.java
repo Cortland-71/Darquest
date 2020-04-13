@@ -7,6 +7,7 @@ import java.util.Random;
 
 import com.game.darquest.controller.Controller;
 import com.game.darquest.data.enemyType.Classable;
+import com.game.darquest.data.enemyType.Enforcer;
 import com.game.darquest.data.enemyType.Observer;
 import com.game.darquest.data.items.Armor;
 import com.game.darquest.data.items.Weapon;
@@ -54,7 +55,7 @@ public class EnemyGenerator {
 
 	private Classable getRandomType() {
 		List<Classable> classList = Arrays.asList(
-				//new Enforcer(),
+				//new Enforcer());
 				new Observer());
 				//new Shinobi());
 		return classList.get(rand.nextInt(classList.size()));
