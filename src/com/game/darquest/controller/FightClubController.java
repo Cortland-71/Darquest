@@ -54,6 +54,7 @@ public class FightClubController implements EventHandler<KeyEvent> {
 		String finalCommand = command;
 		if (hasModifier(command)) {
 			choosen = assignReceivingPerson(command);
+			if(choosen == null) return;
 			finalCommand = getCommandWithoutModifiers(command);
 		}
 
@@ -94,7 +95,6 @@ public class FightClubController implements EventHandler<KeyEvent> {
 	private Person assignReceivingPerson(String command) {
 
 		String mod = "";
-		Person person = null;
 		if (command.contains("0"))
 			return c.getPlayer();
 		for (String m : modifiers) {
@@ -104,9 +104,9 @@ public class FightClubController implements EventHandler<KeyEvent> {
 
 		for (Enemy e : enemyList) {
 			if (e.getId() == Integer.parseInt(mod))
-				person = e;
+				return e;
 		}
-		return person;
+		return null;
 	}
 
 	private void setOutput(String output, Person person) {

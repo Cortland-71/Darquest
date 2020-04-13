@@ -26,7 +26,7 @@ public class Enforcer implements Classable {
 	@Override
 	public int getGenerateStealth() {
 		
-		return rand.nextInt((maxStat - minStat)+1)+minStat;
+		return 1;
 	}
 
 	@Override

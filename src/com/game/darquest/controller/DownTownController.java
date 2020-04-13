@@ -57,7 +57,7 @@ public class DownTownController implements EventHandler<ActionEvent>{
 		for (int i = 0; i < list.size(); i++) {
 			c.getView().getFightClubView().getCenterEnemyBox().getChildren()
 			.add(c.getView().getFightClubView().getInnerEnemyPane(list.get(i).getImagePath()));
-			c.getView().getFightClubView().setEnemyStats(list.get(i));
+			c.getView().getFightClubView().setEnemyStats(list.get(i), c.getPlayer());
 		}
 	}
 }

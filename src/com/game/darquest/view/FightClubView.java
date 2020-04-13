@@ -2,6 +2,7 @@ package com.game.darquest.view;
 
 import com.game.darquest.data.Enemy;
 import com.game.darquest.data.Person;
+import com.game.darquest.data.Player;
 
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -438,7 +439,7 @@ public class FightClubView extends DownTownView {
 		playerMovesLabel.setText("Moves left: "+p.getMoves()+"/"+p.getMaxMoves());
 	}
 	
-	public void setEnemyStats(Enemy p) {
+	public void setEnemyStats(Enemy p, Person player) {
 		enemyNameLabel.setText("Name:\t" + p.getName());
 		enemyLvlLabel.setText("Lvl:\t" + p.getLvl());
 		enemyCashLabel.setText("Cash:\t" + p.getCashFormatted());
@@ -458,19 +459,19 @@ public class FightClubView extends DownTownView {
 		enemyWeaponLabel.setText("Weapon:\n" + p.getEquippedWeaponString());
 		enemyArmorLabel.setText("Armor:\n" + p.getEquippedArmorString());
 		
-		if(p.getDef() < p.getMaxDef()) {
+		if(p.getDef() <= player.getEquippedWeapon().getMinDamage()) {
 			enemyDefLabel.setStyle("-fx-text-fill: red");
 		} else {
 			enemyDefLabel.setStyle("-fx-text-fill: #cc6600");
 		}
 		
-		if(p.getStealth() < p.getMaxStealth()) {
+		if(p.getStealth() <= player.getAwareness()) {
 			enemyStealthLabel.setStyle("-fx-text-fill: red");
 		} else {
 			enemyStealthLabel.setStyle("-fx-text-fill: #cc6600");
 		}
 		
-		if(p.getAwareness() < p.getMaxAwareness()) {
+		if(p.getAwareness() <= player.getStealth()) {
 			enemyAwarenessLabel.setStyle("-fx-text-fill: red");
 		} else {
 			enemyAwarenessLabel.setStyle("-fx-text-fill: #cc6600");

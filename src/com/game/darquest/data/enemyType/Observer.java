@@ -25,7 +25,7 @@ public class Observer implements Classable {
 
 	@Override
 	public int getGenerateStealth() {
-		return rand.nextInt((maxStat - minStat)+1)+minStat;
+		return 1;
 	}
 
 	@Override
@@ -145,7 +145,7 @@ public class Observer implements Classable {
 		score += e.getAwareness() < c.getPlayer().getStealth() ? 1 : 0;
 		score += e.getLimit() > .5 ? 2 : 0;
 		for(Enemy enemy : enemyList) {
-			score += enemy.getAwareness() < enemy.getMaxAwareness() ? 1 : 0;
+			score += enemy.getAwareness() < enemy.getMaxAwareness() ? 2 : 0;
 		}
 		
 		System.out.println("Truth score: " + score);
@@ -169,7 +169,6 @@ public class Observer implements Classable {
 		allScores.add(healQuestions());
 		allScores.add(truthQuestions());
 		allScores.add(getNoScore()); // Valor
-		
 		
 		return allScores;
 	}

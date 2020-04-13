@@ -31,6 +31,7 @@ public class Attack implements Fireable {
 			Weapon w = p.getEquippedWeapon();
 			int weaponDamage = getWeaponDamage(w);
 			int def = choosen.getDef();
+			int minimumWeaponDamage = p.getEquippedWeapon().getMinDamage();
 			
 			double weaponDamageWithEngMult = getWeaponDamageWithEngMult(p, weaponDamage);
 			double finalDamage = getFinalWeaponDamage(def, weaponDamageWithEngMult);
@@ -58,9 +59,9 @@ public class Attack implements Fireable {
 				return true;
 			}
 			
-			if(weaponDamage < choosen.getDef()) {
+			if(minimumWeaponDamage < choosen.getDef()) {
 				output = "Attack missed."
-						+ "\nAttack damage: " + weaponDamage 
+						+ "\nMinimum attack damage: " + weaponDamage 
 						+ "\n" + choosen.getName() + "'s Deffense: " + choosen.getDef()
 						+ "\nDeffense to high.";
 				return true;
