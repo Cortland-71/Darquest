@@ -7,7 +7,6 @@ import com.game.darquest.controller.Controller;
 import com.game.darquest.data.Enemy;
 import com.game.darquest.data.items.Armor;
 import com.game.darquest.data.items.ItemHub;
-import com.game.darquest.data.items.Tool;
 import com.game.darquest.data.items.Weapon;
 
 public class Observer implements Classable {
@@ -54,19 +53,13 @@ public class Observer implements Classable {
 
 	@Override
 	public double getGeneratedCash() {
-		int min = 100;
-		int max = 1000;
+		int min = 1000;
+		int max = 10000;
 		
 		int dollars = rand.nextInt((max-min)+1)+min;
 		double cents = rand.nextDouble();
 		
 		return dollars + cents;
-	}
-
-	@Override
-	public Tool getGenerateTool() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
@@ -90,6 +83,7 @@ public class Observer implements Classable {
 		score += c.getPlayer().getHp() > e.getHp() ? 1 : 0;
 		score += c.getPlayer().getHp() == e.getHp() ? 1 : 0;
 		score += c.getPlayer().getDef() <= e.getDef() ? 1 : 0;
+		score += e.getEng() > .2 ? 1 : 0;
 		score += e.getEng() > .3 ? 1 : 0;
 		score += e.getEng() > .4 ? 1 : 0;
 	
@@ -98,14 +92,16 @@ public class Observer implements Classable {
 		return score;
 	}
 	
-	public int stealQuestions() {
-		int score = 0;
-		System.out.println("Steal score: " + score);
-		return score;
-	}
-	
 	public int engQuestions() {
+		Enemy e = (Enemy)c.getEnemyController().getEnemy();
 		int score = 0;
+	
+		score += c.getPlayer().getHp() > .8 ? 1 : 0;
+		score += e.getHp() < 1 ? 1 : 0;
+		score += e.getEng() < .4 ? 1 : 0;
+		score += e.getEng() < .3 ? 1 : 0;
+		score += e.getEng() < .2 ? 1 : 0;
+		score += e.getEng() < .1 ? 3 : 0;
 		System.out.println("Eng score: " + score);
 		return score;
 	}
@@ -116,21 +112,21 @@ public class Observer implements Classable {
 		int score = 0;
 		score += e.getHp() < 1 ? 1 : 0;
 		score += e.getHp() < .8 ? 1 : 0;
+		score += e.getHp() < .7 ? 1 : 0;
+		score += e.getHp() < .6 ? 1 : 0;
 		score += e.getHp() < .5 ? 1 : 0;
 		score += e.getHp() < .3 ? 1 : 0;
 		score += e.getHp() < .2 ? 1 : 0;
 		score += c.getPlayer().getHp() > e.getHp() ? 1 : 0;
 		for(Enemy enemy : enemyList) {
-			score += enemy.getHp() < 3 ? 1 : 0;
+			score += enemy.getHp() < .5 ? 1 : 0;
 		}
-		
 		System.out.println("Heal score: " + score);
 		return score;
  	}
 	
 	private int deceptionQuestions() {
 		int score = 0;
-		Enemy e = (Enemy)c.getEnemyController().getEnemy();
 		List<Enemy> enemyList = c.getEnemyController().getEnemyList();
 		score += c.getPlayer().getAwareness() == c.getPlayer().getMaxAwareness() ? 2 : 0;
 		for(Enemy enemy : enemyList) {
@@ -156,17 +152,34 @@ public class Observer implements Classable {
 		
 	}
 	
+	public int getNoScore() {
+		int score = 0;
+		return score;
+	}
 
 	@Override
 	public List<Integer> getAllScores() {
 		List<Integer> allScores = new ArrayList<>();
+		allScores.add(engQuestions());
 		allScores.add(attackQuestions());
-		allScores.add(stealQuestions());
+		allScores.add(getNoScore()); // Steal
+		allScores.add(deceptionQuestions());
+		allScores.add(getNoScore()); // Fear
 		allScores.add(healQuestions());
 		allScores.add(truthQuestions());
-		allScores.add(engQuestions());
-		allScores.add(deceptionQuestions());
+		allScores.add(getNoScore()); // Valor
+		
 		
 		return allScores;
+	}
+	@Override
+	public String getDescription() {
+		return "Observer description";
+	}
+
+	@Override
+	public boolean failedTypeCheck(Controller c, Enemy e) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

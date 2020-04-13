@@ -7,18 +7,19 @@ import java.util.List;
 import com.game.darquest.data.Enemy;
 import com.game.darquest.data.Person;
 import com.game.darquest.data.Player;
-import com.game.darquest.data.actions.Attack;
-import com.game.darquest.data.actions.Deception;
-import com.game.darquest.data.actions.Eat;
-import com.game.darquest.data.actions.Fear;
 import com.game.darquest.data.actions.Fireable;
-import com.game.darquest.data.actions.Heal;
 import com.game.darquest.data.actions.Help;
-import com.game.darquest.data.actions.Sleep;
-import com.game.darquest.data.actions.Steal;
-import com.game.darquest.data.actions.Truth;
 import com.game.darquest.data.actions.Use;
-import com.game.darquest.data.actions.Work;
+import com.game.darquest.data.actions.defensive.Heal;
+import com.game.darquest.data.actions.defensive.Truth;
+import com.game.darquest.data.actions.defensive.Valor;
+import com.game.darquest.data.actions.essential.Eat;
+import com.game.darquest.data.actions.essential.Sleep;
+import com.game.darquest.data.actions.essential.Work;
+import com.game.darquest.data.actions.hostile.Attack;
+import com.game.darquest.data.actions.hostile.Deception;
+import com.game.darquest.data.actions.hostile.Fear;
+import com.game.darquest.data.actions.hostile.Steal;
 
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
@@ -28,6 +29,7 @@ public class FightClubController implements EventHandler<KeyEvent> {
 
 	private List<Fireable> fireList;
 	private List<Enemy> enemyList = new ArrayList<>();
+	private int numberOfEnemyTurns = 0;
 
 	private Controller c;
 
@@ -35,7 +37,7 @@ public class FightClubController implements EventHandler<KeyEvent> {
 		c.getView().getFightClubView().addCommandFieldListener(this);
 		this.c = c;
 		fireList = Arrays.asList(new Help(), new Eat(), new Sleep(), new Work(), new Attack(this.c), new Use(this.c), new Steal(),
-				new Heal(), new Deception(), new Truth(), new Fear());
+				new Heal(), new Deception(), new Truth(), new Fear(), new Valor());
 	}
 
 	@Override
@@ -136,6 +138,7 @@ public class FightClubController implements EventHandler<KeyEvent> {
 			c.getView().getFightClubView().clearCommandField();
 			c.getPlayerInvStatsController().updateAllPlayerStats();
 			c.getView().getWindow().setScene(c.getView().getDownTownView().getDownTownScene());
+			System.out.println("FightClubController: Enemy turnes" + numberOfEnemyTurns);
 			return true;
 		}
 		return false;
@@ -165,6 +168,8 @@ public class FightClubController implements EventHandler<KeyEvent> {
 
 			if (currentEnemyIndex >= enemyList.size())
 				currentEnemyIndex = 0;
+			
+			numberOfEnemyTurns++;
 
 		}
 	}

@@ -1,4 +1,4 @@
-package com.game.darquest.data.actions;
+package com.game.darquest.data.actions.hostile;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -9,6 +9,7 @@ import com.game.darquest.controller.Controller;
 import com.game.darquest.data.Enemy;
 import com.game.darquest.data.Person;
 import com.game.darquest.data.Player;
+import com.game.darquest.data.actions.Fireable;
 import com.game.darquest.data.items.Weapon;
 
 public class Attack implements Fireable {
@@ -35,7 +36,8 @@ public class Attack implements Fireable {
 			double finalDamage = getFinalWeaponDamage(def, weaponDamageWithEngMult);
 			double limitRaised = 0;
 			
-			w.setCondition(w.getCondition() - 1);
+			if(!w.getName().equals("none")) w.setCondition(w.getCondition() - 1);
+			if(p instanceof Enemy) w.setCondition(w.getCondition() + 1);
 			p.setEng(p.getEng() - .3);
 			p.setEat(p.getEat() - .1);
 			p.setSleep(p.getSleep() - .1);

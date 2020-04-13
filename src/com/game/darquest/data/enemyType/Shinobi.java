@@ -7,7 +7,6 @@ import com.game.darquest.controller.Controller;
 import com.game.darquest.data.Enemy;
 import com.game.darquest.data.items.Armor;
 import com.game.darquest.data.items.ItemHub;
-import com.game.darquest.data.items.Tool;
 import com.game.darquest.data.items.Weapon;
 
 public class Shinobi implements Classable {
@@ -57,12 +56,6 @@ public class Shinobi implements Classable {
 		double cents = rand.nextDouble();
 		
 		return dollars + cents;
-	}
-
-	@Override
-	public Tool getGenerateTool() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
@@ -168,4 +161,14 @@ public class Shinobi implements Classable {
 		return allScores;
 	}
 
+	@Override
+	public String getDescription() {
+		return "Shinobi description";
+	}
+
+	@Override
+	public boolean failedTypeCheck(Controller c, Enemy e) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

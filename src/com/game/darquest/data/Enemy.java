@@ -1,10 +1,7 @@
 package com.game.darquest.data;
 
-import java.text.DecimalFormat;
-
 import com.game.darquest.data.enemyType.Classable;
 import com.game.darquest.data.items.Armor;
-import com.game.darquest.data.items.Tool;
 import com.game.darquest.data.items.Weapon;
 
 public class Enemy extends Person {
@@ -13,12 +10,11 @@ public class Enemy extends Person {
 	private int id;
 	private String imagePath;
 	private double limit;
-	private DecimalFormat f2 = new DecimalFormat("0.00");
 	
 
 	public Enemy(String name, int maxDef, int maxStealth, int maxAwareness, Weapon equippedWeapon, Armor equippedArmor,
-			Tool equippedTool, int lvl, double cash, Classable type, int id, String imagePath) {
-		super(name, maxDef, maxStealth, maxAwareness, equippedWeapon, equippedArmor, equippedTool, lvl, cash);
+			int lvl, double cash, Classable type, int id, String imagePath) {
+		super(name, maxDef, maxStealth, maxAwareness, equippedWeapon, equippedArmor, lvl, cash);
 		this.type = type;
 		this.id = id;
 		this.imagePath = imagePath;

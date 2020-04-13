@@ -47,11 +47,10 @@ public abstract class Person {
 	}
 
 	public Person(String name, int maxDef, int maxStealth, int maxAwareness, Weapon equippedWeapon, Armor equippedArmor,
-			Tool equippedTool, int lvl, double cash) {
+			int lvl, double cash) {
 		this.name = name;
 		this.equippedWeapon = equippedWeapon;
 		this.equippedArmor = equippedArmor;
-		this.equippedTool = equippedTool;
 		this.lvl = lvl;
 		this.cash = cash;
 		this.setMaxDef(maxDef);

@@ -7,12 +7,8 @@ import java.util.Random;
 
 import com.game.darquest.controller.Controller;
 import com.game.darquest.data.enemyType.Classable;
-import com.game.darquest.data.enemyType.Enforcer;
 import com.game.darquest.data.enemyType.Observer;
-import com.game.darquest.data.enemyType.Runner;
-import com.game.darquest.data.enemyType.Shinobi;
 import com.game.darquest.data.items.Armor;
-import com.game.darquest.data.items.Tool;
 import com.game.darquest.data.items.Weapon;
 
 public class EnemyGenerator {
@@ -51,17 +47,16 @@ public class EnemyGenerator {
 		
 		Weapon wep = t.getGenerateWeapon();
 		Armor armor = t.getGenerateArmor();
-		Tool tool = t.getGenerateTool();
 		double cash = t.getGeneratedCash();
 
-		return new Enemy(name, def, stealth, awareness, wep, armor, tool, level, cash, type, index + 1, imagePath);
+		return new Enemy(name, def, stealth, awareness, wep, armor, level, cash, type, index + 1, imagePath);
 	}
 
 	private Classable getRandomType() {
 		List<Classable> classList = Arrays.asList(
-				new Enforcer(),
-				new Observer(),
-				new Shinobi());
+				//new Enforcer(),
+				new Observer());
+				//new Shinobi());
 		return classList.get(rand.nextInt(classList.size()));
 	}
 
@@ -85,8 +80,8 @@ public class EnemyGenerator {
 	}
 
 	private int getRandomNumberOfEnemies() {
-		return rand.nextInt((3 - 3) + 1) + 3;
-		//return rand.nextInt((1 - 1) + 1) + 1;
+		//return rand.nextInt((3 - 3) + 1) + 3;
+		return rand.nextInt((1 - 1) + 1) + 1;
 	}
 
 	public List<Enemy> getEnemyList() {

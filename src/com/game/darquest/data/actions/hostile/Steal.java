@@ -1,10 +1,11 @@
-package com.game.darquest.data.actions;
+package com.game.darquest.data.actions.hostile;
 
 import java.text.NumberFormat;
 
 import com.game.darquest.data.Enemy;
 import com.game.darquest.data.Person;
 import com.game.darquest.data.Player;
+import com.game.darquest.data.actions.Fireable;
 
 public class Steal implements Fireable {
 

@@ -1,6 +1,7 @@
-package com.game.darquest.data.actions;
+package com.game.darquest.data.actions.hostile;
 
 import com.game.darquest.data.Person;
+import com.game.darquest.data.actions.Fireable;
 
 public class Fear implements Fireable {
 	
@@ -23,18 +24,15 @@ public class Fear implements Fireable {
 				return true;
 			}
 			
-			double modEng = p.getEng() * 10;
-			if(modEng < 1) modEng = 1;
-			int amountTaken = (int)(Math.round(modEng));
-			choosen.setDef(choosen.getDef() - amountTaken);
-			p.setEng(p.getEng() - (amountTaken / 10d));
+			choosen.setDef(choosen.getDef() - 3);
+			p.setEng(p.getEng() - .1);
 			
 			output = "Fear successful: " + p.getName() + "\n" 
 					+ "Eat: -.1\n"
 					+ "Sleep: -.1\n"
 					+ "Work: -.1\n"
-					+ "Eng lost: -" + (amountTaken / 10d) + "\n"
-					+ choosen.getName() + " Defense -" + amountTaken;
+					+ "Eng lost: -.1\n"
+					+ choosen.getName() + " Defense -3";
 			return true;
 		}
 		

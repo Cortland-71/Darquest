@@ -8,10 +8,12 @@ import java.util.Random;
 import com.game.darquest.controller.rules.AttackRuleController;
 import com.game.darquest.controller.rules.DeceptionRuleController;
 import com.game.darquest.controller.rules.EngRuleController;
+import com.game.darquest.controller.rules.FearRuleController;
 import com.game.darquest.controller.rules.HealRuleController;
 import com.game.darquest.controller.rules.Ruleable;
 import com.game.darquest.controller.rules.StealRuleController;
 import com.game.darquest.controller.rules.TruthRuleController;
+import com.game.darquest.controller.rules.ValorRuleController;
 import com.game.darquest.data.Enemy;
 
 import javafx.animation.KeyFrame;
@@ -34,6 +36,8 @@ public class EnemyController {
 	private AttackRuleController attackRuleController;
 	private TruthRuleController truthRuleController;
 	private EngRuleController engRuleController;
+	private FearRuleController fearRuleController;
+	private ValorRuleController valorRuleController;
 	
 	public EnemyController(Controller c) {
 		this.c = c;
@@ -43,13 +47,17 @@ public class EnemyController {
 		attackRuleController = new AttackRuleController(this.c);
 		truthRuleController = new TruthRuleController(this.c);
 		engRuleController = new EngRuleController(this.c);
+		fearRuleController = new FearRuleController(this.c);
+		valorRuleController = new ValorRuleController(this.c);
 		this.ruleList = Arrays.asList(
+				engRuleController,
 				attackRuleController, 
 				stealRuleController,
+				deceptionRuleController,
+				fearRuleController,
 				healRuleController,
 				truthRuleController,
-				engRuleController,
-				deceptionRuleController);
+				valorRuleController);
 		
 	}
 	
@@ -65,11 +73,23 @@ public class EnemyController {
 		return deceptionRuleController;
 	}
 	
-	
-
 	public StealRuleController getStealRuleController() {
 		return stealRuleController;
 	}
+	
+	public TruthRuleController getTruthRuleController() {
+		return truthRuleController;
+	}
+
+	public FearRuleController getFearRuleController() {
+		return fearRuleController;
+	}
+
+	public ValorRuleController getValorRuleController() {
+		return valorRuleController;
+	}
+
+
 
 
 
@@ -173,6 +193,11 @@ public class EnemyController {
 	}
 	
 	public void rulesForWork() {
-		c.getFightClubController().runFire("wq", getEnemy());
+		if(getEnemy().getWork() < 1) {
+			c.getFightClubController().runFire("wq", getEnemy());
+			return;
+		}
+		rulesForSleep();
+			
 	}
 }

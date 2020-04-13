@@ -1,10 +1,11 @@
-package com.game.darquest.data.actions;
+package com.game.darquest.data.actions.defensive;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Random;
 
 import com.game.darquest.data.Person;
+import com.game.darquest.data.actions.Fireable;
 
 public class Heal implements Fireable {
 	private DecimalFormat f2 = new DecimalFormat("0.00");
@@ -17,14 +18,16 @@ public class Heal implements Fireable {
 	@Override
 	public boolean fire(Person p, Person choosen) {
 		
-		double requiredSleep = .2;
+		double requiredSleep = .1;
 		double requiredCash = 50;
+		double max = p.getEng() + .1;
+		double min = p.getEng() + .05;
 		
 		if(p.getCash() >= requiredCash) {
 			if(p.getSleep() >= requiredSleep) {
 				p.setSleep(p.getSleep() - requiredSleep);
 				p.setCash(p.getCash() - requiredCash);
-				double hpGained = rand.nextDouble();
+				double hpGained = min + (max - min) * rand.nextDouble();
 				choosen.setHp(choosen.getHp() + hpGained);
 				
 				output = "Heal successful: " + p.getName() +

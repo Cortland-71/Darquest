@@ -7,7 +7,6 @@ import com.game.darquest.controller.Controller;
 import com.game.darquest.data.Enemy;
 import com.game.darquest.data.items.Armor;
 import com.game.darquest.data.items.ItemHub;
-import com.game.darquest.data.items.Tool;
 import com.game.darquest.data.items.Weapon;
 
 public class Runner implements Classable {
@@ -61,12 +60,6 @@ public class Runner implements Classable {
 		double cents = rand.nextDouble();
 		
 		return dollars + cents;
-	}
-
-	@Override
-	public Tool getGenerateTool() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
@@ -172,5 +165,16 @@ public class Runner implements Classable {
 		allScores.add(engQuestions());
 		
 		return allScores;
+	}
+	
+	@Override
+	public String getDescription() {
+		return "Runner description";
+	}
+
+	@Override
+	public boolean failedTypeCheck(Controller c, Enemy e) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

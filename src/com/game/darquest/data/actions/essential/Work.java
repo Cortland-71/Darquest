@@ -1,8 +1,9 @@
-package com.game.darquest.data.actions;
+package com.game.darquest.data.actions.essential;
 
 import java.text.NumberFormat;
 
 import com.game.darquest.data.Person;
+import com.game.darquest.data.actions.Fireable;
 
 public class Work implements Fireable {
 
@@ -14,7 +15,7 @@ public class Work implements Fireable {
 		if (p.getWork() + .1 <= p.getMAX_BAR()) {
 
 			p.setWork(p.getWork() + .1);
-			double finalPay = (p.getWork() * 10) * basePay;
+			double finalPay = (p.getWork() * 10) + basePay;
 
 			p.setCash(p.getCash() + finalPay);
 			

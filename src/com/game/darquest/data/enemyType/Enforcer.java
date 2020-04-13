@@ -7,7 +7,6 @@ import com.game.darquest.controller.Controller;
 import com.game.darquest.data.Enemy;
 import com.game.darquest.data.items.Armor;
 import com.game.darquest.data.items.ItemHub;
-import com.game.darquest.data.items.Tool;
 import com.game.darquest.data.items.Weapon;
 
 public class Enforcer implements Classable {
@@ -15,6 +14,7 @@ public class Enforcer implements Classable {
 	private Controller c;
 	private int minStat = 5;
 	private int maxStat;
+	
 	
 	
 	@Override
@@ -37,7 +37,7 @@ public class Enforcer implements Classable {
 
 	@Override
 	public Weapon getGenerateWeapon() {
-		return (Weapon)ic.midWeaponsList().get(rand.nextInt(ic.midWeaponsList().size()));
+		return (Weapon)ic.lowWeaponsList().get(rand.nextInt(ic.lowWeaponsList().size()));
 	}
 
 	@Override
@@ -45,12 +45,6 @@ public class Enforcer implements Classable {
 		return (Armor)ic.midArmorList().get(rand.nextInt(ic.midArmorList().size()));
 	}
 	
-	@Override
-	public Tool getGenerateTool() {
-		return null;
-	}
-
-
 	@Override
 	public String getName() {
 		return "Enforcer";
@@ -78,8 +72,6 @@ public class Enforcer implements Classable {
 		this.ic = c.getItemHub();
 		
 	}
-
-
 	public int attackQuestions() {
 		Enemy e = (Enemy)c.getEnemyController().getEnemy();
 		int score = 0;
@@ -89,11 +81,10 @@ public class Enforcer implements Classable {
 		score += c.getPlayer().getHp() > e.getHp() ? 1 : 0;
 		score += c.getPlayer().getHp() == e.getHp() ? 1 : 0;
 		score += c.getPlayer().getDef() <= e.getDef() ? 1 : 0;
+		score += e.getEng() > .2 ? 1 : 0;
+		score += e.getEng() > .3 ? 1 : 0;
+		score += e.getEng() > .4 ? 1 : 0;
 		score += e.getEng() > .5 ? 1 : 0;
-		score += e.getEng() > .6 ? 1 : 0;
-		score += e.getEng() > .7 ? 1 : 0;
-		score += e.getEng() > .8 ? 1 : 0;
-		score += e.getEng() > .9 ? 1 : 0;
 		
 		System.out.println("attack score: " + score);
 		return score;
@@ -101,7 +92,16 @@ public class Enforcer implements Classable {
 	
 	
 	public int healQuestions() {
+		Enemy e = (Enemy)c.getEnemyController().getEnemy();
 		int score = 0;
+		score += e.getHp() < 1 ? 1 : 0;
+		score += e.getHp() < .8 ? 1 : 0;
+		score += e.getHp() < .7 ? 1 : 0;
+		score += e.getHp() < .6 ? 1 : 0;
+		score += e.getHp() < .5 ? 1 : 0;
+		score += e.getHp() < .3 ? 1 : 0;
+		score += e.getHp() < .2 ? 1 : 0;
+		score += c.getPlayer().getHp() > e.getHp() ? 1 : 0;
 		System.out.println("Heal score: " + score);
 		return score;
  	}
@@ -111,37 +111,58 @@ public class Enforcer implements Classable {
 		int score = 0;
 	
 		score += c.getPlayer().getHp() > .8 ? 1 : 0;
-		score += e.getEng() < .6 ? 1 : 0;
-		score += e.getEng() < .5 ? 1 : 0;
+		score += e.getHp() < 1 ? 2 : 0;
 		score += e.getEng() < .4 ? 1 : 0;
 		score += e.getEng() < .3 ? 1 : 0;
 		score += e.getEng() < .2 ? 1 : 0;
-		score += e.getEng() < .1 ? 1 : 0;
+		score += e.getEng() < .1 ? 2 : 0;
 		System.out.println("Eng score: " + score);
 		return score;
 	}
-	
-	public int truthQuestions() {
+	public int fearQuestions() {
+		Enemy e = (Enemy)c.getEnemyController().getEnemy();
+		List<Enemy> enemyList = c.getEnemyController().getEnemyList();
 		int score = 0;
-		System.out.println("Truth score: " + score);
+		score += c.getPlayer().getDef() > e.getEquippedWeapon().getMinDamage() ? 4 : 0;
+		for(Enemy enemy : enemyList) {
+			score += c.getPlayer().getDef() > enemy.getEquippedWeapon().getMinDamage() ? 2 : 0;
+		}
+		System.out.println("Fear score: " + score);
 		return score;
 	}
 	
-	public int stealQuestions() {
+	public int getNoScore() {
 		int score = 0;
-		System.out.println("Steal score: " + score);
 		return score;
 	}
 	
 	@Override
 	public List<Integer> getAllScores() {
 		List<Integer> allScores = new ArrayList<>();
-		allScores.add(attackQuestions());
-		allScores.add(stealQuestions());
-		allScores.add(healQuestions());
-		allScores.add(truthQuestions());
 		allScores.add(engQuestions());
+		allScores.add(attackQuestions());
+		allScores.add(getNoScore()); //Steal
+		allScores.add(getNoScore()); //Deception
+		allScores.add(fearQuestions());
+		allScores.add(healQuestions());
+		allScores.add(getNoScore()); //Truth
+		allScores.add(getNoScore()); //Valor
 		
 		return allScores;
+	}
+	@Override
+	public String getDescription() {
+		return "Enforcer description";
+	}
+	
+
+
+	@Override
+	public boolean failedTypeCheck(Controller c, Enemy e) {
+		if(e.getEat() > 0 && e.getSleep() > 0 && e.getWork() > 0) {
+			c.getEnemyController().getFearRuleController().getRule();
+			return true;
+		} 
+		return false;
 	}
 }

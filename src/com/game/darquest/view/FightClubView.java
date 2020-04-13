@@ -11,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
@@ -194,9 +195,7 @@ public class FightClubView extends DownTownView {
 		enemyCashLabel = new Label("Cash");
 		return enemyCashLabel;
 	}
-	public void setEnemyCashLabel(String Cash) {
-		enemyCashLabel.setText(Cash);
-	}
+	
 	
 	
 	private Label enemyHpLabel;
@@ -221,9 +220,7 @@ public class FightClubView extends DownTownView {
 		enemyEngLabel = new Label("Eng");
 		return enemyEngLabel;
 	}
-	public void setEnemyEngLabel(String Eng) {
-		enemyEngLabel.setText(Eng);
-	}
+	
 	private ProgressBar enemyEngBar;
 	private ProgressBar enemyEngBar() {
 		enemyEngBar = new ProgressBar();
@@ -238,17 +235,11 @@ public class FightClubView extends DownTownView {
 		enemyWeaponLabel = new Label("Weapon");
 		return enemyWeaponLabel;
 	}
-	public void setEnemyWeaponLabel(String Weapon) {
-		enemyWeaponLabel.setText(Weapon);
-	}
 	
 	private Label enemyArmorLabel;
 	private Label enemyArmorLabel() {
 		enemyArmorLabel = new Label("Armor");
 		return enemyArmorLabel;
-	}
-	public void setEnemyArmorLabel(String Armor) {
-		enemyArmorLabel.setText(Armor);
 	}
 	
 	private Label enemyDefLabel;
@@ -256,17 +247,11 @@ public class FightClubView extends DownTownView {
 		enemyDefLabel = new Label("Def");
 		return enemyDefLabel;
 	}
-	public void setEnemyDefLabel(String Def) {
-		enemyDefLabel.setText(Def);
-	}
 	
 	private Label enemyStealthLabel;
 	private Label enemyStealthLabel() {
 		enemyStealthLabel = new Label("Stealth");
 		return enemyStealthLabel;
-	}
-	public void setEnemyStealthLabel(String Stealth) {
-		enemyStealthLabel.setText(Stealth);
 	}
 	
 	private Label enemyAwarenessLabel;
@@ -274,26 +259,17 @@ public class FightClubView extends DownTownView {
 		enemyAwarenessLabel = new Label("Awareness");
 		return enemyAwarenessLabel;
 	}
-	public void setEnemyAwarenessLabel(String Awareness) {
-		enemyAwarenessLabel.setText(Awareness);
-	}
 	
 	private Label enemyTypeLabel;
 	private Label enemyTypeLabel() {
 		enemyTypeLabel = new Label("Type");
 		return enemyTypeLabel;
 	}
-	public void setEnemyTypeLabel(String Type) {
-		enemyTypeLabel.setText(Type);
-	}
 	
 	private Label enemyIDLabel;
 	private Label enemyIDLabel() {
 		enemyIDLabel = new Label("ID");
 		return enemyIDLabel;
-	}
-	public void setEnemyIDLabel(String ID) {
-		enemyIDLabel.setText(ID);
 	}
 	
 	//Enemy Bottom stats box \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
@@ -504,6 +480,9 @@ public class FightClubView extends DownTownView {
 		enemyStealthLabel.setText("Stealth:   " + p.getStealth());
 		enemyAwarenessLabel.setText("Awareness: " + p.getAwareness());
 		enemyTypeLabel.setText("Type: "+p.getType().getName());
+		Tooltip typeToolTip = new Tooltip(p.getType().getDescription());
+		typeToolTip.setStyle("-fx-text-fill: orange");
+		enemyTypeLabel.setTooltip(typeToolTip);
 		enemyIDLabel.setText("ID: " + p.getId());
 		enemyLimitLabel.setText("Limit: " + p.getLimit());
 		

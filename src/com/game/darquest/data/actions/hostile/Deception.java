@@ -1,6 +1,7 @@
-package com.game.darquest.data.actions;
+package com.game.darquest.data.actions.hostile;
 
 import com.game.darquest.data.Person;
+import com.game.darquest.data.actions.Fireable;
 
 public class Deception implements Fireable {
 
@@ -20,22 +21,19 @@ public class Deception implements Fireable {
 			p.setEat(p.getEat() - .1);
 			
 			if(choosen.getAwareness() < 2) {
-				output = "Target's Awareness was already at it's minimum but deception took place.";
+				output = "Target's Awareness was already at it's minimum but Deception took place.";
 				return true;
 			}
 			
-			double modEng = p.getEng() * 10;
-			if(modEng < 1) modEng = 1;
-			int amountTaken = (int)(Math.round(modEng));
-			choosen.setAwareness(choosen.getAwareness() - amountTaken);
-			p.setEng(p.getEng() - (amountTaken / 10d));
+			choosen.setAwareness(choosen.getAwareness() - 3);
+			p.setEng(p.getEng() - .1);
 			
-			output = "Deception successful: " + p.getName() + "\n"
+			output = "Deception successful: " + p.getName() + "\n" 
 					+ "Eat: -.1\n"
 					+ "Sleep: -.1\n"
 					+ "Work: -.1\n"
-					+ "Eng lost: -" + (amountTaken / 10d) + "\n"
-					+ choosen.getName() + " Awareness -" + amountTaken;
+					+ "Eng lost: -.1\n"
+					+ choosen.getName() + " Awareness -3";
 			return true;
 		}
 		

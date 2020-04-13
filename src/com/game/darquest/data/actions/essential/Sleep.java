@@ -1,7 +1,8 @@
-package com.game.darquest.data.actions;
+package com.game.darquest.data.actions.essential;
 
 import com.game.darquest.data.Person;
 import com.game.darquest.data.Player;
+import com.game.darquest.data.actions.Fireable;
 
 public class Sleep implements Fireable {
 

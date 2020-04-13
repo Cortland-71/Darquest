@@ -1,9 +1,10 @@
-package com.game.darquest.data.actions;
+package com.game.darquest.data.actions.essential;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
 import com.game.darquest.data.Person;
+import com.game.darquest.data.actions.Fireable;
 
 public class Eat implements Fireable {
 
@@ -16,6 +17,7 @@ public class Eat implements Fireable {
 			double costToEat = (p.getEat() + .1) * 150.5;
 			if (p.getCash() >= costToEat) {
 				p.setEat(p.getEat() + .1);
+				p.setSleep(p.getSleep() - .1);
 				p.setCash(p.getCash() - costToEat);
 
 				output = "Eat successful: " + p.getName() + "\nCash: -"

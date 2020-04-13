@@ -1,14 +1,11 @@
 package com.game.darquest.controller.rules;
 
-import java.util.Random;
-
 import com.game.darquest.controller.Controller;
 import com.game.darquest.data.Enemy;
 
 public class StealRuleController implements Ruleable {
 
 	private Controller c;
-	private Random rand = new Random();
 	public StealRuleController(Controller c) {
 		this.c = c;
 	}
@@ -19,7 +16,8 @@ public class StealRuleController implements Ruleable {
 		double workRequired = .1;
 		double sleepRequired = .1;
 		double eatRequired = 0;
-		if (Rules.failedBasicCheck(c, e, eatRequired, sleepRequired, workRequired)) return;
+		double cashRequired = 0;
+		if (Rules.failedBasicCheck(c, e, eatRequired, sleepRequired, workRequired, cashRequired)) return;
 		if (e.getStealth() < c.getPlayer().getAwareness()) {
 			c.getEnemyController().getDeceptionRuleController().getRule();
 			return;

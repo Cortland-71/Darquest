@@ -15,8 +15,9 @@ public class FearRuleController implements Ruleable {
 		double eatRequired = .1;
 		double sleepRequired = .1;
 		double workRequired = .1;
+		double cashRequired = 0;
 		Enemy e = c.getEnemyController().getEnemy();
-		if (Rules.failedBasicCheck(c, e, eatRequired, sleepRequired, workRequired)) return;
+		if (Rules.failedBasicCheck(c, e, eatRequired, sleepRequired, workRequired, cashRequired)) return;
 		
 		c.getFightClubController().runFire("fear 0", e);
 		
