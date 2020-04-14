@@ -36,7 +36,8 @@ import javafx.util.Duration;
 public class DownTownView {
 
 	private Scene downTownScene;
-	private List<String> downTownButtonTextList = Arrays.asList("Fight Club", "Shop", "Email", "Main Menu", "Save",
+	private List<String> downTownButtonTextList = Arrays.asList("Zom's Fight Club", "Shop", 
+			"Email", "Level UP", "Save",
 			"Tutorial");
 	private List<Button> buttonList = new ArrayList<>();
 	private DecimalFormat df = new DecimalFormat("#.##");
@@ -349,7 +350,13 @@ public class DownTownView {
 			}
 			bottomPane.add(buttonList.get(i), counter++, 1);
 		}
+		
+		buttonList.get(3).setDisable(true);
 		return bottomPane;
+	}
+	
+	public Button getLevelUpButton() {
+		return buttonList.get(3);
 	}
 
 	// \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\- Center

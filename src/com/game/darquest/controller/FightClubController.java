@@ -23,23 +23,27 @@ import com.game.darquest.data.actions.hostile.Fear;
 import com.game.darquest.data.actions.hostile.Light;
 import com.game.darquest.data.actions.hostile.Steal;
 
+import javafx.animation.FadeTransition;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.util.Duration;
 
 public class FightClubController implements EventHandler<KeyEvent> {
 
 	private List<Fireable> fireList;
 	private List<Enemy> enemyList = new ArrayList<>();
-	private int numberOfEnemyTurns = 0;
+	private Integer numPlayerMoves = 0;
 
 	private Controller c;
 
 	public FightClubController(Controller c) {
 		c.getView().getFightClubView().addCommandFieldListener(this);
 		this.c = c;
-		fireList = Arrays.asList(new Help(), new Eat(), new Sleep(), new Work(), new Attack(this.c), new Use(this.c), new Steal(),
-				new Heal(), new Deception(), new Truth(), new Fear(), new Valor(), new Light(), new Shadow());
+		fireList = Arrays.asList(new Help(), new Eat(), new Sleep(), new Work(), 
+				new Attack(this.c), new Use(this.c), new Steal(),
+				new Heal(), new Deception(), new Truth(), new Fear(), 
+				new Valor(), new Light(), new Shadow());
 	}
 
 	@Override
@@ -121,6 +125,7 @@ public class FightClubController implements EventHandler<KeyEvent> {
 
 	private void afterPlayerMove() {
 
+		numPlayerMoves++;
 		removeDeadEnemyFromList();
 		if (playerWins())
 			return;
@@ -139,8 +144,17 @@ public class FightClubController implements EventHandler<KeyEvent> {
 			c.getView().getFightClubView().setPlayerOutputTextArea("");
 			c.getView().getFightClubView().clearCommandField();
 			c.getPlayerInvStatsController().updateAllPlayerStats();
+			
+			FadeTransition ft = new FadeTransition(Duration.millis(500), 
+					c.getView().getFightWinView().getFightWinPane());
+			ft.setFromValue(0.0);
+			ft.setToValue(1.0);
+			ft.play();
+			
+			List<String> listOfWinStats = Arrays.asList(numPlayerMoves.toString(), "Test xp", "test eff", 
+					"loot", "cash", "rating");
+			c.getView().getFightWinView().setWinStats(listOfWinStats);
 			c.getView().getWindow().setScene(c.getView().getFightWinView().getFightWinScene());
-			System.out.println("FightClubController: Enemy turnes" + numberOfEnemyTurns);
 			return true;
 		}
 		return false;
@@ -151,6 +165,8 @@ public class FightClubController implements EventHandler<KeyEvent> {
 			if (enemyList.get(i).getHp() <= 0) {
 				enemyList.remove(i);
 				currentEnemyIndex = 0;
+				Player p = ((Player)c.getPlayer());
+				p.setXp(p.getXp() + p.getXpAdded());
 			}
 		}
 	}
@@ -170,9 +186,6 @@ public class FightClubController implements EventHandler<KeyEvent> {
 
 			if (currentEnemyIndex >= enemyList.size())
 				currentEnemyIndex = 0;
-			
-			numberOfEnemyTurns++;
-
 		}
 	}
 

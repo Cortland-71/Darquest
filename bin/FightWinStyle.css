@@ -20,3 +20,24 @@
 	_darkOrange: #995c00;
 	
 }
+
+#winLabel {
+	-fx-font: 72px "Consolas";
+	-fx-text-fill: _green;
+}
+
+#outputTextArea .content {
+	-fx-background-color: almostDark;
+	-fx-background-radius: 0px;
+}
+
+#outputTextArea {
+	-fx-font: 17px "Consolas";
+	-fx-text-fill: _green;
+	-fx-text-box-border: _darkGreen;
+	-fx-background-radius: 0px;
+} 
+
+#rightInCenter {
+	-fx-background-color: average;
+}

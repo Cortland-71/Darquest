@@ -18,8 +18,8 @@ public class Player extends Person {
 	
 	private DecimalFormat f = new DecimalFormat("0.00");
 	private double weight = 0;
-	private double xp = .05;
-	private double xpAdded = .05;
+	private double xp = .1;
+	private double xpAdded = .1;
 	private final double maxXp = 1;
 	private final double minXp = 0;
 	
@@ -62,6 +62,7 @@ public class Player extends Person {
 	}
 
 	public void setXp(double xp) {
+		
 		this.xp = xp;
 	}
 
@@ -80,14 +81,4 @@ public class Player extends Person {
 	public double getMinXp() {
 		return minXp;
 	}
-	
-	
-	
-	 
-
-	
-
-	
-
-	
 }

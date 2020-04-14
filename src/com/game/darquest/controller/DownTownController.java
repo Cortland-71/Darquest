@@ -22,7 +22,7 @@ public class DownTownController implements EventHandler<ActionEvent>{
 	private FightClub fightClub;
 	private Shop shop;
 	private Email email;
-	private MainMenu mainMenu;
+	private LevelUp levelUp;
 	private Save save;
 	private Tutorial tutorial;
 	private List<Clickable> downTownActions;
@@ -35,11 +35,11 @@ public class DownTownController implements EventHandler<ActionEvent>{
 		fightClub = new FightClub(this.c);
 		shop = new Shop(this.c);
 		email = new Email(this.c);
-		mainMenu = new MainMenu(this.c);
+		levelUp = new LevelUp(this.c);
 		save = new Save(this.c);
 		tutorial = new Tutorial(this.c);
 		
-		downTownActions = Arrays.asList(fightClub, shop, email, mainMenu, save, tutorial);
+		downTownActions = Arrays.asList(fightClub, shop, email, levelUp, save, tutorial);
 	}
 	
 	public List<Clickable> getDownTownActions() {
@@ -73,6 +73,8 @@ class FightClub implements Clickable {
 	
 	@Override
 	public void clickAction() {
+		
+		 
 		enemyGenerator = new EnemyGenerator(this.c);
 		enemyGenerator.generateEnemys();
 		List<Enemy> enemyList = enemyGenerator.getEnemyList();
@@ -122,15 +124,14 @@ class Email implements Clickable {
 	}
 }
 
-class MainMenu implements Clickable {
+class LevelUp implements Clickable {
 	private Controller c;
-	public MainMenu(Controller c) {
+	public LevelUp(Controller c) {
 		this.c = c;
 	}
 	@Override
 	public void clickAction() {
-		System.out.println("Clicked mainMenu");
-		c.getView().getWindow().setScene(c.getView().getMainMenu().getMainMenuScene());
+		System.out.println("Clicked levelUp");
 	}
 }
 
