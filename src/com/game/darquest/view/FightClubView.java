@@ -26,17 +26,30 @@ public class FightClubView extends DownTownView {
 	private Scene fightClubScene;
 
 	public FightClubView() {
-		fightClubScene = new Scene(fightClubPane(), View.WIDTH, View.HEIGHT);
+		fightClubScene = new Scene(fightClubBackground(), View.WIDTH, View.HEIGHT);
 		fightClubScene.getStylesheets().addAll("DownTownStyle.css", "FightClubStyle.css");
 	}
 	
+	private VBox fightClubBackground() {
+		VBox fightClubBackground = new VBox();
+		fightClubBackground.setBackground(View.getBackground(Color.BLACK));
+		fightClubBackground.setAlignment(Pos.CENTER);
+		fightClubBackground.getChildren().add(fightClubPane());
+		return fightClubBackground;
+	}
+	
+	private BorderPane fightClubPane;
 	private BorderPane fightClubPane() {
-		BorderPane fightClubPane = new BorderPane();
+		fightClubPane = new BorderPane();
 		fightClubPane.setTop(topBox());
 		fightClubPane.setLeft(leftBox());
 		fightClubPane.setRight(rightPane());
 		fightClubPane.setCenter(centerFightClubPane());
 		fightClubPane.setBottom(bottomFightClubPane());
+		return fightClubPane;
+	}
+	
+	public BorderPane getFightClubPane() {
 		return fightClubPane;
 	}
 	

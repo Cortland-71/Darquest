@@ -36,7 +36,7 @@ public class Observer implements Classable {
 
 	@Override
 	public Weapon getGenerateWeapon() {
-		return (Weapon)ic.midWeaponsList().get(rand.nextInt(ic.midWeaponsList().size()));
+		return (Weapon)ic.lowWeaponsList().get(rand.nextInt(ic.lowWeaponsList().size()));
 	}
 
 	@Override
@@ -86,8 +86,6 @@ public class Observer implements Classable {
 		score += e.getEng() > .2 ? 1 : 0;
 		score += e.getEng() > .3 ? 1 : 0;
 		score += e.getEng() > .4 ? 1 : 0;
-	
-		
 		System.out.println("attack score: " + score);
 		return score;
 	}
@@ -125,17 +123,18 @@ public class Observer implements Classable {
 		return score;
  	}
 	
-	private int deceptionQuestions() {
-		int score = 0;
+	
+	public int fearQuestions() {
+		Enemy e = (Enemy)c.getEnemyController().getEnemy();
 		List<Enemy> enemyList = c.getEnemyController().getEnemyList();
-		score += c.getPlayer().getAwareness() == c.getPlayer().getMaxAwareness() ? 2 : 0;
+		int score = 0;
+		score += c.getPlayer().getDef() > e.getEquippedWeapon().getMinDamage() ? 4 : 0;
 		for(Enemy enemy : enemyList) {
-			score += c.getPlayer().getAwareness() >= enemy.getAwareness() ? 2 : 0;
+			score += c.getPlayer().getDef() > enemy.getEquippedWeapon().getMinDamage() ? 2 : 0;
 		}
-		System.out.println("Dec score: " + score);
+		System.out.println("Fear score: " + score);
 		return score;
 	}
-
 
 	public int truthQuestions() {
 		Enemy e = (Enemy)c.getEnemyController().getEnemy();
@@ -150,7 +149,33 @@ public class Observer implements Classable {
 		
 		System.out.println("Truth score: " + score);
 		return score;
+	}
+	
+	public int valorQuestions() {
+		Enemy e = (Enemy)c.getEnemyController().getEnemy();
+		List<Enemy> enemyList = c.getEnemyController().getEnemyList();
+		int score = 0;
+		score += e.getDef() < e.getMaxDef() ? 1 : 0;
+		score += e.getDef() < c.getPlayer().getEquippedWeapon().getMinDamage() ? 2 : 0;
+		for(Enemy enemy : enemyList) {
+			score += enemy.getDef() < enemy.getMaxDef() ? 2 : 0;
+		}
 		
+		System.out.println("Valor score: " + score);
+		return score;
+	}
+	
+	public int shadowQuestions() {
+		Enemy e = (Enemy)c.getEnemyController().getEnemy();
+		List<Enemy> enemyList = c.getEnemyController().getEnemyList();
+		int score = 0;
+		score += e.getStealth() < e.getMaxStealth() ? 3 : 0;
+		for(Enemy enemy : enemyList) {
+			score += enemy.getStealth() < enemy.getMaxStealth() ? 2 : 0;
+		}
+		
+		System.out.println("Shadow score: " + score);
+		return score;
 	}
 	
 	public int getNoScore() {
@@ -161,25 +186,21 @@ public class Observer implements Classable {
 	@Override
 	public List<Integer> getAllScores() {
 		List<Integer> allScores = new ArrayList<>();
-		allScores.add(engQuestions());
-		allScores.add(attackQuestions());
+		allScores.add(engQuestions()); //Eng
+		allScores.add(attackQuestions()); //Attack
 		allScores.add(getNoScore()); // Steal
-		allScores.add(deceptionQuestions());
-		allScores.add(getNoScore()); // Fear
-		allScores.add(healQuestions());
-		allScores.add(truthQuestions());
-		allScores.add(getNoScore()); // Valor
+		allScores.add(getNoScore()); // Deception
+		allScores.add(fearQuestions()); // Fear
+		allScores.add(healQuestions()); //Heal
+		allScores.add(truthQuestions()); //Truth
+		allScores.add(valorQuestions()); // Valor
+		allScores.add(getNoScore()); //Light
+		allScores.add(shadowQuestions()); //Shadow
 		
 		return allScores;
 	}
 	@Override
 	public String getDescription() {
 		return "Observer description";
-	}
-
-	@Override
-	public boolean failedTypeCheck(Controller c, Enemy e) {
-		// TODO Auto-generated method stub
-		return false;
 	}
 }

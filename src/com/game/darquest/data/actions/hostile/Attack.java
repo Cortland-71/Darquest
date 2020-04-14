@@ -44,15 +44,17 @@ public class Attack implements Fireable {
 			p.setSleep(p.getSleep() - .1);
 			
 			if(p instanceof Player && choosen instanceof Player) {
-				List<Enemy> enemyList = c.getEnemyController().getEnemyList();
+				List<Enemy> enemyList = c.getFightClubController().getEnemyList();
 				StringBuilder sb = new StringBuilder();
 				
 				for(Enemy enemy : enemyList) {
+					
 					if(enemy.getType().getName().equals("Shinobi")) {
 						enemy.setLimit(enemy.getLimit() + finalDamage);
 						sb.append("Shinobi: " + enemy.getName() + " +" + f2.format(finalDamage) + " Limit\n");
 					}
 				}
+			
 				choosen.setHp(choosen.getHp() - finalDamage);
 				c.getPlayerInvStatsController().removeItemWhenUsedUp(w);
 				output = "You attacked yourself.\n" + sb;

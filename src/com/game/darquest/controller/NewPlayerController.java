@@ -6,9 +6,11 @@ import com.game.darquest.data.items.Tool;
 import com.game.darquest.data.items.Weapon;
 import com.game.darquest.view.View;
 
+import javafx.animation.FadeTransition;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.util.Duration;
 
 public class NewPlayerController implements EventHandler<KeyEvent> {
 
@@ -26,6 +28,11 @@ public class NewPlayerController implements EventHandler<KeyEvent> {
 			setPlayerAttributes();
 			c.getPlayerInvStatsController().setNewPlayerInventoryAndStats();
 			view.getWindow().setScene(view.getDownTownView().getDownTownScene());
+			
+			FadeTransition ft = new FadeTransition(Duration.millis(1000), view.getDownTownView().getDownTownPaneObj());
+			ft.setFromValue(0.0);
+			ft.setToValue(1.0);
+			ft.play();
 		}	
 	}
 	

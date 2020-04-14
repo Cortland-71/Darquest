@@ -21,5 +21,4 @@ public interface Classable {
 	void setController(Controller c);
 	List<Integer> getAllScores();
 	String getDescription();
-	boolean failedTypeCheck(Controller c, Enemy e);
 }

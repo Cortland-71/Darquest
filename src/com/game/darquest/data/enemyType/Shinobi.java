@@ -24,7 +24,8 @@ public class Shinobi implements Classable {
 
 	@Override
 	public int getGenerateStealth() {
-		return rand.nextInt((maxStat - minStat)+1)+minStat;
+		int stealthBuff = maxStat + (maxStat/2);
+		return rand.nextInt((stealthBuff - minStat)+1)+minStat;
 	}
 
 	@Override
@@ -72,7 +73,6 @@ public class Shinobi implements Classable {
 	
 	public int attackQuestions() {
 		Enemy e = (Enemy)c.getEnemyController().getEnemy();
-		List<Enemy> enemyList = c.getEnemyController().getEnemyList();
 		int score = 0;
 		score += c.getPlayer().getHp() == 1 ? 1 : 0;
 		score += c.getPlayer().getHp() > .5 ? 1 : 0;
@@ -80,17 +80,9 @@ public class Shinobi implements Classable {
 		score += c.getPlayer().getHp() > e.getHp() ? 1 : 0;
 		score += c.getPlayer().getHp() == e.getHp() ? 1 : 0;
 		score += c.getPlayer().getDef() <= e.getDef() ? 1 : 0;
+		score += e.getEng() > .2 ? 1 : 0;
 		score += e.getEng() > .3 ? 1 : 0;
 		score += e.getEng() > .4 ? 1 : 0;
-		score += e.getEng() > .5 ? 1 : 0;
-		score += e.getEng() > .6 ? 1 : 0;
-		score += e.getEng() > .7 ? 1 : 0;
-		
-		for(Enemy enemy : enemyList) {
-			score += enemy.getType().getName() != "Enforcer" ? 1 : 0;
-		}
-		
-		
 		System.out.println("attack score: " + score);
 		return score;
 	}
@@ -116,35 +108,72 @@ public class Shinobi implements Classable {
 		int score = 0;
 		score += e.getHp() < 1 ? 1 : 0;
 		score += e.getHp() < .8 ? 1 : 0;
+		score += e.getHp() < .7 ? 1 : 0;
+		score += e.getHp() < .6 ? 1 : 0;
 		score += e.getHp() < .5 ? 1 : 0;
-		score += e.getHp() < .3 ? 2 : 0;
-		score += e.getHp() < .2 ? 2 : 0;
+		score += e.getHp() < .3 ? 1 : 0;
+		score += e.getHp() < .2 ? 1 : 0;
 		score += c.getPlayer().getHp() > e.getHp() ? 1 : 0;
 		for(Enemy enemy : enemyList) {
-			score += enemy.getHp() > e.getHp() ? 1 : 0;
+			score += enemy.getHp() < .5 ? 1 : 0;
 		}
-		
 		System.out.println("Heal score: " + score);
 		return score;
  	}
-
-	public int truthQuestions() {
-		int score = 0;
-		System.out.println("Truth score: " + score);
-		return score;
-	}
 	
 	public int engQuestions() {
 		Enemy e = (Enemy)c.getEnemyController().getEnemy();
 		int score = 0;
 	
-		score += c.getPlayer().getHp() > .8 ? 1 : 0;
-		score += e.getEng() < .5 ? 1 : 0;
+		score += c.getPlayer().getHp() >= .8 ? 1 : 0;
+		score += e.getHp() < 1 ? 1 : 0;
 		score += e.getEng() < .4 ? 1 : 0;
 		score += e.getEng() < .3 ? 1 : 0;
-		score += e.getEng() < .2 ? 1 : 0;
-		score += e.getEng() < .1 ? 1 : 0;
+		score += e.getEng() < .2 ? 2 : 0;
+		score += e.getEng() < .1 ? 3 : 0;
 		System.out.println("Eng score: " + score);
+		return score;
+	}
+	
+	public int fearQuestions() {
+		Enemy e = (Enemy)c.getEnemyController().getEnemy();
+		List<Enemy> enemyList = c.getEnemyController().getEnemyList();
+		int score = 0;
+		score += c.getPlayer().getDef() > e.getEquippedWeapon().getMinDamage() ? 4 : 0;
+		for(Enemy enemy : enemyList) {
+			score += c.getPlayer().getDef() > enemy.getEquippedWeapon().getMinDamage() ? 2 : 0;
+		}
+		System.out.println("Fear score: " + score);
+		return score;
+	}
+	
+	private int deceptionQuestions() {
+		int score = 0;
+		List<Enemy> enemyList = c.getEnemyController().getEnemyList();
+		score += c.getPlayer().getAwareness() == c.getPlayer().getMaxAwareness() ? 2 : 0;
+		for(Enemy enemy : enemyList) {
+			score += c.getPlayer().getAwareness() >= enemy.getAwareness() ? 2 : 0;
+		}
+		System.out.println("Dec score: " + score);
+		return score;
+	}
+	
+	private int lightQuestions() {
+		Enemy e = (Enemy)c.getEnemyController().getEnemy();
+		List<Enemy> enemyList = c.getEnemyController().getEnemyList();
+		int score = 0;
+		score += c.getPlayer().getStealth() > e.getAwareness() ? 2 : 0;
+		score += c.getPlayer().getStealth() == e.getAwareness() ? 1 : 0;
+		score += c.getPlayer().getCash() > 1000 ? 1 : 0;
+		for(Enemy enemy : enemyList) {
+			score += c.getPlayer().getStealth() >= enemy.getAwareness() ? 2 : 0;
+		}
+		System.out.println("Light score: " + score);
+		return score;
+	}
+	
+	public int getNoScore() {
+		int score = 0;
 		return score;
 	}
 	
@@ -152,11 +181,16 @@ public class Shinobi implements Classable {
 	@Override
 	public List<Integer> getAllScores() {
 		List<Integer> allScores = new ArrayList<>();
-		allScores.add(attackQuestions());
-		allScores.add(stealQuestions());
-		allScores.add(healQuestions());
-		allScores.add(truthQuestions());
-		allScores.add(engQuestions());
+		allScores.add(engQuestions()); //Eng
+		allScores.add(attackQuestions()); //Attack
+		allScores.add(stealQuestions()); // Steal
+		allScores.add(deceptionQuestions()); // Deception
+		allScores.add(fearQuestions()); // Fear
+		allScores.add(healQuestions()); //Heal
+		allScores.add(getNoScore()); //Truth
+		allScores.add(getNoScore()); // Valor
+		allScores.add(lightQuestions()); //Light
+		allScores.add(getNoScore()); //Shadow
 		
 		return allScores;
 	}
@@ -164,11 +198,5 @@ public class Shinobi implements Classable {
 	@Override
 	public String getDescription() {
 		return "Shinobi description";
-	}
-
-	@Override
-	public boolean failedTypeCheck(Controller c, Enemy e) {
-		// TODO Auto-generated method stub
-		return false;
 	}
 }

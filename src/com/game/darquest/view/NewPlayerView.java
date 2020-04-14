@@ -7,21 +7,37 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 
 public class NewPlayerView {
 	
 	private Scene enterNameScene;
 	
 	public NewPlayerView() {
-		enterNameScene = new Scene(getEnterNameBox(), View.WIDTH, View.HEIGHT);
+		enterNameScene = new Scene(enterNameBackground(), View.WIDTH, View.HEIGHT);
 		enterNameScene.getStylesheets().add("NewPlayerStyle.css");
+		
 	}
 	
+	private VBox enterNameBackground() {
+		VBox enterNameBackground = new VBox();
+		enterNameBackground.setBackground(View.getBackground(Color.BLACK));
+		enterNameBackground.setAlignment(Pos.CENTER);
+		enterNameBackground.getChildren().add(getEnterNameBox());
+		return enterNameBackground;
+	}
+	
+	private VBox enterNameBox;
 	public VBox getEnterNameBox() {
-		VBox enterNameBox = new VBox(20);
+		enterNameBox = new VBox(20);
 		enterNameBox.setAlignment(Pos.CENTER);
 		enterNameBox.getChildren().add(greeting());
 		enterNameBox.getChildren().add(nameField());
+		
+		return enterNameBox;
+	}
+	
+	public VBox getEnterNameBoxObj() {
 		return enterNameBox;
 	}
 	

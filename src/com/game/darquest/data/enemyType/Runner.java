@@ -171,10 +171,4 @@ public class Runner implements Classable {
 	public String getDescription() {
 		return "Runner description";
 	}
-
-	@Override
-	public boolean failedTypeCheck(Controller c, Enemy e) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 }

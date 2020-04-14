@@ -11,6 +11,7 @@ import com.game.darquest.data.actions.Fireable;
 import com.game.darquest.data.actions.Help;
 import com.game.darquest.data.actions.Use;
 import com.game.darquest.data.actions.defensive.Heal;
+import com.game.darquest.data.actions.defensive.Shadow;
 import com.game.darquest.data.actions.defensive.Truth;
 import com.game.darquest.data.actions.defensive.Valor;
 import com.game.darquest.data.actions.essential.Eat;
@@ -19,6 +20,7 @@ import com.game.darquest.data.actions.essential.Work;
 import com.game.darquest.data.actions.hostile.Attack;
 import com.game.darquest.data.actions.hostile.Deception;
 import com.game.darquest.data.actions.hostile.Fear;
+import com.game.darquest.data.actions.hostile.Light;
 import com.game.darquest.data.actions.hostile.Steal;
 
 import javafx.event.EventHandler;
@@ -37,7 +39,7 @@ public class FightClubController implements EventHandler<KeyEvent> {
 		c.getView().getFightClubView().addCommandFieldListener(this);
 		this.c = c;
 		fireList = Arrays.asList(new Help(), new Eat(), new Sleep(), new Work(), new Attack(this.c), new Use(this.c), new Steal(),
-				new Heal(), new Deception(), new Truth(), new Fear(), new Valor());
+				new Heal(), new Deception(), new Truth(), new Fear(), new Valor(), new Light(), new Shadow());
 	}
 
 	@Override
@@ -137,7 +139,7 @@ public class FightClubController implements EventHandler<KeyEvent> {
 			c.getView().getFightClubView().setPlayerOutputTextArea("");
 			c.getView().getFightClubView().clearCommandField();
 			c.getPlayerInvStatsController().updateAllPlayerStats();
-			c.getView().getWindow().setScene(c.getView().getDownTownView().getDownTownScene());
+			c.getView().getWindow().setScene(c.getView().getFightWinView().getFightWinScene());
 			System.out.println("FightClubController: Enemy turnes" + numberOfEnemyTurns);
 			return true;
 		}

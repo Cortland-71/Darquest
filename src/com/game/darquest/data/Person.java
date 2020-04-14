@@ -25,9 +25,9 @@ public abstract class Person {
 
 	private double hp = 1;
 	private double eng = 0;
-	private double eat = 0;
-	private double sleep = 0;
-	private double work = 0;
+	private double eat = .5;
+	private double sleep = .5;
+	private double work = .5;
 
 	private final int MIN = 0;
 	private final int MAX_BAR = 1;

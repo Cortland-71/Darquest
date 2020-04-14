@@ -139,14 +139,16 @@ public class Enforcer implements Classable {
 	@Override
 	public List<Integer> getAllScores() {
 		List<Integer> allScores = new ArrayList<>();
-		allScores.add(engQuestions());
-		allScores.add(attackQuestions());
+		allScores.add(engQuestions()); //Eng
+		allScores.add(attackQuestions()); //Attack
 		allScores.add(getNoScore()); //Steal
 		allScores.add(getNoScore()); //Deception
-		allScores.add(fearQuestions());
-		allScores.add(healQuestions());
+		allScores.add(fearQuestions()); //Fear
+		allScores.add(healQuestions()); //Heal
 		allScores.add(getNoScore()); //Truth
 		allScores.add(getNoScore()); //Valor
+		allScores.add(getNoScore()); //Light
+		allScores.add(getNoScore()); //Shadow
 		
 		return allScores;
 	}
@@ -157,12 +159,5 @@ public class Enforcer implements Classable {
 	
 
 
-	@Override
-	public boolean failedTypeCheck(Controller c, Enemy e) {
-		if(e.getEat() > 0 && e.getSleep() > 0 && e.getWork() > 0) {
-			c.getEnemyController().getFearRuleController().getRule();
-			return true;
-		} 
-		return false;
-	}
+	
 }

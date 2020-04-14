@@ -2,15 +2,16 @@ package com.game.darquest.controller;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 
 import com.game.darquest.data.Enemy;
 import com.game.darquest.data.EnemyGenerator;
 import com.game.darquest.view.View;
 
+import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
+import javafx.util.Duration;
 
 public class DownTownController implements EventHandler<ActionEvent>{
 
@@ -81,6 +82,11 @@ class FightClub implements Clickable {
 		
 		c.getPlayer().setMoves(3);
 		c.getView().getFightClubView().setPlayerMovesLeft(c.getPlayer());
+		
+		FadeTransition ft = new FadeTransition(Duration.millis(500), c.getView().getFightClubView().getFightClubPane());
+		ft.setFromValue(0.0);
+		ft.setToValue(1.0);
+		ft.play();
 		c.getView().getWindow().setScene(c.getView().getFightClubView().getFightClubScene());
 		c.getView().getFightClubView().setCommandFeildFocused();
 		

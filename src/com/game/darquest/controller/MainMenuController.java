@@ -5,9 +5,13 @@ import java.util.List;
 
 import com.game.darquest.view.View;
 
+import javafx.animation.FadeTransition;
+import javafx.animation.PauseTransition;
+import javafx.animation.SequentialTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
+import javafx.util.Duration;
 
 public class MainMenuController implements EventHandler<ActionEvent> {
 	
@@ -38,11 +42,19 @@ class NewGame implements Clickable {
 	private View view;
 	public NewGame(View view) {
 		this.view = view;
+		
 	}
 	
 	@Override
 	public void clickAction() {
 		view.getWindow().setScene(view.getNewPlayerView().getEnterNameScene());
+	    FadeTransition ft = new FadeTransition(Duration.millis(1000), 
+	    		view.getNewPlayerView().getEnterNameBoxObj());
+		ft.setFromValue(0.0);
+		ft.setToValue(1.0);
+		ft.play();
+	    
+	    
 	}
 }
 

@@ -10,7 +10,9 @@ import com.game.darquest.controller.rules.DeceptionRuleController;
 import com.game.darquest.controller.rules.EngRuleController;
 import com.game.darquest.controller.rules.FearRuleController;
 import com.game.darquest.controller.rules.HealRuleController;
+import com.game.darquest.controller.rules.LightRuleController;
 import com.game.darquest.controller.rules.Ruleable;
+import com.game.darquest.controller.rules.ShadowRuleController;
 import com.game.darquest.controller.rules.StealRuleController;
 import com.game.darquest.controller.rules.TruthRuleController;
 import com.game.darquest.controller.rules.ValorRuleController;
@@ -38,6 +40,8 @@ public class EnemyController {
 	private EngRuleController engRuleController;
 	private FearRuleController fearRuleController;
 	private ValorRuleController valorRuleController;
+	private LightRuleController lightRuleController;
+	private ShadowRuleController shadowRuleController;
 	
 	public EnemyController(Controller c) {
 		this.c = c;
@@ -49,6 +53,8 @@ public class EnemyController {
 		engRuleController = new EngRuleController(this.c);
 		fearRuleController = new FearRuleController(this.c);
 		valorRuleController = new ValorRuleController(this.c);
+		lightRuleController = new LightRuleController(this.c);
+		shadowRuleController = new ShadowRuleController(this.c);
 		this.ruleList = Arrays.asList(
 				engRuleController,
 				attackRuleController, 
@@ -57,10 +63,20 @@ public class EnemyController {
 				fearRuleController,
 				healRuleController,
 				truthRuleController,
-				valorRuleController);
+				valorRuleController,
+				lightRuleController,
+				shadowRuleController);
 		
 	}
 	
+	public LightRuleController getLightRuleController() {
+		return lightRuleController;
+	}
+
+	public ShadowRuleController getShadowRuleController() {
+		return shadowRuleController;
+	}
+
 	public HealRuleController getHealRuleController() {
 		return healRuleController;
 	}

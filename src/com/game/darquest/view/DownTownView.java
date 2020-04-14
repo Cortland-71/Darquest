@@ -65,18 +65,31 @@ public class DownTownView {
 	private Label awarenessLabel = new Label();
 
 	public DownTownView() {
-		downTownScene = new Scene(getDownTownPane(), View.WIDTH, View.HEIGHT);
+		downTownScene = new Scene(downTownBackground(), View.WIDTH, View.HEIGHT);
 
 		downTownScene.getStylesheets().add("DownTownStyle.css");
 	}
+	
+	private VBox downTownBackground() {
+		VBox downTownBackground = new VBox();
+		downTownBackground.setBackground(View.getBackground(Color.BLACK));
+		downTownBackground.setAlignment(Pos.CENTER);
+		downTownBackground.getChildren().add(getDownTownPane());
+		return downTownBackground;
+	}
 
+	private BorderPane bp;
 	public BorderPane getDownTownPane() {
-		BorderPane bp = new BorderPane();
+		bp = new BorderPane();
 		bp.setTop(topBox());
 		bp.setLeft(leftBox());
 		bp.setBottom(bottomPane());
 		bp.setRight(rightPane());
 		bp.setCenter(centerBox());
+		return bp;
+	}
+	
+	public BorderPane getDownTownPaneObj() {
 		return bp;
 	}
 
