@@ -39,7 +39,7 @@ public class ShopView extends DownTownView {
 	
 	public ShopView() {
 		shopScene = new Scene(shopPane(), View.WIDTH, View.HEIGHT);
-		shopScene.getStylesheets().addAll("DownTownStyle.css", "ShopStyle.css");
+		shopScene.getStylesheets().addAll("styles/DownTownStyle.css", "styles/ShopStyle.css");
 	}	
 	
 	private BorderPane shopPane() {
@@ -65,9 +65,9 @@ public class ShopView extends DownTownView {
 	private BorderPane center() {
 		BorderPane center = new BorderPane();
 		center.setBackground(View.getBackground(Color.BLACK));
-		Image image = new Image("file:ShopSoft.png");
-		ImageView shopImage = new ImageView(image);
-		center.setCenter(shopImage);
+		Label l = new Label();
+        l.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/ShopSoft.png"))));
+		center.setCenter(l);
 		center.setBottom(shopDialogeBox());
 		return center;
 	}

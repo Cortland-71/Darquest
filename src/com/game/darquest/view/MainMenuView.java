@@ -23,7 +23,7 @@ public class MainMenuView {
 	
 	public MainMenuView() {
 		mainMenuScene = new Scene(backgroundBox(), View.WIDTH, View.HEIGHT);
-		mainMenuScene.getStylesheets().add("MainMenuStyle.css");
+		mainMenuScene.getStylesheets().add("styles/MainMenuStyle.css");
 	}
 	
 	private VBox backgroundBox() {

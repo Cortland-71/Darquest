@@ -8,8 +8,6 @@ import java.util.List;
 import com.game.darquest.data.Player;
 import com.game.darquest.data.items.Item;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -31,7 +29,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.util.Duration;
 
 public class DownTownView {
 
@@ -68,7 +65,7 @@ public class DownTownView {
 	public DownTownView() {
 		downTownScene = new Scene(downTownBackground(), View.WIDTH, View.HEIGHT);
 
-		downTownScene.getStylesheets().add("DownTownStyle.css");
+		downTownScene.getStylesheets().add("styles/DownTownStyle.css");
 	}
 	
 	private VBox downTownBackground() {
@@ -362,11 +359,12 @@ public class DownTownView {
 	// \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\- Center
 	private VBox centerBox() {
 		VBox centerBox = new VBox();
-		Image image = new Image("file:downTownSoft.png");
-		ImageView enemyImage = new ImageView(image);
+		centerBox.setId("centerBox");
+		Label l = new Label();
+        l.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/downTownSoft.png"))));
 		centerBox.setAlignment(Pos.CENTER);
 		centerBox.setBackground(View.getBackground(Color.BLACK));
-		centerBox.getChildren().add(enemyImage);
+		centerBox.getChildren().add(l);
 		return centerBox;
 	}
 

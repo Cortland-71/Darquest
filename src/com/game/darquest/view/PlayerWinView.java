@@ -22,7 +22,7 @@ public class PlayerWinView {
 
 	public PlayerWinView() {
 		fightWinScene = new Scene(fightWinBackground(), View.WIDTH, View.HEIGHT);
-		fightWinScene.getStylesheets().addAll("DownTownStyle.css", "FightWinStyle.css");
+		fightWinScene.getStylesheets().addAll("styles/DownTownStyle.css", "styles/FightWinStyle.css");
 	}
 	
 	public Scene getFightWinScene() {
@@ -104,9 +104,9 @@ public class PlayerWinView {
 		HBox centerInCenter = new HBox();
 		centerInCenter.setBackground(View.getBackground(Color.BLACK));
 		centerInCenter.setAlignment(Pos.CENTER);
-		Image image = new Image("file:zom.png");
-		ImageView enemyImage = new ImageView(image);
-		centerInCenter.getChildren().add(enemyImage);
+		Label l = new Label();
+        l.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/zom.png"))));
+		centerInCenter.getChildren().add(l);
 		return centerInCenter;
 	}
 	

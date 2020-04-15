@@ -27,7 +27,7 @@ public class FightClubView extends DownTownView {
 
 	public FightClubView() {
 		fightClubScene = new Scene(fightClubBackground(), View.WIDTH, View.HEIGHT);
-		fightClubScene.getStylesheets().addAll("DownTownStyle.css", "FightClubStyle.css");
+		fightClubScene.getStylesheets().addAll("styles/DownTownStyle.css", "styles/FightClubStyle.css");
 	}
 	
 	private VBox fightClubBackground() {
@@ -161,10 +161,10 @@ public class FightClubView extends DownTownView {
 		return innerEnemyPane(picture);
 	}
 	
-	private ImageView enemyImage(String picture) {
-		Image image = new Image("file:"+picture);
-		ImageView enemyImage = new ImageView(image);
-		return enemyImage;
+	private Label enemyImage(String picture) {
+		Label l = new Label();
+        l.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/"+picture))));
+		return l;
 	}
 	
 	//Enemy right stats box \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/

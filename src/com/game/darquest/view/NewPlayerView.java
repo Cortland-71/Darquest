@@ -15,7 +15,7 @@ public class NewPlayerView {
 	
 	public NewPlayerView() {
 		enterNameScene = new Scene(enterNameBackground(), View.WIDTH, View.HEIGHT);
-		enterNameScene.getStylesheets().add("NewPlayerStyle.css");
+		enterNameScene.getStylesheets().add("styles/NewPlayerStyle.css");
 		
 	}
 	
