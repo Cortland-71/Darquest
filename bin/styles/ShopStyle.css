@@ -1,6 +1,6 @@
 .root {
 	-fx-background-color: dark;
-	-fx-font: 20px "Consolas";
+	-fx-font: 20px "Lucida Console";
 	-fx-text-fill: lightText;
 }
 
@@ -33,7 +33,7 @@
 }
 
 #buy {
-	-fx-font: 20px "Consolas";
+	-fx-font: 20px "Lucida Console";
 	-fx-text-fill: orange;
 	-fx-background-color: almostDark;
 	-fx-border-color: orange;
@@ -51,7 +51,7 @@
 }
 
 #sell {
-	-fx-font: 20px "Consolas";
+	-fx-font: 20px "Lucida Console";
 	-fx-text-fill: _lightBlue;
 	-fx-background-color: almostDark;
 	-fx-border-color: _lightBlue;
@@ -69,25 +69,25 @@
 }
 
 #itemInfoLabel {
-	-fx-font: 18px "Consolas";
+	-fx-font: 18px "Lucida Console";
 	-fx-text-fill: _green;
 }
 
 #selectedItemInfoLabel {
-	-fx-font: 18px "Consolas";
+	-fx-font: 18px "Lucida Console";
 	-fx-text-fill: orange;
 
 }
 
 #buyShopDialoge {
-	-fx-font: 15px "Consolas";
+	-fx-font: 15px "Lucida Console";
 	-fx-text-fill: orange;
 	-fx-text-box-border: _darkOrange;
 	-fx-background-radius: 0px;
 } 
 
 #sellShopDialoge {
-	-fx-font: 15px "Consolas";
+	-fx-font: 15px "Lucida Console";
 	-fx-text-fill: _green;
 	-fx-text-box-border: _darkGreen;
 	-fx-background-radius: 0px;

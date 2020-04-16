@@ -11,6 +11,8 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
@@ -52,7 +54,8 @@ public class MainMenuView {
 	
 	Label title;
 	private Label title() {
-		title = new Label("D A R Q U E S T");
+		title = new Label("");
+		title.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/logo.png"))));
 		title.setId("title");
 		title.setPadding(new Insets(0,0,50,0));
 		return title;

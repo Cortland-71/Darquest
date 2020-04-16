@@ -94,6 +94,7 @@ public class DownTownView {
 	// \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/ -Top Box
 	protected HBox topBox() {
 		HBox topBox = new HBox(10);
+		topBox.setPadding(new Insets(20,0,0,0));
 		topBox.setMaxHeight(75);
 		topBox.setMinHeight(75);
 		topBox.setAlignment(Pos.CENTER);
@@ -127,7 +128,7 @@ public class DownTownView {
 
 	// \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/- Left Box
 	protected VBox leftBox() {
-		VBox leftBox = new VBox(8);
+		VBox leftBox = new VBox(10);
 		leftBox.setMaxWidth(300);
 		leftBox.setMinWidth(300);
 		leftBox.setAlignment(Pos.TOP_LEFT);
@@ -347,19 +348,22 @@ public class DownTownView {
 			}
 			bottomPane.add(buttonList.get(i), counter++, 1);
 		}
-		
-		buttonList.get(3).setDisable(true);
 		return bottomPane;
 	}
 	
 	public Button getLevelUpButton() {
 		return buttonList.get(3);
 	}
+	
+	public void setLevelUpButtonDisabled(boolean state) {
+		buttonList.get(3).setDisable(state);
+	}
 
 	// \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\- Center
 	private VBox centerBox() {
 		VBox centerBox = new VBox();
 		centerBox.setId("centerBox");
+		centerBox.setMinSize(1200, 600);
 		Label l = new Label();
         l.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/downTownSoft.png"))));
 		centerBox.setAlignment(Pos.CENTER);
@@ -382,7 +386,15 @@ public class DownTownView {
 		sleepLabel.setText("Sleep:\t" + p.getSleep() + "/1.0");
 		workLabel.setText("Work:\t" + p.getWork() + "/1.0");
 
-		
+		if(p.getXp() >= 1) {
+			buttonList.get(3).setStyle("-fx-text-fill: orange;"
+					+ "-fx-border-color: orange;");
+			setLevelUpButtonDisabled(false);
+		} else {
+			buttonList.get(3).setStyle("-fx-text-fill: _green;"
+					+ "-fx-border-color: _green;");
+			setLevelUpButtonDisabled(true);
+		}
 		xpBar.setProgress(p.getXp());
 		weightBar.setProgress(p.getWeight());
 		hpBar.setProgress(p.getHp());
@@ -391,9 +403,9 @@ public class DownTownView {
 		sleepBar.setProgress(p.getSleep());
 		workBar.setProgress(p.getWork());
 
-		equippedWeaponLabel.setText("Weapon:\n" + p.getEquippedWeaponString());
-		equippedArmorLabel.setText("Armor:\n" + p.getEquippedArmorString());
-		equippedToolLabel.setText("Tool:\n" + p.getEquippedToolString());
+		equippedWeaponLabel.setText("Wep:\t" + p.getEquippedWeaponString());
+		equippedArmorLabel.setText("Arm:\t" + p.getEquippedArmorString());
+		equippedToolLabel.setText("Tool:\t" + p.getEquippedToolString());
 		
 		
 		if(p.getDef() < p.getMaxDef()) {

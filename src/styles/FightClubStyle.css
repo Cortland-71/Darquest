@@ -25,7 +25,7 @@
 	-fx-background-color: dark;
 	-fx-text-fill: _green;
 	-fx-border-color: _green;
-	-fx-font: 22px "Consolas";
+	-fx-font: 22px "Lucida Console";
 }
 
 #commandLabel {
@@ -36,7 +36,7 @@
 }
 
 #playerOutputLabel, #enemyOutputLabel {
-	-fx-font: 15px "consolas";
+	-fx-font: 15px "Lucida Console";
 	-fx-font-style: italic;
 }
 
@@ -45,7 +45,7 @@
 }
 
 #playerOutputTextArea {
-	-fx-font: 15px "Consolas";
+	-fx-font: 15px "Lucida Console";
 	-fx-text-fill: _green;
 	-fx-text-box-border: _darkGreen;
 	-fx-background-radius: 0px;
@@ -66,7 +66,7 @@
 }
 
 #enemyOutputTextArea {
-	-fx-font: 15px "Consolas";
+	-fx-font: 15px "Lucida Console";
 	-fx-text-fill: orange;
 	-fx-text-box-border: _darkOrange;
 	-fx-background-radius: 0px;
@@ -92,12 +92,12 @@
 }
 
 #enemyRightStatsBox .label {
-	-fx-font: 15px "Consolas";
+	-fx-font: 15px "Lucida Console";
 	-fx-text-fill: orange;
 }
 
 #enemyBottomStatsBox .label {
-	-fx-font: 12px "Consolas";
+	-fx-font: 12px "Lucida Console";
 	-fx-text-fill: orange;
 }
 
@@ -107,7 +107,7 @@
 }
 
 #playerMovesLabel {
-	-fx-font: 17px "Consolas";
+	-fx-font: 17px "Lucida Console";
 	-fx-text-fill: _green;
 }
 

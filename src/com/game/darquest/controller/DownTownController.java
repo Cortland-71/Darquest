@@ -78,13 +78,15 @@ class FightClub implements Clickable {
 		enemyGenerator = new EnemyGenerator(this.c);
 		enemyGenerator.generateEnemys();
 		List<Enemy> enemyList = enemyGenerator.getEnemyList();
+		c.getFightClubController().setAllCountersToZero();
 		c.getFightClubController().setEnemyList(enemyList);
 		
 		c.getDownTownController().drawAllEnemyBoxes(enemyList);
 		
 		c.getPlayer().setMoves(3);
 		c.getView().getFightClubView().setPlayerMovesLeft(c.getPlayer());
-		
+		c.getView().getFightClubView().clearAllOutputTextAreas();
+		c.getView().getFightClubView().clearCommandField();
 		FadeTransition ft = new FadeTransition(Duration.millis(500), c.getView().getFightClubView().getFightClubPane());
 		ft.setFromValue(0.0);
 		ft.setToValue(1.0);

@@ -3,6 +3,8 @@ package com.game.darquest.view;
 import java.util.Arrays;
 import java.util.List;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -111,7 +113,8 @@ public class PlayerWinView {
 	}
 	
 	private VBox rightInCenter() {
-		VBox rightInCenter = new VBox(10);
+		VBox rightInCenter = new VBox(20);
+		rightInCenter.setPadding(new Insets(10,10,10,10));
 		rightInCenter.setMinSize(450, 0);
 		rightInCenter.setId("rightInCenter");
 		rightInCenter.setAlignment(Pos.TOP_LEFT);
@@ -158,13 +161,13 @@ public class PlayerWinView {
 	
 	private Label ratingLabel;
 	private Label ratingLabel() {
-		ratingLabel = new Label("RATING: ");
+		ratingLabel = new Label("Overall RATING: ");
 		return ratingLabel;
 	}
 	
 	public void setWinStats(List<String> list) {
 		List<String> labelSayingList = Arrays.asList("Number of Moves: ",
-				"XP Earned: ", "Efficiency Rating: ", "Loot Obtained: ", "Cash Won: ", "RATING: ");
+				"XP Earned: ", "Efficiency Rating: ", "Loot Obtained: ", "Cash Won: ", "Overrall Rating: ");
 		List<Label> labelList = Arrays.asList(totalMovesLabel, totalXpEarnedLabel, 
 				efficiencyLabel, lootLabel, cashWonLabel, ratingLabel);
 		for (int i = 0; i < list.size(); i++) {
@@ -187,6 +190,10 @@ public class PlayerWinView {
 		continueButton = new Button("Continue");
 		continueButton.setMinSize(225, 50);
 		return continueButton;
+	}
+	
+	public void addContinueButtonListener(EventHandler<ActionEvent> l) {
+		continueButton.setOnAction(l);
 	}
 
 }

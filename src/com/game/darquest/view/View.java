@@ -1,6 +1,7 @@
 package com.game.darquest.view;
 
 import javafx.animation.FadeTransition;
+import javafx.animation.Timeline;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Background;
@@ -23,7 +24,7 @@ public class View {
 	private TutorialView tutorialView;
 	private ShopView shopView;
 	private FightClubView fightClubView;
-	private PlayerWinView fightWinView;
+	private PlayerWinView playerWinView;
 	
 	public View(Stage primaryStage) {
 		this.window = primaryStage;
@@ -34,12 +35,13 @@ public class View {
 		this.tutorialView = new TutorialView();
 		this.shopView = new ShopView();
 		this.fightClubView = new FightClubView();
-		this.fightWinView = new PlayerWinView();
+		this.playerWinView = new PlayerWinView();
 		
-		FadeTransition ft2 = new FadeTransition(Duration.millis(2000), getMainMenu().getTitle());
+		FadeTransition ft2 = new FadeTransition(Duration.millis(3000), getMainMenu().getTitle());
 		ft2.setFromValue(0.0);
 		ft2.setToValue(1.0);
 		ft2.play();
+		
 		
 		window.setScene(mainMenuView.getMainMenuScene());
 		window.setTitle("Darquest FX v1.0");
@@ -47,6 +49,10 @@ public class View {
 		
 	}
 	
+	public PlayerWinView getPlayerWinView() {
+		return playerWinView;
+	}
+
 	public void setFightClubView(FightClubView fightClubView) {
 		this.fightClubView = fightClubView;
 	}
@@ -92,6 +98,6 @@ public class View {
 	}
 
 	public PlayerWinView getFightWinView() {
-		return fightWinView;
+		return playerWinView;
 	}
 }

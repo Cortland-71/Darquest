@@ -7,14 +7,14 @@
 
 .root {
 	-fx-background-color: dark;
-	-fx-font: 20px "Consolas";
+	-fx-font: 20px "Lucida Console";
 }
 
 .text-field {
 	-fx-background-color: dark;
 	-fx-text-fill: _green;
 	-fx-border-color: _green;
-	-fx-font: 22px "Consolas";
+	-fx-font: 22px "Lucida Console";
 }
 
 .label {

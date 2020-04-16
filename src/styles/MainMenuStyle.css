@@ -7,12 +7,12 @@
 
 .root {
 	-fx-background-color: dark;
-	-fx-font: 20px "Consolas";
+	-fx-font: 20px "Lucida Console";
 	-fx-text-fill: lightText;
 }
 
 .button {
-	-fx-font: 20px "Consolas";
+	-fx-font: 20px "Lucida Console";
 	-fx-text-fill: _green;
 	-fx-background-color: dark;
 	-fx-border-color: _green;
@@ -25,9 +25,4 @@
 .button:pressed {
 	-fx-text-fill: dark;
 	-fx-background-color: _green;
-}
-
-#title {
-	-fx-font: 72px "Constantia";
-	-fx-text-fill: lightText;
 }

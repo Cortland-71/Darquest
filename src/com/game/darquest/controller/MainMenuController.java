@@ -48,7 +48,7 @@ class NewGame implements Clickable {
 	@Override
 	public void clickAction() {
 		view.getWindow().setScene(view.getNewPlayerView().getEnterNameScene());
-	    FadeTransition ft = new FadeTransition(Duration.millis(1000), 
+	    FadeTransition ft = new FadeTransition(Duration.millis(500), 
 	    		view.getNewPlayerView().getEnterNameBoxObj());
 		ft.setFromValue(0.0);
 		ft.setToValue(1.0);

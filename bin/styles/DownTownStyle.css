@@ -23,12 +23,12 @@
 
 .root {
 	-fx-background-color: dark;
-	-fx-font: 20px "Consolas";
+	-fx-font: 20px "Lucida Console";
 }
 
 /*Buttons \/\/\/\/\/\/\/\/\/\/\/\/\/\*/
 .button {
-	-fx-font: 20px "Consolas";
+	-fx-font: 20px "Lucida Console";
 	-fx-text-fill: _green;
 	-fx-background-color: dark;
 	-fx-border-color: _green;
@@ -45,7 +45,7 @@
 
 /*Labels \/\/\/\/\/\/\/\/\/\/\/\/\/\*/
 .label {
-	-fx-font: 20px "Consolas";
+	-fx-font: 20px "Lucida Console";
 	-fx-text-fill: _green;
 }
 

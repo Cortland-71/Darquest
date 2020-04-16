@@ -2,7 +2,6 @@ package com.game.darquest.view;
 
 import com.game.darquest.data.Enemy;
 import com.game.darquest.data.Person;
-import com.game.darquest.data.Player;
 
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -20,6 +19,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 
 public class FightClubView extends DownTownView {
 	
@@ -55,6 +56,7 @@ public class FightClubView extends DownTownView {
 	
 	private BorderPane centerFightClubPane() {
 		BorderPane centerPane = new BorderPane();
+		centerPane.setMinSize(1200, 600);
 		centerPane.setCenter(centerEnemyBox());
 		centerPane.setBottom(outputsBox());
 		return centerPane;
@@ -86,7 +88,7 @@ public class FightClubView extends DownTownView {
 		playerOutputTextArea.setMinSize(645, 180);
 		return playerOutputTextArea;
 	}
-	
+
 	public void setPlayerOutputTextArea(String text) {
 		playerOutputTextArea.setText(text);
 	}
@@ -122,6 +124,11 @@ public class FightClubView extends DownTownView {
 	
 	public void setEnemyOutputTextArea(String text) {
 		enemyOutputTextArea.appendText(text+"\n");
+	}
+	
+	public void clearAllOutputTextAreas() {
+		clearEnemyOutputTextArea();
+		setPlayerOutputTextArea("");
 	}
 	
 	private Label enemyOutputLabel() {
@@ -169,7 +176,7 @@ public class FightClubView extends DownTownView {
 	
 	//Enemy right stats box \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/
 	private VBox enemyRightStatsBox() {
-		VBox enemyRightStatsBox = new VBox(5);
+		VBox enemyRightStatsBox = new VBox(10);
 		enemyRightStatsBox.setId("enemyRightStatsBox");
 		enemyRightStatsBox.setAlignment(Pos.TOP_LEFT);
 		enemyRightStatsBox.setPadding(new Insets(10,0,0,5));
@@ -386,7 +393,7 @@ public class FightClubView extends DownTownView {
 	private VBox commandFieldBox() {
 		VBox commandFieldBox = new VBox(15);
 		commandFieldBox.setAlignment(Pos.CENTER);
-		commandFieldBox.setPadding(new Insets(5,0,200,0));
+		commandFieldBox.setPadding(new Insets(5,0,165,0));
 		commandFieldBox.getChildren().add(commandField());
 		return commandFieldBox;
 	}
@@ -469,8 +476,8 @@ public class FightClubView extends DownTownView {
 		enemyWorkBar.setProgress(p.getWork());
 		enemyLimitBar.setProgress(p.getLimit());
 
-		enemyWeaponLabel.setText("Weapon:\n" + p.getEquippedWeaponString());
-		enemyArmorLabel.setText("Armor:\n" + p.getEquippedArmorString());
+		enemyWeaponLabel.setText("Wep: " + p.getEquippedWeaponString());
+		enemyArmorLabel.setText("Arm: " + p.getEquippedArmorString());
 		
 		if(p.getDef() <= player.getEquippedWeapon().getMinDamage()) {
 			enemyDefLabel.setStyle("-fx-text-fill: red");

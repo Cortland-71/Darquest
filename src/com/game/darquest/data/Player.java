@@ -18,8 +18,10 @@ public class Player extends Person {
 	
 	private DecimalFormat f = new DecimalFormat("0.00");
 	private double weight = 0;
-	private double xp = .1;
-	private double xpAdded = .1;
+	private double xp = .9;
+	private double xpAddedBeatEnemy = .1;
+	private double xpAdded = .01;
+	private double remainingXp = 0;
 	private final double maxXp = 1;
 	private final double minXp = 0;
 	
@@ -62,8 +64,17 @@ public class Player extends Person {
 	}
 
 	public void setXp(double xp) {
-		
-		this.xp = xp;
+		this.xp = Math.round(xp * 100.0) / 100.0;
+	}
+
+	
+
+	public double getXpAddedBeatEnemy() {
+		return xpAddedBeatEnemy;
+	}
+
+	public void setXpAddedBeatEnemy(double xpAddedBeatEnemy) {
+		this.xpAddedBeatEnemy = xpAddedBeatEnemy;
 	}
 
 	public double getXpAdded() {
@@ -80,5 +91,13 @@ public class Player extends Person {
 
 	public double getMinXp() {
 		return minXp;
+	}
+
+	public double getRemainingXp() {
+		return remainingXp;
+	}
+
+	public void setRemainingXp(double remainingXp) {
+		this.remainingXp = remainingXp;
 	}
 }

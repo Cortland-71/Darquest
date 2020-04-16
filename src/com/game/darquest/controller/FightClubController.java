@@ -1,5 +1,7 @@
 package com.game.darquest.controller;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -31,19 +33,21 @@ import javafx.util.Duration;
 
 public class FightClubController implements EventHandler<KeyEvent> {
 
+	private DecimalFormat f2 = new DecimalFormat("0.00");
 	private List<Fireable> fireList;
 	private List<Enemy> enemyList = new ArrayList<>();
 	private Integer numPlayerMoves = 0;
+	private Double xpEarned = 0.0;
+	private Double cashEarned = 0.0;
 
 	private Controller c;
 
 	public FightClubController(Controller c) {
 		c.getView().getFightClubView().addCommandFieldListener(this);
 		this.c = c;
-		fireList = Arrays.asList(new Help(), new Eat(), new Sleep(), new Work(), 
-				new Attack(this.c), new Use(this.c), new Steal(),
-				new Heal(), new Deception(), new Truth(), new Fear(), 
-				new Valor(), new Light(), new Shadow());
+		fireList = Arrays.asList(new Help(), new Eat(), new Sleep(), new Work(), new Attack(this.c), new Use(this.c),
+				new Steal(), new Heal(), new Deception(), new Truth(), new Fear(), new Valor(), new Light(),
+				new Shadow());
 	}
 
 	@Override
@@ -60,7 +64,8 @@ public class FightClubController implements EventHandler<KeyEvent> {
 		String finalCommand = command;
 		if (hasModifier(command)) {
 			choosen = assignReceivingPerson(command);
-			if(choosen == null) return;
+			if (choosen == null)
+				return;
 			finalCommand = getCommandWithoutModifiers(command);
 		}
 
@@ -124,8 +129,8 @@ public class FightClubController implements EventHandler<KeyEvent> {
 	}
 
 	private void afterPlayerMove() {
-
 		numPlayerMoves++;
+		addXpToPlayer(((Player)c.getPlayer()).getXpAdded());
 		removeDeadEnemyFromList();
 		if (playerWins())
 			return;
@@ -140,19 +145,16 @@ public class FightClubController implements EventHandler<KeyEvent> {
 
 	private boolean playerWins() {
 		if (enemyList.size() <= 0) {
-			c.getView().getFightClubView().clearEnemyOutputTextArea();
-			c.getView().getFightClubView().setPlayerOutputTextArea("");
-			c.getView().getFightClubView().clearCommandField();
 			c.getPlayerInvStatsController().updateAllPlayerStats();
-			
-			FadeTransition ft = new FadeTransition(Duration.millis(500), 
+
+			FadeTransition ft = new FadeTransition(Duration.millis(500),
 					c.getView().getFightWinView().getFightWinPane());
 			ft.setFromValue(0.0);
 			ft.setToValue(1.0);
 			ft.play();
-			
-			List<String> listOfWinStats = Arrays.asList(numPlayerMoves.toString(), "Test xp", "test eff", 
-					"loot", "cash", "rating");
+
+			List<String> listOfWinStats = Arrays.asList(numPlayerMoves.toString(), f2.format(xpEarned), 
+					"test eff", "loot", NumberFormat.getCurrencyInstance().format(cashEarned), "rating");
 			c.getView().getFightWinView().setWinStats(listOfWinStats);
 			c.getView().getWindow().setScene(c.getView().getFightWinView().getFightWinScene());
 			return true;
@@ -165,8 +167,7 @@ public class FightClubController implements EventHandler<KeyEvent> {
 			if (enemyList.get(i).getHp() <= 0) {
 				enemyList.remove(i);
 				currentEnemyIndex = 0;
-				Player p = ((Player)c.getPlayer());
-				p.setXp(p.getXp() + p.getXpAdded());
+				addXpToPlayer(((Player)c.getPlayer()).getXpAddedBeatEnemy());
 			}
 		}
 	}
@@ -188,8 +189,21 @@ public class FightClubController implements EventHandler<KeyEvent> {
 				currentEnemyIndex = 0;
 		}
 	}
+	
+	public void setAllCountersToZero() {
+		numPlayerMoves = 0;
+		xpEarned = 0.0;
+		cashEarned = 0.0;
+	}
+	
+	private void addXpToPlayer(double xp) {
+		xpEarned += xp;
+		Player p = ((Player) c.getPlayer());
+		p.setXp(p.getXp() + xp);
+	}
 
 	public void setEnemyList(List<Enemy> enemyList) {
+		this.cashEarned = enemyList.size() * 5000d;
 		this.enemyList = enemyList;
 	}
 
