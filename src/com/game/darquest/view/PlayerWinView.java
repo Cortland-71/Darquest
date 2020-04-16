@@ -167,7 +167,7 @@ public class PlayerWinView {
 	
 	public void setWinStats(List<String> list) {
 		List<String> labelSayingList = Arrays.asList("Number of Moves: ",
-				"XP Earned: ", "Efficiency Rating: ", "Loot Obtained: ", "Cash Won: ", "Overrall Rating: ");
+				"XP Earned: ", "Efficiency Rating: ", "Loot Obtained: ", "Cash Won: ", "RATING: ");
 		List<Label> labelList = Arrays.asList(totalMovesLabel, totalXpEarnedLabel, 
 				efficiencyLabel, lootLabel, cashWonLabel, ratingLabel);
 		for (int i = 0; i < list.size(); i++) {

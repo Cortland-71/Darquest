@@ -9,6 +9,7 @@ import com.game.darquest.controller.Controller;
 import com.game.darquest.data.Enemy;
 import com.game.darquest.data.Person;
 import com.game.darquest.data.Player;
+import com.game.darquest.data.actions.EfficiencyHandler;
 import com.game.darquest.data.actions.Fireable;
 import com.game.darquest.data.items.Weapon;
 
@@ -66,6 +67,7 @@ public class Attack implements Fireable {
 						+ "\nMinimum attack damage: " + weaponDamage 
 						+ "\n" + choosen.getName() + "'s Deffense: " + choosen.getDef()
 						+ "\nDeffense to high.";
+				EfficiencyHandler.setEfficiencyScore(EfficiencyHandler.getEfficiencyScore() - 5);
 				return true;
 			}
 			

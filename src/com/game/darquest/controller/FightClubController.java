@@ -4,11 +4,17 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Random;
 
 import com.game.darquest.data.Enemy;
 import com.game.darquest.data.Person;
 import com.game.darquest.data.Player;
+import com.game.darquest.data.actions.EfficiencyHandler;
 import com.game.darquest.data.actions.Fireable;
 import com.game.darquest.data.actions.Help;
 import com.game.darquest.data.actions.Use;
@@ -24,6 +30,7 @@ import com.game.darquest.data.actions.hostile.Deception;
 import com.game.darquest.data.actions.hostile.Fear;
 import com.game.darquest.data.actions.hostile.Light;
 import com.game.darquest.data.actions.hostile.Steal;
+import com.game.darquest.data.items.Item;
 
 import javafx.animation.FadeTransition;
 import javafx.event.EventHandler;
@@ -39,6 +46,7 @@ public class FightClubController implements EventHandler<KeyEvent> {
 	private Integer numPlayerMoves = 0;
 	private Double xpEarned = 0.0;
 	private Double cashEarned = 0.0;
+	private List<Item> lootList = new ArrayList<>();
 
 	private Controller c;
 
@@ -145,21 +153,58 @@ public class FightClubController implements EventHandler<KeyEvent> {
 
 	private boolean playerWins() {
 		if (enemyList.size() <= 0) {
-			c.getPlayerInvStatsController().updateAllPlayerStats();
+			
+			String loot = "\n" + addGeneratedLootToList();
+			String totalMoves = numPlayerMoves.toString();
+			String formattedXp = f2.format(xpEarned);
+			String efficiencyScore = "%"+EfficiencyHandler.getEfficiencyScore();
+			String cash = NumberFormat.getCurrencyInstance().format(cashEarned);
+			String rating = getRating(EfficiencyHandler.getEfficiencyScore());
+			fade();
 
-			FadeTransition ft = new FadeTransition(Duration.millis(500),
-					c.getView().getFightWinView().getFightWinPane());
-			ft.setFromValue(0.0);
-			ft.setToValue(1.0);
-			ft.play();
-
-			List<String> listOfWinStats = Arrays.asList(numPlayerMoves.toString(), f2.format(xpEarned), 
-					"test eff", "loot", NumberFormat.getCurrencyInstance().format(cashEarned), "rating");
+			List<String> listOfWinStats = Arrays.asList(totalMoves, formattedXp, 
+					efficiencyScore, loot, cash, rating);
 			c.getView().getFightWinView().setWinStats(listOfWinStats);
+			c.getPlayerInvStatsController().updateAllPlayerStats();
 			c.getView().getWindow().setScene(c.getView().getFightWinView().getFightWinScene());
 			return true;
 		}
 		return false;
+	}
+	
+	private String getRating(int efficiencyScore) {
+		Map<Integer, String> gradeMap = new HashMap<>();
+		gradeMap.put(100, "S");
+		gradeMap.put(95, "A+");
+		gradeMap.put(90, "A");
+		gradeMap.put(85, "B+");
+		gradeMap.put(80, "B");
+		gradeMap.put(75, "C+");
+		gradeMap.put(70, "C");
+		for (Entry<Integer, String> entry : gradeMap.entrySet()) {
+			if(efficiencyScore == entry.getKey()) return entry.getValue();
+		}
+		return "D";
+	}
+
+	private void fade() {
+		FadeTransition ft = new FadeTransition(Duration.millis(500),
+				c.getView().getFightWinView().getFightWinPane());
+		ft.setFromValue(0.0);
+		ft.setToValue(1.0);
+		ft.play();
+	}
+	
+	private String addGeneratedLootToList() {
+		lootList.clear();
+		List<List<List<Item>>> allItems = Arrays.asList(c.getItemHub().getListsOfWeapons(),
+				c.getItemHub().getListsOfArmors(), c.getItemHub().getListsOfTools());
+		for (int i = 0; i < allItems.size(); i++) {
+			lootList.add(getRandomItem(allItems.get(i)));
+		}
+		StringBuilder sb = new StringBuilder();
+		lootList.forEach(e->sb.append("Item: " + e.getName() + "\n"));
+		return sb.toString();
 	}
 
 	private void removeDeadEnemyFromList() {
@@ -188,6 +233,13 @@ public class FightClubController implements EventHandler<KeyEvent> {
 			if (currentEnemyIndex >= enemyList.size())
 				currentEnemyIndex = 0;
 		}
+	}
+	
+	private Item getRandomItem(List<List<Item>> listOfLists) {
+		Random rand = new Random();
+		int index = rand.nextInt(listOfLists.size());
+		int itemIndex = rand.nextInt(listOfLists.get(index).size());
+		return listOfLists.get(index).get(itemIndex);
 	}
 	
 	public void setAllCountersToZero() {

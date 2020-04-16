@@ -230,6 +230,21 @@ public class ItemHub {
 	private String ballisticVestDes() {
 		return "";
 	}
+	
+	public List<List<Item>> getListsOfWeapons() {
+		List<List<Item>> lists = Arrays.asList(lowWeaponsList(), midWeaponsList(), highWeaponsList());
+		return lists;
+	}
+	
+	public List<List<Item>> getListsOfArmors() {
+		List<List<Item>> lists = Arrays.asList(lowArmorList(), midArmorList(), highArmorList());
+		return lists;
+	}
+	
+	public List<List<Item>> getListsOfTools() {
+		List<List<Item>> lists = Arrays.asList(lowToolList(), midToolList(), highToolList());
+		return lists;
+	}
 
 	public List<Item> getAllWeapons() {
 		List<Item> allWeaponsList = Stream.of(lowWeaponsList(), midWeaponsList(), highWeaponsList())
