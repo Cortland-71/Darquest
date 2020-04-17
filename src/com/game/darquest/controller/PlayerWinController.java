@@ -27,7 +27,7 @@ public class PlayerWinController implements EventHandler<ActionEvent> {
 		c.getPlayerInvStatsController().updateAllPlayerInv();
 		//c.getPlayerInvStatsController().equipItemFromPlayerWinToAllLoc(indexList);
 		c.getPlayerInvStatsController().updateAllPlayerStats();
-		c.getView().getWindow().setScene(c.getView().getDownTownView().getDownTownScene());
+		c.getView().getWindow().setScene(c.getView().getHubView().getDownTownScene());
 	}
 	
 	public void addItemsToPlayerInv(List<Item> list) {

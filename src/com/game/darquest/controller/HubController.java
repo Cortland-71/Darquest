@@ -31,7 +31,7 @@ public class HubController implements EventHandler<ActionEvent>{
 	public HubController(Controller c) {
 		this.c = c;
 		this.view = this.c.getView();
-		this.view.getDownTownView().addActionListener(this);
+		this.view.getHubView().addActionListener(this);
 		
 		fightClub = new FightClub(this.c);
 		shop = new Shop(this.c);
@@ -82,7 +82,7 @@ class FightClub implements Clickable {
 		c.getFightClubController().setAllCountersToZero();
 		c.getFightClubController().setEnemyList(enemyList);
 		
-		c.getDownTownController().drawAllEnemyBoxes(enemyList);
+		c.getHubController().drawAllEnemyBoxes(enemyList);
 		
 		c.getPlayer().setMoves(3);
 		c.getView().getFightClubView().setPlayerMovesLeft(c.getPlayer());
@@ -107,7 +107,7 @@ class Shop implements Clickable {
 	@Override
 	public void clickAction() {
 		 
-		c.getView().getDownTownView().showShop();
+		c.getView().getHubView().showShop();
 		c.getView().getShopView().getShopTabPane().getSelectionModel().selectFirst();
 		c.getView().getShopView().getShopListViewObjects().forEach(o->o.getSelectionModel().selectFirst());
 		c.getShopInventoryController().setSelectedShopItemToTextArea();
@@ -133,7 +133,7 @@ class LevelUp implements Clickable {
 	}
 	@Override
 	public void clickAction() {
-		c.getView().getDownTownView().showLevelUpCenter();
+		c.getView().getHubView().showLevelUpCenter();
 		
 		System.out.println("Clicked levelUp");
 	}

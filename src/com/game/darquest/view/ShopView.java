@@ -106,7 +106,7 @@ public class ShopView {
 	private HBox itemInfoBox() {
 		HBox itemInfoBox = new HBox(0);
 		itemInfoBox.setId("itemInfoBox");
-		itemInfoBox.setAlignment(Pos.CENTER_LEFT);
+		itemInfoBox.setAlignment(Pos.TOP_LEFT);
 		itemInfoBox.setMaxWidth(550);
 		itemInfoBox.setMinWidth(550);
 		itemInfoBox.getChildren().addAll(itemInfoLabel());

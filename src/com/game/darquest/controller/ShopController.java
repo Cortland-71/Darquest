@@ -44,20 +44,21 @@ public class ShopController implements EventHandler<ActionEvent>{
 		}
 		String id = ((Button)e.getSource()).getId();
 		int eventIndex = Integer.parseInt(id);
-		c.getDownTownController().getDownTownActions().get(eventIndex).clickAction();
+		c.getHubController().getDownTownActions().get(eventIndex).clickAction();
 		
 	}
 	 
 	private void sellItem() {
 		player = (Player)c.getPlayer();
-//		Item selectedItem = c.getPlayerInvStatsController().getSelectedItemShop();
-//		if(selectedItem.getName() != "none") {
-//			player.setCash(player.getCash()+selectedItem.getValue());
-//			player.removeItemFromPlayerInventory(selectedItem, c.getPlayerInvStatsController()
-//					.getSelectedItemIndexShop());
-//			c.getPlayerInvStatsController().setPlayerInventoryAndStatsForSellItem();
-//			shopBuyDialogueOutput(selectedItem);
-//		}
+		Item item = c.getPlayerInvStatsController().getSelectedItemFromInvOnCurrentTab();
+		if(item.getName() != "none") {
+			player.setCash(player.getCash()+item.getValue());
+			int itemIndex = c.getPlayerInvStatsController().getSelectedIndexOfItem();
+			player.removeItemFromPlayerInventory(item, itemIndex);
+			c.getPlayerInvStatsController().deselectItemToNone();
+			c.getPlayerInvStatsController().captureSelectedItemsUpdateInvReEquipItems();
+			shopBuyDialogueOutput(item);
+		}
 	}
 
 	private void buyItem() {
@@ -92,6 +93,6 @@ public class ShopController implements EventHandler<ActionEvent>{
 	
 	private void goBackToDownTown() {
 		 
-		c.getView().getDownTownView().showDownTown();
+		c.getView().getHubView().showDownTown();
 	}
 }

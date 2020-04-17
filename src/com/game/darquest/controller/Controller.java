@@ -10,7 +10,7 @@ public class Controller {
 	private final MainMenuController mainMenuController;
 	private final TutorialController tutorialController;
 	private final NewPlayerController newPlayerController;
-	private final HubController downTownController;
+	private final HubController hubController;
 	private final ShopController shopController;
 	private final PlayerInvStatsController playerInvStatsController;
 	private final ShopInventoryController shopInventoryController;
@@ -29,7 +29,7 @@ public class Controller {
 		this.mainMenuController = new MainMenuController(this);
 		this.tutorialController = new TutorialController(this);
 		this.newPlayerController = new NewPlayerController(this);
-		this.downTownController = new HubController(this);
+		this.hubController = new HubController(this);
 		this.shopController = new ShopController(this);
 		this.playerInvStatsController = new PlayerInvStatsController(this);
 		this.playerWinController = new PlayerWinController(this);
@@ -63,8 +63,8 @@ public class Controller {
 		return newPlayerController;
 	}
 
-	public HubController getDownTownController() {
-		return downTownController;
+	public HubController getHubController() {
+		return hubController;
 	}
 	
 	public View getView() {

@@ -27,10 +27,10 @@ public class NewPlayerController implements EventHandler<KeyEvent> {
 		if(e.getCode() == KeyCode.ENTER) {
 			setPlayerAttributes();
 			c.getPlayerInvStatsController().setNewPlayerInventoryAndStats();
-			view.getWindow().setScene(view.getDownTownView().getDownTownScene());
+			view.getWindow().setScene(view.getHubView().getDownTownScene());
 			
 			FadeTransition ft = new FadeTransition(Duration.millis(500), 
-					view.getDownTownView().getDownTownPaneObj());
+					view.getHubView().getDownTownPaneObj());
 			ft.setFromValue(0.0);
 			ft.setToValue(1.0);
 			ft.play();

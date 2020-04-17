@@ -16,7 +16,7 @@ public class PlayerInvStatsController implements EventHandler<MouseEvent> {
 	private Controller c;
 	public PlayerInvStatsController(Controller c) {
 		this.c = c;
-		c.getView().getDownTownView().setInventoryListener(this);
+		c.getView().getHubView().setInventoryListener(this);
 		c.getView().getFightClubView().setInventoryListener(this);
 	}
 
@@ -37,43 +37,71 @@ public class PlayerInvStatsController implements EventHandler<MouseEvent> {
 //	}
 	
 	public void captureSelectedItemsUpdateInvReEquipItems() {
-		indexList = c.getView().getDownTownView().getSelectedIndexListOfAllTabs();
+		indexList = c.getView().getHubView().getSelectedIndexListOfAllTabs();
 		updateAllPlayerInv();
 		for (int i = 0; i < indexList.size(); i++) {
-			item = getSelectedItemFromTab(i);
-			c.getView().getDownTownView().getInventoryListViewObjects()
+			c.getView().getHubView().getInventoryListViewObjects()
 			.get(i).getSelectionModel().select(indexList.get(i));
+			item = getSelectedItemFromTab(i);
 			c.getPlayer().setEquippedItem(item);
 		}
 		updateAllPlayerStats();
 	}
 	
+	public void deselectItemToNone() {
+		int tabIndex = getSelectedTabIndex();
+		c.getView().getHubView().getInventoryListViewObjects()
+		.get(tabIndex).getSelectionModel().select(0);
+	}
+	
 	public void updateAllPlayerInv() {
-		c.getView().getDownTownView().setAllInventoryItems(((Player)c.getPlayer()).getInventoryLists());
+		c.getView().getHubView().setAllInventoryItems(((Player)c.getPlayer()).getInventoryLists());
 	}
 	
 	private Item getSelectedItemFromTab(int tabIndex) {
-		return c.getView().getDownTownView().getInventoryListViewObjects()
+		return c.getView().getHubView().getInventoryListViewObjects()
 				.get(tabIndex).getSelectionModel().getSelectedItem();
 	}
 	
+	private int getSelectedItemIndex(int tabIndex) {
+		return c.getView().getHubView().getInventoryListViewObjects()
+				.get(tabIndex).getSelectionModel().getSelectedIndex();
+	}
+	
 	public void updateAllPlayerStats() {
-		c.getView().getDownTownView().setPlayerStats((Player)c.getPlayer());
+		c.getView().getHubView().setPlayerStats((Player)c.getPlayer());
 	}
 	
 	public void setNewPlayerInventoryAndStats() {
 		updateAllPlayerInv();
-		c.getView().getDownTownView().getInventoryListViewObjects()
+		c.getView().getHubView().getInventoryListViewObjects()
 		.forEach(o->o.getSelectionModel().select(0));
 		equipItem();
 		updateAllPlayerStats();
 	}
 	
 	public void equipItem() {
-		indexList = c.getView().getDownTownView().getSelectedIndexListOfAllTabs();
+		indexList = c.getView().getHubView().getSelectedIndexListOfAllTabs();
 		for (int i = 0; i < indexList.size(); i++) {
 			item = getSelectedItemFromTab(i);
 			c.getPlayer().setEquippedItem(item);
 		}
+	}
+	
+	public Item getSelectedItemFromInvOnCurrentTab() {
+		int tabIndex = getSelectedTabIndex();
+		Item item = getSelectedItemFromTab(tabIndex);
+		return item;
+	}
+	
+	public int getSelectedTabIndex() {
+		int tabIndex = c.getView().getHubView().getPlayerInventoryTabPane()
+				.getSelectionModel().getSelectedIndex();
+		return tabIndex;
+	}
+	
+	public int getSelectedIndexOfItem() {
+		int tabIndex = getSelectedTabIndex();
+		return getSelectedItemIndex(tabIndex);
 	}
 }

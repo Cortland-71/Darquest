@@ -171,7 +171,7 @@ public class EnemyController {
 	private void updateAllStats() {
 		List<Enemy> list = c.getFightClubController().getEnemyList();
 		c.getView().getFightClubView().getCenterEnemyBox().getChildren().clear();
-		c.getDownTownController().drawAllEnemyBoxes(list);
+		c.getHubController().drawAllEnemyBoxes(list);
 		c.getPlayerInvStatsController().updateAllPlayerStats();
 	}
 	

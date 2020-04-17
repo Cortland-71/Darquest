@@ -93,7 +93,7 @@ public class FightClubController implements EventHandler<KeyEvent> {
 		}
 
 		if (c.getPlayer().getHp() <= 0) {
-			c.getView().getWindow().setScene(c.getView().getDownTownView().getDownTownScene());
+			c.getView().getWindow().setScene(c.getView().getHubView().getDownTownScene());
 			return;
 		}
 	}
@@ -149,7 +149,7 @@ public class FightClubController implements EventHandler<KeyEvent> {
 		c.getView().getFightClubView().setPlayerMovesLeft(c.getPlayer());
 		// c.getView().getFightClubView().animateWorkBar((Player)c.getPlayer());
 		c.getPlayerInvStatsController().updateAllPlayerStats();
-		c.getDownTownController().drawAllEnemyBoxes(enemyList);
+		c.getHubController().drawAllEnemyBoxes(enemyList);
 		doEnemyTurnIfPlayerTurnHasEnded();
 	}
 

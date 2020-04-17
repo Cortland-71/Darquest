@@ -31,6 +31,7 @@ public class ShopInventoryController implements EventHandler<MouseEvent> {
 	}
 	
 	public void setSelectedShopItemToTextArea() {
+		c.getView().getShopView().setBuyShopDialogeNormal();
 		int tabIndex = c.getView().getShopView().getShopTabPane().getSelectionModel().getSelectedIndex();
 		Item itemSelected = c.getView().getShopView().getShopListViewObjects().get(tabIndex).getSelectionModel().getSelectedItem();
 		c.getView().getShopView().setBuyShopDialogeTextArea(itemSelected.toString());

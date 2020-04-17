@@ -22,7 +22,7 @@ public class TutorialController implements EventHandler<ActionEvent> {
 	@Override
 	public void handle(ActionEvent e) {
 		if(((Button)e.getSource()).getId().equals("back")) {
-			view.getWindow().setScene(view.getDownTownView().getDownTownScene());
+			view.getWindow().setScene(view.getHubView().getDownTownScene());
 			return;
 		}
 		String id = ((Button)e.getSource()).getId();

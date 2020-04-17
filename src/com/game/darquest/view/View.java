@@ -22,7 +22,7 @@ public class View {
 	
 	private MainMenuView mainMenuView;
 	private NewPlayerView newPlayerView;
-	private HubView downTownView;
+	private HubView hubView;
 	private TutorialView tutorialView;
 	private ShopView shopView;
 	private FightClubView fightClubView;
@@ -33,8 +33,8 @@ public class View {
 		this.window = primaryStage;
 		this.mainMenuView = new MainMenuView();
 		this.newPlayerView = new NewPlayerView();
-		this.downTownView = new HubView();
-		this.downTownView.setView(this);
+		this.hubView = new HubView();
+		this.hubView.setView(this);
 		this.tutorialView = new TutorialView();
 		this.shopView = new ShopView();
 		this.fightClubView = new FightClubView();
@@ -74,8 +74,8 @@ public class View {
 		return this.tutorialView;
 	}
 	
-	public HubView getDownTownView() {
-		return this.downTownView;
+	public HubView getHubView() {
+		return this.hubView;
 	}
 	
 	public MainMenuView getMainMenu() {
