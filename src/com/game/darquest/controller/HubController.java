@@ -11,9 +11,10 @@ import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
+import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
-public class DownTownController implements EventHandler<ActionEvent>{
+public class HubController implements EventHandler<ActionEvent>{
 
 	
 	private View view;
@@ -27,7 +28,7 @@ public class DownTownController implements EventHandler<ActionEvent>{
 	private Tutorial tutorial;
 	private List<Clickable> downTownActions;
 	
-	public DownTownController(Controller c) {
+	public HubController(Controller c) {
 		this.c = c;
 		this.view = this.c.getView();
 		this.view.getDownTownView().addActionListener(this);
@@ -91,6 +92,7 @@ class FightClub implements Clickable {
 		ft.setFromValue(0.0);
 		ft.setToValue(1.0);
 		ft.play();
+		c.getPlayerInvStatsController().equipItem();
 		c.getView().getWindow().setScene(c.getView().getFightClubView().getFightClubScene());
 		c.getView().getFightClubView().setCommandFeildFocused();
 		
@@ -104,14 +106,12 @@ class Shop implements Clickable {
 	}
 	@Override
 	public void clickAction() {
-		c.getView().getWindow().setScene(c.getView().getShopView().getShopScene());
+		 
+		c.getView().getDownTownView().showShop();
 		c.getView().getShopView().getShopTabPane().getSelectionModel().selectFirst();
 		c.getView().getShopView().getShopListViewObjects().forEach(o->o.getSelectionModel().selectFirst());
 		c.getShopInventoryController().setSelectedShopItemToTextArea();
 		c.getView().getShopView().setBuyShopDialogeTextArea("Odette: Welcome, please have a look around.");
-		c.getView().getShopView().setSellShopDialogeTextArea("Select an item from your inventory and "
-				+ "click the \"Sell\" Button to sell it.");
-		
 	}
 }
 
@@ -133,6 +133,8 @@ class LevelUp implements Clickable {
 	}
 	@Override
 	public void clickAction() {
+		c.getView().getDownTownView().showLevelUpCenter();
+		
 		System.out.println("Clicked levelUp");
 	}
 }

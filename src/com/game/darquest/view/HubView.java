@@ -8,6 +8,7 @@ import java.util.List;
 import com.game.darquest.data.Player;
 import com.game.darquest.data.items.Item;
 
+import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -29,8 +30,11 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.util.Duration;
 
-public class DownTownView {
+public class HubView {
+	
+	private View view;
 
 	private Scene downTownScene;
 	private List<String> downTownButtonTextList = Arrays.asList("Zom's Fight Club", "Shop", 
@@ -62,10 +66,10 @@ public class DownTownView {
 	private Label stealthLabel = new Label();
 	private Label awarenessLabel = new Label();
 
-	public DownTownView() {
+	public HubView() {
 		downTownScene = new Scene(downTownBackground(), View.WIDTH, View.HEIGHT);
 
-		downTownScene.getStylesheets().add("styles/DownTownStyle.css");
+		downTownScene.getStylesheets().addAll("styles/HubStyle.css", "styles/ShopStyle.css");
 	}
 	
 	private VBox downTownBackground() {
@@ -360,16 +364,50 @@ public class DownTownView {
 	}
 
 	// \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\- Center
+	private VBox centerBox;
 	private VBox centerBox() {
-		VBox centerBox = new VBox();
+		centerBox = new VBox();
 		centerBox.setId("centerBox");
 		centerBox.setMinSize(1200, 600);
-		Label l = new Label();
-        l.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/downTownSoft.png"))));
+		
 		centerBox.setAlignment(Pos.CENTER);
 		centerBox.setBackground(View.getBackground(Color.BLACK));
-		centerBox.getChildren().add(l);
+		centerBox.getChildren().add(getDownTownImage());
 		return centerBox;
+	}
+	
+	private Label getDownTownImage() {
+		Label l = new Label();
+        l.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/downTownSoft.png"))));
+        return l;
+	}
+	
+	public void showLevelUpCenter() {
+		centerBox.getChildren().remove(0);
+		centerBox.getChildren().add(view.getLevelUpView().levelUpPane());
+		fadeIn();
+	}
+	
+	public void showShop() {
+		centerBox.getChildren().remove(0);
+		centerBox.getChildren().add(view.getShopView().getActualShopPane());
+		bp.setBottom(view.getShopView().getBottomBox());
+		fadeIn();
+	}
+	
+	public void showDownTown() {
+		centerBox.getChildren().remove(0);
+		centerBox.getChildren().add(getDownTownImage());
+		bp.setBottom(bottomPane());
+		fadeIn();
+	}
+	
+	private void fadeIn() {
+		FadeTransition ft = new FadeTransition(Duration.millis(800), 
+				centerBox);
+			ft.setFromValue(0.0);
+			ft.setToValue(1.0);
+			ft.play();
 	}
 
 	// \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\- Helper
@@ -455,5 +493,10 @@ public class DownTownView {
 
 	public void addActionListener(EventHandler<ActionEvent> l) {
 		buttonList.forEach(e -> e.setOnAction(l));
+	}
+
+	public void setView(View view) {
+		this.view = view;
+		
 	}
 }

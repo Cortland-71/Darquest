@@ -27,37 +27,29 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 
-public class ShopView extends DownTownView {
+public class ShopView {
 
-	private Scene shopScene;
+	//private Scene shopScene;
 	private ListView<Item> toolsListView = new ListView<>();
 	private ListView<Item> armorListView = new ListView<>();
 	private ListView<Item> weaponsListView = new ListView<>();
 	private List<ListView<Item>> shopListViewObjects = Arrays.asList(weaponsListView, 
 			armorListView, toolsListView);
-	private final int shopDialogeBoxWidth = 645; 
 	
 	public ShopView() {
-		shopScene = new Scene(shopPane(), View.WIDTH, View.HEIGHT);
-		shopScene.getStylesheets().addAll("styles/DownTownStyle.css", "styles/ShopStyle.css");
+		bottomBox();
+		actualShopPane();
 	}	
-	
-	private BorderPane shopPane() {
-		BorderPane shopPane = new BorderPane();
-		shopPane.setTop(topBox());
-		shopPane.setLeft(leftBox());
-		shopPane.setBottom(bottomBox());
-		shopPane.setRight(rightPane());
-		shopPane.setCenter(actualShopPane());
-		
-		return shopPane;
-	}
 
 	private BorderPane actualShopPane;
 	private BorderPane actualShopPane() {
 		actualShopPane = new BorderPane();
 		actualShopPane.setCenter(center());
 		actualShopPane.setBottom(bottom());
+		return actualShopPane;
+	}
+	
+	public BorderPane getActualShopPane() {
 		return actualShopPane;
 	}
 	
@@ -73,59 +65,34 @@ public class ShopView extends DownTownView {
 	}
 	
 	private HBox shopDialogeBox() {
-		HBox shopDialogeBox = new HBox(10);
-		shopDialogeBox.setPadding(new Insets(0,10,10,10));
-		shopDialogeBox.getChildren().add(buyShopDialogeTextArea());
-		shopDialogeBox.getChildren().add(sellShopDialogeTextArea());
+		HBox shopDialogeBox = new HBox();
+		shopDialogeBox.setAlignment(Pos.CENTER);
+		shopDialogeBox.getChildren().add(shopDialogeTextArea());
 		return shopDialogeBox;
 	}
 	
-	private TextArea buyShopDialogeTextArea;
-	private TextArea buyShopDialogeTextArea() {
-		buyShopDialogeTextArea = new TextArea();
-		buyShopDialogeTextArea.setId("buyShopDialoge");
-		buyShopDialogeTextArea.setWrapText(true);
-		buyShopDialogeTextArea.setEditable(false);
-		buyShopDialogeTextArea.setMinSize(shopDialogeBoxWidth,100);
-		buyShopDialogeTextArea.setMaxSize(shopDialogeBoxWidth,100);
-		return buyShopDialogeTextArea;
+	private TextArea shopDialogeTextArea;
+	private TextArea shopDialogeTextArea() {
+		shopDialogeTextArea = new TextArea();
+		shopDialogeTextArea.setId("shopTextArea");
+		shopDialogeTextArea.setWrapText(true);
+		shopDialogeTextArea.setEditable(false);
+		shopDialogeTextArea.setMinSize(1200,100);
+		shopDialogeTextArea.setMaxSize(1200,100);
+		return shopDialogeTextArea;
 	}
 	
 	public void setBuyShopDialogeTextArea(String text) {
-		buyShopDialogeTextArea.setText(text);
+		shopDialogeTextArea.setText(text);
 	}
 	
 	public void setBuyShopDialogeRed() {
-		buyShopDialogeTextArea.setStyle("-fx-text-fill: red;");
+		shopDialogeTextArea.setStyle("-fx-text-fill: red;");
 	}
 	
 	public void setBuyShopDialogeNormal() {
-		buyShopDialogeTextArea.setStyle("-fx-text-fill: orange;");
+		shopDialogeTextArea.setStyle("-fx-text-fill: orange;");
 	}
-	
-	private TextArea sellShopDialogeTextArea;
-	private TextArea sellShopDialogeTextArea() {
-		sellShopDialogeTextArea = new TextArea();
-		sellShopDialogeTextArea.setId("sellShopDialoge");
-		sellShopDialogeTextArea.setWrapText(true);
-		sellShopDialogeTextArea.setEditable(false);
-		sellShopDialogeTextArea.setMinSize(shopDialogeBoxWidth,100);
-		sellShopDialogeTextArea.setMaxSize(shopDialogeBoxWidth,100);
-		return sellShopDialogeTextArea;
-	}
-	
-	public void setSellShopDialogeTextArea(String text) {
-		sellShopDialogeTextArea.setText(text);
-	}
-	
-	public void setSellShopDialogeRed() {
-		sellShopDialogeTextArea.setStyle("-fx-text-fill: red;");
-	}
-	
-	public void setSellShopDialogeNormal() {
-		sellShopDialogeTextArea.setStyle("-fx-text-fill: _green;");
-	}
-	
 	
 	//Bottom of actual Shop Pane
 	private BorderPane bottom() {
@@ -137,7 +104,7 @@ public class ShopView extends DownTownView {
 	
 	// Item info \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 	private HBox itemInfoBox() {
-		HBox itemInfoBox = new HBox(20);
+		HBox itemInfoBox = new HBox(0);
 		itemInfoBox.setId("itemInfoBox");
 		itemInfoBox.setAlignment(Pos.CENTER_LEFT);
 		itemInfoBox.setMaxWidth(550);
@@ -158,6 +125,7 @@ public class ShopView extends DownTownView {
 	// Shop item list and tabs \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/
 	private HBox itemTabBox() {
 		HBox itemTabBox = new HBox(0);
+		itemTabBox.setAlignment(Pos.TOP_LEFT);
 		itemTabBox.setId("itemTabBox");
 		itemTabBox.getChildren().add(shopTabPane());
 		return itemTabBox;
@@ -167,8 +135,8 @@ public class ShopView extends DownTownView {
 	private TabPane shopTabPane() {
 		shopTabPane = new TabPane();
 		shopTabPane.setId("shopTabPane");
-		shopTabPane.setMaxSize(750, 225);
-		shopTabPane.setMinSize(750, 225);
+		shopTabPane.setMaxSize(750, 200);
+		shopTabPane.setMinSize(750, 200);
 		shopTabPane.getTabs().add(weaponsTab());
 		shopTabPane.getTabs().add(armorTab());
 		shopTabPane.getTabs().add(toolsTab());
@@ -236,23 +204,29 @@ public class ShopView extends DownTownView {
 		}
 	}
 	
-	
-	protected HBox bottomBox() {
-		HBox bottomPane = new HBox(100);
-		bottomPane.setAlignment(Pos.CENTER);
-		bottomPane.setPadding(new Insets(20, 0, 120, 0));
-		bottomPane.getChildren().add(buyButton());
-		bottomPane.getChildren().add(backButton());
-		bottomPane.getChildren().add(sellButton());
-		return bottomPane;
+	private HBox bottomBox;
+	private HBox bottomBox() {
+		bottomBox = new HBox(100);
+		bottomBox.setAlignment(Pos.CENTER);
+		bottomBox.setPadding(new Insets(20, 0, 185, 0));
+		bottomBox.getChildren().add(buyButton());
+		bottomBox.getChildren().add(backButton());
+		bottomBox.getChildren().add(sellButton());
+		return bottomBox;
 	}
+	
+	public HBox getBottomBox() {
+		return bottomBox;
+	}
+	
+	
 	
 	private Button buyButton;
 	private Button buyButton() {
 		buyButton = new Button("Buy");
 		buyButton.setId("buy");
-		buyButton.setMinSize(200, 45);
-		buyButton.setMaxSize(200, 45);
+		buyButton.setMinSize(225, 50);
+		buyButton.setMaxSize(225, 50);
 		return buyButton;
 	}
 	
@@ -260,8 +234,8 @@ public class ShopView extends DownTownView {
 	private Button sellButton() {
 		sellButton = new Button("Sell");
 		sellButton.setId("sell");
-		sellButton.setMinSize(200, 45);
-		sellButton.setMaxSize(200, 45);
+		sellButton.setMinSize(225, 50);
+		sellButton.setMaxSize(225, 50);
 		return sellButton;
 	}
 
@@ -269,7 +243,7 @@ public class ShopView extends DownTownView {
 	private Button backButton() {
 		backButton = new Button("Back");
 		backButton.setId("back");
-		backButton.setMinSize(200, 45);
+		backButton.setMinSize(225, 50);
 		return backButton;
 	}
 	
@@ -279,9 +253,7 @@ public class ShopView extends DownTownView {
 		backButton.setOnAction(l);
 	}
 
-	public Scene getShopScene() {
-		return this.shopScene;
-	}
+
 	
 	public List<ListView<Item>> getShopListViewObjects() {
 		return this.shopListViewObjects;

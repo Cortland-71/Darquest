@@ -57,7 +57,7 @@ public class Attack implements Fireable {
 				}
 			
 				choosen.setHp(choosen.getHp() - finalDamage);
-				c.getPlayerInvStatsController().removeItemWhenUsedUp(w);
+				//c.getPlayerInvStatsController().removeItemWhenUsedUp(w);
 				output = "You attacked yourself.\n" + sb;
 				return true;
 			}
@@ -89,7 +89,7 @@ public class Attack implements Fireable {
 			} 
 			
 			choosen.setHp(choosen.getHp() - finalDamage);
-			c.getPlayerInvStatsController().removeItemWhenUsedUp(w);
+			//c.getPlayerInvStatsController().removeItemWhenUsedUp(w);
 			output = "Limit raised: +" + Math.round(limitRaised * 100d) / 100d
 					+ "\n\nAttacked: " + choosen.getName()
 					+ "\nWeapon damage: " + weaponDamage

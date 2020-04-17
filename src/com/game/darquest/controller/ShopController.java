@@ -7,9 +7,11 @@ import java.util.Random;
 import com.game.darquest.data.Player;
 import com.game.darquest.data.items.Item;
 
+import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
+import javafx.util.Duration;
 
 public class ShopController implements EventHandler<ActionEvent>{
 	
@@ -45,17 +47,17 @@ public class ShopController implements EventHandler<ActionEvent>{
 		c.getDownTownController().getDownTownActions().get(eventIndex).clickAction();
 		
 	}
-	
+	 
 	private void sellItem() {
 		player = (Player)c.getPlayer();
-		Item selectedItem = c.getPlayerInvStatsController().getSelectedItemShop();
-		if(selectedItem.getName() != "none") {
-			player.setCash(player.getCash()+selectedItem.getValue());
-			player.removeItemFromPlayerInventory(selectedItem, c.getPlayerInvStatsController()
-					.getSelectedItemIndexShop());
-			c.getPlayerInvStatsController().setPlayerInventoryAndStatsForSellItem();
-			shopSellDialogueOutput(selectedItem);
-		}
+//		Item selectedItem = c.getPlayerInvStatsController().getSelectedItemShop();
+//		if(selectedItem.getName() != "none") {
+//			player.setCash(player.getCash()+selectedItem.getValue());
+//			player.removeItemFromPlayerInventory(selectedItem, c.getPlayerInvStatsController()
+//					.getSelectedItemIndexShop());
+//			c.getPlayerInvStatsController().setPlayerInventoryAndStatsForSellItem();
+//			shopBuyDialogueOutput(selectedItem);
+//		}
 	}
 
 	private void buyItem() {
@@ -64,7 +66,7 @@ public class ShopController implements EventHandler<ActionEvent>{
 		if(player.getCash() >= selectedItem.getPrice()) {
 			player.setCash(player.getCash()-selectedItem.getPrice());
 			player.addItemToPlayerInventory(selectedItem);
-			c.getPlayerInvStatsController().setPlayerInventoryAndStatsForBuyItem();
+			c.getPlayerInvStatsController().captureSelectedItemsUpdateInvReEquipItems();
 			shopBuyDialogueOutput(selectedItem);
 			return;
 		}
@@ -87,13 +89,9 @@ public class ShopController implements EventHandler<ActionEvent>{
 				"\n\tItem bought: "+item.getName()+"\n\tCost: -"+item.getPriceFormatted()+"\n\tWeight: +"+item.getWeight());
 	}
 	
-	private void shopSellDialogueOutput(Item item) {
-		c.getView().getShopView().setSellShopDialogeNormal();
-		c.getView().getShopView().setSellShopDialogeTextArea("Item sold: "+item.getName()+
-				"\n\tValue: +"+item.getValueFormatted()+"\n\tWeight: -"+item.getWeight());
-	}
 	
 	private void goBackToDownTown() {
-		c.getView().getWindow().setScene(c.getView().getDownTownView().getDownTownScene());
+		 
+		c.getView().getDownTownView().showDownTown();
 	}
 }

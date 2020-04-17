@@ -43,7 +43,7 @@ public class Use implements Fireable {
 				output = useableTools.get(i).use(choosen, effect);
 			}
 		}
-		c.getPlayerInvStatsController().removeItemWhenUsedUp(t);
+		//c.getPlayerInvStatsController().removeItemWhenUsedUp(t);
 		return true;
 	}
 	

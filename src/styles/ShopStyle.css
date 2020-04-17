@@ -1,7 +1,25 @@
+
+
 .root {
 	-fx-background-color: dark;
 	-fx-font: 20px "Lucida Console";
 	-fx-text-fill: lightText;
+}
+
+#shopTextArea {
+	-fx-font: 15px "Lucida Console";
+	-fx-text-fill: orange;
+	-fx-text-box-border: _darkOrange;
+	-fx-background-radius: 0px;
+} 
+
+#shopTextArea .content {
+	-fx-background-color: almostDark;
+	-fx-background-radius: 0px;
+}
+
+#shopTextArea:focused {
+	-fx-focus-color: #995c00; 
 }
 
 
@@ -70,7 +88,7 @@
 
 #itemInfoLabel {
 	-fx-font: 18px "Lucida Console";
-	-fx-text-fill: _green;
+	-fx-text-fill: orange;
 }
 
 #selectedItemInfoLabel {
@@ -79,29 +97,6 @@
 
 }
 
-#buyShopDialoge {
-	-fx-font: 15px "Lucida Console";
-	-fx-text-fill: orange;
-	-fx-text-box-border: _darkOrange;
-	-fx-background-radius: 0px;
-} 
 
-#sellShopDialoge {
-	-fx-font: 15px "Lucida Console";
-	-fx-text-fill: _green;
-	-fx-text-box-border: _darkGreen;
-	-fx-background-radius: 0px;
-} 
-
-#buyShopDialoge .content,
-#sellShopDialoge .content {
-	-fx-background-color: almostDark;
-	-fx-background-radius: 0px;
-}
-
-#buyShopDialoge:focused,
-#sellShopDialoge:focused{
-	-fx-focus-color: #995c00; 
-}
 
 

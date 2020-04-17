@@ -22,13 +22,13 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
-public class FightClubView extends DownTownView {
+public class FightClubView extends HubView {
 	
 	private Scene fightClubScene;
 
 	public FightClubView() {
 		fightClubScene = new Scene(fightClubBackground(), View.WIDTH, View.HEIGHT);
-		fightClubScene.getStylesheets().addAll("styles/DownTownStyle.css", "styles/FightClubStyle.css");
+		fightClubScene.getStylesheets().addAll("styles/HubStyle.css", "styles/FightClubStyle.css");
 	}
 	
 	private VBox fightClubBackground() {

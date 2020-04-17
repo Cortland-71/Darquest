@@ -22,21 +22,24 @@ public class View {
 	
 	private MainMenuView mainMenuView;
 	private NewPlayerView newPlayerView;
-	private DownTownView downTownView;
+	private HubView downTownView;
 	private TutorialView tutorialView;
 	private ShopView shopView;
 	private FightClubView fightClubView;
 	private PlayerWinView playerWinView;
+	private LevelUpView levelUpView;
 	
 	public View(Stage primaryStage) {
 		this.window = primaryStage;
 		this.mainMenuView = new MainMenuView();
 		this.newPlayerView = new NewPlayerView();
-		this.downTownView = new DownTownView();
+		this.downTownView = new HubView();
+		this.downTownView.setView(this);
 		this.tutorialView = new TutorialView();
 		this.shopView = new ShopView();
 		this.fightClubView = new FightClubView();
 		this.playerWinView = new PlayerWinView();
+		this.levelUpView = new LevelUpView();
 		
 		FadeTransition ft2 = new FadeTransition(Duration.millis(3000), getMainMenu().getTitle());
 		ft2.setFromValue(0.0);
@@ -71,7 +74,7 @@ public class View {
 		return this.tutorialView;
 	}
 	
-	public DownTownView getDownTownView() {
+	public HubView getDownTownView() {
 		return this.downTownView;
 	}
 	
@@ -101,5 +104,9 @@ public class View {
 
 	public PlayerWinView getFightWinView() {
 		return playerWinView;
+	}
+
+	public LevelUpView getLevelUpView() {
+		return levelUpView;
 	}
 }
