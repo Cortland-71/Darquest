@@ -46,6 +46,7 @@ public class FightClubController implements EventHandler<KeyEvent> {
 	private Integer numPlayerMoves = 0;
 	private Double xpEarned = 0.0;
 	private Double cashEarned = 0.0;
+	private Double bonusCashEarned = 0.0;
 	private List<Item> lootList = new ArrayList<>();
 
 	private Controller c;
@@ -160,10 +161,12 @@ public class FightClubController implements EventHandler<KeyEvent> {
 			String efficiencyScore = "%"+EfficiencyHandler.getEfficiencyScore();
 			String cash = NumberFormat.getCurrencyInstance().format(cashEarned);
 			String rating = getRating(EfficiencyHandler.getEfficiencyScore());
+			String bonusCash = getBonusCashEarned();
+			String totalCashEarned = getTotalCashEarned();
 			fade();
 
 			List<String> listOfWinStats = Arrays.asList(totalMoves, formattedXp, 
-					efficiencyScore, loot, cash, rating);
+					efficiencyScore, loot, cash, bonusCash, totalCashEarned, rating);
 			c.getView().getFightWinView().setWinStats(listOfWinStats);
 			c.getPlayerInvStatsController().updateAllPlayerStats();
 			c.getView().getWindow().setScene(c.getView().getFightWinView().getFightWinScene());
@@ -246,6 +249,12 @@ public class FightClubController implements EventHandler<KeyEvent> {
 		numPlayerMoves = 0;
 		xpEarned = 0.0;
 		cashEarned = 0.0;
+		bonusCashEarned = 0.0;
+	}
+	
+	private String getBonusCashEarned() {
+		bonusCashEarned = EfficiencyHandler.getEfficiencyScore() * 10d;
+		return NumberFormat.getCurrencyInstance().format(bonusCashEarned);
 	}
 	
 	private void addXpToPlayer(double xp) {
@@ -253,7 +262,12 @@ public class FightClubController implements EventHandler<KeyEvent> {
 		Player p = ((Player) c.getPlayer());
 		p.setXp(p.getXp() + xp);
 	}
+	
+	private String getTotalCashEarned() {
+		return NumberFormat.getCurrencyInstance().format(bonusCashEarned + cashEarned);
+	}
 
+	
 	public void setEnemyList(List<Enemy> enemyList) {
 		this.cashEarned = enemyList.size() * 5000d;
 		this.enemyList = enemyList;

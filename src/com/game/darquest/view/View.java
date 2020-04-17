@@ -1,7 +1,8 @@
 package com.game.darquest.view;
 
+import com.game.darquest.Driver;
+
 import javafx.animation.FadeTransition;
-import javafx.animation.Timeline;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Background;
@@ -17,6 +18,7 @@ public class View {
 	public static final int HEIGHT = 1080;
 	public static final int DEF_PAD = 15;
 	private Stage window;
+
 	
 	private MainMenuView mainMenuView;
 	private NewPlayerView newPlayerView;
@@ -28,7 +30,6 @@ public class View {
 	
 	public View(Stage primaryStage) {
 		this.window = primaryStage;
-		
 		this.mainMenuView = new MainMenuView();
 		this.newPlayerView = new NewPlayerView();
 		this.downTownView = new DownTownView();
@@ -41,6 +42,7 @@ public class View {
 		ft2.setFromValue(0.0);
 		ft2.setToValue(1.0);
 		ft2.play();
+		
 		
 		
 		window.setScene(mainMenuView.getMainMenuScene());

@@ -21,10 +21,14 @@
 	
 }
 
+
+
 #winLabel {
-	-fx-font: 72px "Consolas";
+	-fx-font: 72px "8-BIT FORTRESS";
 	-fx-text-fill: _green;
 }
+
+
 
 #outputTextArea .content {
 	-fx-background-color: almostDark;
@@ -32,12 +36,20 @@
 }
 
 #outputTextArea {
-	-fx-font: 17px "Consolas";
+	-fx-font: 17px "8-BIT FORTRESS";
 	-fx-text-fill: _green;
 	-fx-text-box-border: _darkGreen;
 	-fx-background-radius: 0px;
 } 
 
-#rightInCenter {
-	-fx-background-color: average;
+.label {
+	-fx-font: 20 "Lucida Console";
+	-fx-text-fill: _green;
 }
+
+#ratingLabel {
+	-fx-font: 40px "8-BIT FORTRESS";
+	-fx-text-fill: orange;
+}
+
+

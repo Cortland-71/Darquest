@@ -47,11 +47,9 @@ public class NewPlayerController implements EventHandler<KeyEvent> {
 		c.getPlayer().setDef(5);
 		c.getPlayer().setStealth(5);
 		c.getPlayer().setAwareness(5);
+
 		
-//		((Player)c.getPlayer()).setXp(.5);
-//		if(((Player)c.getPlayer()).getXp() >= 1)
-//			c.getView().getDownTownView().getLevelUpButton().setDisable(false);
-		
+		((Player)c.getPlayer()).addItemToPlayerInventory(new Tool("none","none", "none",0,0,10,10,0,0));
 		for (int i = 0; i < 5; i++) {
 			((Player)c.getPlayer()).addItemToPlayerInventory(new Tool("Strong Hp Vial", 
 					c.getItemHub().hpVileDes(), "hp", 150, .02, 3, 3, 20, 50));

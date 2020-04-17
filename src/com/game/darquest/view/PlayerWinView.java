@@ -3,6 +3,8 @@ package com.game.darquest.view;
 import java.util.Arrays;
 import java.util.List;
 
+import com.game.darquest.Driver;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -124,6 +126,8 @@ public class PlayerWinView {
 		rightInCenter.getChildren().add(efficiencyLabel());
 		rightInCenter.getChildren().add(lootLabel());
 		rightInCenter.getChildren().add(cashWonLabel());
+		rightInCenter.getChildren().add(bonusCashWonLabel());
+		rightInCenter.getChildren().add(totalCashWonLabel());
 		rightInCenter.getChildren().add(ratingLabel());
 		return rightInCenter;
 	}
@@ -159,17 +163,31 @@ public class PlayerWinView {
 		return cashWonLabel;
 	}
 	
+	private Label bonusCashWonLabel;
+	private Label bonusCashWonLabel() {
+		bonusCashWonLabel = new Label("Cash Won: ");
+		return bonusCashWonLabel;
+	}
+	
+	private Label totalCashWonLabel;
+	private Label totalCashWonLabel() {
+		totalCashWonLabel = new Label("Cash Won: ");
+		return totalCashWonLabel;
+	}
+	
 	private Label ratingLabel;
 	private Label ratingLabel() {
 		ratingLabel = new Label("Overall RATING: ");
+		ratingLabel.setId("ratingLabel");
 		return ratingLabel;
 	}
 	
 	public void setWinStats(List<String> list) {
 		List<String> labelSayingList = Arrays.asList("Number of Moves: ",
-				"XP Earned: ", "Efficiency Rating: ", "Loot Obtained: ", "Cash Won: ", "RATING: ");
+				"XP Earned: ", "Efficiency: ", "Loot Obtained: ", "Cash Won: +", "Bonus Cash: +",
+				"Total Cash: +", "GRADE: ");
 		List<Label> labelList = Arrays.asList(totalMovesLabel, totalXpEarnedLabel, 
-				efficiencyLabel, lootLabel, cashWonLabel, ratingLabel);
+				efficiencyLabel, lootLabel, cashWonLabel, bonusCashWonLabel, totalCashWonLabel, ratingLabel);
 		for (int i = 0; i < list.size(); i++) {
 			labelList.get(i).setText(labelSayingList.get(i) + list.get(i));
 		}

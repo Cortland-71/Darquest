@@ -28,7 +28,7 @@
 
 /*Buttons \/\/\/\/\/\/\/\/\/\/\/\/\/\*/
 .button {
-	-fx-font: 20px "Lucida Console";
+	-fx-font: 15px "8-BIT FORTRESS";
 	-fx-text-fill: _green;
 	-fx-background-color: dark;
 	-fx-border-color: _green;
@@ -48,6 +48,11 @@
 	-fx-font: 20px "Lucida Console";
 	-fx-text-fill: _green;
 }
+
+/*.label {
+	-fx-font: 20px "Lucida Console";
+	-fx-text-fill: _green;
+}*/
 
 /*Tool tips \/\/\/\/\/\/\/\/\/\/\/\/\/\*/
 .tooltip {
