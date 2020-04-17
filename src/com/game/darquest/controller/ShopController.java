@@ -51,7 +51,6 @@ public class ShopController implements EventHandler<ActionEvent>{
 		Item selectedItem = c.getPlayerInvStatsController().getSelectedItemShop();
 		if(selectedItem.getName() != "none") {
 			player.setCash(player.getCash()+selectedItem.getValue());
-			player.setWeight(player.getWeight()-selectedItem.getWeight());
 			player.removeItemFromPlayerInventory(selectedItem, c.getPlayerInvStatsController()
 					.getSelectedItemIndexShop());
 			c.getPlayerInvStatsController().setPlayerInventoryAndStatsForSellItem();
@@ -64,7 +63,6 @@ public class ShopController implements EventHandler<ActionEvent>{
 		Item selectedItem = getSelectedItemShopInventory();
 		if(player.getCash() >= selectedItem.getPrice()) {
 			player.setCash(player.getCash()-selectedItem.getPrice());
-			player.setWeight(player.getWeight()+selectedItem.getWeight());
 			player.addItemToPlayerInventory(selectedItem);
 			c.getPlayerInvStatsController().setPlayerInventoryAndStatsForBuyItem();
 			shopBuyDialogueOutput(selectedItem);

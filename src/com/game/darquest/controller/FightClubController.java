@@ -47,6 +47,7 @@ public class FightClubController implements EventHandler<KeyEvent> {
 	private Double xpEarned = 0.0;
 	private Double cashEarned = 0.0;
 	private Double bonusCashEarned = 0.0;
+	private double totalCashEarned = 0.0;
 	private List<Item> lootList = new ArrayList<>();
 
 	private Controller c;
@@ -162,7 +163,7 @@ public class FightClubController implements EventHandler<KeyEvent> {
 			String cash = NumberFormat.getCurrencyInstance().format(cashEarned);
 			String rating = getRating(EfficiencyHandler.getEfficiencyScore());
 			String bonusCash = getBonusCashEarned();
-			String totalCashEarned = getTotalCashEarned();
+			String totalCashEarned = getTotalCashEarnedFormatted();
 			fade();
 
 			List<String> listOfWinStats = Arrays.asList(totalMoves, formattedXp, 
@@ -263,8 +264,9 @@ public class FightClubController implements EventHandler<KeyEvent> {
 		p.setXp(p.getXp() + xp);
 	}
 	
-	private String getTotalCashEarned() {
-		return NumberFormat.getCurrencyInstance().format(bonusCashEarned + cashEarned);
+	private String getTotalCashEarnedFormatted() {
+		totalCashEarned = bonusCashEarned + cashEarned;
+		return NumberFormat.getCurrencyInstance().format(totalCashEarned);
 	}
 
 	
@@ -280,5 +282,14 @@ public class FightClubController implements EventHandler<KeyEvent> {
 	public List<Fireable> getFireList() {
 		return fireList;
 	}
+
+	public List<Item> getLootList() {
+		return lootList;
+	}
+
+	public double getTotalCashEarned() {
+		return totalCashEarned;
+	}
+	
 
 }

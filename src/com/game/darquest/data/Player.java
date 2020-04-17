@@ -27,12 +27,14 @@ public class Player extends Person {
 	
 
 	public void addItemToPlayerInventory(Item item) {
+		setWeight(getWeight() + item.getWeight());
 		if (item instanceof Weapon) weaponList.add(item);
 		else if (item instanceof Armor) armorList.add(item);
 		else toolList.add(item);
 	}
 	
 	public int removeItemFromPlayerInventory(Item item, int index) {
+		setWeight(getWeight() - item.getWeight());
 		if (item instanceof Weapon) {
 			weaponList.remove(index);
 			return 0;

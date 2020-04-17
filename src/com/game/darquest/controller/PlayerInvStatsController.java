@@ -37,6 +37,15 @@ public class PlayerInvStatsController implements EventHandler<MouseEvent> {
 	}
 	
 	////////////////////////////////////////////////////////////////// -Equip logic
+	public void equipItemFromPlayerWinToAllLoc(List<Integer> indexList) {
+		for (int i = 0; i < indexList.size(); i++) {
+			 selectCorrectInventoryItemInDownTownView(i);
+			 selectCorrectInventoryItemInShopView(i);
+			 item = getSelectedItemFight(i);
+			 c.getPlayer().setEquippedItem(item);
+		}
+	}
+	
 	private void equipItemFromDownTownToAllLoc() {
 		indexList = c.getView().getDownTownView().getSelectedIndexListOfAllTabs();
 		for (int i = 0; i < indexList.size(); i++) {
@@ -124,7 +133,7 @@ public class PlayerInvStatsController implements EventHandler<MouseEvent> {
 		c.getView().getFightClubView().setPlayerStats((Player)c.getPlayer());
 	}
 	
-	private void updateAllPlayerInv() {
+	public void updateAllPlayerInv() {
 		c.getView().getShopView().setAllInventoryItems(((Player)c.getPlayer()).getInventoryLists());
 		c.getView().getDownTownView().setAllInventoryItems(((Player)c.getPlayer()).getInventoryLists());
 		c.getView().getFightClubView().setAllInventoryItems(((Player)c.getPlayer()).getInventoryLists());
@@ -217,5 +226,11 @@ public class PlayerInvStatsController implements EventHandler<MouseEvent> {
 		updateAllPlayerInv();
 		updateAllSelectionsPlayerInv(list);
 		equipItemFromFightClubToAllLoc();
+	}
+	
+	public void addItemsToPlayerInv(List<Item> list) {
+		for(Item item : list) {
+			((Player)c.getPlayer()).addItemToPlayerInventory(item);
+		}
 	}
 }
