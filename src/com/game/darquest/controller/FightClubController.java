@@ -170,7 +170,7 @@ public class FightClubController implements EventHandler<KeyEvent> {
 					efficiencyScore, loot, cash, bonusCash, totalCashEarned, rating);
 			c.getView().getFightWinView().setWinStats(listOfWinStats);
 			c.getPlayerInvStatsController().updateAllPlayerStats();
-			c.getView().getWindow().setScene(c.getView().getFightWinView().getFightWinScene());
+			c.getView().getHubView().showWin();
 			return true;
 		}
 		return false;
@@ -193,7 +193,7 @@ public class FightClubController implements EventHandler<KeyEvent> {
 
 	private void fade() {
 		FadeTransition ft = new FadeTransition(Duration.millis(500),
-				c.getView().getFightWinView().getFightWinPane());
+				c.getView().getFightWinView().getFightWinCenter());
 		ft.setFromValue(0.0);
 		ft.setToValue(1.0);
 		ft.play();
@@ -207,7 +207,7 @@ public class FightClubController implements EventHandler<KeyEvent> {
 			lootList.add(getRandomItem(allItems.get(i)));
 		}
 		StringBuilder sb = new StringBuilder();
-		lootList.forEach(e->sb.append("Item: " + e.getName() + "\n"));
+		lootList.forEach(e->sb.append("* "+e.getName() + "\n"));
 		return sb.toString();
 	}
 

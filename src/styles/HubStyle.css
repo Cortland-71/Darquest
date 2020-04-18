@@ -7,7 +7,7 @@
 	
 	lightText: #d9d9d9;
 
-	_green: #00cc00;
+	_green: #00b300;
 	_firstGreen:#00ff00;
 	_red: #ff0000;
 	_yellow: #ffff00;
@@ -163,3 +163,21 @@
     -fx-background-color: _blue;
     -fx-text-fill: lightText;
 }
+
+#levelUpCenterBox {
+	-fx-background-color: dark;
+	-fx-border-color: _green;
+	-fx-border-width: 5px;
+}
+
+.spinner .increment-arrow-button,
+.spinner .decrement-arrow-button {
+    /*-fx-body-color: average;*/
+ 	-fx-padding: 5 5 5 5; 
+}
+
+.spinner .decrement-arrow-button .decrement-arrow,
+.spinner .increment-arrow-button .increment-arrow {
+    -fx-padding: 2 3 2 3;
+}
+ 

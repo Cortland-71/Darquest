@@ -93,6 +93,6 @@ public class ShopController implements EventHandler<ActionEvent>{
 	
 	private void goBackToDownTown() {
 		 
-		c.getView().getHubView().showDownTown();
+		c.getView().getHubView().showHub();
 	}
 }

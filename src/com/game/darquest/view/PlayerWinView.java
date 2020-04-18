@@ -22,65 +22,45 @@ import javafx.scene.paint.Color;
 
 public class PlayerWinView {
 
-	private Scene fightWinScene;
-
 	public PlayerWinView() {
-		fightWinScene = new Scene(fightWinBackground(), View.WIDTH, View.HEIGHT);
-		fightWinScene.getStylesheets().addAll("styles/DownTownStyle.css", "styles/FightWinStyle.css");
+		fightWinCenter();
+		fightWinBottom();
 	}
 	
-	public Scene getFightWinScene() {
-		return this.fightWinScene;
-	}
 	
-	private VBox fightWinBackground() {
-		VBox fightWinBackground = new VBox();
-		fightWinBackground.setBackground(View.getBackground(Color.BLACK));
-		fightWinBackground.setAlignment(Pos.CENTER);
-		fightWinBackground.getChildren().add(fightWinPane());
-		return fightWinBackground;
-	}
 	
-	private BorderPane fightWinPane;
-	private BorderPane fightWinPane() {
-		fightWinPane = new BorderPane();
-		fightWinPane.setTop(topBox());
-		fightWinPane.setCenter(centerPane());
-		fightWinPane.setBottom(bottomBox());
-		return fightWinPane;
-	}
-	
-
-	public BorderPane getFightWinPane() {
-		return this.fightWinPane;
-	}
-	
-	//Top \/\/\/\/\/\/\/\/\/\\/\/\/\/\/\/\/\
-	private HBox topBox() {
-		HBox topBox = new HBox();
-		topBox.setAlignment(Pos.TOP_CENTER);
-		topBox.getChildren().add(winLabel());
-		return topBox;
-	}
-
-	private Label winLabel() {
-		Label winLabel = new Label("Victory!");
-		winLabel.setId("winLabel");
-		
-		return winLabel;
-	}
 	
 	//Center \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/
 	private BorderPane centerPane;
-	private BorderPane centerPane() {
+	private BorderPane fightWinCenter() {
 		centerPane = new BorderPane();
-		centerPane.setMinSize(1500, 800);
-		centerPane.setMaxSize(1500, 800);
-		centerPane.setBottom(bottomInCenter());
+		centerPane.setMinSize(1300, 727);
+		centerPane.setMaxSize(1300, 727);
+		//centerPane.setBottom(bottomInCenter());
+		centerPane.setTop(topBox());
 		centerPane.setCenter(centerInCenter());
 		centerPane.setRight(rightInCenter());
 		return centerPane;
 	}
+	
+	public BorderPane getFightWinCenter() {
+		return centerPane;
+	}
+	
+	//Top \/\/\/\/\/\/\/\/\/\\/\/\/\/\/\/\/\
+		private HBox topBox() {
+			HBox topBox = new HBox();
+			topBox.setAlignment(Pos.TOP_CENTER);
+			topBox.getChildren().add(winLabel());
+			return topBox;
+		}
+
+		private Label winLabel() {
+			Label winLabel = new Label("Victory!");
+			winLabel.setId("winLabel");
+			
+			return winLabel;
+		}
 	
 	private HBox bottomInCenter() {
 		HBox bottomInCenter = new HBox();
@@ -95,8 +75,8 @@ public class PlayerWinView {
 		outputTextArea = new TextArea();
 		outputTextArea.setEditable(false);
 		outputTextArea.setId("outputTextArea");
-		outputTextArea.setMaxSize(1200, 150);
-		outputTextArea.setMinSize(1200, 150);
+		outputTextArea.setMaxSize(1200, 100);
+		outputTextArea.setMinSize(1200, 100);
 		return outputTextArea;
 	}
 	
@@ -109,17 +89,18 @@ public class PlayerWinView {
 		centerInCenter.setBackground(View.getBackground(Color.BLACK));
 		centerInCenter.setAlignment(Pos.CENTER);
 		Label l = new Label();
-        l.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/zom.png"))));
+        l.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/zom2.png"))));
 		centerInCenter.getChildren().add(l);
 		return centerInCenter;
 	}
 	
 	private VBox rightInCenter() {
 		VBox rightInCenter = new VBox(20);
-		rightInCenter.setPadding(new Insets(10,10,10,10));
-		rightInCenter.setMinSize(450, 0);
+		rightInCenter.setPadding(new Insets(0,20,0,20));
+		rightInCenter.setAlignment(Pos.CENTER_LEFT);
+		rightInCenter.setMinSize(320, 560);
+		rightInCenter.setMaxSize(320, 560);
 		rightInCenter.setId("rightInCenter");
-		rightInCenter.setAlignment(Pos.TOP_LEFT);
 		rightInCenter.getChildren().add(rewardsLabel);
 		rightInCenter.getChildren().add(totalMovesLabel());
 		rightInCenter.getChildren().add(totalXpEarnedLabel());
@@ -131,7 +112,7 @@ public class PlayerWinView {
 		rightInCenter.getChildren().add(ratingLabel());
 		return rightInCenter;
 	}
-	private Label rewardsLabel = new Label("Rewards");
+	private Label rewardsLabel = new Label("******* Rewards *******");
 	
 	private Label totalMovesLabel;
 	private Label totalMovesLabel() {
@@ -183,7 +164,7 @@ public class PlayerWinView {
 	}
 	
 	public void setWinStats(List<String> list) {
-		List<String> labelSayingList = Arrays.asList("Number of Moves: ",
+		List<String> labelSayingList = Arrays.asList("Total Moves: ",
 				"XP Earned: ", "Efficiency: ", "Loot Obtained: ", "Cash Won: +", "Bonus Cash: +",
 				"Total Cash: +", "GRADE: ");
 		List<Label> labelList = Arrays.asList(totalMovesLabel, totalXpEarnedLabel, 
@@ -195,11 +176,16 @@ public class PlayerWinView {
 	
 	
 	//Bottom \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/
-	private HBox bottomBox() {
-		HBox bottomBox = new HBox();
+	private HBox bottomBox;
+	private HBox fightWinBottom() {
+		bottomBox = new HBox();
 		bottomBox.setAlignment(Pos.CENTER);
-		bottomBox.setPadding(new Insets(25, 0, 50, 0));
+		bottomBox.setPadding(new Insets(20, 0, 185, 0));
 		bottomBox.getChildren().add(continueButton());
+		return bottomBox;
+	}
+	
+	public HBox getFightWinBottom() {
 		return bottomBox;
 	}
 	

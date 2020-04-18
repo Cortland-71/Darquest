@@ -7,12 +7,11 @@ import com.game.darquest.data.Enemy;
 import com.game.darquest.data.EnemyGenerator;
 import com.game.darquest.view.View;
 
-import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
-import javafx.scene.paint.Color;
-import javafx.util.Duration;
+import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.control.SpinnerValueFactory.IntegerSpinnerValueFactory;
 
 public class HubController implements EventHandler<ActionEvent>{
 
@@ -74,8 +73,6 @@ class FightClub implements Clickable {
 	
 	@Override
 	public void clickAction() {
-		
-		 
 		enemyGenerator = new EnemyGenerator(this.c);
 		enemyGenerator.generateEnemys();
 		List<Enemy> enemyList = enemyGenerator.getEnemyList();
@@ -88,12 +85,7 @@ class FightClub implements Clickable {
 		c.getView().getFightClubView().setPlayerMovesLeft(c.getPlayer());
 		c.getView().getFightClubView().clearAllOutputTextAreas();
 		c.getView().getFightClubView().clearCommandField();
-		FadeTransition ft = new FadeTransition(Duration.millis(500), c.getView().getFightClubView().getFightClubPane());
-		ft.setFromValue(0.0);
-		ft.setToValue(1.0);
-		ft.play();
-		c.getPlayerInvStatsController().equipItem();
-		c.getView().getWindow().setScene(c.getView().getFightClubView().getFightClubScene());
+		c.getView().getHubView().showFightClub();
 		c.getView().getFightClubView().setCommandFeildFocused();
 		
 	}
@@ -133,7 +125,10 @@ class LevelUp implements Clickable {
 	}
 	@Override
 	public void clickAction() {
-		c.getView().getHubView().showLevelUpCenter();
+		c.getView().getHubView().showLevelUp();
+		c.getView().getLevelUpView().setLevelUpInfoLabel(4);
+		
+		c.getView().getLevelUpView().setDefSpinner(c.getLevelUpController().getFactory());
 		
 		System.out.println("Clicked levelUp");
 	}

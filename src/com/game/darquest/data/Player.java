@@ -18,7 +18,7 @@ public class Player extends Person {
 	
 	private DecimalFormat f = new DecimalFormat("0.00");
 	private double weight = 0;
-	private double xp = .9;
+	private double xp = 1;
 	private double xpAddedBeatEnemy = .1;
 	private double xpAdded = .01;
 	private double remainingXp = 0;

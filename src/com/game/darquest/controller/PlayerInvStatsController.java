@@ -17,7 +17,6 @@ public class PlayerInvStatsController implements EventHandler<MouseEvent> {
 	public PlayerInvStatsController(Controller c) {
 		this.c = c;
 		c.getView().getHubView().setInventoryListener(this);
-		c.getView().getFightClubView().setInventoryListener(this);
 	}
 
 	@Override
@@ -54,19 +53,7 @@ public class PlayerInvStatsController implements EventHandler<MouseEvent> {
 		.get(tabIndex).getSelectionModel().select(0);
 	}
 	
-	public void updateAllPlayerInv() {
-		c.getView().getHubView().setAllInventoryItems(((Player)c.getPlayer()).getInventoryLists());
-	}
 	
-	private Item getSelectedItemFromTab(int tabIndex) {
-		return c.getView().getHubView().getInventoryListViewObjects()
-				.get(tabIndex).getSelectionModel().getSelectedItem();
-	}
-	
-	private int getSelectedItemIndex(int tabIndex) {
-		return c.getView().getHubView().getInventoryListViewObjects()
-				.get(tabIndex).getSelectionModel().getSelectedIndex();
-	}
 	
 	public void updateAllPlayerStats() {
 		c.getView().getHubView().setPlayerStats((Player)c.getPlayer());
@@ -79,8 +66,19 @@ public class PlayerInvStatsController implements EventHandler<MouseEvent> {
 		equipItem();
 		updateAllPlayerStats();
 	}
+
+	public Item getSelectedItemFromInvOnCurrentTab() {
+		int tabIndex = getSelectedTabIndex();
+		Item item = getSelectedItemFromTab(tabIndex);
+		return item;
+	}
+
+	public int getSelectedIndexOfItem() {
+		int tabIndex = getSelectedTabIndex();
+		return getSelectedItemIndex(tabIndex);
+	}
 	
-	public void equipItem() {
+	private void equipItem() {
 		indexList = c.getView().getHubView().getSelectedIndexListOfAllTabs();
 		for (int i = 0; i < indexList.size(); i++) {
 			item = getSelectedItemFromTab(i);
@@ -88,20 +86,23 @@ public class PlayerInvStatsController implements EventHandler<MouseEvent> {
 		}
 	}
 	
-	public Item getSelectedItemFromInvOnCurrentTab() {
-		int tabIndex = getSelectedTabIndex();
-		Item item = getSelectedItemFromTab(tabIndex);
-		return item;
-	}
-	
-	public int getSelectedTabIndex() {
+	private int getSelectedTabIndex() {
 		int tabIndex = c.getView().getHubView().getPlayerInventoryTabPane()
 				.getSelectionModel().getSelectedIndex();
 		return tabIndex;
 	}
 	
-	public int getSelectedIndexOfItem() {
-		int tabIndex = getSelectedTabIndex();
-		return getSelectedItemIndex(tabIndex);
+	private void updateAllPlayerInv() {
+		c.getView().getHubView().setAllInventoryItems(((Player)c.getPlayer()).getInventoryLists());
+	}
+	
+	private Item getSelectedItemFromTab(int tabIndex) {
+		return c.getView().getHubView().getInventoryListViewObjects()
+				.get(tabIndex).getSelectionModel().getSelectedItem();
+	}
+	
+	private int getSelectedItemIndex(int tabIndex) {
+		return c.getView().getHubView().getInventoryListViewObjects()
+				.get(tabIndex).getSelectionModel().getSelectedIndex();
 	}
 }

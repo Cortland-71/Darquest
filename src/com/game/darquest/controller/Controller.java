@@ -16,6 +16,7 @@ public class Controller {
 	private final ShopInventoryController shopInventoryController;
 	private final FightClubController fightClubController;
 	private final PlayerWinController playerWinController;
+	private final LevelUpController levelUpController;
 	private final ItemHub itemHub;
 	private final EnemyController enemyController;
 	private final View view;
@@ -37,6 +38,7 @@ public class Controller {
 		this.shopInventoryController = new ShopInventoryController(this);
 		this.fightClubController = new FightClubController(this);
 		this.enemyController = new EnemyController(this);
+		this.levelUpController = new LevelUpController(this);
 		
 	}
 
@@ -98,6 +100,11 @@ public class Controller {
 
 	public EnemyController getEnemyController() {
 		return enemyController;
+	}
+
+
+	public LevelUpController getLevelUpController() {
+		return levelUpController;
 	}
 	
 }

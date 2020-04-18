@@ -22,12 +22,9 @@ public class PlayerWinController implements EventHandler<ActionEvent> {
 		p.setCash(p.getCash() + c.getFightClubController().getTotalCashEarned());
 		List<Item> wonItemList = c.getFightClubController().getLootList();
 	
-		List<Integer> indexList = c.getView().getFightClubView().getSelectedIndexListOfAllTabs();
 		addItemsToPlayerInv(wonItemList);
-		c.getPlayerInvStatsController().updateAllPlayerInv();
-		//c.getPlayerInvStatsController().equipItemFromPlayerWinToAllLoc(indexList);
-		c.getPlayerInvStatsController().updateAllPlayerStats();
-		c.getView().getWindow().setScene(c.getView().getHubView().getDownTownScene());
+		c.getPlayerInvStatsController().captureSelectedItemsUpdateInvReEquipItems();
+		c.getView().getHubView().showHub();
 	}
 	
 	public void addItemsToPlayerInv(List<Item> list) {

@@ -22,36 +22,22 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
-public class FightClubView extends HubView {
-	
-	private Scene fightClubScene;
+public class FightClubView {
 
 	public FightClubView() {
-		fightClubScene = new Scene(fightClubBackground(), View.WIDTH, View.HEIGHT);
-		fightClubScene.getStylesheets().addAll("styles/HubStyle.css", "styles/FightClubStyle.css");
+		fightClubCenter();
+		fightClubBottom();
 	}
 	
-	private VBox fightClubBackground() {
-		VBox fightClubBackground = new VBox();
-		fightClubBackground.setBackground(View.getBackground(Color.BLACK));
-		fightClubBackground.setAlignment(Pos.CENTER);
-		fightClubBackground.getChildren().add(fightClubPane());
-		return fightClubBackground;
+	private BorderPane fightClubCenter;
+	private BorderPane fightClubCenter() {
+		fightClubCenter = new BorderPane();
+		fightClubCenter.setCenter(centerFightClubPane());
+		return fightClubCenter;
 	}
 	
-	private BorderPane fightClubPane;
-	private BorderPane fightClubPane() {
-		fightClubPane = new BorderPane();
-		fightClubPane.setTop(topBox());
-		fightClubPane.setLeft(leftBox());
-		fightClubPane.setRight(rightPane());
-		fightClubPane.setCenter(centerFightClubPane());
-		fightClubPane.setBottom(bottomFightClubPane());
-		return fightClubPane;
-	}
-	
-	public BorderPane getFightClubPane() {
-		return fightClubPane;
+	public BorderPane getFightClubCenter() {
+		return fightClubCenter;
 	}
 	
 	private BorderPane centerFightClubPane() {
@@ -63,9 +49,10 @@ public class FightClubView extends HubView {
 	}
 	
 	private HBox outputsBox() {
-		HBox outputsBox = new HBox(30);
+		HBox outputsBox = new HBox(15);
 		outputsBox.setId("outputsBox");
-		outputsBox.setPadding(new Insets(10,0,10,0));
+		outputsBox.setAlignment(Pos.BOTTOM_CENTER);
+		outputsBox.setPadding(new Insets(25,0,0,0));
 		outputsBox.getChildren().add(playerOutputBox());
 		outputsBox.getChildren().add(enemyOutputBox());
 		return outputsBox;
@@ -84,8 +71,8 @@ public class FightClubView extends HubView {
 		playerOutputTextArea = new TextArea();
 		playerOutputTextArea.setEditable(false);
 		playerOutputTextArea.setId("playerOutputTextArea");
-		playerOutputTextArea.setMaxSize(645, 180);
-		playerOutputTextArea.setMinSize(645, 180);
+		playerOutputTextArea.setMaxSize(637, 180);
+		playerOutputTextArea.setMinSize(637, 180);
 		return playerOutputTextArea;
 	}
 
@@ -113,8 +100,8 @@ public class FightClubView extends HubView {
 		enemyOutputTextArea = new TextArea();
 		enemyOutputTextArea.setId("enemyOutputTextArea");
 		enemyOutputTextArea.setEditable(false);
-		enemyOutputTextArea.setMaxSize(645, 180);
-		enemyOutputTextArea.setMinSize(645, 180);
+		enemyOutputTextArea.setMaxSize(637, 180);
+		enemyOutputTextArea.setMinSize(637, 180);
 		return enemyOutputTextArea;
 	}
 	
@@ -383,10 +370,15 @@ public class FightClubView extends HubView {
 	
 	
 	//Bottom for player input \/\/\/\/\/\/\/\/\/\/\\/\/\/\/\/\/\ Bottom player input
-	private BorderPane bottomFightClubPane() {
-		BorderPane bottomPane = new BorderPane();
+	private BorderPane bottomPane;
+	private BorderPane fightClubBottom() {
+		bottomPane = new BorderPane();
 		bottomPane.setTop(inputLabelMovesBox());
 		bottomPane.setCenter(commandFieldBox());
+		return bottomPane;
+	}
+	
+	public BorderPane getFightClubBottom() {
 		return bottomPane;
 	}
 	
@@ -448,10 +440,6 @@ public class FightClubView extends HubView {
 	
 	public void setCommandFeildFocused() {
 		commandField.requestFocus();
-	}
-	
-	public Scene getFightClubScene() {
-		return this.fightClubScene;
 	}
 	
 	// \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\- Helper

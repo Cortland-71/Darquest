@@ -69,7 +69,8 @@ public class HubView {
 	public HubView() {
 		downTownScene = new Scene(downTownBackground(), View.WIDTH, View.HEIGHT);
 
-		downTownScene.getStylesheets().addAll("styles/HubStyle.css", "styles/ShopStyle.css");
+		downTownScene.getStylesheets().addAll("styles/HubStyle.css", "styles/ShopStyle.css", 
+				"styles/FightClubStyle.css", "styles/FightWinStyle.css");
 	}
 	
 	private VBox downTownBackground() {
@@ -369,7 +370,6 @@ public class HubView {
 		centerBox = new VBox();
 		centerBox.setId("centerBox");
 		centerBox.setMinSize(1200, 600);
-		
 		centerBox.setAlignment(Pos.CENTER);
 		centerBox.setBackground(View.getBackground(Color.BLACK));
 		centerBox.getChildren().add(getDownTownImage());
@@ -382,10 +382,10 @@ public class HubView {
         return l;
 	}
 	
-	public void showLevelUpCenter() {
+	public void showLevelUp() {
 		centerBox.getChildren().remove(0);
-		centerBox.getChildren().add(view.getLevelUpView().levelUpPane());
-		fadeIn();
+		centerBox.getChildren().add(view.getLevelUpView().levelUpCenter());
+		bp.setBottom(view.getLevelUpView().getLevelUpBottom());
 	}
 	
 	public void showShop() {
@@ -395,11 +395,23 @@ public class HubView {
 		fadeIn();
 	}
 	
-	public void showDownTown() {
+	public void showHub() {
 		centerBox.getChildren().remove(0);
 		centerBox.getChildren().add(getDownTownImage());
 		bp.setBottom(bottomPane());
 		fadeIn();
+	}
+	
+	public void showFightClub() {
+		centerBox.getChildren().remove(0);
+		centerBox.getChildren().add(view.getFightClubView().getFightClubCenter());
+		bp.setBottom(view.getFightClubView().getFightClubBottom());
+	}
+	
+	public void showWin() {
+		centerBox.getChildren().remove(0);
+		centerBox.getChildren().add(view.getFightWinView().getFightWinCenter());
+		bp.setBottom(view.getFightWinView().getFightWinBottom());
 	}
 	
 	private void fadeIn() {
