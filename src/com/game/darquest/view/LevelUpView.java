@@ -1,12 +1,13 @@
 package com.game.darquest.view;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
-import javafx.scene.control.SpinnerValueFactory.IntegerSpinnerValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -104,22 +105,25 @@ public class LevelUpView {
 	private Spinner<Integer> defSpinner;
 	private Spinner<Integer> defSpinner() {
 		defSpinner = new Spinner<>();
+		defSpinner.setId("defSpinner");
 		defSpinner.setMinSize(spinnerWidth, spinnerHeight);
 		defSpinner.setMaxSize(spinnerWidth, spinnerHeight);
+		
 		return defSpinner;
 	}
 	
-	public void setDefSpinner(SpinnerValueFactory<Integer> valueFactory) {
-		defSpinner.setValueFactory(valueFactory);
-	}
+
 	
 	private Label levelUpStealth() {
 		Label levelUpTitle = new Label("Stealth");
 		levelUpTitle.setPadding(new Insets(20,5,10,0));
 		return levelUpTitle;
 	}
+	
+	private Spinner<Integer> stealthSpinner;
 	private Spinner<Integer> stealthSpinner() {
-		Spinner<Integer> stealthSpinner = new Spinner<>();
+		stealthSpinner = new Spinner<>();
+		stealthSpinner.setId("stealthSpinner");
 		stealthSpinner.setMinSize(spinnerWidth, spinnerHeight);
 		stealthSpinner.setMaxSize(spinnerWidth, spinnerHeight);
 		return stealthSpinner;
@@ -134,6 +138,17 @@ public class LevelUpView {
 		awarenessSpinner.setMinSize(spinnerWidth, spinnerHeight);
 		awarenessSpinner.setMaxSize(spinnerWidth, spinnerHeight);
 		return awarenessSpinner;
+	}
+	
+	public void setDefSpinner(SpinnerValueFactory<Integer> factory, ChangeListener<Integer> l) {
+		defSpinner.setValueFactory(factory);
+		defSpinner.valueProperty().addListener(l);
+	}
+
+	public void setStealthSpinner(SpinnerValueFactory<Integer> factory, ChangeListener<Integer> l) {
+		stealthSpinner.setValueFactory(factory);
+		stealthSpinner.valueProperty().addListener(l);
+		
 	}
 	
 	//Bottom

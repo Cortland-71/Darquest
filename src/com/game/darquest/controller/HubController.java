@@ -13,7 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.SpinnerValueFactory.IntegerSpinnerValueFactory;
 
-public class HubController implements EventHandler<ActionEvent>{
+public class HubController implements EventHandler<ActionEvent> {
 
 	
 	private View view;
@@ -126,9 +126,12 @@ class LevelUp implements Clickable {
 	@Override
 	public void clickAction() {
 		c.getView().getHubView().showLevelUp();
-		c.getView().getLevelUpView().setLevelUpInfoLabel(4);
+		c.getView().getLevelUpView().setLevelUpInfoLabel(c.getLevelUpController().getPointsAvailable());
 		
-		c.getView().getLevelUpView().setDefSpinner(c.getLevelUpController().getFactory());
+		c.getView().getLevelUpView().setDefSpinner(c.getLevelUpController().getFactory(), 
+				c.getLevelUpController().getDluc());
+		c.getView().getLevelUpView().setStealthSpinner(c.getLevelUpController().getFactory(), 
+				c.getLevelUpController().getSluc());
 		
 		System.out.println("Clicked levelUp");
 	}
