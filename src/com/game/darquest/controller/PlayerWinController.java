@@ -1,5 +1,6 @@
 package com.game.darquest.controller;
 
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,12 +16,13 @@ import javafx.event.EventHandler;
 
 public class PlayerWinController implements EventHandler<ActionEvent> {
 
+	private DecimalFormat f2 = new DecimalFormat("0.00");
 	private static int efficiencyScore = 100;
-	private Double xpEarned = 0.0;
-	private Double cashEarned = 0.0;
-	private Double bonusCashEarned = 0.0;
+	private double xpEarned = 0.0;
+	private double cashEarned = 0.0;
+	private double bonusCashEarned = 0.0;
 	private double totalCashEarned = 0.0;
-	private Integer numPlayerMoves = 0;
+	private int numPlayerMoves = 0;
 	
 	private List<Item> lootList = new ArrayList<>();
 
@@ -28,6 +30,24 @@ public class PlayerWinController implements EventHandler<ActionEvent> {
 	public PlayerWinController(Controller c) {
 		this.c = c;
 		c.getView().getPlayerWinView().addContinueButtonListener(this);
+	}
+	
+	@Override
+	public void handle(ActionEvent e) {
+		Player p = (Player) c.getPlayer();
+		p.setCash(p.getCash() + totalCashEarned);
+		List<Item> wonItemList = lootList;
+	
+		addItemsToPlayerInv(wonItemList);
+		c.getPlayerInvStatsController().captureSelectedItemsUpdateInvReEquipItems();
+		c.getView().getHubView().showHub();
+	}
+	
+	public void setAllCountersToZero() {
+		numPlayerMoves = 0;
+		xpEarned = 0.0;
+		cashEarned = 0.0;
+		bonusCashEarned = 0.0;
 	}
 
 	public static int getEfficiencyScore() {
@@ -39,14 +59,7 @@ public class PlayerWinController implements EventHandler<ActionEvent> {
 		PlayerWinController.efficiencyScore = efficiencyScore;
 	}
 	
-	public void setAllCountersToZero() {
-		numPlayerMoves = 0;
-		xpEarned = 0.0;
-		cashEarned = 0.0;
-		bonusCashEarned = 0.0;
-	}
-	
-	public String getRating(int efficiencyScore) {
+	public String getRating() {
 		Map<Integer, String> gradeMap = new HashMap<>();
 		gradeMap.put(100, "S");
 		gradeMap.put(95, "A+");
@@ -61,17 +74,6 @@ public class PlayerWinController implements EventHandler<ActionEvent> {
 		}
 		return "D";
 	}
-
-	@Override
-	public void handle(ActionEvent e) {
-		Player p = (Player) c.getPlayer();
-		p.setCash(p.getCash() + getTotalCashEarned());
-		List<Item> wonItemList = getLootList();
-	
-		addItemsToPlayerInv(wonItemList);
-		c.getPlayerInvStatsController().captureSelectedItemsUpdateInvReEquipItems();
-		c.getView().getHubView().showHub();
-	}
 	
 	public void addItemsToPlayerInv(List<Item> list) {
 		for(Item item : list) {
@@ -82,17 +84,9 @@ public class PlayerWinController implements EventHandler<ActionEvent> {
 	public List<Item> getLootList() {
 		return lootList;
 	}
-
-	public double getTotalCashEarned() {
-		return totalCashEarned;
-	}
 	
-	public Double getXpEarned() {
-		return xpEarned;
-	}
-
-	public void setXpEarned(Double xpEarned) {
-		this.xpEarned = xpEarned;
+	public String getXpEarned() {
+		return f2.format(xpEarned);
 	}
 
 	public String getCashEarnedFormatted() {
@@ -111,17 +105,13 @@ public class PlayerWinController implements EventHandler<ActionEvent> {
 		this.numPlayerMoves = numPlayerMoves;
 	}
 
-	public void setTotalCashEarned(double totalCashEarned) {
-		this.totalCashEarned = totalCashEarned;
-	}
-
 	public String getTotalCashEarnedFormatted() {
 		totalCashEarned = bonusCashEarned + cashEarned;
 		return NumberFormat.getCurrencyInstance().format(totalCashEarned);
 	}
 	
 	public String getBonusCashEarnedFormatted() {
-		double bonusCashEarned = PlayerWinController.getEfficiencyScore() * 10d;
+		bonusCashEarned = PlayerWinController.getEfficiencyScore() * 10d;
 		return NumberFormat.getCurrencyInstance().format(bonusCashEarned);
 	}
 	

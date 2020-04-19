@@ -54,7 +54,7 @@ public class NewPlayerController implements EventHandler<KeyEvent> {
 					c.getItemHub().hpVileDes(), "hp", 150, .02, 3, 3, 20, 50));
 		}
 		
-		((Player)c.getPlayer()).addItemToPlayerInventory(new Weapon("none","none",0,0,10,10,50,100));
+		((Player)c.getPlayer()).addItemToPlayerInventory(new Weapon("none","none",0,0,10,10,500,501));
 		((Player)c.getPlayer()).addItemToPlayerInventory(new Armor("none","none",0,0,10,10,0));
 
 	}

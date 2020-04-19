@@ -39,7 +39,7 @@ import javafx.util.Duration;
 
 public class FightClubController implements EventHandler<KeyEvent> {
 
-	private DecimalFormat f2 = new DecimalFormat("0.00");
+
 	private List<Fireable> fireList;
 	private List<Enemy> enemyList = new ArrayList<>();
 	private PlayerWinController pwc;
@@ -153,16 +153,16 @@ public class FightClubController implements EventHandler<KeyEvent> {
 
 			String loot = "\n" + addGeneratedLootToList();
 			String totalMoves = pwc.getNumPlayerMoves().toString();
-			String formattedXp = f2.format(pwc.getXpEarned());
+			String formattedXp = pwc.getXpEarned();
 			String efficiencyScore = "%" + PlayerWinController.getEfficiencyScore();
 			String cash = pwc.getCashEarnedFormatted();
-			String rating = pwc.getRating(PlayerWinController.getEfficiencyScore());
+			String rating = pwc.getRating();
 			String bonusCash = pwc.getBonusCashEarnedFormatted();
 			String totalCashEarned = pwc.getTotalCashEarnedFormatted();
 			fade();
 
-			List<String> listOfWinStats = Arrays.asList(totalMoves, formattedXp, efficiencyScore, loot, cash, bonusCash,
-					totalCashEarned, rating);
+			List<String> listOfWinStats = Arrays.asList(totalMoves, formattedXp, efficiencyScore, 
+					loot, cash, bonusCash,totalCashEarned, rating);
 			c.getView().getFightWinView().setWinStats(listOfWinStats);
 			c.getPlayer().setDef(c.getPlayer().getMaxDef());
 			c.getPlayer().setStealth(c.getPlayer().getMaxStealth());
