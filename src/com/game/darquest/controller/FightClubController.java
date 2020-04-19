@@ -14,7 +14,6 @@ import java.util.Random;
 import com.game.darquest.data.Enemy;
 import com.game.darquest.data.Person;
 import com.game.darquest.data.Player;
-import com.game.darquest.data.actions.EfficiencyHandler;
 import com.game.darquest.data.actions.Fireable;
 import com.game.darquest.data.actions.Help;
 import com.game.darquest.data.actions.Use;
@@ -43,21 +42,18 @@ public class FightClubController implements EventHandler<KeyEvent> {
 	private DecimalFormat f2 = new DecimalFormat("0.00");
 	private List<Fireable> fireList;
 	private List<Enemy> enemyList = new ArrayList<>();
-	private Integer numPlayerMoves = 0;
-	private Double xpEarned = 0.0;
-	private Double cashEarned = 0.0;
-	private Double bonusCashEarned = 0.0;
-	private double totalCashEarned = 0.0;
-	private List<Item> lootList = new ArrayList<>();
+	private PlayerWinController pwc;
 
 	private Controller c;
 
 	public FightClubController(Controller c) {
 		c.getView().getFightClubView().addCommandFieldListener(this);
 		this.c = c;
-		fireList = Arrays.asList(new Help(), new Eat(), new Sleep(), new Work(), new Attack(this.c), new Use(this.c),
+		fireList = Arrays.asList(new Help(), new Eat(), new Sleep(), new Work(), new Attack(this.c), 
+				new Use(this.c),
 				new Steal(), new Heal(), new Deception(), new Truth(), new Fear(), new Valor(), new Light(),
 				new Shadow());
+		this.pwc = this.c.getPlayerWinController();
 	}
 
 	@Override
@@ -139,8 +135,7 @@ public class FightClubController implements EventHandler<KeyEvent> {
 	}
 
 	private void afterPlayerMove() {
-		numPlayerMoves++;
-		addXpToPlayer(((Player)c.getPlayer()).getXpAdded());
+		pwc.setNumPlayerMoves(pwc.getNumPlayerMoves() + 1);
 		removeDeadEnemyFromList();
 		if (playerWins())
 			return;
@@ -155,59 +150,48 @@ public class FightClubController implements EventHandler<KeyEvent> {
 
 	private boolean playerWins() {
 		if (enemyList.size() <= 0) {
-			
+
 			String loot = "\n" + addGeneratedLootToList();
-			String totalMoves = numPlayerMoves.toString();
-			String formattedXp = f2.format(xpEarned);
-			String efficiencyScore = "%"+EfficiencyHandler.getEfficiencyScore();
-			String cash = NumberFormat.getCurrencyInstance().format(cashEarned);
-			String rating = getRating(EfficiencyHandler.getEfficiencyScore());
-			String bonusCash = getBonusCashEarned();
-			String totalCashEarned = getTotalCashEarnedFormatted();
+			String totalMoves = pwc.getNumPlayerMoves().toString();
+			String formattedXp = f2.format(pwc.getXpEarned());
+			String efficiencyScore = "%" + PlayerWinController.getEfficiencyScore();
+			String cash = pwc.getCashEarnedFormatted();
+			String rating = pwc.getRating(PlayerWinController.getEfficiencyScore());
+			String bonusCash = pwc.getBonusCashEarnedFormatted();
+			String totalCashEarned = pwc.getTotalCashEarnedFormatted();
 			fade();
 
-			List<String> listOfWinStats = Arrays.asList(totalMoves, formattedXp, 
-					efficiencyScore, loot, cash, bonusCash, totalCashEarned, rating);
+			List<String> listOfWinStats = Arrays.asList(totalMoves, formattedXp, efficiencyScore, loot, cash, bonusCash,
+					totalCashEarned, rating);
 			c.getView().getFightWinView().setWinStats(listOfWinStats);
+			c.getPlayer().setDef(c.getPlayer().getMaxDef());
+			c.getPlayer().setStealth(c.getPlayer().getMaxStealth());
+			c.getPlayer().setAwareness(c.getPlayer().getMaxAwareness());
 			c.getPlayerInvStatsController().updateAllPlayerStats();
 			c.getView().getHubView().showWin();
 			return true;
 		}
 		return false;
 	}
+
 	
-	private String getRating(int efficiencyScore) {
-		Map<Integer, String> gradeMap = new HashMap<>();
-		gradeMap.put(100, "S");
-		gradeMap.put(95, "A+");
-		gradeMap.put(90, "A");
-		gradeMap.put(85, "B+");
-		gradeMap.put(80, "B");
-		gradeMap.put(75, "C+");
-		gradeMap.put(70, "C");
-		for (Entry<Integer, String> entry : gradeMap.entrySet()) {
-			if(efficiencyScore == entry.getKey()) return entry.getValue();
-		}
-		return "D";
-	}
 
 	private void fade() {
-		FadeTransition ft = new FadeTransition(Duration.millis(500),
-				c.getView().getFightWinView().getFightWinCenter());
+		FadeTransition ft = new FadeTransition(Duration.millis(500), c.getView().getFightWinView().getFightWinCenter());
 		ft.setFromValue(0.0);
 		ft.setToValue(1.0);
 		ft.play();
 	}
-	
+
 	private String addGeneratedLootToList() {
-		lootList.clear();
+		pwc.getLootList().clear();
 		List<List<List<Item>>> allItems = Arrays.asList(c.getItemHub().getListsOfWeapons(),
 				c.getItemHub().getListsOfArmors(), c.getItemHub().getListsOfTools());
 		for (int i = 0; i < allItems.size(); i++) {
-			lootList.add(getRandomItem(allItems.get(i)));
+			pwc.getLootList().add(getRandomItem(allItems.get(i)));
 		}
 		StringBuilder sb = new StringBuilder();
-		lootList.forEach(e->sb.append("* "+e.getName() + "\n"));
+		pwc.getLootList().forEach(e -> sb.append("* " + e.getName() + "\n"));
 		return sb.toString();
 	}
 
@@ -216,7 +200,7 @@ public class FightClubController implements EventHandler<KeyEvent> {
 			if (enemyList.get(i).getHp() <= 0) {
 				enemyList.remove(i);
 				currentEnemyIndex = 0;
-				addXpToPlayer(((Player)c.getPlayer()).getXpAddedBeatEnemy());
+				pwc.addXpToPlayer(((Player) c.getPlayer()).getXpAddedBeatEnemy());
 			}
 		}
 	}
@@ -238,40 +222,16 @@ public class FightClubController implements EventHandler<KeyEvent> {
 				currentEnemyIndex = 0;
 		}
 	}
-	
+
 	private Item getRandomItem(List<List<Item>> listOfLists) {
 		Random rand = new Random();
 		int index = rand.nextInt(listOfLists.size());
 		int itemIndex = rand.nextInt(listOfLists.get(index).size());
 		return listOfLists.get(index).get(itemIndex);
 	}
-	
-	public void setAllCountersToZero() {
-		numPlayerMoves = 0;
-		xpEarned = 0.0;
-		cashEarned = 0.0;
-		bonusCashEarned = 0.0;
-	}
-	
-	private String getBonusCashEarned() {
-		bonusCashEarned = EfficiencyHandler.getEfficiencyScore() * 10d;
-		return NumberFormat.getCurrencyInstance().format(bonusCashEarned);
-	}
-	
-	private void addXpToPlayer(double xp) {
-		xpEarned += xp;
-		Player p = ((Player) c.getPlayer());
-		p.setXp(p.getXp() + xp);
-	}
-	
-	private String getTotalCashEarnedFormatted() {
-		totalCashEarned = bonusCashEarned + cashEarned;
-		return NumberFormat.getCurrencyInstance().format(totalCashEarned);
-	}
 
-	
 	public void setEnemyList(List<Enemy> enemyList) {
-		this.cashEarned = enemyList.size() * 5000d;
+		pwc.setCashEarned(enemyList.size() * 5000d);
 		this.enemyList = enemyList;
 	}
 
@@ -282,14 +242,5 @@ public class FightClubController implements EventHandler<KeyEvent> {
 	public List<Fireable> getFireList() {
 		return fireList;
 	}
-
-	public List<Item> getLootList() {
-		return lootList;
-	}
-
-	public double getTotalCashEarned() {
-		return totalCashEarned;
-	}
-	
 
 }

@@ -1,7 +1,8 @@
 package com.game.darquest.view;
 
 import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -102,9 +103,11 @@ public class LevelUpView {
 		return levelUpDef;
 	}
 	
+	private SpinnerValueFactory.IntegerSpinnerValueFactory defFactory;
 	private Spinner<Integer> defSpinner;
 	private Spinner<Integer> defSpinner() {
-		defSpinner = new Spinner<>();
+		defSpinner = new Spinner<>(0,0,0);
+		defFactory = (SpinnerValueFactory.IntegerSpinnerValueFactory) defSpinner.getValueFactory();
 		defSpinner.setId("defSpinner");
 		defSpinner.setMinSize(spinnerWidth, spinnerHeight);
 		defSpinner.setMaxSize(spinnerWidth, spinnerHeight);
@@ -112,43 +115,74 @@ public class LevelUpView {
 		return defSpinner;
 	}
 	
-
+	public Spinner<Integer> getDefSpinner() {
+		return this.defSpinner;
+	}
+	
+	public SpinnerValueFactory.IntegerSpinnerValueFactory getDefFactory() {
+		return defFactory;
+	}
+	
 	
 	private Label levelUpStealth() {
 		Label levelUpTitle = new Label("Stealth");
 		levelUpTitle.setPadding(new Insets(20,5,10,0));
 		return levelUpTitle;
 	}
-	
+	private SpinnerValueFactory.IntegerSpinnerValueFactory stealthFactory;
 	private Spinner<Integer> stealthSpinner;
 	private Spinner<Integer> stealthSpinner() {
-		stealthSpinner = new Spinner<>();
+		stealthSpinner = new Spinner<>(0,0,0);
+		stealthFactory = (SpinnerValueFactory.IntegerSpinnerValueFactory) stealthSpinner.getValueFactory();
 		stealthSpinner.setId("stealthSpinner");
 		stealthSpinner.setMinSize(spinnerWidth, spinnerHeight);
 		stealthSpinner.setMaxSize(spinnerWidth, spinnerHeight);
 		return stealthSpinner;
 	}
+	
+	public Spinner<Integer> getStealthSpinner() {
+		return this.stealthSpinner;
+	}
+	
+	public SpinnerValueFactory.IntegerSpinnerValueFactory getStealthFactory() {
+		return stealthFactory;
+	}
+	
 	private Label levelUpAwareness() {
 		Label levelUpTitle = new Label("Awareness");
 		levelUpTitle.setPadding(new Insets(20,5,10,0));
 		return levelUpTitle;
 	}
+	
+	private SpinnerValueFactory.IntegerSpinnerValueFactory awarFactory;
+	private Spinner<Integer> awarSpinner;
 	private Spinner<Integer> awarenessSpinner() {
-		Spinner<Integer> awarenessSpinner = new Spinner<>();
-		awarenessSpinner.setMinSize(spinnerWidth, spinnerHeight);
-		awarenessSpinner.setMaxSize(spinnerWidth, spinnerHeight);
-		return awarenessSpinner;
+		awarSpinner = new Spinner<>(0,0,0);
+		awarFactory = (SpinnerValueFactory.IntegerSpinnerValueFactory) awarSpinner.getValueFactory();
+		awarSpinner.setMinSize(spinnerWidth, spinnerHeight);
+		awarSpinner.setMaxSize(spinnerWidth, spinnerHeight);
+		return awarSpinner;
 	}
 	
-	public void setDefSpinner(SpinnerValueFactory<Integer> factory, ChangeListener<Integer> l) {
-		defSpinner.setValueFactory(factory);
+	public Spinner<Integer> getAwarSpinner() {
+		return this.awarSpinner;
+	}
+	
+	public SpinnerValueFactory.IntegerSpinnerValueFactory getAwarFactory() {
+		return awarFactory;
+	}
+	
+	public void setDefSpinnerListener(ChangeListener<Integer> l) {
 		defSpinner.valueProperty().addListener(l);
 	}
 
-	public void setStealthSpinner(SpinnerValueFactory<Integer> factory, ChangeListener<Integer> l) {
-		stealthSpinner.setValueFactory(factory);
+	public void setStealthSpinnerListener(ChangeListener<Integer> l) {
 		stealthSpinner.valueProperty().addListener(l);
 		
+	}
+	
+	public void setAwarSpinnerListener(ChangeListener<Integer> l) {
+		awarSpinner.valueProperty().addListener(l);
 	}
 	
 	//Bottom
@@ -172,5 +206,11 @@ public class LevelUpView {
 		finishButton.setMaxSize(225, 50);
 		return finishButton;
 	}
+	
+	public void addFinishButtonListener(EventHandler<ActionEvent> l) {
+		finishButton.setOnAction(l);
+	}
+
+	
 
 }

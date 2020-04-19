@@ -134,6 +134,9 @@ public class EnemyController {
 		int index = getChoosenActionIndex();
 		ruleList.get(index).getRule();
 		updateAllStats();
+		if(c.getPlayer().getHp() <= 0) {
+			c.getView().getHubView().showHub();
+		}
 	}
 	
 	

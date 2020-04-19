@@ -41,12 +41,11 @@ public class View {
 		this.playerWinView = new PlayerWinView();
 		this.levelUpView = new LevelUpView();
 		
+		
 		FadeTransition ft2 = new FadeTransition(Duration.millis(3000), getMainMenu().getTitle());
 		ft2.setFromValue(0.0);
 		ft2.setToValue(1.0);
 		ft2.play();
-		
-		
 		
 		window.setScene(mainMenuView.getMainMenuScene());
 		window.setTitle("Darquest FX v1.0");

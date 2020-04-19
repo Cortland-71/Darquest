@@ -11,13 +11,13 @@ public class ItemHub {
 	//Weapons \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 	public List<Item> lowWeaponsList() {
 		return Arrays.asList(
-			new Weapon("Studded Gloves", studedGlovesDes(), 150, .01, 8, 8, 2, 8),
-			new Weapon("Brass Knuckles", brassKnucklesDes(), 350, .05, 10, 10, 3, 9),
-			new Weapon("Slugger (wood)", sluggerDes(), 250, .07, 15, 15, 5, 10),
+			new Weapon("Studded Gloves", studedGlovesDes(), 150, .01, 8, 8, 5, 10),
+			new Weapon("Brass Knuckles", brassKnucklesDes(), 350, .05, 10, 10, 5, 12),
+			new Weapon("Slugger (wood)", sluggerDes(), 250, .07, 15, 15, 5, 15),
 			new Weapon("Bat (metal)", batDes(), 530, .2, 20, 20, 6, 13),
 			new Weapon("Hammer", hammerDes(), 600, .08, 20, 20, 5, 15),
-			new Weapon("Pocket Knife", pocketKnifeDes(), 250, .01, 10, 10, 5, 12),
-			new Weapon("Switch Blade", switchBladeDes(), 350, .02, 12, 12, 6, 13));
+			new Weapon("Pocket Knife", pocketKnifeDes(), 250, .01, 10, 10, 6, 15),
+			new Weapon("Switch Blade", switchBladeDes(), 350, .02, 12, 12, 6, 17));
 	}
 	
 	public List<Item> midWeaponsList() {

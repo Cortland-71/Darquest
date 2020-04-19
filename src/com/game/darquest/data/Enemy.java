@@ -9,7 +9,7 @@ public class Enemy extends Person {
 	private Classable type;
 	private int id;
 	private String imagePath;
-	private double limit = 1;
+	private double limit = 0;
 	
 
 	public Enemy(String name, int maxDef, int maxStealth, int maxAwareness, Weapon equippedWeapon, Armor equippedArmor,

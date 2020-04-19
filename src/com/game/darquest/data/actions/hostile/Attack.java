@@ -1,15 +1,14 @@
 package com.game.darquest.data.actions.hostile;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 import com.game.darquest.controller.Controller;
+import com.game.darquest.controller.PlayerWinController;
 import com.game.darquest.data.Enemy;
 import com.game.darquest.data.Person;
 import com.game.darquest.data.Player;
-import com.game.darquest.data.actions.EfficiencyHandler;
 import com.game.darquest.data.actions.Fireable;
 import com.game.darquest.data.items.Weapon;
 
@@ -40,6 +39,8 @@ public class Attack implements Fireable {
 			
 			if(!w.getName().equals("none")) w.setCondition(w.getCondition() - 1);
 			if(p instanceof Enemy) w.setCondition(w.getCondition() + 1);
+			
+			c.getPlayerInvStatsController().captureSelectedItemsUpdateInvReEquipItems();
 			p.setEng(p.getEng() - .3);
 			p.setEat(p.getEat() - .1);
 			p.setSleep(p.getSleep() - .1);
@@ -67,7 +68,7 @@ public class Attack implements Fireable {
 						+ "\nMinimum attack damage: " + weaponDamage 
 						+ "\n" + choosen.getName() + "'s Deffense: " + choosen.getDef()
 						+ "\nDeffense to high.";
-				EfficiencyHandler.setEfficiencyScore(EfficiencyHandler.getEfficiencyScore() - 5);
+				PlayerWinController.setEfficiencyScore(PlayerWinController.getEfficiencyScore() - 5);
 				return true;
 			}
 			

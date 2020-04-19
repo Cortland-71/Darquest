@@ -17,13 +17,12 @@ public class Controller {
 	private final FightClubController fightClubController;
 	private final PlayerWinController playerWinController;
 	private final LevelUpController levelUpController;
+	
 	private final ItemHub itemHub;
 	private final EnemyController enemyController;
 	private final View view;
 	private Person player;
 	
-	
-
 	public Controller(View view) {
 		this.player = new Player();
 		this.view = view;
@@ -42,7 +41,6 @@ public class Controller {
 		
 	}
 
-	
 	public PlayerWinController getPlayerWinController() {
 		return playerWinController;
 	}

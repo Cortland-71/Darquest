@@ -71,6 +71,14 @@ public abstract class Person {
 
 	}
 	
+	public void setAllSkills(int def, int stealth, int awar) {
+		setMaxDef(def);
+		setMaxStealth(stealth);
+		setMaxAwareness(awar);
+		setDef(def);
+		setStealth(stealth);
+		setAwareness(awar);
+	}
 	
 
 	public int getDef() {
@@ -254,13 +262,14 @@ public abstract class Person {
 		return equippedTool.getName();
 	}
 
+	
+
 	@Override
 	public String toString() {
-		return "Person [f2=" + f2 + ", f1=" + f1 + ", rand=" + rand + ", moves=" + moves + ", name=" + name + ", lvl="
-				+ lvl + ", cash=" + cash + ", hp=" + hp + ", eng=" + eng + ", eat=" + eat + ", sleep=" + sleep
-				+ ", work=" + work + ", equippedWeapon=" + equippedWeapon + ", equippedArmor=" + equippedArmor
-				+ ", equippedTool=" + equippedTool + ", def=" + def + ", stealth=" + stealth + ", awareness="
-				+ awareness + "]";
+		return "Person [name=" + name + ", lvl=" + lvl + ", cash=" + cash + ", hp=" + hp + ", eng=" + eng + ", eat="
+				+ eat + ", sleep=" + sleep + ", work=" + work + ", equippedWeapon=" + equippedWeapon
+				+ ", equippedArmor=" + equippedArmor + ", equippedTool=" + equippedTool + ", def=" + def + ", stealth="
+				+ stealth + ", awareness=" + awareness + "]";
 	}
 
 	public int getMaxMoves() {

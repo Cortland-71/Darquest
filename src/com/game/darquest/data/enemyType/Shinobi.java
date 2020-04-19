@@ -35,7 +35,7 @@ public class Shinobi implements Classable {
 
 	@Override
 	public Weapon getGenerateWeapon() {
-		return (Weapon)ic.midWeaponsList().get(rand.nextInt(ic.midWeaponsList().size()));
+		return (Weapon)ic.lowWeaponsList().get(rand.nextInt(ic.lowWeaponsList().size()));
 	}
 
 	@Override

@@ -76,7 +76,7 @@ class FightClub implements Clickable {
 		enemyGenerator = new EnemyGenerator(this.c);
 		enemyGenerator.generateEnemys();
 		List<Enemy> enemyList = enemyGenerator.getEnemyList();
-		c.getFightClubController().setAllCountersToZero();
+		c.getPlayerWinController().setAllCountersToZero();
 		c.getFightClubController().setEnemyList(enemyList);
 		
 		c.getHubController().drawAllEnemyBoxes(enemyList);
@@ -126,14 +126,24 @@ class LevelUp implements Clickable {
 	@Override
 	public void clickAction() {
 		c.getView().getHubView().showLevelUp();
+		c.getLevelUpController().setPointsAvailable(3);
 		c.getView().getLevelUpView().setLevelUpInfoLabel(c.getLevelUpController().getPointsAvailable());
 		
-		c.getView().getLevelUpView().setDefSpinner(c.getLevelUpController().getFactory(), 
-				c.getLevelUpController().getDluc());
-		c.getView().getLevelUpView().setStealthSpinner(c.getLevelUpController().getFactory(), 
-				c.getLevelUpController().getSluc());
+		c.getView().getLevelUpView().getDefFactory().setMax(c.getPlayer().getDef() + c.getLevelUpController().getPointsAvailable());
+		c.getView().getLevelUpView().getDefFactory().setMin(c.getPlayer().getDef());
+		c.getView().getLevelUpView().getDefFactory().setValue(c.getPlayer().getDef());
 		
-		System.out.println("Clicked levelUp");
+		c.getView().getLevelUpView().getStealthFactory().setMax(c.getPlayer().getStealth() + c.getLevelUpController().getPointsAvailable());
+		c.getView().getLevelUpView().getStealthFactory().setMin(c.getPlayer().getStealth());
+		c.getView().getLevelUpView().getStealthFactory().setValue(c.getPlayer().getStealth());
+		
+		c.getView().getLevelUpView().getAwarFactory().setMax(c.getPlayer().getAwareness() + c.getLevelUpController().getPointsAvailable());
+		c.getView().getLevelUpView().getAwarFactory().setMin(c.getPlayer().getAwareness());
+		c.getView().getLevelUpView().getAwarFactory().setValue(c.getPlayer().getAwareness());
+		
+		c.getView().getLevelUpView().setDefSpinnerListener(c.getLevelUpController().getDluc());
+		c.getView().getLevelUpView().setStealthSpinnerListener(c.getLevelUpController().getSluc());
+		c.getView().getLevelUpView().setAwarSpinnerListener(c.getLevelUpController().getAwaruc());
 	}
 }
 

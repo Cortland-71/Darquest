@@ -15,26 +15,21 @@ public class Enforcer implements Classable {
 	private int minStat = 5;
 	private int maxStat;
 	
-	
-	
 	@Override
 	public int getGenerateDef() {
-//		int defBuff = maxStat + (maxStat/2);
-//		return rand.nextInt((defBuff - minStat)+1)+minStat;
-		return 1;
+		int defBuff = maxStat + (maxStat/2);
+		return rand.nextInt((defBuff - minStat)+1)+minStat;
+
 	}
 
 	@Override
 	public int getGenerateStealth() {
-		
 		return 1;
 	}
 
 	@Override
 	public int getGenerateAwareness() {
-	
-//		return rand.nextInt((maxStat - minStat)+1)+minStat;
-		return 1;
+		return rand.nextInt((maxStat - minStat)+1)+minStat;
 	}
 
 	@Override
