@@ -57,7 +57,7 @@ public class MainMenuView {
 		title = new Label("");
 		title.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/logo.png"))));
 		title.setId("title");
-		title.setPadding(new Insets(0,0,50,0));
+		title.setPadding(new Insets(0,0,20,0));
 		return title;
 	}
 	

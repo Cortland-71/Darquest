@@ -1,14 +1,8 @@
 package com.game.darquest.controller;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Random;
 
 import com.game.darquest.data.Enemy;
@@ -231,7 +225,7 @@ public class FightClubController implements EventHandler<KeyEvent> {
 	}
 
 	public void setEnemyList(List<Enemy> enemyList) {
-		pwc.setCashEarned(enemyList.size() * 5000d);
+		pwc.setCashEarned(enemyList.size() * 1000d);
 		this.enemyList = enemyList;
 	}
 

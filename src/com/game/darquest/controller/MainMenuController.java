@@ -6,8 +6,6 @@ import java.util.List;
 import com.game.darquest.view.View;
 
 import javafx.animation.FadeTransition;
-import javafx.animation.PauseTransition;
-import javafx.animation.SequentialTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;

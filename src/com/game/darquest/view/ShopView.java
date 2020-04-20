@@ -9,8 +9,6 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
@@ -23,8 +21,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 
 public class ShopView {
@@ -53,20 +51,28 @@ public class ShopView {
 		return actualShopPane;
 	}
 	
+	private StackPane center() {
+		StackPane center = new StackPane();
+		center.setAlignment(Pos.CENTER);
+		center.getChildren().add(centerImage());
+		center.getChildren().add(shopDialogeBox());
+		return center;
+	}
+	
 	//Center of actual shop pane
-	private BorderPane center() {
+	private BorderPane centerImage() {
 		BorderPane center = new BorderPane();
 		center.setBackground(View.getBackground(Color.BLACK));
 		Label l = new Label();
-        l.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/ShopSoft.png"))));
+        l.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/Shop.png"))));
 		center.setCenter(l);
-		center.setBottom(shopDialogeBox());
 		return center;
 	}
 	
 	private HBox shopDialogeBox() {
 		HBox shopDialogeBox = new HBox();
-		shopDialogeBox.setAlignment(Pos.CENTER);
+		shopDialogeBox.setAlignment(Pos.CENTER_RIGHT);
+		shopDialogeBox.setPadding(new Insets(0,100,0,0));
 		shopDialogeBox.getChildren().add(shopDialogeTextArea());
 		return shopDialogeBox;
 	}
@@ -74,11 +80,12 @@ public class ShopView {
 	private TextArea shopDialogeTextArea;
 	private TextArea shopDialogeTextArea() {
 		shopDialogeTextArea = new TextArea();
+		shopDialogeTextArea.setPadding(new Insets(5,5,5,5));
 		shopDialogeTextArea.setId("shopTextArea");
 		shopDialogeTextArea.setWrapText(true);
 		shopDialogeTextArea.setEditable(false);
-		shopDialogeTextArea.setMinSize(1200,100);
-		shopDialogeTextArea.setMaxSize(1200,100);
+		shopDialogeTextArea.setMinSize(350,350);
+		shopDialogeTextArea.setMaxSize(350,350);
 		return shopDialogeTextArea;
 	}
 	
@@ -95,20 +102,22 @@ public class ShopView {
 	}
 	
 	//Bottom of actual Shop Pane
-	private BorderPane bottom() {
-		BorderPane bottom = new BorderPane();
-		bottom.setCenter(itemTabBox());
-		bottom.setRight(itemInfoBox());
+	private HBox bottom() {
+		HBox bottom = new HBox();
+		bottom.setAlignment(Pos.CENTER);
+		bottom.getChildren().add(itemTabBox());
+		bottom.getChildren().add(itemInfoBox());
 		return bottom;
 	}
 	
 	// Item info \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
+	private final int bottomHeight = 275;
 	private HBox itemInfoBox() {
 		HBox itemInfoBox = new HBox(0);
 		itemInfoBox.setId("itemInfoBox");
 		itemInfoBox.setAlignment(Pos.TOP_LEFT);
-		itemInfoBox.setMaxWidth(550);
-		itemInfoBox.setMinWidth(550);
+		itemInfoBox.setMaxSize(540, bottomHeight);
+		itemInfoBox.setMinSize(540, bottomHeight);
 		itemInfoBox.getChildren().addAll(itemInfoLabel());
 		return itemInfoBox;
 	}
@@ -116,7 +125,7 @@ public class ShopView {
 	private Label itemInfoLabel;
 	private Label itemInfoLabel() {
 		itemInfoLabel = new Label("Browse:");
-		itemInfoLabel.setPadding(new Insets(25,0,0,0));
+		itemInfoLabel.setPadding(new Insets(50,0,0,25));
 		itemInfoLabel.setId("itemInfoLabel");
 		return itemInfoLabel;
 	}
@@ -135,8 +144,8 @@ public class ShopView {
 	private TabPane shopTabPane() {
 		shopTabPane = new TabPane();
 		shopTabPane.setId("shopTabPane");
-		shopTabPane.setMaxSize(750, 200);
-		shopTabPane.setMinSize(750, 200);
+		shopTabPane.setMaxSize(740, bottomHeight);
+		shopTabPane.setMinSize(740, bottomHeight);
 		shopTabPane.getTabs().add(weaponsTab());
 		shopTabPane.getTabs().add(armorTab());
 		shopTabPane.getTabs().add(toolsTab());

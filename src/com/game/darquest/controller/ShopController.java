@@ -7,11 +7,9 @@ import java.util.Random;
 import com.game.darquest.data.Player;
 import com.game.darquest.data.items.Item;
 
-import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
-import javafx.util.Duration;
 
 public class ShopController implements EventHandler<ActionEvent>{
 	
@@ -22,6 +20,9 @@ public class ShopController implements EventHandler<ActionEvent>{
 	private List<String> odetteBuyDialogue = Arrays.asList("Nice choice.", "That should help.", 
 			"That's one of my most popular items.", "I like your style.", "Carful with that.", "One of my favorites.",
 			"I should get one of these myself.", "I rebuilt this one from scratch.", "Well worth the price.");
+	
+	private List<String> odetteSellDialogue = Arrays.asList("This is great, thanks.", "I've been looking for one of these...",
+			"Pleasure doing business.", "I already have a hundred of these but I'll take it.", "Sure you don't want this? Okay.");
 	
 	private Random rand = new Random();
 	public ShopController(Controller c) {
@@ -57,7 +58,7 @@ public class ShopController implements EventHandler<ActionEvent>{
 			player.removeItemFromPlayerInventory(item, itemIndex);
 			c.getPlayerInvStatsController().deselectItemToNone();
 			c.getPlayerInvStatsController().captureSelectedItemsUpdateInvReEquipItems();
-			shopBuyDialogueOutput(item);
+			shopSellDialogueOutput(item);
 		}
 	}
 
@@ -87,9 +88,14 @@ public class ShopController implements EventHandler<ActionEvent>{
 	private void shopBuyDialogueOutput(Item item) {
 		c.getView().getShopView().setBuyShopDialogeNormal();
 		c.getView().getShopView().setBuyShopDialogeTextArea("Odette: "+odetteBuyDialogue.get(rand.nextInt(odetteBuyDialogue.size()))+
-				"\n\tItem bought: "+item.getName()+"\n\tCost: -"+item.getPriceFormatted()+"\n\tWeight: +"+item.getWeight());
+				"\n\nItem bought: "+item.getName()+"\nCost: -"+item.getPriceFormatted()+"\nWeight: +"+item.getWeight());
 	}
 	
+	private void shopSellDialogueOutput(Item item) {
+		c.getView().getShopView().setBuyShopDialogeNormal();
+		c.getView().getShopView().setBuyShopDialogeTextArea("Odette: "+odetteSellDialogue.get(rand.nextInt(odetteSellDialogue.size()))+
+				"\n\nItem Sold: "+item.getName()+"\nValue: -"+item.getValueFormatted()+"\nWeight: +"+item.getWeight());
+	}
 	
 	private void goBackToDownTown() {
 		 

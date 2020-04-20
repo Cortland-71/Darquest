@@ -10,9 +10,7 @@ import com.game.darquest.view.View;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
-import javafx.scene.control.SpinnerValueFactory;
-import javafx.scene.control.SpinnerValueFactory.IntegerSpinnerValueFactory;
-
+	
 public class HubController implements EventHandler<ActionEvent> {
 
 	
@@ -76,7 +74,7 @@ class FightClub implements Clickable {
 		enemyGenerator = new EnemyGenerator(this.c);
 		enemyGenerator.generateEnemys();
 		List<Enemy> enemyList = enemyGenerator.getEnemyList();
-		c.getPlayerWinController().setAllCountersToZero();
+		c.getPlayerWinController().setAllCountersToDefault();
 		c.getFightClubController().setEnemyList(enemyList);
 		
 		c.getHubController().drawAllEnemyBoxes(enemyList);

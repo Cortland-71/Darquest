@@ -378,7 +378,7 @@ public class HubView {
 	
 	private Label getDownTownImage() {
 		Label l = new Label();
-        l.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/downTownSoft.png"))));
+        l.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/downTown.png"))));
         return l;
 	}
 	

@@ -19,7 +19,7 @@ public class Player extends Person {
 	private DecimalFormat f = new DecimalFormat("0.00");
 	private double weight = 0;
 	private double xp = .1;
-	private double xpAddedBeatEnemy = .1;
+	private double xpAddedBeatEnemy = .5;
 	private double xpAdded = .01;
 	private double remainingXp = 0;
 	private final double maxXp = 1;

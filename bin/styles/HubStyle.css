@@ -7,7 +7,7 @@
 	
 	lightText: #d9d9d9;
 
-	_green: #00b300;
+	_green: #10a215;
 	_firstGreen:#00ff00;
 	_red: #ff0000;
 	_yellow: #ffff00;
@@ -143,7 +143,7 @@
 
 
 .list-cell:filled:selected:focused, .list-cell:filled:selected {
-    -fx-background-color: linear-gradient(to right, #006622, #009933, #00cc44,  #009933, #006622);
+    -fx-background-color: linear-gradient(to right, #006622, #009933);
     -fx-text-fill: lightText;
 }
 

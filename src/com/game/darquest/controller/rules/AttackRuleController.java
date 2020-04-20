@@ -1,7 +1,5 @@
 package com.game.darquest.controller.rules;
 
-import java.util.Random;
-
 import com.game.darquest.controller.Controller;
 import com.game.darquest.data.Enemy;
 
@@ -23,6 +21,4 @@ public class AttackRuleController implements Ruleable {
 		c.getFightClubController().runFire("att 0", e);
 		
 	}
-	
-	
 }

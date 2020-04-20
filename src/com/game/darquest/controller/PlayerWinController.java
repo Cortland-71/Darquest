@@ -43,7 +43,8 @@ public class PlayerWinController implements EventHandler<ActionEvent> {
 		c.getView().getHubView().showHub();
 	}
 	
-	public void setAllCountersToZero() {
+	public void setAllCountersToDefault() {
+		PlayerWinController.setEfficiencyScore(100);
 		numPlayerMoves = 0;
 		xpEarned = 0.0;
 		cashEarned = 0.0;

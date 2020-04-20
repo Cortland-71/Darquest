@@ -1,8 +1,6 @@
 package com.game.darquest.data;
 
-import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.util.Random;
 
 import com.game.darquest.data.items.Armor;
 import com.game.darquest.data.items.Item;
@@ -10,11 +8,6 @@ import com.game.darquest.data.items.Tool;
 import com.game.darquest.data.items.Weapon;
 
 public abstract class Person {
-
-	private DecimalFormat f2 = new DecimalFormat("0.00");
-	private DecimalFormat f1 = new DecimalFormat("0.0");
-
-	private Random rand = new Random();
 
 	private final int maxMoves = 3;
 	private int moves;
