@@ -1,6 +1,8 @@
 package com.game.darquest.view;
 
-import com.game.darquest.Driver;
+import com.game.darquest.view.fightClub.FightClubHubView;
+import com.game.darquest.view.fightClub.FightView;
+import com.game.darquest.view.fightClub.FightClubWin;
 
 import javafx.animation.FadeTransition;
 import javafx.geometry.Insets;
@@ -25,8 +27,9 @@ public class View {
 	private HubView hubView;
 	private TutorialView tutorialView;
 	private ShopView shopView;
-	private FightClubView fightClubView;
-	private PlayerWinView playerWinView;
+	private FightClubHubView fightClubHub;
+	private FightView fightClubView;
+	private FightClubWin playerWinView;
 	private LevelUpView levelUpView;
 	
 	public View(Stage primaryStage) {
@@ -37,8 +40,9 @@ public class View {
 		this.hubView.setView(this);
 		this.tutorialView = new TutorialView();
 		this.shopView = new ShopView();
-		this.fightClubView = new FightClubView();
-		this.playerWinView = new PlayerWinView();
+		this.fightClubHub = new FightClubHubView();
+		this.fightClubView = new FightView();
+		this.playerWinView = new FightClubWin();
 		this.levelUpView = new LevelUpView();
 		
 		
@@ -53,11 +57,11 @@ public class View {
 		
 	}
 	
-	public PlayerWinView getPlayerWinView() {
+	public FightClubWin getPlayerWinView() {
 		return playerWinView;
 	}
 
-	public void setFightClubView(FightClubView fightClubView) {
+	public void setFightClubView(FightView fightClubView) {
 		this.fightClubView = fightClubView;
 	}
 	
@@ -81,7 +85,7 @@ public class View {
 		return this.mainMenuView;
 	}
 
-	public FightClubView getFightClubView() {
+	public FightView getFightClubView() {
 		return fightClubView;
 	}
 	
@@ -101,11 +105,15 @@ public class View {
 		return button;
 	}
 
-	public PlayerWinView getFightWinView() {
+	public FightClubWin getFightWinView() {
 		return playerWinView;
 	}
 
 	public LevelUpView getLevelUpView() {
 		return levelUpView;
+	}
+
+	public FightClubHubView getFightClubHub() {
+		return fightClubHub;
 	}
 }

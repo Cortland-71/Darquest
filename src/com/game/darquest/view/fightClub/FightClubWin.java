@@ -1,9 +1,10 @@
-package com.game.darquest.view;
+package com.game.darquest.view.fightClub;
 
 import java.util.Arrays;
 import java.util.List;
 
 import com.game.darquest.Driver;
+import com.game.darquest.view.View;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -20,9 +21,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
-public class PlayerWinView {
+public class FightClubWin {
 
-	public PlayerWinView() {
+	public FightClubWin() {
 		fightWinCenter();
 		fightWinBottom();
 	}

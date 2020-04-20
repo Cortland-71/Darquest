@@ -1,7 +1,8 @@
-package com.game.darquest.view;
+package com.game.darquest.view.fightClub;
 
 import com.game.darquest.data.Enemy;
 import com.game.darquest.data.Person;
+import com.game.darquest.view.View;
 
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -22,9 +23,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
-public class FightClubView {
+public class FightView {
 
-	public FightClubView() {
+	public FightView() {
 		fightClubCenter();
 		fightClubBottom();
 	}

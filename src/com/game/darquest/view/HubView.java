@@ -402,7 +402,13 @@ public class HubView {
 		fadeIn();
 	}
 	
-	public void showFightClub() {
+	public void showFightClubHub() {
+		centerBox.getChildren().remove(0);
+		centerBox.getChildren().add(view.getFightClubHub().getFightClubHubCenter());
+		bp.setBottom(view.getFightClubHub().getFightClubHubBottom());
+	}
+	
+	public void showRandomFight() {
 		centerBox.getChildren().remove(0);
 		centerBox.getChildren().add(view.getFightClubView().getFightClubCenter());
 		bp.setBottom(view.getFightClubView().getFightClubBottom());
