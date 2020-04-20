@@ -1,4 +1,4 @@
-package com.game.darquest.controller;
+package com.game.darquest.controller.fightClubControllers;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -8,13 +8,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.game.darquest.controller.Controller;
 import com.game.darquest.data.Player;
 import com.game.darquest.data.items.Item;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
-public class PlayerWinController implements EventHandler<ActionEvent> {
+public class FightClubWinController implements EventHandler<ActionEvent> {
 
 	private DecimalFormat f2 = new DecimalFormat("0.00");
 	private static int efficiencyScore = 100;
@@ -27,7 +28,7 @@ public class PlayerWinController implements EventHandler<ActionEvent> {
 	private List<Item> lootList = new ArrayList<>();
 
 	private Controller c;
-	public PlayerWinController(Controller c) {
+	public FightClubWinController(Controller c) {
 		this.c = c;
 		c.getView().getPlayerWinView().addContinueButtonListener(this);
 	}
@@ -40,11 +41,11 @@ public class PlayerWinController implements EventHandler<ActionEvent> {
 	
 		addItemsToPlayerInv(wonItemList);
 		c.getPlayerInvStatsController().captureSelectedItemsUpdateInvReEquipItems();
-		c.getView().getHubView().showHub();
+		c.getView().getHubView().showFightClubHub();
 	}
 	
 	public void setAllCountersToDefault() {
-		PlayerWinController.setEfficiencyScore(100);
+		FightClubWinController.setEfficiencyScore(100);
 		numPlayerMoves = 0;
 		xpEarned = 0.0;
 		cashEarned = 0.0;
@@ -56,8 +57,8 @@ public class PlayerWinController implements EventHandler<ActionEvent> {
 	}
 
 	public static void setEfficiencyScore(int efficiencyScore) {
-		if(efficiencyScore < 0) { PlayerWinController.efficiencyScore = 0; return; }
-		PlayerWinController.efficiencyScore = efficiencyScore;
+		if(efficiencyScore < 0) { FightClubWinController.efficiencyScore = 0; return; }
+		FightClubWinController.efficiencyScore = efficiencyScore;
 	}
 	
 	public String getRating() {
@@ -112,7 +113,7 @@ public class PlayerWinController implements EventHandler<ActionEvent> {
 	}
 	
 	public String getBonusCashEarnedFormatted() {
-		bonusCashEarned = PlayerWinController.getEfficiencyScore() * 10d;
+		bonusCashEarned = FightClubWinController.getEfficiencyScore() * 10d;
 		return NumberFormat.getCurrencyInstance().format(bonusCashEarned);
 	}
 	

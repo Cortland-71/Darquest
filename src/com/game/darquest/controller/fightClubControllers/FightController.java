@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Random;
 
 import com.game.darquest.controller.Controller;
-import com.game.darquest.controller.PlayerWinController;
 import com.game.darquest.data.Enemy;
 import com.game.darquest.data.Person;
 import com.game.darquest.data.Player;
@@ -38,7 +37,7 @@ public class FightController implements EventHandler<KeyEvent> {
 
 	private List<Fireable> fireList;
 	private List<Enemy> enemyList = new ArrayList<>();
-	private PlayerWinController pwc;
+	private FightClubWinController pwc;
 
 	private Controller c;
 
@@ -150,7 +149,7 @@ public class FightController implements EventHandler<KeyEvent> {
 			String loot = "\n" + addGeneratedLootToList();
 			String totalMoves = pwc.getNumPlayerMoves().toString();
 			String formattedXp = pwc.getXpEarned();
-			String efficiencyScore = "%" + PlayerWinController.getEfficiencyScore();
+			String efficiencyScore = "%" + FightClubWinController.getEfficiencyScore();
 			String cash = pwc.getCashEarnedFormatted();
 			String rating = pwc.getRating();
 			String bonusCash = pwc.getBonusCashEarnedFormatted();
@@ -158,7 +157,7 @@ public class FightController implements EventHandler<KeyEvent> {
 			fade();
 
 			List<String> listOfWinStats = Arrays.asList(totalMoves, formattedXp, efficiencyScore, 
-					loot, cash, bonusCash,totalCashEarned, rating);
+					cash, bonusCash,totalCashEarned, loot, rating);
 			c.getView().getFightWinView().setWinStats(listOfWinStats);
 			c.getPlayer().setDef(c.getPlayer().getMaxDef());
 			c.getPlayer().setStealth(c.getPlayer().getMaxStealth());

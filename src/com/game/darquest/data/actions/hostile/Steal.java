@@ -2,7 +2,7 @@ package com.game.darquest.data.actions.hostile;
 
 import java.text.NumberFormat;
 
-import com.game.darquest.controller.PlayerWinController;
+import com.game.darquest.controller.fightClubControllers.FightClubWinController;
 import com.game.darquest.data.Enemy;
 import com.game.darquest.data.Person;
 import com.game.darquest.data.Player;
@@ -41,7 +41,7 @@ public class Steal implements Fireable {
 			if (p.getStealth() < choosen.getAwareness()) {
 				output = "You got caught." + "\nStealth: " + p.getStealth() + "\n" + choosen.getName()
 						+ "'s Awareness: " + choosen.getAwareness() + "\nAwareness to high.";
-				PlayerWinController.setEfficiencyScore(PlayerWinController.getEfficiencyScore() - 5);
+				FightClubWinController.setEfficiencyScore(FightClubWinController.getEfficiencyScore() - 5);
 				return true;
 			}
 

@@ -11,6 +11,7 @@ import com.game.darquest.data.EnemyGenerator;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 
 public class FightClubHubController implements EventHandler<ActionEvent> {
 	
@@ -22,7 +23,24 @@ public class FightClubHubController implements EventHandler<ActionEvent> {
 	private Talk talk;
 	private FightTips fightTips;
 	private Leave leave;
-
+	
+	private String zomDefaultDialoge = "Zom: Welcome to the fight club my man. "
+			+ "If you're look'n to start some trouble, you came to the right place. "
+			+ "Enter one of our fights and win some serious cash. Or perhaps you're "
+			+ "the gambling type and wanna place a bet. Doin a random fight will pit you againts either "
+			+ "one, two or three other fighters. If you can knock em out and win, it's $1000 per head. "
+			+ "Plus you get some extra items, sometimes they rare, sometimes not but who can say no "
+			+ "to free shit?";
+	private String challangesDialoge = "Challenge";
+	private String placeBetDialoge = "Zom: If you don't feel like fighting but wanna try and win some "
+			+ "cash you can place a bet on a fighter. Watch em as they duke it out. Can get pretty "
+			+ "ugly sometimes. But hey if your fighter wins, you double your bet.";
+	private String talkDialoge = "Zom: Talk is cheap.";
+	private String fightTipsDialoge = "Zom: I can give ya pointers if you're interested.";
+	private String leaveDialoge = "Zom: Have a better one";
+	private List<String> zomDialogeList = Arrays.asList(zomDefaultDialoge, 
+			challangesDialoge, placeBetDialoge, talkDialoge, fightTipsDialoge, leaveDialoge);
+	
 	public FightClubHubController(Controller c) {
 		this.c = c;
 		this.randomFight = new RandomFight(this.c);
@@ -34,7 +52,20 @@ public class FightClubHubController implements EventHandler<ActionEvent> {
 		
 		fightClubHubActions = Arrays.asList(randomFight, challenges, placeBet, talk, fightTips, leave);
 		this.c.getView().getFightClubHub().addActionListener(this);
+		hoverButton();
 	}
+	
+	public void hoverButton() {
+		c.getView().getFightClubHub().getButtonList()
+		.forEach(e->e.setOnMouseEntered(
+				s->c.getView().getFightClubHub().setZomTextArea(
+						zomDialogeList.get(Integer.parseInt(e.getId())))));
+		c.getView().getFightClubHub().getButtonList()
+		.forEach(e->e.setOnMouseExited(
+				s->c.getView().getFightClubHub().setZomTextArea(
+						"")));
+	}
+	
 
 	@Override
 	public void handle(ActionEvent e) {
@@ -42,6 +73,10 @@ public class FightClubHubController implements EventHandler<ActionEvent> {
 		int eventIndex = Integer.parseInt(id);
 		fightClubHubActions.get(eventIndex).clickAction();
 		
+	}
+
+	public List<String> getZomDialogeList() {
+		return zomDialogeList;
 	}
 
 }
@@ -125,7 +160,6 @@ class Leave implements Clickable {
 	
 	@Override
 	public void clickAction() {
-		System.out.println("Leave");
-		
+		c.getView().getHubView().showHub();
 	}
 }

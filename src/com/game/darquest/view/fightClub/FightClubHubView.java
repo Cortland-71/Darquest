@@ -12,11 +12,13 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 
 public class FightClubHubView {
@@ -30,17 +32,19 @@ public class FightClubHubView {
 		fightClubHubBottom();
 	}
 	
-	private BorderPane centerPane;
-	private BorderPane fightClubHubCenter() {
-		centerPane = new BorderPane();
+	private StackPane centerPane;
+	private StackPane fightClubHubCenter() {
+		centerPane = new StackPane();
+		centerPane.setAlignment(Pos.BOTTOM_CENTER);
 		centerPane.setBackground(View.getBackground(Color.PINK));
-		centerPane.setCenter(center());
-		centerPane.setMinSize(1300, 727);
-		centerPane.setMaxSize(1300, 727);
+		centerPane.getChildren().add(center());
+		centerPane.getChildren().add(zomTextArea());
+		centerPane.setMinSize(1300, 700);
+		centerPane.setMaxSize(1300, 700);
 		return centerPane;
 	}
 	
-	public BorderPane getFightClubHubCenter() {
+	public StackPane getFightClubHubCenter() {
 		return centerPane;
 	}
 	
@@ -49,12 +53,28 @@ public class FightClubHubView {
 		centerInCenter.setBackground(View.getBackground(Color.BLACK));
 		centerInCenter.setAlignment(Pos.CENTER);
 		Label l = new Label();
-        l.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/zom2.png"))));
+        l.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/zom.png"))));
 		centerInCenter.getChildren().add(l);
 		return centerInCenter;
 	}
 	
-	//Bottom
+	private TextArea zomTextArea;
+	private TextArea zomTextArea() {
+		zomTextArea = new TextArea();
+		zomTextArea.setPadding(new Insets(5,5,5,5));
+		zomTextArea.setId("zomTextArea");
+		zomTextArea.setWrapText(true);
+		zomTextArea.setEditable(false);
+		zomTextArea.setMinSize(1100,150);
+		zomTextArea.setMaxSize(1100,150);
+		return zomTextArea;
+	}
+	
+	public void setZomTextArea(String text) {
+		zomTextArea.setText(text);
+	}
+	
+	//Bottom \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/
 	private GridPane bottomPane;
 	private GridPane fightClubHubBottom() {
 		int counter = 0;
@@ -65,6 +85,7 @@ public class FightClubHubView {
 		bottomPane.setHgap(15);
 		for (int i = 0; i < fightClubHubButtonTextList.size(); i++) {
 			buttonList.add(View.getButton(fightClubHubButtonTextList.get(i), ((Integer) i).toString()));
+
 			if (i < 3) {
 				bottomPane.add(buttonList.get(i), i, 0);
 				continue;
@@ -80,6 +101,10 @@ public class FightClubHubView {
 	
 	public void addActionListener(EventHandler<ActionEvent> l) {
 		buttonList.forEach(e -> e.setOnAction(l));
+	}
+	
+	public List<Button> getButtonList() {
+		return buttonList;
 	}
 
 }

@@ -28,7 +28,7 @@
 	-fx-text-fill: orange;
 }
 #rightInCenter {
-	-fx-background-color: almostDark;
+	-fx-background-color: rgba(0,0,0,0.8);
 }
 
 

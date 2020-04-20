@@ -71,6 +71,9 @@ class FightClub implements Clickable {
 	
 	@Override
 	public void clickAction() {
+		c.getView().getFightClubHub().setZomTextArea(
+				c.getFightClubHubController().getZomDialogeList().get(0));
+		
 		c.getView().getHubView().showFightClubHub();
 	}
 }

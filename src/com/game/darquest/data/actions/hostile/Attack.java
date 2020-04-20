@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 import com.game.darquest.controller.Controller;
-import com.game.darquest.controller.PlayerWinController;
+import com.game.darquest.controller.fightClubControllers.FightClubWinController;
 import com.game.darquest.data.Enemy;
 import com.game.darquest.data.Person;
 import com.game.darquest.data.Player;
@@ -68,7 +68,7 @@ public class Attack implements Fireable {
 						+ "\nMinimum attack damage: " + weaponDamage 
 						+ "\n" + choosen.getName() + "'s Deffense: " + choosen.getDef()
 						+ "\nDeffense to high.";
-				PlayerWinController.setEfficiencyScore(PlayerWinController.getEfficiencyScore() - 5);
+				FightClubWinController.setEfficiencyScore(FightClubWinController.getEfficiencyScore() - 5);
 				return true;
 			}
 			

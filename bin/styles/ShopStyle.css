@@ -22,7 +22,6 @@
     -fx-background-color: transparent;
 }
 
-
 #shopTextArea .scroll-pane .content{
     -fx-background-color: transparent;
 }
@@ -62,7 +61,6 @@
 	-fx-text-fill: orange;
 	-fx-background-color: almostDark;
 	-fx-border-color: orange;
-	-fx-border-width: 2px;
 }
 
 #buy:hover {
@@ -80,7 +78,6 @@
 	-fx-text-fill: _lightBlue;
 	-fx-background-color: almostDark;
 	-fx-border-color: _lightBlue;
-	-fx-border-width: 2px;
 }
 
 #sell:hover {

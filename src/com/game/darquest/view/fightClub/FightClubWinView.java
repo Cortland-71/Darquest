@@ -3,113 +3,91 @@ package com.game.darquest.view.fightClub;
 import java.util.Arrays;
 import java.util.List;
 
-import com.game.darquest.Driver;
 import com.game.darquest.view.View;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
-public class FightClubWin {
+public class FightClubWinView {
 
-	public FightClubWin() {
+	public FightClubWinView() {
 		fightWinCenter();
 		fightWinBottom();
 	}
-	
-	
-	
-	
+
 	//Center \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/
-	private BorderPane centerPane;
-	private BorderPane fightWinCenter() {
-		centerPane = new BorderPane();
-		centerPane.setMinSize(1300, 727);
-		centerPane.setMaxSize(1300, 727);
-		//centerPane.setBottom(bottomInCenter());
-		centerPane.setTop(topBox());
-		centerPane.setCenter(centerInCenter());
-		centerPane.setRight(rightInCenter());
+	private StackPane centerPane;
+	private StackPane fightWinCenter() {
+		centerPane = new StackPane();
+		centerPane.setAlignment(Pos.BOTTOM_CENTER);
+		centerPane.setMinSize(1300, 700);
+		centerPane.setMaxSize(1300, 700);
+		centerPane.getChildren().add(ringPicture());
+		centerPane.getChildren().add(outputPane());
+		centerPane.getChildren().add(topBox());
 		return centerPane;
 	}
 	
-	public BorderPane getFightWinCenter() {
+	public StackPane getFightWinCenter() {
 		return centerPane;
 	}
 	
 	//Top \/\/\/\/\/\/\/\/\/\\/\/\/\/\/\/\/\
-		private HBox topBox() {
-			HBox topBox = new HBox();
-			topBox.setAlignment(Pos.TOP_CENTER);
-			topBox.getChildren().add(winLabel());
-			return topBox;
-		}
+	
+	private StackPane topBox() {
+		StackPane topBox = new StackPane();
+		topBox.setAlignment(Pos.TOP_CENTER);
+		Label l = new Label();
+		l.setPadding(new Insets(30,0,0,0));
+		l.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/winLogo.png"))));
+		topBox.getChildren().add(l);
+		return topBox;
+	}
 
-		private Label winLabel() {
-			Label winLabel = new Label("Victory!");
-			winLabel.setId("winLabel");
-			
-			return winLabel;
-		}
-	
-	private HBox bottomInCenter() {
-		HBox bottomInCenter = new HBox();
-		bottomInCenter.setPadding(new Insets(0,0,20,0));
-		bottomInCenter.setAlignment(Pos.CENTER);
-		bottomInCenter.getChildren().add(outputTextArea());
-		return bottomInCenter;
-	}
-	
-	private TextArea outputTextArea;
-	private TextArea outputTextArea() {
-		outputTextArea = new TextArea();
-		outputTextArea.setEditable(false);
-		outputTextArea.setId("outputTextArea");
-		outputTextArea.setMaxSize(1200, 100);
-		outputTextArea.setMinSize(1200, 100);
-		return outputTextArea;
-	}
-	
-	public void setOutputTextArea(String text) {
-		outputTextArea.setText(text);
-	}
-	
-	private HBox centerInCenter() {
+	private HBox ringPicture() {
 		HBox centerInCenter = new HBox();
 		centerInCenter.setBackground(View.getBackground(Color.BLACK));
 		centerInCenter.setAlignment(Pos.CENTER);
 		Label l = new Label();
-        l.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/zom2.png"))));
+        l.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/winRing.png"))));
 		centerInCenter.getChildren().add(l);
 		return centerInCenter;
 	}
 	
-	private VBox rightInCenter() {
+	private StackPane outputPane() {
+		StackPane outputPane = new StackPane();
+		outputPane.setAlignment(Pos.CENTER);
+		outputPane.setPadding(new Insets(60,0,0,0));
+		outputPane.getChildren().add(winningOutputBox());
+		return outputPane;
+	}
+	
+	private VBox winningOutputBox() {
 		VBox rightInCenter = new VBox(20);
-		rightInCenter.setPadding(new Insets(0,20,0,20));
-		rightInCenter.setAlignment(Pos.CENTER_LEFT);
-		rightInCenter.setMinSize(320, 560);
-		rightInCenter.setMaxSize(320, 560);
+		//rightInCenter.setPadding(new Insets(0,0,0,100));
+		rightInCenter.setAlignment(Pos.CENTER);
+		rightInCenter.setMinSize(500, 500);
+		rightInCenter.setMaxSize(500, 500);
 		rightInCenter.setId("rightInCenter");
 		rightInCenter.getChildren().add(rewardsLabel);
 		rightInCenter.getChildren().add(totalMovesLabel());
 		rightInCenter.getChildren().add(totalXpEarnedLabel());
 		rightInCenter.getChildren().add(efficiencyLabel());
-		rightInCenter.getChildren().add(lootLabel());
 		rightInCenter.getChildren().add(cashWonLabel());
 		rightInCenter.getChildren().add(bonusCashWonLabel());
 		rightInCenter.getChildren().add(totalCashWonLabel());
+		rightInCenter.getChildren().add(lootLabel());
 		rightInCenter.getChildren().add(ratingLabel());
 		return rightInCenter;
 	}
@@ -166,10 +144,10 @@ public class FightClubWin {
 	
 	public void setWinStats(List<String> list) {
 		List<String> labelSayingList = Arrays.asList("Total Moves: ",
-				"XP Earned: ", "Efficiency: ", "Loot Obtained: ", "Cash Won: +", "Bonus Cash: +",
-				"Total Cash: +", "GRADE: ");
+				"XP Earned: ", "Efficiency: ", "Cash Won: +", "Bonus Cash: +",
+				"Total Cash: +", "Loot Obtained:", "GRADE: ");
 		List<Label> labelList = Arrays.asList(totalMovesLabel, totalXpEarnedLabel, 
-				efficiencyLabel, lootLabel, cashWonLabel, bonusCashWonLabel, totalCashWonLabel, ratingLabel);
+				efficiencyLabel, cashWonLabel, bonusCashWonLabel, totalCashWonLabel, lootLabel, ratingLabel);
 		for (int i = 0; i < list.size(); i++) {
 			labelList.get(i).setText(labelSayingList.get(i) + list.get(i));
 		}

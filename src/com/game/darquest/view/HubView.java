@@ -406,18 +406,21 @@ public class HubView {
 		centerBox.getChildren().remove(0);
 		centerBox.getChildren().add(view.getFightClubHub().getFightClubHubCenter());
 		bp.setBottom(view.getFightClubHub().getFightClubHubBottom());
+		fadeIn();
 	}
 	
 	public void showRandomFight() {
 		centerBox.getChildren().remove(0);
 		centerBox.getChildren().add(view.getFightClubView().getFightClubCenter());
 		bp.setBottom(view.getFightClubView().getFightClubBottom());
+		fadeIn();
 	}
 	
 	public void showWin() {
 		centerBox.getChildren().remove(0);
 		centerBox.getChildren().add(view.getFightWinView().getFightWinCenter());
 		bp.setBottom(view.getFightWinView().getFightWinBottom());
+		fadeIn();
 	}
 	
 	private void fadeIn() {

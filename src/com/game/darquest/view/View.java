@@ -2,7 +2,7 @@ package com.game.darquest.view;
 
 import com.game.darquest.view.fightClub.FightClubHubView;
 import com.game.darquest.view.fightClub.FightView;
-import com.game.darquest.view.fightClub.FightClubWin;
+import com.game.darquest.view.fightClub.FightClubWinView;
 
 import javafx.animation.FadeTransition;
 import javafx.geometry.Insets;
@@ -29,7 +29,7 @@ public class View {
 	private ShopView shopView;
 	private FightClubHubView fightClubHub;
 	private FightView fightClubView;
-	private FightClubWin playerWinView;
+	private FightClubWinView playerWinView;
 	private LevelUpView levelUpView;
 	
 	public View(Stage primaryStage) {
@@ -42,7 +42,7 @@ public class View {
 		this.shopView = new ShopView();
 		this.fightClubHub = new FightClubHubView();
 		this.fightClubView = new FightView();
-		this.playerWinView = new FightClubWin();
+		this.playerWinView = new FightClubWinView();
 		this.levelUpView = new LevelUpView();
 		
 		
@@ -57,7 +57,7 @@ public class View {
 		
 	}
 	
-	public FightClubWin getPlayerWinView() {
+	public FightClubWinView getPlayerWinView() {
 		return playerWinView;
 	}
 
@@ -105,7 +105,7 @@ public class View {
 		return button;
 	}
 
-	public FightClubWin getFightWinView() {
+	public FightClubWinView getFightWinView() {
 		return playerWinView;
 	}
 

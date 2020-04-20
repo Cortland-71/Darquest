@@ -20,6 +20,27 @@
 	_darkOrange: #995c00;
 	
 }
+
+#zomTextArea {
+    -fx-background-color: rgba(0,0,0,0.8);
+	-fx-text-fill: _green;
+	-fx-font: 18px "Lucida Console";
+	-fx-border-color: _green;
+}
+
+#zomTextArea .scroll-pane {
+    -fx-background-color: transparent;
+}
+
+#zomTextArea .scroll-pane .viewport{
+    -fx-background-color: transparent;
+}
+
+#zomTextArea .scroll-pane .content{
+    -fx-background-color: transparent;
+}
+
+
 /*Player \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\*/
 
 .text-field {

@@ -1,6 +1,7 @@
 package com.game.darquest.controller;
 
 import com.game.darquest.controller.fightClubControllers.FightController;
+import com.game.darquest.controller.fightClubControllers.FightClubWinController;
 import com.game.darquest.controller.fightClubControllers.FightClubHubController;
 import com.game.darquest.data.Person;
 import com.game.darquest.data.Player;
@@ -18,7 +19,7 @@ public class Controller {
 	private final ShopInventoryController shopInventoryController;
 	private final FightClubHubController fightClubHubController;
 	private final FightController fightClubController;
-	private final PlayerWinController playerWinController;
+	private final FightClubWinController playerWinController;
 	private final LevelUpController levelUpController;
 	
 	private final ItemHub itemHub;
@@ -35,7 +36,7 @@ public class Controller {
 		this.hubController = new HubController(this);
 		this.shopController = new ShopController(this);
 		this.playerInvStatsController = new PlayerInvStatsController(this);
-		this.playerWinController = new PlayerWinController(this);
+		this.playerWinController = new FightClubWinController(this);
 		this.itemHub = new ItemHub();
 		this.shopInventoryController = new ShopInventoryController(this);
 		this.fightClubHubController = new FightClubHubController(this);
@@ -45,7 +46,7 @@ public class Controller {
 		
 	}
 
-	public PlayerWinController getPlayerWinController() {
+	public FightClubWinController getPlayerWinController() {
 		return playerWinController;
 	}
 
