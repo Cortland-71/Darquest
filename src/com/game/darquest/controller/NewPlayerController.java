@@ -28,12 +28,7 @@ public class NewPlayerController implements EventHandler<KeyEvent> {
 			setPlayerAttributes();
 			c.getPlayerInvStatsController().setNewPlayerInventoryAndStats();
 			view.getWindow().setScene(view.getHubView().getDownTownScene());
-			
-			FadeTransition ft = new FadeTransition(Duration.millis(500), 
-					view.getHubView().getDownTownPaneObj());
-			ft.setFromValue(0.0);
-			ft.setToValue(1.0);
-			ft.play();
+			view.getHubView().showHub();
 		}	
 	}
 	
@@ -54,7 +49,7 @@ public class NewPlayerController implements EventHandler<KeyEvent> {
 					c.getItemHub().hpVileDes(), "hp", 150, .02, 3, 3, 20, 50));
 		}
 		
-		((Player)c.getPlayer()).addItemToPlayerInventory(new Weapon("none","none",0,0,10,10,500,501));
+		((Player)c.getPlayer()).addItemToPlayerInventory(new Weapon("none","none",0,0,10,10,5,6));
 		((Player)c.getPlayer()).addItemToPlayerInventory(new Armor("none","none",0,0,10,10,0));
 
 	}

@@ -115,7 +115,8 @@ class Challenges implements Clickable {
 	}
 	@Override
 	public void clickAction() {
-		System.out.println("Challenges");
+		
+		c.getView().getHubView().showChallenges();
 	}
 }
 

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.game.darquest.view.ChallengesSelectView;
 import com.game.darquest.view.View;
 
 import javafx.event.ActionEvent;
@@ -15,7 +16,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -27,9 +27,12 @@ public class FightClubHubView {
 			"Place a Bet", "Talk", "Fight Tips", "Leave");
 	private List<Button> buttonList = new ArrayList<>();
 
+	private ChallengesSelectView challengesSelectView;
+	
 	public FightClubHubView() {
 		fightClubHubCenter();
 		fightClubHubBottom();
+		challengesSelectView = new ChallengesSelectView();
 	}
 	
 	private StackPane centerPane;
@@ -105,6 +108,10 @@ public class FightClubHubView {
 	
 	public List<Button> getButtonList() {
 		return buttonList;
+	}
+
+	public ChallengesSelectView getChallengesSelectView() {
+		return challengesSelectView;
 	}
 
 }

@@ -1,14 +1,18 @@
-package com.game.darquest.view;
+package com.game.darquest.view.hub;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.game.darquest.controller.Controller;
 import com.game.darquest.data.Player;
 import com.game.darquest.data.items.Item;
+import com.game.darquest.view.View;
 
 import javafx.animation.FadeTransition;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -38,7 +42,7 @@ public class HubView {
 
 	private Scene downTownScene;
 	private List<String> downTownButtonTextList = Arrays.asList("Zom's Fight Club", "Shop", 
-			"Email", "Level UP", "Save",
+			"Appartment", "Level UP", "Save",
 			"Tutorial");
 	private List<Button> buttonList = new ArrayList<>();
 	private DecimalFormat df = new DecimalFormat("#.##");
@@ -67,6 +71,7 @@ public class HubView {
 	private Label awarenessLabel = new Label();
 
 	public HubView() {
+		this.hubAnimation = new HubAnimation();
 		downTownScene = new Scene(downTownBackground(), View.WIDTH, View.HEIGHT);
 
 		downTownScene.getStylesheets().addAll("styles/HubStyle.css", "styles/ShopStyle.css", 
@@ -372,37 +377,44 @@ public class HubView {
 		centerBox.setMinSize(1200, 600);
 		centerBox.setAlignment(Pos.CENTER);
 		centerBox.setBackground(View.getBackground(Color.BLACK));
-		centerBox.getChildren().add(getDownTownImage());
+		centerBox.getChildren().add(hubAnimation.getDownTownImage0());
 		return centerBox;
 	}
 	
-	private Label getDownTownImage() {
-		Label l = new Label();
-        l.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/downTown.png"))));
-        return l;
+	public VBox getCenterBox() {
+		return centerBox;
 	}
 	
 	public void showLevelUp() {
+		hubAnimation.getHubTimeline().stop();
 		centerBox.getChildren().remove(0);
 		centerBox.getChildren().add(view.getLevelUpView().levelUpCenter());
 		bp.setBottom(view.getLevelUpView().getLevelUpBottom());
 	}
 	
 	public void showShop() {
+		hubAnimation.getHubTimeline().stop();
 		centerBox.getChildren().remove(0);
 		centerBox.getChildren().add(view.getShopView().getActualShopPane());
 		bp.setBottom(view.getShopView().getBottomBox());
 		fadeIn();
 	}
 	
-	public void showHub() {
+	public void showChallenges() {
 		centerBox.getChildren().remove(0);
-		centerBox.getChildren().add(getDownTownImage());
-		bp.setBottom(bottomPane());
+		centerBox.getChildren().add(view.getFightClubHub().getChallengesSelectView().getCenter());
 		fadeIn();
 	}
 	
+	//private Timeline hubTimeline;
+	public void showHub() {
+		fadeIn();
+		hubAnimation.getTimeline();
+		bp.setBottom(bottomPane());
+	}
+	
 	public void showFightClubHub() {
+		hubAnimation.getHubTimeline().stop();
 		centerBox.getChildren().remove(0);
 		centerBox.getChildren().add(view.getFightClubHub().getFightClubHubCenter());
 		bp.setBottom(view.getFightClubHub().getFightClubHubBottom());
@@ -489,24 +501,6 @@ public class HubView {
 		stealthLabel.setText("Stealth:   " + p.getStealth());
 		awarenessLabel.setText("Awareness: " + p.getAwareness());
 	}
-	
-//	public void animateWorkBar(Player p) {
-//		Timeline timeline = new Timeline(
-//				new KeyFrame(Duration.millis(25), 
-//						ae-> workBar.setProgress(p.getWork()-.1)),
-//				new KeyFrame(Duration.millis(25*2), 
-//						ae->workBar.setProgress(p.getWork()-.08)),
-//				new KeyFrame(Duration.millis(25*3), 
-//						ae->workBar.setProgress(p.getWork()-.06)),
-//				new KeyFrame(Duration.millis(25*4), 
-//						ae-> workBar.setProgress(p.getWork()-.04)),
-//				new KeyFrame(Duration.millis(25*5), 
-//						ae-> workBar.setProgress(p.getWork()-.02)),
-//				new KeyFrame(Duration.millis(25*5), 
-//						ae-> workBar.setProgress(p.getWork()))
-//				);
-//		timeline.playFromStart();
-//	}
 
 	public Scene getDownTownScene() {
 		return this.downTownScene;
@@ -516,8 +510,9 @@ public class HubView {
 		buttonList.forEach(e -> e.setOnAction(l));
 	}
 
+	private HubAnimation hubAnimation;
 	public void setView(View view) {
 		this.view = view;
-		
+		this.hubAnimation.setView(view);
 	}
 }

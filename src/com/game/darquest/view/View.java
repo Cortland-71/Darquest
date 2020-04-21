@@ -1,8 +1,9 @@
 package com.game.darquest.view;
 
 import com.game.darquest.view.fightClub.FightClubHubView;
-import com.game.darquest.view.fightClub.FightView;
 import com.game.darquest.view.fightClub.FightClubWinView;
+import com.game.darquest.view.fightClub.FightView;
+import com.game.darquest.view.hub.HubView;
 
 import javafx.animation.FadeTransition;
 import javafx.geometry.Insets;
@@ -24,6 +25,7 @@ public class View {
 	
 	private MainMenuView mainMenuView;
 	private NewPlayerView newPlayerView;
+	
 	private HubView hubView;
 	private TutorialView tutorialView;
 	private ShopView shopView;
@@ -31,6 +33,7 @@ public class View {
 	private FightView fightClubView;
 	private FightClubWinView playerWinView;
 	private LevelUpView levelUpView;
+	
 	
 	public View(Stage primaryStage) {
 		this.window = primaryStage;
@@ -44,6 +47,7 @@ public class View {
 		this.fightClubView = new FightView();
 		this.playerWinView = new FightClubWinView();
 		this.levelUpView = new LevelUpView();
+		
 		
 		
 		FadeTransition ft2 = new FadeTransition(Duration.millis(3000), getMainMenu().getTitle());
@@ -116,4 +120,6 @@ public class View {
 	public FightClubHubView getFightClubHub() {
 		return fightClubHub;
 	}
+	
+
 }

@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.game.darquest.data.Enemy;
-import com.game.darquest.data.EnemyGenerator;
 import com.game.darquest.view.View;
 
 import javafx.event.ActionEvent;
@@ -63,7 +62,6 @@ public class HubController implements EventHandler<ActionEvent> {
 
 //\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/ -Action Classes for Main Menu
 class FightClub implements Clickable {
-	private EnemyGenerator enemyGenerator;
 	private Controller c;
 	public FightClub(Controller c) {
 		this.c = c;
@@ -116,15 +114,18 @@ class LevelUp implements Clickable {
 		c.getLevelUpController().setPointsAvailable(3);
 		c.getView().getLevelUpView().setLevelUpInfoLabel(c.getLevelUpController().getPointsAvailable());
 		
-		c.getView().getLevelUpView().getDefFactory().setMax(c.getPlayer().getDef() + c.getLevelUpController().getPointsAvailable());
+		c.getView().getLevelUpView().getDefFactory().setMax(c.getPlayer().getDef() + 
+				c.getLevelUpController().getPointsAvailable());
 		c.getView().getLevelUpView().getDefFactory().setMin(c.getPlayer().getDef());
 		c.getView().getLevelUpView().getDefFactory().setValue(c.getPlayer().getDef());
 		
-		c.getView().getLevelUpView().getStealthFactory().setMax(c.getPlayer().getStealth() + c.getLevelUpController().getPointsAvailable());
+		c.getView().getLevelUpView().getStealthFactory().setMax(c.getPlayer().getStealth() + 
+				c.getLevelUpController().getPointsAvailable());
 		c.getView().getLevelUpView().getStealthFactory().setMin(c.getPlayer().getStealth());
 		c.getView().getLevelUpView().getStealthFactory().setValue(c.getPlayer().getStealth());
 		
-		c.getView().getLevelUpView().getAwarFactory().setMax(c.getPlayer().getAwareness() + c.getLevelUpController().getPointsAvailable());
+		c.getView().getLevelUpView().getAwarFactory().setMax(c.getPlayer().getAwareness() + 
+				c.getLevelUpController().getPointsAvailable());
 		c.getView().getLevelUpView().getAwarFactory().setMin(c.getPlayer().getAwareness());
 		c.getView().getLevelUpView().getAwarFactory().setValue(c.getPlayer().getAwareness());
 		
