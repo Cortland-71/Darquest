@@ -149,7 +149,7 @@ public class FightController implements EventHandler<KeyEvent> {
 	private boolean playerWins() {
 		if (enemyList.size() <= 0) {
 			
-			p.setKills(p.getKills() + numberOfEnemys);
+			p.setKills(p.getKills() + numberOfEnemys); 
 			
 			for (int i = 0; i < p.getChallengeBools().size(); i++) {
 				if(p.getChallengeBools().get(i) == false) {
@@ -242,6 +242,10 @@ public class FightController implements EventHandler<KeyEvent> {
 		pwc.setCashEarned(enemyList.size() * 1000d);
 		numberOfEnemys = enemyList.size();
 		this.enemyList = enemyList;
+	}
+	
+	public int getNumberOfEnemysFoughtAtOnce() {
+		return numberOfEnemys;
 	}
 
 	public List<Enemy> getEnemyList() {

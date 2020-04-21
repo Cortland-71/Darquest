@@ -1,5 +1,5 @@
 
-#challengeLabels {
+#scrollPane .label {
 	-fx-font: 15px "8-BIT FORTRESS";
 	-fx-text-fill: _green;
 	-fx-background-color: dark;

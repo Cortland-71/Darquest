@@ -1,11 +1,4 @@
 
-#winLabel {
-	-fx-font: 72px "8-BIT FORTRESS";
-	-fx-text-fill: _green;
-}
-
-
-
 #outputTextArea .content {
 	-fx-background-color: almostDark;
 	-fx-background-radius: 0px;

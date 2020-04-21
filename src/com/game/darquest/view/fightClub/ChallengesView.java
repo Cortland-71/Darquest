@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.game.darquest.view.View;
-
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
@@ -16,16 +16,17 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 
 public class ChallengesView {
 	
 	private List<Label> challengeLabels = new ArrayList<>();
-	private List<String> labelNames = Arrays.asList("One for the money");
+	private List<String> labelNames = Arrays.asList("One for the money", 
+			"Third time lucky");
 	
 
 	public ChallengesView() {
 		center();
+		bottomBox();
 	}
 	
 	private BorderPane center;
@@ -71,7 +72,7 @@ public class ChallengesView {
 		challengeSelectionBox.setAlignment(Pos.TOP_CENTER);
 		for (Integer i = 0; i < labelNames.size(); i++) {
 			Label l = getLabel(labelNames.get(i), i);
-			l.setId("challengeLabels");
+			l.setId(i.toString());
 			challengeLabels.add(l);
 			challengeSelectionBox.getChildren().add(challengeLabels.get(i));
 		}
@@ -100,5 +101,31 @@ public class ChallengesView {
 	
 	public List<Label> getChallengeLabels() {
 		return challengeLabels;
+	}
+	
+	//Bottom
+	private HBox bottomBox;
+	private HBox bottomBox() {
+		bottomBox = new HBox(100);
+		bottomBox.setAlignment(Pos.CENTER);
+		bottomBox.setPadding(new Insets(20, 0, 185, 0));
+		bottomBox.getChildren().add(backButton());
+		return bottomBox;
+	}
+	
+	public HBox getBottomBox() {
+		return bottomBox;
+	}
+	
+	private Button backButton;
+	private Button backButton() {
+		backButton = new Button("Back");
+		backButton.setMinSize(225, 50);
+		backButton.setMaxSize(225, 50);
+		return backButton;
+	}
+	
+	public void addBackButtonListener(EventHandler<ActionEvent> l) {
+		backButton.setOnAction(l);
 	}
 }

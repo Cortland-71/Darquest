@@ -31,7 +31,9 @@ public class FightClubHubController implements EventHandler<ActionEvent> {
 			+ "one, two or three other fighters. If you can knock em out and win, it's $1000 per head. "
 			+ "Plus you get some extra items, sometimes they rare, sometimes not but who can say no "
 			+ "to free shit?";
-	private String challangesDialoge = "Challenge";
+	private String challangesDialoge = "Zom: Compleate different challenges for some extra XP and cash. "
+			+ "Hover over a challenge on the board to get more information. You can compleate challenges "
+			+ "by doing random fights or during your time in the story.";
 	private String placeBetDialoge = "Zom: If you don't feel like fighting but wanna try and win some "
 			+ "cash you can place a bet on a fighter. Watch em as they duke it out. Can get pretty "
 			+ "ugly sometimes. But hey if your fighter wins, you double your bet.";

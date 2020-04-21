@@ -403,6 +403,7 @@ public class HubView {
 	public void showChallenges() {
 		centerBox.getChildren().remove(0);
 		centerBox.getChildren().add(view.getFightClubHub().getChallengesSelectView().getCenter());
+		bp.setBottom(view.getFightClubHub().getChallengesSelectView().getBottomBox());
 		fadeIn();
 	}
 	
