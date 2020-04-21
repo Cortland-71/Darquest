@@ -1,0 +1,12 @@
+
+#challengeLabels {
+	-fx-font: 15px "8-BIT FORTRESS";
+	-fx-text-fill: _green;
+	-fx-background-color: dark;
+	-fx-border-color: average
+}
+
+#counterLabel {
+	-fx-font: 15px "8-BIT FORTRESS";
+	-fx-text-fill: extraLight;
+}

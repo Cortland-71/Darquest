@@ -37,9 +37,11 @@ public class FightController implements EventHandler<KeyEvent> {
 
 	private List<Fireable> fireList;
 	private List<Enemy> enemyList = new ArrayList<>();
+	private int numberOfEnemys = 0;
 	private FightClubWinController pwc;
 
 	private Controller c;
+	private Player p;
 
 	public FightController(Controller c) {
 		c.getView().getFightClubView().addCommandFieldListener(this);
@@ -48,14 +50,15 @@ public class FightController implements EventHandler<KeyEvent> {
 				new Use(this.c),
 				new Steal(), new Heal(), new Deception(), new Truth(), new Fear(), new Valor(), new Light(),
 				new Shadow());
-		this.pwc = this.c.getPlayerWinController();
+		this.pwc = this.c.getPlayerWinController();  
+		this.p = (Player)c.getPlayer();
 	}
 
 	@Override
 	public void handle(KeyEvent e) {
 		if (e.getCode() == KeyCode.ENTER) {
 			String command = c.getView().getFightClubView().getCommand();
-			runFire(command.trim(), c.getPlayer());
+			runFire(command.trim(), p);
 
 		}
 	}
@@ -83,7 +86,7 @@ public class FightController implements EventHandler<KeyEvent> {
 			}
 		}
 
-		if (c.getPlayer().getHp() <= 0) {
+		if (p.getHp() <= 0) {
 			c.getView().getWindow().setScene(c.getView().getHubView().getDownTownScene());
 			return;
 		}
@@ -108,7 +111,7 @@ public class FightController implements EventHandler<KeyEvent> {
 
 		String mod = "";
 		if (command.contains("0"))
-			return c.getPlayer();
+			return p;
 		for (String m : modifiers) {
 			if (command.contains(m))
 				mod = m;
@@ -135,9 +138,9 @@ public class FightController implements EventHandler<KeyEvent> {
 		if (playerWins())
 			return;
 		c.getView().getFightClubView().clearCommandField();
-		c.getPlayer().setMoves(c.getPlayer().getMoves() - 1);
-		c.getView().getFightClubView().setPlayerMovesLeft(c.getPlayer());
-		// c.getView().getFightClubView().animateWorkBar((Player)c.getPlayer());
+		p.setMoves(p.getMoves() - 1);
+		c.getView().getFightClubView().setPlayerMovesLeft(p);
+		// c.getView().getFightClubView().animateWorkBar((Player)p);
 		c.getPlayerInvStatsController().updateAllPlayerStats();
 		c.getHubController().drawAllEnemyBoxes(enemyList);
 		doEnemyTurnIfPlayerTurnHasEnded();
@@ -145,7 +148,17 @@ public class FightController implements EventHandler<KeyEvent> {
 
 	private boolean playerWins() {
 		if (enemyList.size() <= 0) {
-
+			
+			p.setKills(p.getKills() + numberOfEnemys);
+			
+			for (int i = 0; i < p.getChallengeBools().size(); i++) {
+				if(p.getChallengeBools().get(i) == false) {
+					c.getChallengeController().runChallengeTest(i);
+				}
+			}
+			
+			p.getChallengeBools().forEach(System.out::println);
+			
 			String loot = "\n" + addGeneratedLootToList();
 			String totalMoves = pwc.getNumPlayerMoves().toString();
 			String formattedXp = pwc.getXpEarned();
@@ -159,9 +172,9 @@ public class FightController implements EventHandler<KeyEvent> {
 			List<String> listOfWinStats = Arrays.asList(totalMoves, formattedXp, efficiencyScore, 
 					cash, bonusCash,totalCashEarned, loot, rating);
 			c.getView().getFightWinView().setWinStats(listOfWinStats);
-			c.getPlayer().setDef(c.getPlayer().getMaxDef());
-			c.getPlayer().setStealth(c.getPlayer().getMaxStealth());
-			c.getPlayer().setAwareness(c.getPlayer().getMaxAwareness());
+			p.setDef(p.getMaxDef());
+			p.setStealth(p.getMaxStealth());
+			p.setAwareness(p.getMaxAwareness());
 			c.getPlayerInvStatsController().updateAllPlayerStats();
 			c.getView().getHubView().showWin();
 			return true;
@@ -195,7 +208,7 @@ public class FightController implements EventHandler<KeyEvent> {
 			if (enemyList.get(i).getHp() <= 0) {
 				enemyList.remove(i);
 				currentEnemyIndex = 0;
-				pwc.addXpToPlayer(((Player) c.getPlayer()).getXpAddedBeatEnemy());
+				pwc.addXpToPlayer(((Player) p).getXpAddedBeatEnemy());
 			}
 		}
 	}
@@ -205,7 +218,7 @@ public class FightController implements EventHandler<KeyEvent> {
 
 	private void doEnemyTurnIfPlayerTurnHasEnded() {
 
-		if (c.getPlayer().getMoves() < 1) {
+		if (p.getMoves() < 1) {
 			c.getView().getFightClubView().clearEnemyOutputTextArea();
 			c.getView().getFightClubView().setDisableCommandField(true);
 
@@ -227,6 +240,7 @@ public class FightController implements EventHandler<KeyEvent> {
 
 	public void setEnemyList(List<Enemy> enemyList) {
 		pwc.setCashEarned(enemyList.size() * 1000d);
+		numberOfEnemys = enemyList.size();
 		this.enemyList = enemyList;
 	}
 

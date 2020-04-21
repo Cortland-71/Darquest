@@ -75,7 +75,7 @@ public class HubView {
 		downTownScene = new Scene(downTownBackground(), View.WIDTH, View.HEIGHT);
 
 		downTownScene.getStylesheets().addAll("styles/HubStyle.css", "styles/ShopStyle.css", 
-				"styles/FightClubStyle.css", "styles/FightWinStyle.css");
+				"styles/FightClubStyle.css", "styles/FightWinStyle.css", "styles/ChallengesStyle.css");
 	}
 	
 	private VBox downTownBackground() {

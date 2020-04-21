@@ -3,74 +3,79 @@ package com.game.darquest.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.game.darquest.data.Enemy;
-import com.game.darquest.data.EnemyGenerator;
-import com.game.darquest.data.enemyType.Classable;
-import com.game.darquest.data.enemyType.Enforcer;
-import com.game.darquest.data.items.Armor;
-import com.game.darquest.data.items.Weapon;
+import com.game.darquest.data.Person;
+import com.game.darquest.data.Player;
 
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 
-public class ChallengeController implements EventHandler<ActionEvent> {
+public class ChallengeController implements EventHandler<MouseEvent> {
 	
-	private List<Challengable> actionList;
-
+	private Player p;
 	private Controller c;
+	private int compleated = 0;
+	private List<Challengable> challengeChecks = new ArrayList<>();
 	public ChallengeController(Controller c) {
 		this.c = c;
 		this.c.getView().getFightClubHub().getChallengesSelectView().addChallengeListener(this);
-		actionList = new ArrayList<>();
-		actionList.add(new Challenge1(this.c));
-		
-	}
-	@Override
-	public void handle(ActionEvent e) {
-		String id = ((Button)e.getSource()).getId();
-		List<Enemy> list = actionList.get(Integer.parseInt(id)).getEnemyList();
-		fireChallenge(list);
+
+		this.p = (Player)c.getPlayer();
+		challengeChecks.add(new Challenge1(this.p));
 	}
 	
-	private void fireChallenge(List<Enemy> enemyList) {
-		c.getPlayerWinController().setAllCountersToDefault();
-		c.getFightClubController().setEnemyList(enemyList);
+	public void updateChallengeList() {
+//		c.getView().getFightClubHub().getChallengesSelectView().getChallengeLabels()
+//		.get(0).setStyle("-fx-strikethrough: true");
+		compleated = 0;
+		c.getView().getFightClubHub().getChallengesSelectView().getChallengeSelectionBox().getChildren().clear();
+		List<Label> labelList = c.getView().getFightClubHub().getChallengesSelectView().getChallengeLabels();
+		for (int i = 0; i < labelList.size(); i++) {
+			if(p.getChallengeBools().get(i)) {
+				labelList.get(i).setStyle("-fx-font: 15px \"8-BIT FORTRESS\";"
+										+ "-fx-text-fill: light;"
+										+ "-fx-background-color: dark;"
+										+ "-fx-border-color: light;");
+				labelList.set(i, labelList.get(i));
+				compleated++;
+			}
+			c.getView().getFightClubHub().getChallengesSelectView().getChallengeSelectionBox().getChildren().add(labelList.get(i));
+		}
+		c.getView().getFightClubHub().getChallengesSelectView().setCounterLabel(compleated);
 		
-		c.getHubController().drawAllEnemyBoxes(enemyList);
+	}
+	
+	
+	
+	@Override
+	public void handle(MouseEvent e) {
+		System.out.println(((Label)e.getSource()).getId());
 		
-		c.getPlayer().setMoves(3);
-		c.getView().getFightClubView().setPlayerMovesLeft(c.getPlayer());
-		c.getView().getFightClubView().clearAllOutputTextAreas();
-		c.getView().getFightClubView().clearCommandField();
-		c.getView().getHubView().showRandomFight();
-		c.getView().getFightClubView().setCommandFeildFocused();
+	}
+
+	public void runChallengeTest(int i) {
+		boolean state = challengeChecks.get(i).checkChallenge();
+		p.setChallengeBoolsByIndex(i, state);
+		
+	}
+	
+	public int getChallengeCheckListSize() {
+		return challengeChecks.size();
 	}
 }
 
 class Challenge1 implements Challengable {
-	private Controller c;
-	public Challenge1(Controller c) {
-		this.c = c;
+	private Player p;
+	public Challenge1(Person p) {
+		this.p = (Player)p;
 	}
-
 	@Override
-	public List<Enemy> getEnemyList() {
-		List<Enemy> enemyList = new ArrayList<>();
-		Classable type = new Enforcer();
-		type.setController(this.c);
-		type.setLevel(1);
-		enemyList.add(new Enemy("Zero", 5,5,5,
-				(Weapon)c.getItemHub().getAllWeapons().get(0),
-				(Armor)c.getItemHub().getAllArmors().get(0),
-				1, 100, type, 1, "Enforcer1Big.png"));
-		return enemyList;
+	public boolean checkChallenge() {
+		return p.getKills() > 0 ? true : false;
 	}
 }
 
 
-
-
 interface Challengable {
-	List<Enemy> getEnemyList();
+	boolean checkChallenge();
 }

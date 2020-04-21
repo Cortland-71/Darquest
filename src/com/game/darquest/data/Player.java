@@ -25,6 +25,10 @@ public class Player extends Person {
 	private final double maxXp = 1;
 	private final double minXp = 0;
 	
+	//implement this
+	private int kills = 0;
+	private List<Boolean> challengeBools = new ArrayList<>();
+	
 
 	public void addItemToPlayerInventory(Item item) {
 		setWeight(getWeight() + item.getWeight());
@@ -102,6 +106,24 @@ public class Player extends Person {
 	public void setRemainingXp(double remainingXp) {
 		this.remainingXp = remainingXp;
 	}
+
+	public int getKills() {
+		return kills;
+	}
+
+	public void setKills(int numberOfEnemiesDefeated) {
+		this.kills = numberOfEnemiesDefeated;
+	}
+
+	public List<Boolean> getChallengeBools() {
+		return challengeBools;
+	}
 	
-	
+	public void setChallengeBools(List<Boolean> list) {
+		this.challengeBools = list;
+	}
+
+	public void setChallengeBoolsByIndex(int index, boolean value) {
+		this.challengeBools.set(index, value);
+	}
 }

@@ -115,7 +115,7 @@ class Challenges implements Clickable {
 	}
 	@Override
 	public void clickAction() {
-		
+		c.getChallengeController().updateChallengeList();
 		c.getView().getHubView().showChallenges();
 	}
 }

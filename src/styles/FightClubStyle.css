@@ -40,6 +40,36 @@
     -fx-background-color: transparent;
 }
 
+.scroll-pane {
+	-fx-background: dark;
+	-fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.scroll-pane:focused {
+    -fx-background-insets: 0;
+}
+
+.scroll-bar:horizontal, .scroll-bar:vertical{
+    -fx-background-color:almostDark;
+}
+
+.increment-button, .decrement-button {
+    -fx-background-color: almostDark;
+    -fx-border-color: dark;
+}
+
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track{
+    -fx-background-color: almostDark;
+    -fx-border-color: dark;
+}
+
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-background-color: light;
+}
+
 
 /*Player \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\*/
 
