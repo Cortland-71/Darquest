@@ -107,19 +107,36 @@ public class ShopView {
 		bottom.setAlignment(Pos.CENTER);
 		bottom.getChildren().add(itemTabBox());
 		bottom.getChildren().add(itemInfoBox());
+
 		return bottom;
 	}
 	
 	// Item info \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
+	
+	
+	
 	private final int bottomHeight = 275;
-	private HBox itemInfoBox() {
-		HBox itemInfoBox = new HBox(0);
+	private BorderPane itemInfoBox() {
+		BorderPane itemInfoBox = new BorderPane();
 		itemInfoBox.setId("itemInfoBox");
-		itemInfoBox.setAlignment(Pos.TOP_LEFT);
-		itemInfoBox.setMaxSize(540, bottomHeight);
-		itemInfoBox.setMinSize(540, bottomHeight);
-		itemInfoBox.getChildren().addAll(itemInfoLabel());
+		itemInfoBox.setBackground(View.getBackground(Color.PINK));
+		itemInfoBox.setMaxSize(550, bottomHeight);
+		itemInfoBox.setMinSize(550, bottomHeight);
+		itemInfoBox.setLeft(itemInfoLabel());
+		itemInfoBox.setRight(itemImage());
 		return itemInfoBox;
+	}
+	
+	private Label itemImage;
+	private Label itemImage() {
+		itemImage = new Label();
+		itemImage.setPadding(new Insets(10,10,0,0));
+		itemImage.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/Studded Gloves.png"))));
+		return itemImage;
+	}
+	
+	public void setItemImage(String name) {
+		itemImage.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/"+name+".png"))));
 	}
 	
 	private Label itemInfoLabel;
@@ -204,6 +221,7 @@ public class ShopView {
 	                    tooltip.setText(w.toString());
 	                    setOnMouseEntered(e-> {
 	                    	itemInfoLabel.setText(w.toString());
+	                    	setItemImage(w.getName());
 	                    });
 	                    
 	                    setTooltip(tooltip);

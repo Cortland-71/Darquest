@@ -52,13 +52,13 @@ public class ChallengesView {
 	private Label imageLabel() {
 		imageLabel = new Label();
 		imageLabel.setGraphic(new ImageView(
-				new Image(getClass().getResourceAsStream("/Challenge0.png"))));
+				new Image(getClass().getResourceAsStream("/challengeImgs/Challenge0.png"))));
 		return imageLabel;
 	}
 	
 	public void setImage(int index) {
 		imageLabel.setGraphic(new ImageView(
-				new Image(getClass().getResourceAsStream("/Challenge" + index +".png"))));
+				new Image(getClass().getResourceAsStream("/challengeImgs/Challenge" + index +".png"))));
 	}
 	
 	private TextArea challengeOutput;
