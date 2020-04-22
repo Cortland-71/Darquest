@@ -13,6 +13,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -25,15 +28,48 @@ public class ChallengesView {
 	
 
 	public ChallengesView() {
-		center();
+		//center();
 		bottomBox();
 	}
 	
 	private BorderPane center;
-	private BorderPane center() {
+	public BorderPane center() {
 		center = new BorderPane();
+		center.setCenter(centerBox());
 		center.setRight(rightBox());
 		return center;
+	}
+	
+	private VBox centerBox() {
+		VBox centerBox = new VBox();
+		centerBox.setAlignment(Pos.CENTER);
+		centerBox.getChildren().add(imageLabel());
+		centerBox.getChildren().add(challengeOutput());
+		return centerBox;
+	}
+	
+	private Label imageLabel;
+	private Label imageLabel() {
+		imageLabel = new Label();
+		imageLabel.setGraphic(new ImageView(
+				new Image(getClass().getResourceAsStream("/Challenge0.png"))));
+		return imageLabel;
+	}
+	
+	public void setImage(int index) {
+		imageLabel.setGraphic(new ImageView(
+				new Image(getClass().getResourceAsStream("/Challenge" + index +".png"))));
+	}
+	
+	private TextArea challengeOutput;
+	private TextArea challengeOutput() {
+		challengeOutput = new TextArea();
+		challengeOutput.setMinSize(800, 200);
+		challengeOutput.setMaxSize(800, 200);
+		return challengeOutput;
+	}
+	public void setChallengeOutput(String text) {
+		challengeOutput.setText(text);
 	}
 	
 	private VBox rightBox() {
@@ -68,11 +104,9 @@ public class ChallengesView {
 	private VBox challengeSelectionBox;
 	private VBox challengeSelectionBox() {
 		challengeSelectionBox = new VBox();
-		
 		challengeSelectionBox.setAlignment(Pos.TOP_CENTER);
 		for (Integer i = 0; i < challenges.size(); i++) {
 			Label l = getLabel(challenges.get(i).getName(), i);
-			l.setId(i.toString());
 			challengeLabels.add(l);
 			challengeSelectionBox.getChildren().add(challengeLabels.get(i));
 		}

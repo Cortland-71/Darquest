@@ -1,6 +1,7 @@
 package com.game.darquest.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.game.darquest.data.Person;
@@ -20,7 +21,7 @@ public class ChallengeController implements EventHandler<MouseEvent> {
 	
 	public ChallengeController(Controller c) {
 		this.c = c;
-		this.c.getView().getFightClubHub().getChallengesSelectView().addChallengeListener(this);
+		
 		this.c.getView().getFightClubHub().getChallengesSelectView().addBackButtonListener(
 				new EventHandler<ActionEvent>() {
 					@Override
@@ -31,12 +32,17 @@ public class ChallengeController implements EventHandler<MouseEvent> {
  		this.p = (Player)c.getPlayer();
 		challengeChecks.add(new Challenge1(this.p));
 		challengeChecks.add(new Challenge2(this.c));
+		this.c.getView().getFightClubHub().getChallengesSelectView().setChallenges(this.challengeChecks);
+		this.c.getView().getFightClubHub().getChallengesSelectView().center();
+		this.c.getView().getFightClubHub().getChallengesSelectView().addChallengeListener(this);
 	}
 
 	@Override
 	public void handle(MouseEvent e) {
-		System.out.println(((Label)e.getSource()).getId());
-		
+		int id = Integer.parseInt(((Label)e.getSource()).getId());
+		c.getView().getFightClubHub().getChallengesSelectView()
+		.setChallengeOutput(challengeChecks.get(id).getDescription());
+		c.getView().getFightClubHub().getChallengesSelectView().setImage(id);
 	}
 	
 	public void updateChallengeList() {
@@ -87,6 +93,10 @@ class Challenge1 implements Challengable {
 	public String getName() {
 		return name;
 	}
+	@Override
+	public String getDescription() {
+		return description;
+	}
 }
 
 class Challenge2 implements Challengable {
@@ -104,6 +114,10 @@ class Challenge2 implements Challengable {
 	@Override
 	public String getName() {
 		return name;
+	}
+	@Override
+	public String getDescription() {
+		return description;
 	}
 	
 }

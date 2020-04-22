@@ -23,6 +23,7 @@ public class Driver extends Application {
 		View view = new View(primaryStage);
 		@SuppressWarnings("unused")
 		Controller controller  = new Controller(view);
+		
 	}
 
 	public static Font getPixleFont() {
