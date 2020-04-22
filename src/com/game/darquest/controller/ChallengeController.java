@@ -64,11 +64,17 @@ public class ChallengeController implements EventHandler<MouseEvent> {
 	public void runChallengeTest(int i) {
 		boolean state = challengeChecks.get(i).checkChallenge();
 		p.setChallengeBoolsByIndex(i, state);
-		
+	}
+	
+	public List<Challengable> getChallengeCheckList() {
+		return challengeChecks;
 	}
 }
 
 class Challenge1 implements Challengable {
+	
+	private String name = "One for the money";
+	private String description = "Defeat one enemy with any weapon.";
 	private Player p;
 	public Challenge1(Person p) {
 		this.p = (Player)p;
@@ -77,10 +83,17 @@ class Challenge1 implements Challengable {
 	public boolean checkChallenge() {
 		return p.getKills() > 0 ? true : false;
 	}
+	@Override
+	public String getName() {
+		return name;
+	}
 }
 
 class Challenge2 implements Challengable {
 	private Controller c;
+	
+	private String name = "Third time lucky";
+	private String description = "Defeat three enemies during one fight with any weapon.";
 	public Challenge2(Controller c) {
 		this.c = c;
 	}
@@ -88,9 +101,9 @@ class Challenge2 implements Challengable {
 	public boolean checkChallenge() {
 		return c.getFightClubController().getNumberOfEnemysFoughtAtOnce() > 2 ? true : false;
 	}
-}
-
-
-interface Challengable {
-	boolean checkChallenge();
+	@Override
+	public String getName() {
+		return name;
+	}
+	
 }

@@ -1,8 +1,9 @@
 package com.game.darquest.view.fightClub;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+
+import com.game.darquest.controller.Challengable;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -20,8 +21,7 @@ import javafx.scene.layout.VBox;
 public class ChallengesView {
 	
 	private List<Label> challengeLabels = new ArrayList<>();
-	private List<String> labelNames = Arrays.asList("One for the money", 
-			"Third time lucky");
+	private List<Challengable> challenges = new ArrayList<>();
 	
 
 	public ChallengesView() {
@@ -70,8 +70,8 @@ public class ChallengesView {
 		challengeSelectionBox = new VBox();
 		
 		challengeSelectionBox.setAlignment(Pos.TOP_CENTER);
-		for (Integer i = 0; i < labelNames.size(); i++) {
-			Label l = getLabel(labelNames.get(i), i);
+		for (Integer i = 0; i < challenges.size(); i++) {
+			Label l = getLabel(challenges.get(i).getName(), i);
 			l.setId(i.toString());
 			challengeLabels.add(l);
 			challengeSelectionBox.getChildren().add(challengeLabels.get(i));
@@ -127,5 +127,9 @@ public class ChallengesView {
 	
 	public void addBackButtonListener(EventHandler<ActionEvent> l) {
 		backButton.setOnAction(l);
+	}
+	
+	public void setChallenges(List<Challengable> challenges) {
+		this.challenges = challenges;
 	}
 }

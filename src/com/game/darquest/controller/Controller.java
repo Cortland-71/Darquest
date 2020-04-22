@@ -28,6 +28,8 @@ public class Controller {
 	private final View view;
 	private Person player;
 	
+
+	
 	public Controller(View view) {
 		this.player = new Player();
 		this.view = view;
