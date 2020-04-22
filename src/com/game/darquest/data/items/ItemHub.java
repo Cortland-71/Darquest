@@ -14,7 +14,7 @@ public class ItemHub {
 		return Arrays.asList(new Weapon("Studded Gloves", studedGlovesDes(), 150, .01, 8, 8, 6, 10),
 				new Weapon("Brass Knuckles", brassKnucklesDes(), 350, .05, 10, 10, 7, 12),
 				new Weapon("Scorpion", hammerDes(), 600, .08, 20, 20, 8, 15),
-				new Weapon("Switch Blade", switchBladeDes(), 350, .02, 12, 12, 7, 17),
+				new Weapon("Switchblade", switchBladeDes(), 350, .02, 12, 12, 7, 17),
 				new Weapon("Tanto", tantoDes(), 800, .08, 30, 30, 8, 18));
 	}
 
