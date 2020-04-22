@@ -12,6 +12,7 @@ import javafx.util.Duration;
 public class HubAnimation {
 
 	private View view;
+	private String imagePath = "/images/hub/";
 	public HubAnimation() {}
 	
 	public void setView(View view) {
@@ -78,58 +79,58 @@ public class HubAnimation {
 
 	public Label getDownTownImage0() {
 		Label l = new Label();
-        l.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/downTown0.png"))));
+        l.setGraphic(new ImageView(new Image(getClass().getResourceAsStream(imagePath+"hub0.png"))));
         return l;
 	}
 	
 	private Label getDownTownImage1() {
 		Label l = new Label();
-        l.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/downTown1.png"))));
+        l.setGraphic(new ImageView(new Image(getClass().getResourceAsStream(imagePath+"hub1.png"))));
         return l;
 	}
 	private Label getDownTownImage2() {
 		Label l = new Label();
-        l.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/downTown2.png"))));
+        l.setGraphic(new ImageView(new Image(getClass().getResourceAsStream(imagePath+"hub2.png"))));
         return l;
 	}
 	private Label getDownTownImage3() {
 		Label l = new Label();
-        l.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/downTown3.png"))));
+        l.setGraphic(new ImageView(new Image(getClass().getResourceAsStream(imagePath+"hub3.png"))));
         return l;
 	}
 	private Label getDownTownImage4() {
 		Label l = new Label();
-        l.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/downTown4.png"))));
+        l.setGraphic(new ImageView(new Image(getClass().getResourceAsStream(imagePath+"hub4.png"))));
         return l;
 	}
 	private Label getDownTownImage5() {
 		Label l = new Label();
-        l.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/downTown5.png"))));
+        l.setGraphic(new ImageView(new Image(getClass().getResourceAsStream(imagePath+"hub5.png"))));
         return l;
 	}
 	private Label getDownTownImage6() {
 		Label l = new Label();
-        l.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/downTown6.png"))));
+        l.setGraphic(new ImageView(new Image(getClass().getResourceAsStream(imagePath+"hub6.png"))));
         return l;
 	}
 	private Label getDownTownImage7() {
 		Label l = new Label();
-        l.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/downTown7.png"))));
+        l.setGraphic(new ImageView(new Image(getClass().getResourceAsStream(imagePath+"hub7.png"))));
         return l;
 	}
 	private Label getDownTownImage8() {
 		Label l = new Label();
-        l.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/downTown8.png"))));
+        l.setGraphic(new ImageView(new Image(getClass().getResourceAsStream(imagePath+"hub8.png"))));
         return l;
 	}
 	private Label getDownTownImage9() {
 		Label l = new Label();
-        l.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/downTown9.png"))));
+        l.setGraphic(new ImageView(new Image(getClass().getResourceAsStream(imagePath+"hub9.png"))));
         return l;
 	}
 	private Label getDownTownImage10() {
 		Label l = new Label();
-        l.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/downTown10.png"))));
+        l.setGraphic(new ImageView(new Image(getClass().getResourceAsStream(imagePath+"hub10.png"))));
         return l;
 	}
 	

@@ -3,7 +3,7 @@ package com.game.darquest.view.fightClub;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.game.darquest.controller.Challengable;
+import com.game.darquest.controller.fightClubControllers.Challengable;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -25,7 +25,7 @@ public class ChallengesView {
 	
 	private List<Label> challengeLabels = new ArrayList<>();
 	private List<Challengable> challenges = new ArrayList<>();
-	
+	private String imagesPath = "/images/challenges/";
 
 	public ChallengesView() {
 		//center();
@@ -52,13 +52,13 @@ public class ChallengesView {
 	private Label imageLabel() {
 		imageLabel = new Label();
 		imageLabel.setGraphic(new ImageView(
-				new Image(getClass().getResourceAsStream("/challengeImgs/Challenge0.png"))));
+				new Image(getClass().getResourceAsStream(imagesPath+"Challenge0.png"))));
 		return imageLabel;
 	}
 	
 	public void setImage(int index) {
 		imageLabel.setGraphic(new ImageView(
-				new Image(getClass().getResourceAsStream("/challengeImgs/Challenge" + index +".png"))));
+				new Image(getClass().getResourceAsStream(imagesPath+"Challenge" + index +".png"))));
 	}
 	
 	private TextArea challengeOutput;

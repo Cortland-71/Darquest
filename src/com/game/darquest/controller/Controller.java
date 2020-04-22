@@ -1,5 +1,6 @@
 package com.game.darquest.controller;
 
+import com.game.darquest.controller.fightClubControllers.ChallengeController;
 import com.game.darquest.controller.fightClubControllers.FightClubHubController;
 import com.game.darquest.controller.fightClubControllers.FightClubWinController;
 import com.game.darquest.controller.fightClubControllers.FightController;

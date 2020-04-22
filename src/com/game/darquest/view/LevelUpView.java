@@ -34,7 +34,7 @@ public class LevelUpView {
 	private StackPane stackPane() {
 		StackPane stackPane = new StackPane();
 		Label l = new Label();
-        l.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/downTown0.png"))));
+        l.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/images/hub/hub0.png"))));
 		stackPane.getChildren().add(l);
 		stackPane.getChildren().add(actualLevelUpBox());
 		return stackPane;

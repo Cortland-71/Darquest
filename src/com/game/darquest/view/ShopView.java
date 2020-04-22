@@ -33,6 +33,7 @@ public class ShopView {
 	private ListView<Item> weaponsListView = new ListView<>();
 	private List<ListView<Item>> shopListViewObjects = Arrays.asList(weaponsListView, 
 			armorListView, toolsListView);
+	private String itemPath = "/images/items/";
 	
 	public ShopView() {
 		bottomBox();
@@ -131,12 +132,12 @@ public class ShopView {
 	private Label itemImage() {
 		itemImage = new Label();
 		itemImage.setPadding(new Insets(10,10,0,0));
-		itemImage.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/Studded Gloves.png"))));
+		itemImage.setGraphic(new ImageView(new Image(getClass().getResourceAsStream(itemPath+"Studded Gloves.png"))));
 		return itemImage;
 	}
 	
 	public void setItemImage(String name) {
-		itemImage.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/"+name+".png"))));
+		itemImage.setGraphic(new ImageView(new Image(getClass().getResourceAsStream(itemPath+name+".png"))));
 	}
 	
 	private Label itemInfoLabel;

@@ -1,4 +1,4 @@
-package com.game.darquest.controller;
+package com.game.darquest.controller.fightClubControllers;
 
 public interface Challengable {
 	boolean checkChallenge();

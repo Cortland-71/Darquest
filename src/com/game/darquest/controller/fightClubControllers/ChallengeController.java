@@ -1,9 +1,10 @@
-package com.game.darquest.controller;
+package com.game.darquest.controller.fightClubControllers;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.game.darquest.controller.Controller;
 import com.game.darquest.data.Person;
 import com.game.darquest.data.Player;
 
