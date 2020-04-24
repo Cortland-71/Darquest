@@ -1,7 +1,6 @@
 package com.game.darquest.controller.fightClubControllers;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import com.game.darquest.controller.Controller;
@@ -33,6 +32,7 @@ public class ChallengeController implements EventHandler<MouseEvent> {
  		this.p = (Player)c.getPlayer();
 		challengeChecks.add(new Challenge1(this.p));
 		challengeChecks.add(new Challenge2(this.c));
+		challengeChecks.add(new Challenge3(this.c));
 		this.c.getView().getFightClubHub().getChallengesSelectView().setChallenges(this.challengeChecks);
 		this.c.getView().getFightClubHub().getChallengesSelectView().center();
 		this.c.getView().getFightClubHub().getChallengesSelectView().addChallengeListener(this);
@@ -111,6 +111,29 @@ class Challenge2 implements Challengable {
 	@Override
 	public boolean checkChallenge() {
 		return c.getFightClubController().getNumberOfEnemysFoughtAtOnce() > 2 ? true : false;
+	}
+	@Override
+	public String getName() {
+		return name;
+	}
+	@Override
+	public String getDescription() {
+		return description;
+	}
+	
+}
+
+class Challenge3 implements Challengable {
+	private Controller c;
+	
+	private String name = "The Acheiver";
+	private String description = "Defeat 25 enemies with no weapon equipped.";
+	public Challenge3(Controller c) {
+		this.c = c;
+	}
+	@Override
+	public boolean checkChallenge() {
+		return ((Player)c.getPlayer()).getKills() >= 25 ? true : false;
 	}
 	@Override
 	public String getName() {

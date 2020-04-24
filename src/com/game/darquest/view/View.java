@@ -33,6 +33,7 @@ public class View {
 	private FightView fightClubView;
 	private FightClubWinView playerWinView;
 	private LevelUpView levelUpView;
+	private AppartmentView appartmentView;
 	
 	
 	public View(Stage primaryStage) {
@@ -47,6 +48,7 @@ public class View {
 		this.fightClubView = new FightView();
 		this.playerWinView = new FightClubWinView();
 		this.levelUpView = new LevelUpView();
+		this.appartmentView = new AppartmentView();
 		
 		
 		
@@ -119,6 +121,10 @@ public class View {
 
 	public FightClubHubView getFightClubHub() {
 		return fightClubHub;
+	}
+
+	public AppartmentView getAppartmentView() {
+		return appartmentView;
 	}
 	
 

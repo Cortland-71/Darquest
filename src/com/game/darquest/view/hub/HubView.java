@@ -436,6 +436,14 @@ public class HubView {
 		fadeIn();
 	}
 	
+	public void showAppartment() {
+		hubAnimation.getHubTimeline().stop();
+		centerBox.getChildren().add(view.getFightClubHub().getFightClubHubCenter());
+		centerBox.getChildren().remove(0);
+		bp.setBottom(view.getAppartmentView().getBottom());
+		fadeIn();
+	}
+	
 	private void fadeIn() {
 		FadeTransition ft = new FadeTransition(Duration.millis(800), 
 				centerBox);

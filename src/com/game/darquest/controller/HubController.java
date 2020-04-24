@@ -18,7 +18,7 @@ public class HubController implements EventHandler<ActionEvent> {
 	
 	private FightClub fightClub;
 	private Shop shop;
-	private Email email;
+	private Appartment appartment;
 	private LevelUp levelUp;
 	private Save save;
 	private Tutorial tutorial;
@@ -31,12 +31,12 @@ public class HubController implements EventHandler<ActionEvent> {
 		
 		fightClub = new FightClub(this.c);
 		shop = new Shop(this.c);
-		email = new Email(this.c);
+		appartment = new Appartment(this.c);
 		levelUp = new LevelUp(this.c);
 		save = new Save(this.c);
 		tutorial = new Tutorial(this.c);
 		
-		downTownActions = Arrays.asList(fightClub, shop, email, levelUp, save, tutorial);
+		downTownActions = Arrays.asList(fightClub, shop, appartment, levelUp, save, tutorial);
 	}
 	
 	public List<Clickable> getDownTownActions() {
@@ -92,14 +92,14 @@ class Shop implements Clickable {
 	}
 }
 
-class Email implements Clickable {
+class Appartment implements Clickable {
 	private Controller c;
-	public Email(Controller c) {
+	public Appartment(Controller c) {
 		this.c = c;
 	}
 	@Override
 	public void clickAction() {
-		System.out.println("Clicked email");
+		c.getView().getHubView().showAppartment();
 	}
 }
 

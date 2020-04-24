@@ -30,8 +30,7 @@ public class Observer implements Classable {
 
 	@Override
 	public int getGenerateAwareness() {
-		int awarenessBuff = maxStat + (maxStat/2);
-		return rand.nextInt((awarenessBuff - minStat)+1)+minStat;
+		return rand.nextInt((maxStat - minStat)+1)+minStat;
 	}
 
 	@Override
@@ -178,6 +177,20 @@ public class Observer implements Classable {
 		return score;
 	}
 	
+	private int lightQuestions() {
+		Enemy e = (Enemy)c.getEnemyController().getEnemy();
+		List<Enemy> enemyList = c.getEnemyController().getEnemyList();
+		int score = 0;
+		score += c.getPlayer().getStealth() > e.getAwareness() ? 2 : 0;
+		score += c.getPlayer().getStealth() == e.getAwareness() ? 1 : 0;
+		score += c.getPlayer().getCash() > 1000 ? 1 : 0;
+		for(Enemy enemy : enemyList) {
+			score += c.getPlayer().getStealth() >= enemy.getAwareness() ? 2 : 0;
+		}
+		System.out.println("Light score: " + score);
+		return score;
+	}
+	
 	public int getNoScore() {
 		int score = 0;
 		return score;
@@ -194,7 +207,7 @@ public class Observer implements Classable {
 		allScores.add(healQuestions()); //Heal
 		allScores.add(truthQuestions()); //Truth
 		allScores.add(valorQuestions()); // Valor
-		allScores.add(getNoScore()); //Light
+		allScores.add(lightQuestions()); //Light
 		allScores.add(shadowQuestions()); //Shadow
 		
 		return allScores;

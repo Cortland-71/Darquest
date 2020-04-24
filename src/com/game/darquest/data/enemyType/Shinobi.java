@@ -24,8 +24,7 @@ public class Shinobi implements Classable {
 
 	@Override
 	public int getGenerateStealth() {
-		int stealthBuff = maxStat + (maxStat/2);
-		return rand.nextInt((stealthBuff - minStat)+1)+minStat;
+		return rand.nextInt((maxStat - minStat)+1)+minStat;
 	}
 
 	@Override
@@ -102,25 +101,6 @@ public class Shinobi implements Classable {
 		return score;
 	}
 	
-	public int healQuestions() {
-		Enemy e = (Enemy)c.getEnemyController().getEnemy();
-		List<Enemy> enemyList = c.getEnemyController().getEnemyList();
-		int score = 0;
-		score += e.getHp() < 1 ? 1 : 0;
-		score += e.getHp() < .8 ? 1 : 0;
-		score += e.getHp() < .7 ? 1 : 0;
-		score += e.getHp() < .6 ? 1 : 0;
-		score += e.getHp() < .5 ? 1 : 0;
-		score += e.getHp() < .3 ? 1 : 0;
-		score += e.getHp() < .2 ? 1 : 0;
-		score += c.getPlayer().getHp() > e.getHp() ? 1 : 0;
-		for(Enemy enemy : enemyList) {
-			score += enemy.getHp() < .5 ? 1 : 0;
-		}
-		System.out.println("Heal score: " + score);
-		return score;
- 	}
-	
 	public int engQuestions() {
 		Enemy e = (Enemy)c.getEnemyController().getEnemy();
 		int score = 0;
@@ -158,19 +138,7 @@ public class Shinobi implements Classable {
 		return score;
 	}
 	
-	private int lightQuestions() {
-		Enemy e = (Enemy)c.getEnemyController().getEnemy();
-		List<Enemy> enemyList = c.getEnemyController().getEnemyList();
-		int score = 0;
-		score += c.getPlayer().getStealth() > e.getAwareness() ? 2 : 0;
-		score += c.getPlayer().getStealth() == e.getAwareness() ? 1 : 0;
-		score += c.getPlayer().getCash() > 1000 ? 1 : 0;
-		for(Enemy enemy : enemyList) {
-			score += c.getPlayer().getStealth() >= enemy.getAwareness() ? 2 : 0;
-		}
-		System.out.println("Light score: " + score);
-		return score;
-	}
+	
 	
 	public int getNoScore() {
 		int score = 0;
@@ -186,10 +154,10 @@ public class Shinobi implements Classable {
 		allScores.add(stealQuestions()); // Steal
 		allScores.add(deceptionQuestions()); // Deception
 		allScores.add(fearQuestions()); // Fear
-		allScores.add(healQuestions()); //Heal
+		allScores.add(getNoScore()); //Heal
 		allScores.add(getNoScore()); //Truth
 		allScores.add(getNoScore()); // Valor
-		allScores.add(lightQuestions()); //Light
+		allScores.add(getNoScore()); //Light
 		allScores.add(getNoScore()); //Shadow
 		
 		return allScores;

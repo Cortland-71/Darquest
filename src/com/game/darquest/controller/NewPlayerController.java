@@ -40,7 +40,7 @@ public class NewPlayerController implements EventHandler<KeyEvent> {
 		initChallengeList();
 
 		//p.addItemToPlayerInventory(new Weapon("none","none",0,0,10,10,5,6));
-		p.addItemToPlayerInventory(new Weapon("none","none",0,0,10,10,500,501));
+		p.addItemToPlayerInventory(new Weapon("none","none",0,0,10,10,5,6));
 		p.addItemToPlayerInventory(new Armor("none","none",0,0,10,10,0));
 		p.addItemToPlayerInventory(new Tool("none","none", "none",0,0,10,10,0,0));
 		for (int i = 0; i < 3; i++) {

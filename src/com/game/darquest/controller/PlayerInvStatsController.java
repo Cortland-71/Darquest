@@ -23,6 +23,10 @@ public class PlayerInvStatsController implements EventHandler<MouseEvent> {
 	public void handle(MouseEvent e) {
 		equipItem();
 		updateAllPlayerStats();
+		if(c.getView().getHubView().getCenterBox().getChildren().get(0) == 
+				c.getView().getFightClubView().getFightClubCenter()) {
+			c.getHubController().drawAllEnemyBoxes(c.getFightClubController().getEnemyList());
+		}
 	}
 	
 	

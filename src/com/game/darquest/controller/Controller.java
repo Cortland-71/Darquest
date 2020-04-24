@@ -23,6 +23,7 @@ public class Controller {
 	private final FightClubWinController playerWinController;
 	private final LevelUpController levelUpController;
 	private final ChallengeController challengeController;
+	private final AppartmentController appartmentController;
 	
 	private final ItemHub itemHub;
 	private final EnemyController enemyController;
@@ -48,6 +49,7 @@ public class Controller {
 		this.enemyController = new EnemyController(this);
 		this.levelUpController = new LevelUpController(this);
 		this.challengeController = new ChallengeController(this);
+		this.appartmentController = new AppartmentController(this);
 		
 	}
 
@@ -123,5 +125,7 @@ public class Controller {
 		return challengeController;
 	}
 
-	
+	public AppartmentController getAppartmentController() {
+		return appartmentController;
+	}
 }

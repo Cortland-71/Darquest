@@ -17,8 +17,7 @@ public class Enforcer implements Classable {
 	
 	@Override
 	public int getGenerateDef() {
-		int defBuff = maxStat + (maxStat/2);
-		return rand.nextInt((defBuff - minStat)+1)+minStat;
+		return rand.nextInt((maxStat - minStat)+1)+minStat;
 
 	}
 

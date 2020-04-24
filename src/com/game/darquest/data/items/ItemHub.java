@@ -11,19 +11,19 @@ public class ItemHub {
 	// Weapons
 	// \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 	public List<Item> lowWeaponsList() {
-		return Arrays.asList(new Weapon("Studded Gloves", studedGlovesDes(), 150, .01, 8, 8, 6, 10),
-				new Weapon("Brass Knuckles", brassKnucklesDes(), 350, .05, 10, 10, 7, 12),
-				new Weapon("Scorpion", hammerDes(), 600, .08, 20, 20, 8, 15),
-				new Weapon("Switchblade", switchBladeDes(), 350, .02, 12, 12, 7, 17),
-				new Weapon("Tanto", tantoDes(), 800, .08, 30, 30, 8, 18));
+		return Arrays.asList(new Weapon("Studded Gloves", studedGlovesDes(), 150, .01, 8, 8, 5, 8),
+				new Weapon("Brass Knuckles", brassKnucklesDes(), 350, .05, 10, 10, 6, 10),
+				new Weapon("Scorpion", hammerDes(), 600, .08, 20, 20, 6, 15),
+				new Weapon("Switchblade", switchBladeDes(), 350, .02, 12, 12, 7, 10),
+				new Weapon("Tanto", tantoDes(), 800, .08, 30, 30, 7, 15));
 	}
 
 	public List<Item> midWeaponsList() {
 		return Arrays.asList(new Weapon("Butterfly", macheteDes(), 1200, .07, 25, 25, 8, 15),
 				new Weapon("Wakizashi", macheteDes(), 1200, .07, 25, 25, 8, 15),
-				new Weapon("Throwing Star", throwingStarDes(), 1500, .01, 3, 3, 10, 13),
-				new Weapon("G26 9mm", g26Des(), 1800, .35, 13, 13, 12, 22),
-				new Weapon("Reefer .38", reeferDes(), 1800, .25, 8, 8, 10, 20));
+				new Weapon("Snub", g26Des(), 1800, .35, 13, 13, 12, 22),
+				new Weapon("Throwing Stars", throwingStarDes(), 1500, .01, 3, 3, 10, 13),
+				new Weapon("Killcat", reeferDes(), 1800, .25, 8, 8, 10, 20));
 	}
 
 	public List<Item> highWeaponsList() {
