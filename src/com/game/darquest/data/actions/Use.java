@@ -24,16 +24,16 @@ public class Use implements Fireable {
 	}
 	
 	@Override
-	public boolean fire(Person p, Person choosen) {
+	public void fire(Person p, Person choosen) {
 
 		String catagory = p.getEquippedTool().getCatagory();
 		if(catagory.equals("none")) {
 			output = "You can't use nothing...";
-			return false;
+			return;
 		}
 		if(choosen.getHp() >= 1) {
 			output = "Your HP is already full...";
-			return false;
+			return;
 		}
 		Tool t = p.getEquippedTool();
 		int effect = getRandomToolAmount(t);
@@ -44,7 +44,6 @@ public class Use implements Fireable {
 			}
 		}
 		//c.getPlayerInvStatsController().removeItemWhenUsedUp(t);
-		return true;
 	}
 	
 	public int getRandomToolAmount(Tool t) {

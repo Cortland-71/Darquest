@@ -12,18 +12,9 @@ public class Rules {
 	public static boolean failedBasicCheck(Controller c, Enemy e, 
 			double eatRequired, double sleepRequired, double workRequired, double cashRequired) {
 		if (e.getCash() < cashRequired) {
-			c.getEnemyController().rulesForWork();
+			System.out.println("Failed basic check Rules Class");
 			return true;
-		} else if(e.getEat() < eatRequired) {
-			c.getEnemyController().rulesForEat();
-			return true;
-		} else if(e.getSleep() < sleepRequired) {
-			c.getEnemyController().rulesForSleep();
-			return true;
-		} else if(e.getWork() < workRequired) {
-			c.getEnemyController().rulesForWork();
-			return true;
-		}
+		} 
 		return false;
 	}
 }

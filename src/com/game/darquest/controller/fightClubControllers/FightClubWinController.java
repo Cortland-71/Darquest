@@ -40,7 +40,7 @@ public class FightClubWinController implements EventHandler<ActionEvent> {
 		List<Item> wonItemList = lootList;
 	
 		addItemsToPlayerInv(wonItemList);
-		c.getPlayerInvStatsController().captureSelectedItemsUpdateInvReEquipItems();
+		c.getPlayerInvStatsController().captureSelectedItemsUpdateInvAndStatsReEquipItems();
 		c.getChallengeController().updateChallengeList();
 		
 		c.getView().getHubView().showFightClubHub();

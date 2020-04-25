@@ -39,7 +39,7 @@ public class PlayerInvStatsController implements EventHandler<MouseEvent> {
 //		}
 //	}
 	
-	public void captureSelectedItemsUpdateInvReEquipItems() {
+	public void captureSelectedItemsUpdateInvAndStatsReEquipItems() {
 		indexList = c.getView().getHubView().getSelectedIndexListOfAllTabs();
 		updateAllPlayerInv();
 		for (int i = 0; i < indexList.size(); i++) {

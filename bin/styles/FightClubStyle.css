@@ -10,7 +10,7 @@
 	_green: #10a215;
 	_firstGreen:#00ff00;
 	_red: #ff0000;
-	_yellow: #ffff00;
+	_yellow: #e6ac00;
 	_blue: #0093ff;
 	_lightBlue: #00b8e6;
 	_darkBlue: #001a33;
@@ -87,7 +87,7 @@
 	
 }
 
-#playerOutputLabel, #enemyOutputLabel {
+#playerOutputLabel, #enemyOutputLabel, #queueLabel {
 	-fx-font: 15px "Lucida Console";
 	-fx-font-style: italic;
 }

@@ -182,8 +182,6 @@ public class EnemyController {
 		count = 0;
 		c.getView().getFightClubView().setDisableCommandField(false);
 		c.getView().getFightClubView().setCommandFeildFocused();
-		c.getPlayer().setMoves(c.getPlayer().getMaxMoves());
-		c.getView().getFightClubView().setPlayerMovesLeft(c.getPlayer());
 	}
 
 	public Enemy getEnemy() {
@@ -191,32 +189,5 @@ public class EnemyController {
 	}
 	public List<Enemy> getEnemyList() {
 		return enemyList;
-	}
-	
-	public void rulesForEat() {
-		double cashRequired = (getEnemy().getEat() + .1) * 150.5;
-		if(getEnemy().getCash() >= cashRequired) {
-			c.getFightClubController().runFire("eat", getEnemy());
-			return;
-		}
-		rulesForWork();
-	}
-	
-	public void rulesForSleep() {
-		double workRequired = .1;
-		if(getEnemy().getWork() >= workRequired) {
-			c.getFightClubController().runFire("zz", getEnemy());
-			return;
-		}
-		rulesForWork();
-	}
-	
-	public void rulesForWork() {
-		if(getEnemy().getWork() < 1) {
-			c.getFightClubController().runFire("wq", getEnemy());
-			return;
-		}
-		rulesForSleep();
-			
 	}
 }

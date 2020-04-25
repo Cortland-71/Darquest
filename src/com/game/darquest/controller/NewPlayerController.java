@@ -56,10 +56,14 @@ public class NewPlayerController implements EventHandler<KeyEvent> {
 		p.setMaxDef(5);
 		p.setMaxStealth(5);
 		p.setMaxAwareness(5);
+		p.setMaxMutation(5);
+		p.setMaxPreserve(5);
 		
 		p.setDef(5);
 		p.setStealth(5);
 		p.setAwareness(5);
+		p.setMutation(5);
+		p.setPreserve(5);
 	}
 	
 	private void initChallengeList() {

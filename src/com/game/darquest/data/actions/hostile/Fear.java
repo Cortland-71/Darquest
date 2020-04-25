@@ -12,32 +12,28 @@ public class Fear implements Fireable {
 	}
 
 	@Override
-	public boolean fire(Person p, Person choosen) {
+	public void fire(Person p, Person choosen) {
 		
-		if(p.getWork() >= .1 && p.getSleep() >= .1 && p.getEat() >= .1) {
-			p.setWork(p.getWork() - .1);
-			p.setSleep(p.getSleep() - .1);
-			p.setEat(p.getEat() - .1);
-			
-			if(choosen.getDef() < 2) {
-				output = "Target's Defense was already at it's minimum but Fear took place.";
-				return true;
-			}
-			
-			choosen.setDef(choosen.getDef() - 3);
-			p.setEng(p.getEng() - .1);
-			
-			output = "Fear successful: " + p.getName() + "\n" 
-					+ "Eat: -.1\n"
-					+ "Sleep: -.1\n"
-					+ "Work: -.1\n"
-					+ "Eng lost: -.1\n"
-					+ choosen.getName() + " Defense -3";
-			return true;
+		if(choosen.getDef() < 2) {
+			output = "Target's Defense was already at it's minimum but Fear took place.";
+			return;
 		}
 		
-		output = "You must have at least .1 Eat .1 Sleep and .1 Work to Fear";
-		return false;
+		if(choosen.getAwareness() <= p.getMutation()) {
+			int mutationEffect = p.getMutation() / 2;
+			int before = choosen.getDef();
+			choosen.setDef(choosen.getDef() - mutationEffect);
+			p.setEng(p.getEng() - .1);
+			
+			output = "Fear successful: " + p.getName() + "\n"
+					+ "Eng lost: -.1\n"
+					+ choosen.getName() + " Defense -" + mutationEffect + "\n"
+					+ choosen.getName() + " Defense before: " + before + "\n"
+					+ choosen.getName() + " Defense after: " + choosen.getDef() + "\n\n";
+			return;
+		}
+		output = "Fear failed: " + p.getName() + "\n"
+				+ choosen.getName() + " Awareness is too high\n\n";
 	}
 
 	@Override

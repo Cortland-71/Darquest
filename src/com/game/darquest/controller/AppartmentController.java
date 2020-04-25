@@ -97,9 +97,6 @@ class Rest implements Clickable {
 	public void clickAction() {
 		Player p = (Player)c.getPlayer();
 		p.setHp(1);
-		p.setEat(.5);
-		p.setSleep(.5);
-		p.setWork(.5);
 		p.setDef(p.getMaxDef());
 		p.setStealth(p.getMaxStealth());
 		p.setAwareness(p.getMaxAwareness());

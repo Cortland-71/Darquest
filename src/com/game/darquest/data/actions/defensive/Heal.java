@@ -16,7 +16,7 @@ public class Heal implements Fireable {
 	}
 
 	@Override
-	public boolean fire(Person p, Person choosen) {
+	public void fire(Person p, Person choosen) {
 		
 		double requiredSleep = .1;
 		double requiredCash = 50;
@@ -24,24 +24,20 @@ public class Heal implements Fireable {
 		double min = p.getEng() + .05;
 		
 		if(p.getCash() >= requiredCash) {
-			if(p.getSleep() >= requiredSleep) {
-				p.setSleep(p.getSleep() - requiredSleep);
-				p.setCash(p.getCash() - requiredCash);
-				double hpGained = min + (max - min) * rand.nextDouble();
-				choosen.setHp(choosen.getHp() + hpGained);
-				
-				output = "Heal successful: " + p.getName() +
-						"\nTarget: " + choosen.getName() +
-						"\nHP: +" + f2.format(hpGained) +
-						"\nSleep: -" +requiredSleep +
-						"\nCash: -" + NumberFormat.getCurrencyInstance().format(requiredCash);
-				return true;
-			}
+			p.setCash(p.getCash() - requiredCash);
+			double hpGained = min + (max - min) * rand.nextDouble();
+			choosen.setHp(choosen.getHp() + hpGained);
+			
+			output = "Heal successful: " + p.getName() +
+					"\nTarget: " + choosen.getName() +
+					"\nHP: +" + f2.format(hpGained) +
+					"\nSleep: -" +requiredSleep +
+					"\nCash: -" + NumberFormat.getCurrencyInstance().format(requiredCash);
+			
 			output = "Heal Failed: Must have at least " + requiredSleep + " Sleep";
-			return false;
+			return;
 		}
 		output = "Heal Failed: Must have at least " + NumberFormat.getCurrencyInstance().format(requiredCash);
-		return false;
 	}
 	
 

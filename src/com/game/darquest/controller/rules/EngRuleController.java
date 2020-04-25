@@ -10,7 +10,7 @@ public class EngRuleController implements Ruleable {
 	}
 	@Override
 	public void getRule() {
-		c.getEnemyController().rulesForSleep();
+		System.out.println("ENG Rule controller");
 	}
 
 }

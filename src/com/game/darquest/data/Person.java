@@ -9,18 +9,12 @@ import com.game.darquest.data.items.Weapon;
 
 public abstract class Person {
 
-	private final int maxMoves = 3;
-	private int moves;
-
 	private String name;
 	private int lvl = 1;
 	private double cash = 1000.0;
 
 	private double hp = 1;
 	private double eng = 0;
-	private double eat = .5;
-	private double sleep = .5;
-	private double work = .5;
 
 	private final int MIN = 0;
 	private final int MAX_BAR = 1;
@@ -35,12 +29,16 @@ public abstract class Person {
 	private int maxStealth;
 	private int awareness;
 	private int maxAwareness;
+	private int mutation;
+	private int maxMutation;
+	private int preservation;
+	private int maxPreservation;
 
 	public Person() {
 	}
 
-	public Person(String name, int maxDef, int maxStealth, int maxAwareness, Weapon equippedWeapon, Armor equippedArmor,
-			int lvl, double cash) {
+	public Person(String name, int maxDef, int maxStealth, int maxAwareness, int maxMutation, int maxPreserve,
+			Weapon equippedWeapon, Armor equippedArmor, int lvl, double cash) {
 		this.name = name;
 		this.equippedWeapon = equippedWeapon;
 		this.equippedArmor = equippedArmor;
@@ -49,9 +47,13 @@ public abstract class Person {
 		this.setMaxDef(maxDef);
 		this.setMaxStealth(maxStealth);
 		this.setMaxAwareness(maxAwareness);
+		this.setMaxMutation(maxMutation);
+		this.setMaxPreserve(maxPreserve);
 		this.setDef(maxDef);
 		this.setStealth(maxStealth);
 		this.setAwareness(maxAwareness);
+		this.setMutation(maxMutation);
+		this.setPreserve(maxPreserve);
 	}
 
 	public void setEquippedItem(Item item) {
@@ -179,53 +181,6 @@ public abstract class Person {
 		this.eng = Math.round(eng * 100.0) / 100.0;
 	}
 
-	public double getEat() {
-		return eat;
-	}
-
-	public void setEat(double eat) {
-		if (eat > 1) {
-			this.eat = MAX_BAR;
-			return;
-		}
-		if (eat < 0) {
-			this.eat = MIN;
-			return;
-		}
-		this.eat = Math.round(eat * 100.0) / 100.0;
-	}
-
-	public double getSleep() {
-		return sleep;
-	}
-
-	public void setSleep(double sleep) {
-		if (sleep > 1) {
-			this.sleep = MAX_BAR;
-			return;
-		}
-		if (sleep < 0) {
-			this.sleep = MIN;
-			return;
-		}
-		this.sleep = Math.round(sleep * 100.0) / 100.0;
-	}
-
-	public double getWork() {
-		return work;
-	}
-
-	public void setWork(double work) {
-		if (work > 1) {
-			this.work = MAX_BAR;
-			return;
-		}
-		if (work < 0) {
-			this.work = MIN;
-			return;
-		}
-		this.work = Math.round(work * 100.0) / 100.0;
-	}
 
 	public double getCash() {
 		return cash;
@@ -253,28 +208,6 @@ public abstract class Person {
 
 	public String getEquippedToolString() {
 		return equippedTool.getName();
-	}
-
-	
-
-	@Override
-	public String toString() {
-		return "Person [name=" + name + ", lvl=" + lvl + ", cash=" + cash + ", hp=" + hp + ", eng=" + eng + ", eat="
-				+ eat + ", sleep=" + sleep + ", work=" + work + ", equippedWeapon=" + equippedWeapon
-				+ ", equippedArmor=" + equippedArmor + ", equippedTool=" + equippedTool + ", def=" + def + ", stealth="
-				+ stealth + ", awareness=" + awareness + "]";
-	}
-
-	public int getMaxMoves() {
-		return maxMoves;
-	}
-
-	public int getMoves() {
-		return moves;
-	}
-
-	public void setMoves(int moves) {
-		this.moves = moves;
 	}
 
 	public int getMIN() {
@@ -308,5 +241,39 @@ public abstract class Person {
 	public void setMaxDef(int maxDef) {
 		this.maxDef = maxDef;
 	}
+
+	public int getMutation() {
+		return mutation;
+	}
+
+	public void setMutation(int mutation) {
+		this.mutation = mutation;
+	}
+
+	public int getMaxMutation() {
+		return maxMutation;
+	}
+
+	public void setMaxMutation(int maxMutation) {
+		this.maxMutation = maxMutation;
+	}
+
+	public int getPreserve() {
+		return preservation;
+	}
+
+	public void setPreserve(int preservation) {
+		this.preservation = preservation;
+	}
+
+	public int getMaxPreserve() {
+		return maxPreservation;
+	}
+
+	public void setMaxPreserve(int maxPreservation) {
+		this.maxPreservation = maxPreservation;
+	}
+	
+	
 
 }

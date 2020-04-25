@@ -1,5 +1,8 @@
 package com.game.darquest.view.fightClub;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.game.darquest.data.Enemy;
 import com.game.darquest.data.Person;
 import com.game.darquest.view.View;
@@ -7,12 +10,13 @@ import com.game.darquest.view.View;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
@@ -20,10 +24,10 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextFlow;
 
 public class FightView {
+	
+	private List<Label> queueCommandLabels = new ArrayList<>();
 
 	public FightView() {
 		fightClubCenter();
@@ -55,6 +59,7 @@ public class FightView {
 		outputsBox.setAlignment(Pos.BOTTOM_CENTER);
 		outputsBox.setPadding(new Insets(25,0,0,0));
 		outputsBox.getChildren().add(playerOutputBox());
+		outputsBox.getChildren().add(queueAllBox());
 		outputsBox.getChildren().add(enemyOutputBox());
 		return outputsBox;
 	}
@@ -67,18 +72,25 @@ public class FightView {
 		return playerOutputBox;
 	}
 	
+	private final int outputAreaHeight = 180;
+	private final int outputAreaWidth = 465;
 	private TextArea playerOutputTextArea;
 	private TextArea playerOutputTextArea() {
 		playerOutputTextArea = new TextArea();
 		playerOutputTextArea.setEditable(false);
+		playerOutputTextArea.setWrapText(true);
 		playerOutputTextArea.setId("playerOutputTextArea");
-		playerOutputTextArea.setMaxSize(637, 180);
-		playerOutputTextArea.setMinSize(637, 180);
+		playerOutputTextArea.setMaxSize(outputAreaWidth, outputAreaHeight);
+		playerOutputTextArea.setMinSize(outputAreaWidth, outputAreaHeight);
 		return playerOutputTextArea;
 	}
 
 	public void setPlayerOutputTextArea(String text) {
-		playerOutputTextArea.setText(text);
+		playerOutputTextArea.appendText(text);
+	}
+	
+	public void clearPlayerOutputTextArea() {
+		playerOutputTextArea.clear();
 	}
 	
 	private Label playerOutputLabel() {
@@ -87,10 +99,57 @@ public class FightView {
 		return playerOutputLabel;
 	}
 	
+	//Queue \/\/\/\/\/\/\/\/\\/\/\/\/\/\/\/\/\/\/\/\/\/\
+	private VBox queueAllBox() {
+		VBox queueAllBox = new VBox(10);
+		queueAllBox.setAlignment(Pos.CENTER);
+		queueAllBox.getChildren().add(queueLabel());
+		queueAllBox.getChildren().add(queueScrollPane());
+		return queueAllBox;
+	}
+	
+	private final int queueWidth = 325;
+	private final int queueHeight = 180;
+	private ScrollPane queueScrollPane() {
+		ScrollPane queueScrollPane = new ScrollPane();
+		queueScrollPane.setVbarPolicy(ScrollBarPolicy.ALWAYS);
+		queueScrollPane.setMinSize(queueWidth, queueHeight);
+		queueScrollPane.setMaxSize(queueWidth, queueHeight);
+		queueScrollPane.setContent(queueBox());
+		return queueScrollPane;
+	}
+	
+	private VBox queueBox;
+	private VBox queueBox() {
+		queueBox = new VBox(5);
+		queueBox.setMinSize(300, queueHeight);
+		queueBox.setMaxWidth(300);
+		return queueBox;
+	}
+	
+	private Label queueLabel() {
+		Label queueLabel = new Label("Queue");
+		queueLabel.setId("queueLabel");
+		return queueLabel;
+	}
+	
+	public void addCommandToQueue(String command) {
+		queueBox.getChildren().clear();
+		Label l = new Label(command);
+		l.setPadding(new Insets(10,0,0,10));
+		queueCommandLabels.add(l);
+		queueCommandLabels.forEach(e->queueBox.getChildren().add(e));
+	}
+	
+	public void clearQueue() {
+		queueBox.getChildren().clear();
+		queueCommandLabels.clear();
+	}
 	
 	//Enemy components \/\/\/\/\/\/\\/\/\/\/\/\/\/\/\/\/\/\/\/
 	private VBox enemyOutputBox() {
 		VBox enemyOutputBox = new VBox(10);
+		enemyOutputBox.setAlignment(Pos.TOP_RIGHT);
 		enemyOutputBox.getChildren().add(enemyOutputLabel());
 		enemyOutputBox.getChildren().add(enemyOutputTextArea());
 		return enemyOutputBox;
@@ -101,8 +160,8 @@ public class FightView {
 		enemyOutputTextArea = new TextArea();
 		enemyOutputTextArea.setId("enemyOutputTextArea");
 		enemyOutputTextArea.setEditable(false);
-		enemyOutputTextArea.setMaxSize(637, 180);
-		enemyOutputTextArea.setMinSize(637, 180);
+		enemyOutputTextArea.setMaxSize(outputAreaWidth, outputAreaHeight);
+		enemyOutputTextArea.setMinSize(outputAreaWidth, outputAreaHeight);
 		return enemyOutputTextArea;
 	}
 	
@@ -170,10 +229,10 @@ public class FightView {
 		enemyRightStatsBox.setPadding(new Insets(10,0,0,5));
 		enemyRightStatsBox.setMinSize(200, 360);
 		enemyRightStatsBox.setMaxSize(200, 360);
-		enemyRightStatsBox.setBackground(View.getBackground(Color.PINK));
 		enemyRightStatsBox.getChildren().addAll(enemyNameLabel(), enemyLvlLabel(),
-				enemyCashLabel(), enemyHpLabel() ,enemyHpBar(), enemyEngLabel(), enemyEngBar(), enemyWeaponLabel(),
-				enemyArmorLabel(), enemyDefLabel(), enemyStealthLabel(), enemyAwarenessLabel(), enemyTypeLabel(),
+				enemyCashLabel(), enemyHpLabel() ,enemyHpBar(), enemyEngLabel(), enemyEngBar(), 
+				enemyDefLabel(), enemyStealthLabel(), enemyAwarenessLabel(), enemyMutationLabel(),
+				enemyPreserveLabel(), enemyTypeLabel(),
 				enemyIDLabel());
 		return enemyRightStatsBox;
 	}
@@ -239,18 +298,6 @@ public class FightView {
 		return enemyEngBar;
 	}
 	
-	private Label enemyWeaponLabel;
-	private Label enemyWeaponLabel() {
-		enemyWeaponLabel = new Label("Weapon");
-		return enemyWeaponLabel;
-	}
-	
-	private Label enemyArmorLabel;
-	private Label enemyArmorLabel() {
-		enemyArmorLabel = new Label("Armor");
-		return enemyArmorLabel;
-	}
-	
 	private Label enemyDefLabel;
 	private Label enemyDefLabel() {
 		enemyDefLabel = new Label("Def");
@@ -268,6 +315,20 @@ public class FightView {
 		enemyAwarenessLabel = new Label("Awareness");
 		return enemyAwarenessLabel;
 	}
+	
+	private Label enemyMutationLabel;
+	private Label enemyMutationLabel() {
+		enemyMutationLabel = new Label("Mutation");
+		return enemyMutationLabel;
+	}
+	
+	private Label enemyPreserveLabel;
+	private Label enemyPreserveLabel() {
+		enemyPreserveLabel = new Label("Preserve");
+		return enemyPreserveLabel;
+	}
+	
+	
 	
 	private Label enemyTypeLabel;
 	private Label enemyTypeLabel() {
@@ -289,67 +350,12 @@ public class FightView {
 		enemyBottomStatsBox.setAlignment(Pos.TOP_LEFT);
 		enemyBottomStatsBox.setMinSize(420, 120);
 		enemyBottomStatsBox.setMaxSize(420, 120);
-		enemyBottomStatsBox.setBackground(View.getBackground(Color.BLUE));
-		enemyBottomStatsBox.getChildren().addAll(enemyLimitLabel(), enemyLimitBar(),
-				enemyEatLabel(), enemyEatBar(), enemySleepLabel(), enemySleepBar(), 
-				enemyWorkLabel(), enemyWorkBar());
+		enemyBottomStatsBox.getChildren().addAll(enemyLimitLabel(), enemyLimitBar());
 		return enemyBottomStatsBox;
 	}
 	
 	private final int esBarLength = 380;
 	private final int esBarWidth = 9;
-	
-	private Label enemyEatLabel;
-	private Label enemyEatLabel() {
-		enemyEatLabel = new Label("Eat");
-		return enemyEatLabel;
-	}
-	public void setEnemyEatLabel(String Eat) {
-		enemyEatLabel.setText(Eat);
-	}
-	private ProgressBar enemyEatBar;
-	private ProgressBar enemyEatBar() {
-		enemyEatBar = new ProgressBar();
-		enemyEatBar.setId("enemyEatBar");
-		enemyEatBar.setMinSize(esBarLength, esBarWidth);
-		enemyEatBar.setMaxSize(esBarLength, esBarWidth);
-		return enemyEatBar;
-	}
-	
-	private Label enemySleepLabel;
-	private Label enemySleepLabel() {
-		enemySleepLabel = new Label("Sleep");
-		return enemySleepLabel;
-	}
-	public void setEnemySleepLabel(String Sleep) {
-		enemySleepLabel.setText(Sleep);
-	}
-	private ProgressBar enemySleepBar;
-	private ProgressBar enemySleepBar() {
-		enemySleepBar = new ProgressBar();
-		enemySleepBar.setId("enemySleepBar");
-		enemySleepBar.setMinSize(esBarLength, esBarWidth);
-		enemySleepBar.setMaxSize(esBarLength, esBarWidth);
-		return enemySleepBar;
-	}
-	
-	private Label enemyWorkLabel;
-	private Label enemyWorkLabel() {
-		enemyWorkLabel = new Label("Work");
-		return enemyWorkLabel;
-	}
-	
-	public void setEnemyWorkLabel(String Work) {
-		enemyWorkLabel.setText(Work);
-	}
-	private ProgressBar enemyWorkBar;
-	private ProgressBar enemyWorkBar() {
-		enemyWorkBar = new ProgressBar();
-		enemyWorkBar.setId("enemyWorkBar");
-		enemyWorkBar.setMinSize(esBarLength, esBarWidth);
-		enemyWorkBar.setMaxSize(esBarLength, esBarWidth);
-		return enemyWorkBar;
-	}
 	
 	private Label enemyLimitLabel;
 	private Label enemyLimitLabel() {
@@ -374,7 +380,6 @@ public class FightView {
 	private BorderPane bottomPane;
 	private BorderPane fightClubBottom() {
 		bottomPane = new BorderPane();
-		bottomPane.setTop(inputLabelMovesBox());
 		bottomPane.setCenter(commandFieldBox());
 		return bottomPane;
 	}
@@ -386,32 +391,16 @@ public class FightView {
 	private VBox commandFieldBox() {
 		VBox commandFieldBox = new VBox(15);
 		commandFieldBox.setAlignment(Pos.CENTER);
-		commandFieldBox.setPadding(new Insets(5,0,165,0));
+		commandFieldBox.setPadding(new Insets(15,0,165,0));
+		commandFieldBox.getChildren().add(commandLabel());
 		commandFieldBox.getChildren().add(commandField());
 		return commandFieldBox;
-	}
-	
-	private HBox inputLabelMovesBox() {
-		HBox inputLabelMovesBox = new HBox(15);
-		inputLabelMovesBox.setAlignment(Pos.CENTER);
-		inputLabelMovesBox.setPadding(new Insets(20,0,0,0));
-		inputLabelMovesBox.getChildren().add(commandLabel());
-		inputLabelMovesBox.getChildren().add(playerMovesLabel());
-		return inputLabelMovesBox;
 	}
 	
 	private Label commandLabel() {
 		Label commandLabel = new Label("Enter commands here or type \"help\" for additional info.");
 		commandLabel.setId("commandLabel");
 		return commandLabel;
-	}
-	
-	private Label playerMovesLabel;
-	private Label playerMovesLabel() {
-		playerMovesLabel = new Label("Moves");
-		playerMovesLabel.setId(""
-				+ "");
-		return playerMovesLabel;
 	}
 	
 	private TextField commandField;
@@ -444,9 +433,6 @@ public class FightView {
 	}
 	
 	// \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\- Helper
-	public void setPlayerMovesLeft(Person p) {
-		playerMovesLabel.setText("Moves left: "+p.getMoves()+"/"+p.getMaxMoves());
-	}
 	
 	public void setEnemyStats(Enemy p, Person player) {
 		enemyNameLabel.setText("Name:\t" + p.getName());
@@ -454,19 +440,10 @@ public class FightView {
 		enemyCashLabel.setText("Cash:\t" + p.getCashFormatted());
 		enemyHpLabel.setText("HP:\t" + p.getHp() + "/1.0");
 		enemyEngLabel.setText("Eng:\t" + p.getEng() + "/1.0");
-		enemyEatLabel.setText("Eat:\t" + p.getEat() + "/1.0");
-		enemySleepLabel.setText("Sleep:\t" + p.getSleep() + "/1.0");
-		enemyWorkLabel.setText("Work:\t" + p.getWork() + "/1.0");
 
 		enemyHpBar.setProgress(p.getHp());
 		enemyEngBar.setProgress(p.getEng());
-		enemyEatBar.setProgress(p.getEat());
-		enemySleepBar.setProgress(p.getSleep());
-		enemyWorkBar.setProgress(p.getWork());
 		enemyLimitBar.setProgress(p.getLimit());
-
-		enemyWeaponLabel.setText("Wep: " + p.getEquippedWeaponString());
-		enemyArmorLabel.setText("Arm: " + p.getEquippedArmorString());
 		
 		if(p.getDef() <= player.getEquippedWeapon().getMinDamage()) {
 			enemyDefLabel.setStyle("-fx-text-fill: red");
@@ -480,15 +457,31 @@ public class FightView {
 			enemyStealthLabel.setStyle("-fx-text-fill: #cc6600");
 		}
 		
+		
 		if(p.getAwareness() <= player.getStealth()) {
 			enemyAwarenessLabel.setStyle("-fx-text-fill: red");
 		} else {
 			enemyAwarenessLabel.setStyle("-fx-text-fill: #cc6600");
 		}
 		
+		if(p.getMutation() < p.getMaxMutation()) {
+			enemyMutationLabel.setStyle("-fx-text-fill: red");
+		} else {
+			enemyMutationLabel.setStyle("-fx-text-fill: #cc6600");
+		}
+		
+		if(p.getPreserve() < p.getMaxPreserve()) {
+			enemyPreserveLabel.setStyle("-fx-text-fill: red");
+		} else {
+			enemyPreserveLabel.setStyle("-fx-text-fill: #cc6600");
+		}
+		
 		enemyDefLabel.setText("Defense:   " + p.getDef());
 		enemyStealthLabel.setText("Stealth:   " + p.getStealth());
 		enemyAwarenessLabel.setText("Awareness: " + p.getAwareness());
+		enemyMutationLabel.setText("Mutation:  " + p.getMutation());
+		enemyPreserveLabel.setText("Preserve:  " + p.getPreserve());
+		
 		enemyTypeLabel.setText("Type: "+p.getType().getName());
 		Tooltip typeToolTip = new Tooltip(p.getType().getDescription());
 		typeToolTip.setStyle("-fx-text-fill: orange");
@@ -497,4 +490,14 @@ public class FightView {
 		enemyLimitLabel.setText("Limit: " + p.getLimit());
 		
 	}
+
+	public List<String> getQueueCommands() {
+		List<String> commandsStrings = new ArrayList<>();
+		for (int i = 0; i < queueCommandLabels.size(); i++) {
+			commandsStrings.add(queueCommandLabels.get(i).getText());
+		}
+		return commandsStrings;
+	}
+
+	
 }

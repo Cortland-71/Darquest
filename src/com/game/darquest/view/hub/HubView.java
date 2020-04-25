@@ -5,14 +5,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.game.darquest.controller.Controller;
 import com.game.darquest.data.Player;
 import com.game.darquest.data.items.Item;
 import com.game.darquest.view.View;
 
 import javafx.animation.FadeTransition;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -26,8 +23,6 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.Tooltip;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -59,9 +54,6 @@ public class HubView {
 	private Label hpLabel = new Label();
 	private Label cashLabel = new Label();
 	private Label engLabel = new Label();
-	private Label eatLabel = new Label();
-	private Label sleepLabel = new Label();
-	private Label workLabel = new Label();
 	private Label equippedWeaponLabel = new Label();
 	private Label equippedArmorLabel = new Label();
 	private Label equippedToolLabel = new Label();
@@ -69,6 +61,8 @@ public class HubView {
 	private Label defLabel = new Label();
 	private Label stealthLabel = new Label();
 	private Label awarenessLabel = new Label();
+	private Label mutationLabel = new Label();
+	private Label preserveLabel = new Label();
 
 	public HubView() {
 		this.hubAnimation = new HubAnimation();
@@ -161,8 +155,7 @@ public class HubView {
 	private VBox statsBox() {
 		VBox equippedBox = new VBox(8);
 		equippedBox.setPadding(new Insets(20, 0, 0, 0));
-		equippedBox.getChildren().addAll(hpLabel, hpBar(), engLabel, engBar(), eatLabel, eatBar(), sleepLabel,
-				sleepBar(), workLabel, workBar());
+		equippedBox.getChildren().addAll(hpLabel, hpBar(), engLabel, engBar());
 		return equippedBox;
 	}
 
@@ -170,9 +163,6 @@ public class HubView {
 	private final int barWidth = 15;
 	private ProgressBar hpBar;
 	private ProgressBar engBar;
-	private ProgressBar eatBar;
-	private ProgressBar sleepBar;
-	private ProgressBar workBar;
 
 	private ProgressBar hpBar() {
 		hpBar = new ProgressBar();
@@ -189,31 +179,7 @@ public class HubView {
 		engBar.setMaxSize(barLength, barWidth);
 		return engBar;
 	}
-
-	private ProgressBar eatBar() {
-		eatBar = new ProgressBar();
-		eatBar.setId("esBar");
-		eatBar.setMinSize(barLength, barWidth);
-		eatBar.setMaxSize(barLength, barWidth);
-		return eatBar;
-	}
-
-	private ProgressBar sleepBar() {
-		sleepBar = new ProgressBar();
-		sleepBar.setId("esBar");
-		sleepBar.setMinSize(barLength, barWidth);
-		sleepBar.setMaxSize(barLength, barWidth);
-		return sleepBar;
-	}
-
-	private ProgressBar workBar() {
-		workBar = new ProgressBar();
-		workBar.setId("esBar");
-		workBar.setMinSize(barLength, barWidth);
-		workBar.setMaxSize(barLength, barWidth);
-		return workBar;
-	}
-
+	
 	
 	// Equipped Box \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/
 	private VBox equippedBox() {
@@ -233,7 +199,10 @@ public class HubView {
 				+ "Awareness counter acts stealth."));
 		awarenessLabel.setTooltip(new Tooltip("Awareness\nLowers the chances of the enemy stealing\n"
 				+ "or planting devices on you."));
-		skillsBox.getChildren().addAll(defLabel, stealthLabel, awarenessLabel);
+		mutationLabel.setTooltip(new Tooltip("Mutation"));
+		preserveLabel.setTooltip(new Tooltip("Preservation"));
+		skillsBox.getChildren().addAll(defLabel, stealthLabel, awarenessLabel,
+				mutationLabel, preserveLabel);
 		return skillsBox;
 	}
 	
@@ -265,6 +234,10 @@ public class HubView {
 		playerInventoryTabPane.getTabs().add(armorTab());
 		playerInventoryTabPane.getTabs().add(toolsTab());
 		return playerInventoryTabPane;
+	}
+	
+	public void setPlayerInventoryTabPaneDisabled(boolean state) {
+		playerInventoryTabPane.setDisable(state);
 	}
 
 	public TabPane getPlayerInventoryTabPane() {
@@ -462,9 +435,6 @@ public class HubView {
 		weightLabel.setText("Weight: " + df.format(p.getWeight()) + "/1.0");
 		hpLabel.setText("HP:\t" + p.getHp() + "/1.0");
 		engLabel.setText("Eng:\t" + p.getEng() + "/1.0");
-		eatLabel.setText("Eat:\t" + p.getEat() + "/1.0");
-		sleepLabel.setText("Sleep:\t" + p.getSleep() + "/1.0");
-		workLabel.setText("Work:\t" + p.getWork() + "/1.0");
 
 		if(p.getXp() >= 1) {
 			buttonList.get(3).setStyle("-fx-text-fill: orange;"
@@ -479,9 +449,6 @@ public class HubView {
 		weightBar.setProgress(p.getWeight());
 		hpBar.setProgress(p.getHp());
 		engBar.setProgress(p.getEng());
-		eatBar.setProgress(p.getEat());
-		sleepBar.setProgress(p.getSleep());
-		workBar.setProgress(p.getWork());
 
 		equippedWeaponLabel.setText("Wep:\t" + p.getEquippedWeaponString());
 		equippedArmorLabel.setText("Arm:\t" + p.getEquippedArmorString());
@@ -506,9 +473,23 @@ public class HubView {
 			awarenessLabel.setStyle("-fx-text-fill: _lightBlue");
 		}
 		
+		if(p.getMutation() < p.getMaxMutation()) {
+			mutationLabel.setStyle("-fx-text-fill: red");
+		} else {
+			mutationLabel.setStyle("-fx-text-fill: _lightBlue");
+		}
+		
+		if(p.getPreserve() < p.getMaxPreserve()) {
+			preserveLabel.setStyle("-fx-text-fill: red");
+		} else {
+			preserveLabel.setStyle("-fx-text-fill: _lightBlue");
+		}
+		
 		defLabel.setText("Defense:   " + p.getDef());
 		stealthLabel.setText("Stealth:   " + p.getStealth());
 		awarenessLabel.setText("Awareness: " + p.getAwareness());
+		mutationLabel.setText("Mutation:  " + p.getMutation());
+		preserveLabel.setText("Preserve:  " + p.getPreserve());
 	}
 
 	public Scene getDownTownScene() {

@@ -11,7 +11,7 @@ public class Help implements Fireable {
 	}
 
 	@Override
-	public boolean fire(Person p, Person choosen) {
+	public void fire(Person p, Person choosen) {
 		output = "Commands fall under 3 categories.\n"
 				+ "Essential, Hostile and Defensive\n\n"
 				
@@ -48,7 +48,6 @@ public class Help implements Fireable {
 				+ "Cost: .1 Sleep\n"
 				+ "Cost: .1 Work\n\n"
 				+ "tt - Light [tt (id)] lowers the Stealth of a specific enemy.";
-		return false;
 	}
 
 	@Override

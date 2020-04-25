@@ -57,7 +57,7 @@ public class ShopController implements EventHandler<ActionEvent>{
 			int itemIndex = c.getPlayerInvStatsController().getSelectedIndexOfItem();
 			player.removeItemFromPlayerInventory(item, itemIndex);
 			c.getPlayerInvStatsController().deselectItemToNone();
-			c.getPlayerInvStatsController().captureSelectedItemsUpdateInvReEquipItems();
+			c.getPlayerInvStatsController().captureSelectedItemsUpdateInvAndStatsReEquipItems();
 			shopSellDialogueOutput(item);
 		}
 	}
@@ -68,7 +68,7 @@ public class ShopController implements EventHandler<ActionEvent>{
 		if(player.getCash() >= selectedItem.getPrice()) {
 			player.setCash(player.getCash()-selectedItem.getPrice());
 			player.addItemToPlayerInventory(selectedItem);
-			c.getPlayerInvStatsController().captureSelectedItemsUpdateInvReEquipItems();
+			c.getPlayerInvStatsController().captureSelectedItemsUpdateInvAndStatsReEquipItems();
 			shopBuyDialogueOutput(selectedItem);
 			return;
 		}

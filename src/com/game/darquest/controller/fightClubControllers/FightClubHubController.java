@@ -11,7 +11,6 @@ import com.game.darquest.data.EnemyGenerator;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
-import javafx.scene.input.MouseEvent;
 
 public class FightClubHubController implements EventHandler<ActionEvent> {
 	
@@ -100,8 +99,6 @@ class RandomFight implements Clickable {
 		
 		c.getHubController().drawAllEnemyBoxes(enemyList);
 		
-		c.getPlayer().setMoves(3);
-		c.getView().getFightClubView().setPlayerMovesLeft(c.getPlayer());
 		c.getView().getFightClubView().clearAllOutputTextAreas();
 		c.getView().getFightClubView().clearCommandField();
 		c.getView().getHubView().showRandomFight();
