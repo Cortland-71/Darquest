@@ -75,7 +75,6 @@ public class Enforcer implements Classable {
 		
 		int score = 0;
 		score += e.getEquippedWeapon().getMinDamage() >= p.getDef() ? 2 : 0;
-		score *= e.getEquippedWeapon().getMinDamage() - p.getDef();
 		System.out.println("attack score: " + score);
 		return score;
 	}

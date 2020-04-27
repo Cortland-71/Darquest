@@ -72,11 +72,10 @@ public class FightController implements EventHandler<KeyEvent> {
 				if(commandWasClear(command)) return;
 				if(commandWasExe(command)) return;
 				
-				checkCurrentMovePoints(command);
-				
 				if(currentMovePoints <= maxMovePoints) {
 					c.getView().getFightClubView().setQueueLabel(currentMovePoints);
 					c.getView().getFightClubView().addCommandToQueue(command);
+					
 				} else {
 					c.getView().getFightClubView().setPlayerOutputTextArea("Can't add anymore commands.\n\n");
 				}
@@ -87,29 +86,21 @@ public class FightController implements EventHandler<KeyEvent> {
 	
 	private boolean commandIsValid(String command) {
 		for (int i = 0; i < fireList.size(); i++) {
-			if(command.contains(fireList.get(i).getCommandId())) {
-				if(fireList.get(i).isModifiable()) {
-					for (int j = 0; j < modifiers.length; j++) {
-						if(command.equals(fireList.get(i).getCommandId()+" " + modifiers[j]))
-							return true;
-					}
-				} else {
-					if(command.equals(fireList.get(i).getCommandId()))
+			if(command.equals(fireList.get(i).getCommandId())) {
+				currentMovePoints += fireList.get(i).getPointCost();
+				return true;
+			}
+				
+			if(command.startsWith(fireList.get(i).getCommandId())) {
+				for (int j = 0; j < modifiers.length; j++) {
+					if(command.equals(fireList.get(i).getCommandId() + " " + modifiers[j])) {
+						currentMovePoints += fireList.get(i).getPointCost();
 						return true;
+					}
 				}
 			}
 		}
 		return false;
-	}
-
-	private void checkCurrentMovePoints(String command) {
-		fireList.forEach(e->{
-			if(command.contains(e.getCommandId())) {
-				currentMovePoints += e.getPointCost();
-				c.getView().getFightClubView().setPlayerOutputTextArea(e.getCommandId() + " command : +" + e.getPointCost()
-						+ "\nTotal points in queued: " + currentMovePoints + "\n\n");
-			}
-		});
 	}
 
 	private boolean commandWasExe(String command) {

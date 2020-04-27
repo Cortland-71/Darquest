@@ -47,7 +47,7 @@ public class EnemyGenerator {
 		int stealth = t.getGenerateStealth();
 		int awareness = t.getGenerateAwareness();
 		
-		Weapon wep = new Weapon("none","none",0,0,10,10,1,2);
+		Weapon wep = t.getGenerateWeapon();
 		Armor armor = t.getGenerateArmor();
 		double cash = t.getGeneratedCash();
 
