@@ -18,23 +18,17 @@ public class Heal implements Fireable {
 	@Override
 	public void fire(Person p, Person choosen) {
 		
-		double requiredSleep = .1;
 		double requiredCash = 50;
-		double max = p.getEng() + .1;
-		double min = p.getEng() + .05;
 		
 		if(p.getCash() >= requiredCash) {
 			p.setCash(p.getCash() - requiredCash);
-			double hpGained = min + (max - min) * rand.nextDouble();
+			double hpGained = (choosen.getPreserve()/2d) /10;
 			choosen.setHp(choosen.getHp() + hpGained);
 			
 			output = "Heal successful: " + p.getName() +
 					"\nTarget: " + choosen.getName() +
 					"\nHP: +" + f2.format(hpGained) +
-					"\nSleep: -" +requiredSleep +
-					"\nCash: -" + NumberFormat.getCurrencyInstance().format(requiredCash);
-			
-			output = "Heal Failed: Must have at least " + requiredSleep + " Sleep";
+					"\nCash: -" + NumberFormat.getCurrencyInstance().format(requiredCash) + "\n\n";
 			return;
 		}
 		output = "Heal Failed: Must have at least " + NumberFormat.getCurrencyInstance().format(requiredCash);
@@ -51,5 +45,12 @@ public class Heal implements Fireable {
 		return output;
 	}
 	
-	
+	@Override
+	public int getPointCost() {
+		return 3;
+	}
+	@Override
+	public boolean isModifiable() {
+		return true;
+	}
 }

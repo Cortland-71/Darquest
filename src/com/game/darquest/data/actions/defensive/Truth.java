@@ -15,18 +15,15 @@ public class Truth implements Fireable {
 			return;
 		}
 		
-		
-		choosen.setAwareness(choosen.getAwareness() + 3);
+		int preserveEffect = p.getPreserve() / 2;
+		int before = choosen.getAwareness();
+		choosen.setAwareness(choosen.getAwareness() + preserveEffect);
 		p.setEng(p.getEng() - .1);
 		
-		output = "Truth successful: " + p.getName() + "\n" 
-				+ "Eat: -.1\n"
-				+ "Sleep: -.1\n"
-				+ "Work: -.1\n"
-				+ "Eng lost: -.1\n"
-				+ choosen.getName() + " Awareness +3";
-		
-		output = "You must have at least .1 Eat .1 Sleep and .1 Work to use Valor";
+		output = "Truth successful: " + p.getName() + "\n"
+				+ choosen.getName() + " Awareness +" + preserveEffect + "\n"
+				+ choosen.getName() + " Awareness before: " + before + "\n"
+				+ choosen.getName() + " Awareness after: " + choosen.getAwareness() + "\n\n";
 	}
 	
 	
@@ -39,5 +36,12 @@ public class Truth implements Fireable {
 	public String getOutput() {
 		return output;
 	}
-
+	@Override
+	public int getPointCost() {
+		return 3;
+	}
+	@Override
+	public boolean isModifiable() {
+		return true;
+	}
 }

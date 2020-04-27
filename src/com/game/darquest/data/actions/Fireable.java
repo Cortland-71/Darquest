@@ -6,5 +6,7 @@ public interface Fireable {
 	void fire(Person p, Person choosen);
 	String getCommandId();
 	String getOutput();
+	int getPointCost();
+	boolean isModifiable();
 
 }

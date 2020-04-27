@@ -59,5 +59,14 @@ public class Help implements Fireable {
 	public String getOutput() {
 		return output;
 	}
+	
+	@Override
+	public int getPointCost() {
+		return 0;
+	}
+	@Override
+	public boolean isModifiable() {
+		return false;
+	}
 
 }

@@ -63,5 +63,14 @@ public class Use implements Fireable {
 	public String getOutput() {
 		return output;
 	}
+	
+	@Override
+	public int getPointCost() {
+		return 1;
+	}
+	@Override
+	public boolean isModifiable() {
+		return true;
+	}
 
 }

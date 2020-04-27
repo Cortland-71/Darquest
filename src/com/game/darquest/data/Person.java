@@ -14,7 +14,7 @@ public abstract class Person {
 	private double cash = 1000.0;
 
 	private double hp = 1;
-	private double eng = 0;
+	private double eng = 1;
 
 	private final int MIN = 0;
 	private final int MAX_BAR = 1;

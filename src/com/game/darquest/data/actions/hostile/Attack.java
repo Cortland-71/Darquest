@@ -46,16 +46,13 @@ public class Attack implements Fireable {
 		if(!w.getName().equals("none")) w.setCondition(w.getCondition() - 1);
 		if(p instanceof Enemy) w.setCondition(w.getCondition() + 1);
 		
-		//this is here because if the player breaks an item it will requip the none item.
-		
-		
 		p.setEng(p.getEng() - .3);
 		
 		if(minimumWeaponDamage < choosen.getDef()) {
-			output = "Attack missed."
-					+ "\nMinimum attack damage: " + weaponDamage 
-					+ "\n" + choosen.getName() + "'s Deffense: " + choosen.getDef()
-					+ "\nDeffense to high.\n\n";
+			output = "Attack missed.\n"
+					+ "Minimum attack damage: " + weaponDamage + "\n" 
+					+ choosen.getName() + "'s Deffense: " + choosen.getDef() + "\n"
+					+ "Deffense to high.\n\n";
 			FightClubWinController.setEfficiencyScore(FightClubWinController.getEfficiencyScore() - 5);
 			return;
 		}
@@ -66,7 +63,6 @@ public class Attack implements Fireable {
 		double after = choosen.getHp();
 		//c.getPlayerInvStatsController().removeItemWhenUsedUp(w);
 		output = "Attack successful: " + p.getName() + "\n"
-				+ "Eng lost: -.1\n"
 				+ choosen.getName() + " HP -" + finalDamage + "\n"
 				+ choosen.getName() + " HP before " + before + "\n"
 				+ choosen.getName() + " HP after " + after + "\n\n";
@@ -99,4 +95,12 @@ public class Attack implements Fireable {
 		return output;
 	}
 
+	@Override
+	public int getPointCost() {
+		return 4;
+	}
+	@Override
+	public boolean isModifiable() {
+		return true;
+	}
 }

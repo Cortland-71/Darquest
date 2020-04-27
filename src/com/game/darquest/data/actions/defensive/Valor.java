@@ -12,20 +12,19 @@ public class Valor implements Fireable {
 	@Override
 	public void fire(Person p, Person choosen) {
 		if(choosen.getDef() >= choosen.getMaxDef()) {
-			output = "Target's Defense is already at it's maximum but Valor occured.";
+			output = "Target's Defense is already at it's maximum.";
 			return;
 		}
 		
-		choosen.setDef(choosen.getDef() + 3);
+		int preserveEffect = p.getPreserve() / 2;
+		int before = choosen.getDef();
+		choosen.setDef(choosen.getDef() + preserveEffect);
 		p.setEng(p.getEng() - .1);
 		
-		output = "Valor successful: " + p.getName() + "\n" 
-				+ "Eat: -.1\n"
-				+ "Sleep: -.1\n"
-				+ "Work: -.1\n"
-				+ "Eng lost: -.1\n"
-				+ choosen.getName() + " Defense +3";
-		output = "You must have at least .1 Eat .1 Sleep and .1 Work to use Valor";
+		output = "Valor successful: " + p.getName() + "\n"
+				+ choosen.getName() + " Defense +" + preserveEffect + "\n"
+				+ choosen.getName() + " Defense before: " + before + "\n"
+				+ choosen.getName() + " Defense after: " + choosen.getDef() + "\n\n";
 	}
 
 	@Override
@@ -37,5 +36,13 @@ public class Valor implements Fireable {
 	public String getOutput() {
 		return output;
 	}
-
+	
+	@Override
+	public int getPointCost() {
+		return 3;
+	}
+	@Override
+	public boolean isModifiable() {
+		return true;
+	}
 }

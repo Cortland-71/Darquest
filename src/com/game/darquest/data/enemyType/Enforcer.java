@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.game.darquest.controller.Controller;
 import com.game.darquest.data.Enemy;
+import com.game.darquest.data.Player;
 import com.game.darquest.data.items.Armor;
 import com.game.darquest.data.items.ItemHub;
 import com.game.darquest.data.items.Weapon;
@@ -23,7 +24,7 @@ public class Enforcer implements Classable {
 
 	@Override
 	public int getGenerateStealth() {
-		return 1;
+		return rand.nextInt((maxStat - minStat)+1)+minStat;
 	}
 
 	@Override
@@ -70,11 +71,72 @@ public class Enforcer implements Classable {
 	}
 	public int attackQuestions() {
 		Enemy e = (Enemy)c.getEnemyController().getEnemy();
-		int score = 5;
+		Player p = (Player)c.getPlayer();
 		
+		int score = 0;
+		score += e.getEquippedWeapon().getMinDamage() >= p.getDef() ? 2 : 0;
+		score *= e.getEquippedWeapon().getMinDamage() - p.getDef();
 		System.out.println("attack score: " + score);
 		return score;
 	}
+	
+	public int stealQuestions() {
+		Enemy e = (Enemy)c.getEnemyController().getEnemy();
+		Player p = (Player)c.getPlayer();
+		
+		int score = 0;
+		score += e.getCash() < 50 ? 2 : 0;
+		score *= (Math.round((1-e.getHp())*10d));
+		System.out.println("Steal score: " + score);
+		return score;
+	}
+	
+	public int healQuestions() {
+		Enemy e = (Enemy)c.getEnemyController().getEnemy();
+		Player p = (Player)c.getPlayer();
+		
+		int score = 0;
+		score += e.getHp() < 1 ? 1 : 0;
+		score *= (Math.round((1-e.getHp())*10d));
+ 		System.out.println("Heal score: " + score);
+		return score;
+	}
+	
+	public int truthQuestions() {
+		Enemy e = (Enemy)c.getEnemyController().getEnemy();
+		Player p = (Player)c.getPlayer();
+		
+		int score = 0;
+		score += e.getAwareness() < e.getMaxAwareness() ? 1 : 0;
+		score *= (e.getMaxAwareness()-e.getAwareness());
+		System.out.println("Truth score: " + score);
+		return score;
+	}
+	
+	public int valorQuestions() {
+		Enemy e = (Enemy)c.getEnemyController().getEnemy();
+		Player p = (Player)c.getPlayer();
+		
+		int score = 0;
+		score += e.getDef() < e.getMaxDef() ? 1 : 0;
+		score *= (e.getMaxDef() - e.getDef());
+		System.out.println("Valor score: " + score);
+		return score;
+	}
+	
+	public int shadowQuestions() {
+		Enemy e = (Enemy)c.getEnemyController().getEnemy();
+		Player p = (Player)c.getPlayer();
+		
+		int score = 0;
+		score += e.getStealth() < e.getMaxStealth() ? 1 : 0;
+		score *= (e.getMaxStealth() - e.getStealth());
+		System.out.println("Shadow score: " + score);
+		return score;
+	}
+	
+	
+
 
 	public int getNoScore() {
 		int score = 0;
@@ -83,17 +145,26 @@ public class Enforcer implements Classable {
 	
 	@Override
 	public List<Integer> getAllScores() {
+		
+//		attackRuleController, 
+//		stealRuleController,
+//		deceptionRuleController,
+//		fearRuleController,
+//		lightRuleController,
+//		healRuleController,
+//		truthRuleController,
+//		valorRuleController,
+//		shadowRuleController);
 		List<Integer> allScores = new ArrayList<>();
-		allScores.add(getNoScore()); //Eng
 		allScores.add(attackQuestions()); //Attack
-		allScores.add(getNoScore()); //Steal
+		allScores.add(stealQuestions()); //Steal
 		allScores.add(getNoScore()); //Deception
 		allScores.add(getNoScore()); //Fear
-		allScores.add(getNoScore()); //Heal
-		allScores.add(getNoScore()); //Truth
-		allScores.add(getNoScore()); //Valor
 		allScores.add(getNoScore()); //Light
-		allScores.add(getNoScore()); //Shadow
+		allScores.add(healQuestions()); //Heal
+		allScores.add(truthQuestions()); //Truth
+		allScores.add(valorQuestions()); //Valor
+		allScores.add(shadowQuestions()); //Shadow
 		
 		return allScores;
 	}

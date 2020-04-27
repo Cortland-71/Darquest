@@ -24,64 +24,47 @@ public class Steal implements Fireable {
 		// current stats from person stealing and target
 		int awarenessAmount = choosen.getAwareness();
 		int stealthAmount = p.getStealth();
-		double choosenCash = choosen.getCash();
+		double choosenCashBefore = choosen.getCash();
 		double eng = p.getEng();
 
 		double initStolen = getInitStolen(stealthAmount);
 		double stolenWithEngMult = getStealWithEngMult(eng, initStolen);
-		double limitRaised = 0;
 		double finalAmountStolen = 0;
 
-		p.setEng(p.getEng() - .2);
+		p.setEng(p.getEng() - (getPointCost()/10d));
 
 		if (p.getStealth() < choosen.getAwareness()) {
-			output = "You got caught." + "\nStealth: " + p.getStealth() + "\n" + choosen.getName() + "'s Awareness: "
-					+ choosen.getAwareness() + "\nAwareness to high.";
+			output = "Steal failed: " + p.getName() + "\n"
+					+ choosen.getName() + "'s Awareness: " + awarenessAmount + "\n" 
+					+ "Awareness to high.\n\n";
 			FightClubWinController.setEfficiencyScore(FightClubWinController.getEfficiencyScore() - 5);
 			return;
 		}
 
-		if (choosen instanceof Enemy) {
-			Enemy e = (Enemy) choosen;
-			if (e.getType().getName().equals("Observer")) {
-				if (e.getLimit() < 1) {
-					limitRaised = initStolen / 1000;
-					e.setLimit(e.getLimit() + limitRaised);
-				}
-			}
-		}
-
-		finalAmountStolen = getFinalStealAmount(stealthAmount, awarenessAmount, stolenWithEngMult, choosenCash);
+		finalAmountStolen = getFinalStealAmount(stealthAmount, awarenessAmount, stolenWithEngMult, choosenCashBefore);
 
 		p.setCash(p.getCash() + finalAmountStolen);
 		choosen.setCash(choosen.getCash() - finalAmountStolen);
-		output = "Stolen from: " + choosen.getName() + "\nInit stolen: " + initStolen
-				+ "\nInit stolen + Eng multiplyer: " + stolenWithEngMult + "\nLimit raised: +"
-				+ Math.round(limitRaised * 100d) / 100d + "\nStealth multiplyer: "
-				+ (p.getStealth() - choosen.getAwareness()) + "\n" + choosen.getName() + "'s Cash: "
-				+ NumberFormat.getCurrencyInstance().format(choosenCash) + "\nFinal amount Stolen: "
-				+ NumberFormat.getCurrencyInstance().format(finalAmountStolen);
+		
+		output = "Steal successful: " + p.getName() + "\n"
+				+ choosen.getName() + " Cash -" + finalAmountStolen + "\n"
+				+ choosen.getName() + " Cash before " + choosenCashBefore + "\n"
+				+ choosen.getName() + " Cash after " + choosen.getCash() + "\n\n";
 	}
 
 	private double getInitStolen(int stealthAmount) {
-		return stealthAmount * 50;
+		return stealthAmount * 25;
 	}
 
 	private double getStealWithEngMult(double eng, double initStolen) {
-		if (eng > 0)
-			return initStolen + (eng * 200);
-		return initStolen;
+		return initStolen + (eng * 200);
 	}
 
 	private double getFinalStealAmount(int stealth, int awareness, double stealWithEngMult, double choosenCash) {
 		double amount = 0;
-		if (stealth == awareness)
-			amount = stealWithEngMult;
-		else
-			amount = stealWithEngMult + ((stealth - awareness) * 10);
-
-		if (amount <= choosenCash)
-			return amount;
+		if (stealth == awareness) amount = stealWithEngMult;
+		else amount = stealWithEngMult + ((stealth - awareness) * 10);
+		if (amount <= choosenCash) return amount;
 		return choosenCash;
 	}
 
@@ -101,5 +84,14 @@ public class Steal implements Fireable {
 	@Override
 	public String getOutput() {
 		return output;
+	}
+	
+	@Override
+	public int getPointCost() {
+		return 4;
+	}
+	@Override
+	public boolean isModifiable() {
+		return true;
 	}
 }

@@ -10,9 +10,10 @@ import com.game.darquest.controller.Controller;
 import com.game.darquest.data.Enemy;
 import com.game.darquest.data.Person;
 import com.game.darquest.data.Player;
+import com.game.darquest.data.actions.Clear;
+import com.game.darquest.data.actions.Exe;
 import com.game.darquest.data.actions.Fireable;
 import com.game.darquest.data.actions.Help;
-import com.game.darquest.data.actions.Use;
 import com.game.darquest.data.actions.defensive.Heal;
 import com.game.darquest.data.actions.defensive.Shadow;
 import com.game.darquest.data.actions.defensive.Truth;
@@ -27,6 +28,7 @@ import com.game.darquest.data.items.Item;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -39,7 +41,9 @@ public class FightController implements EventHandler<KeyEvent> {
 	private FightClubWinController pwc;
 	private String output = "";
 	private List<String> commandQueue;
-
+	private final int maxMovePoints = 10;
+	private int currentMovePoints = 0;
+	private String[] modifiers = { "0", "1", "2", "3" };
 
 	private Controller c;
 	private Player p;
@@ -47,11 +51,12 @@ public class FightController implements EventHandler<KeyEvent> {
 	public FightController(Controller c) {
 		c.getView().getFightClubView().addCommandFieldListener(this);
 		this.c = c;
-		fireList = Arrays.asList(new Help(), new Attack(this.c), new Deception(), new Fear());
+		fireList = Arrays.asList(new Clear(), new Exe(), new Help(), new Heal(), 
+				new Attack(this.c), new Steal(), new Deception(), new Fear(),
+				new Valor(), new Light(), new Shadow(), new Truth());
 		
 //		new Use(this.c),
-//		new Steal(), new Heal(), new Deception(), new Truth(), new Fear(), new Valor(), new Light(),
-//		new Shadow()
+
 		
 		this.pwc = this.c.getPlayerWinController();  
 		this.p = (Player)c.getPlayer();
@@ -61,17 +66,55 @@ public class FightController implements EventHandler<KeyEvent> {
 	public void handle(KeyEvent e) {
 		if (e.getCode() == KeyCode.ENTER) {
 			String command = c.getView().getFightClubView().getCommand().toLowerCase().trim();
-			if(commandWasHelp(command)) return;
-			if(commandWasClear(command)) return;
-			if(commandWasExe(command)) return;
 			
-			c.getView().getFightClubView().addCommandToQueue(command);
+			if(commandIsValid(command)) {
+				if(commandWasHelp(command)) return;
+				if(commandWasClear(command)) return;
+				if(commandWasExe(command)) return;
+				
+				checkCurrentMovePoints(command);
+				
+				if(currentMovePoints <= maxMovePoints) {
+					c.getView().getFightClubView().setQueueLabel(currentMovePoints);
+					c.getView().getFightClubView().addCommandToQueue(command);
+				} else {
+					c.getView().getFightClubView().setPlayerOutputTextArea("Can't add anymore commands.\n\n");
+				}
+			}
 			c.getView().getFightClubView().clearCommandField();
 		}
 	}
 	
+	private boolean commandIsValid(String command) {
+		for (int i = 0; i < fireList.size(); i++) {
+			if(command.contains(fireList.get(i).getCommandId())) {
+				if(fireList.get(i).isModifiable()) {
+					for (int j = 0; j < modifiers.length; j++) {
+						if(command.equals(fireList.get(i).getCommandId()+" " + modifiers[j]))
+							return true;
+					}
+				} else {
+					if(command.equals(fireList.get(i).getCommandId()))
+						return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	private void checkCurrentMovePoints(String command) {
+		fireList.forEach(e->{
+			if(command.contains(e.getCommandId())) {
+				currentMovePoints += e.getPointCost();
+				c.getView().getFightClubView().setPlayerOutputTextArea(e.getCommandId() + " command : +" + e.getPointCost()
+						+ "\nTotal points in queued: " + currentMovePoints + "\n\n");
+			}
+		});
+	}
+
 	private boolean commandWasExe(String command) {
 		if(command.equals("exe")) {
+			currentMovePoints = 0;
 			c.getView().getFightClubView().clearPlayerOutputTextArea();
 			
 			//check if player?
@@ -81,7 +124,7 @@ public class FightController implements EventHandler<KeyEvent> {
 			c.getView().getFightClubView().clearQueue();
 			if(noCommandsInQueue(commandQueue.size())) return true;
 			fireEachCommand(commandQueue);
-			//afterPlayerExe();
+			afterPlayerExe();
 			return true;
 		}
 		return false;
@@ -117,11 +160,12 @@ public class FightController implements EventHandler<KeyEvent> {
 	}
 	
 	//Enemy will still do this when they have a list of moves to do.\/\/\/\/\/\/\/\/\/\/\/\/\/\
+	private Timeline timeline;
 	private void fireEachCommand(List<String> commandList) {
 		Collections.reverse(commandList);
 		c.getView().getFightClubView().clearCommandField();
 		c.getView().getFightClubView().clearQueue();
-		Timeline timeline = new Timeline();
+		timeline = new Timeline();
 		timeline.setCycleCount(commandList.size());
 		timeline.getKeyFrames().add(new KeyFrame(Duration.millis(600), 
 				e-> {
@@ -158,7 +202,7 @@ public class FightController implements EventHandler<KeyEvent> {
 			}
 			finalCommand = getCommandWithoutModifiers(command);
 		}
-//
+		
 		for (int i = 0; i < fireList.size(); i++) {
 			if (finalCommand.equals(fireList.get(i).getCommandId())) {
 				fireList.get(i).fire(person, choosen);
@@ -178,9 +222,11 @@ public class FightController implements EventHandler<KeyEvent> {
 	
 	private boolean commandWasClear(String command) {
 		if(command.equals("clear")) {
+			currentMovePoints = 0;
 			c.getView().getFightClubView().clearQueue();
 			c.getView().getFightClubView().clearCommandField();
 			c.getView().getFightClubView().setCommandFeildFocused();
+			c.getView().getFightClubView().clearPlayerOutputTextArea();
 			return true;
 		}
 		return false;
@@ -205,7 +251,7 @@ public class FightController implements EventHandler<KeyEvent> {
 		return command.substring(0, indexAtMod);
 	}
 
-	private String[] modifiers = { "0", "1", "2", "3" };
+	
 	
 	private boolean hasModifier(String command) {
 		for (String e : modifiers)
@@ -247,7 +293,14 @@ public class FightController implements EventHandler<KeyEvent> {
 		// c.getView().getFightClubView().animateWorkBar((Player)p);
 		c.getPlayerInvStatsController().updateAllPlayerStats();
 		//c.getHubController().drawAllEnemyBoxes(enemyList);
-		doEnemyTurnIfPlayerTurnHasEnded();
+		
+		timeline.setOnFinished(new EventHandler<ActionEvent>() {
+		    @Override
+		    public void handle(ActionEvent event) {
+		    	doEnemyTurnIfPlayerTurnHasEnded();
+		    }
+		});
+		
 	}
 
 	private boolean playerWins() {
@@ -322,6 +375,7 @@ public class FightController implements EventHandler<KeyEvent> {
 
 	private void doEnemyTurnIfPlayerTurnHasEnded() {
 
+		
 		c.getView().getFightClubView().clearEnemyOutputTextArea();
 		c.getView().getFightClubView().setDisableCommandField(true);
 		c.getView().getHubView().setPlayerInventoryTabPaneDisabled(true);

@@ -31,12 +31,20 @@ public class Light implements Fireable {
 
 	@Override
 	public String getCommandId() {
-		return "tt";
+		return "ght";
 	}
 
 	@Override
 	public String getOutput() {
 		return output;
 	}
-
+	
+	@Override
+	public int getPointCost() {
+		return 2;
+	}
+	@Override
+	public boolean isModifiable() {
+		return true;
+	}
 }

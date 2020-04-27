@@ -45,5 +45,13 @@ public class Fear implements Fireable {
 	public String getOutput() {
 		return output;
 	}
-
+	
+	@Override
+	public int getPointCost() {
+		return 2;
+	}
+	@Override
+	public boolean isModifiable() {
+		return true;
+	}
 }

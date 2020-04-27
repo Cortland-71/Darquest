@@ -17,21 +17,17 @@ public class HealRuleController implements Ruleable {
 	@Override
 	public void getRule() {
 		double cashRequired = 50;
-		double sleepRequired = .1;
-		double eatRequired = 0;
-		double workRequired = 0;
 		Enemy e = c.getEnemyController().getEnemy();
 		List<Enemy> enemyList = c.getEnemyController().getEnemyList();
-		if (Rules.failedBasicCheck(c, e, eatRequired, sleepRequired, workRequired, cashRequired)) return;
 		
 		int id = e.getId();
-		if(e.getType().getName().equals("Observer")) {
-			for (int i = 0; i < enemyList.size(); i++) {
-				if(enemyList.get(i).getHp() < 1) {
-					id = enemyList.get(i).getId();
-				}
-			}
-		}
+//		if(e.getType().getName().equals("Observer")) {
+//			for (int i = 0; i < enemyList.size(); i++) {
+//				if(enemyList.get(i).getHp() < 1) {
+//					id = enemyList.get(i).getId();
+//				}
+//			}
+//		}
 		
 		c.getFightClubController().runFire("he " + id, c.getEnemyController().getEnemy());
 	}

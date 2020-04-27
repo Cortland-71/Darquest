@@ -41,5 +41,13 @@ public class Shadow implements Fireable {
 	public String getOutput() {
 		return output;
 	}
-
+	
+	@Override
+	public int getPointCost() {
+		return 3;
+	}
+	@Override
+	public boolean isModifiable() {
+		return true;
+	}
 }

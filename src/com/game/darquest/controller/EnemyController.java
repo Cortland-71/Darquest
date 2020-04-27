@@ -7,7 +7,6 @@ import java.util.Random;
 
 import com.game.darquest.controller.rules.AttackRuleController;
 import com.game.darquest.controller.rules.DeceptionRuleController;
-import com.game.darquest.controller.rules.EngRuleController;
 import com.game.darquest.controller.rules.FearRuleController;
 import com.game.darquest.controller.rules.HealRuleController;
 import com.game.darquest.controller.rules.LightRuleController;
@@ -29,15 +28,11 @@ public class EnemyController {
 	private List<Enemy> enemyList;
 	private List<Ruleable> ruleList;
 	
-	private List<Integer> allScores = new ArrayList<>();
-	private int holder = 0;
-	
 	private DeceptionRuleController deceptionRuleController;
 	private StealRuleController stealRuleController;
 	private HealRuleController healRuleController;
 	private AttackRuleController attackRuleController;
 	private TruthRuleController truthRuleController;
-	private EngRuleController engRuleController;
 	private FearRuleController fearRuleController;
 	private ValorRuleController valorRuleController;
 	private LightRuleController lightRuleController;
@@ -50,21 +45,19 @@ public class EnemyController {
 		healRuleController = new HealRuleController(this.c);
 		attackRuleController = new AttackRuleController(this.c);
 		truthRuleController = new TruthRuleController(this.c);
-		engRuleController = new EngRuleController(this.c);
 		fearRuleController = new FearRuleController(this.c);
 		valorRuleController = new ValorRuleController(this.c);
 		lightRuleController = new LightRuleController(this.c);
 		shadowRuleController = new ShadowRuleController(this.c);
 		this.ruleList = Arrays.asList(
-				engRuleController,
 				attackRuleController, 
 				stealRuleController,
 				deceptionRuleController,
 				fearRuleController,
+				lightRuleController,
 				healRuleController,
 				truthRuleController,
 				valorRuleController,
-				lightRuleController,
 				shadowRuleController);
 		
 	}
@@ -105,10 +98,6 @@ public class EnemyController {
 		return valorRuleController;
 	}
 
-
-
-
-
 	int count = 0;
 	
 	public void enemyTurn(Enemy enemy, List<Enemy> enemyList) {
@@ -130,8 +119,8 @@ public class EnemyController {
 
 	private void move() {
 		System.out.println(enemy.getType().getName());
-		allScores = enemy.getType().getAllScores();
-		int index = getChoosenActionIndex();
+		List<Integer> allScores = enemy.getType().getAllScores();
+		int index = getChoosenActionIndex(allScores);
 		ruleList.get(index).getRule();
 		updateAllStats();
 		if(c.getPlayer().getHp() <= 0) {
@@ -140,10 +129,10 @@ public class EnemyController {
 	}
 	
 	
-	private int getChoosenActionIndex() {
+	private int getChoosenActionIndex(List<Integer> allScores) {
 		List<Integer> highScoreIndexes = new ArrayList<>();
 		int choosenIndex = 0;
-		holder = 0;
+		int holder = 0;
 		Random rand = new Random();
 		
 		//Finds Highest score in the list of all scores.
@@ -161,13 +150,9 @@ public class EnemyController {
 			}
 		}
 		
-		highScoreIndexes.forEach(e->System.out.println("Enemy Controller: High Score index: " + e));
-		
 		//If it finds there are two indexes with same high scores it will choose one randomly.
 		if(highScoreIndexes.size() > 1) 
 			choosenIndex = highScoreIndexes.get(rand.nextInt(highScoreIndexes.size()));
-		
-		System.out.println("Choosen index: " + choosenIndex + "\n");
 		return choosenIndex;
 	}
 	

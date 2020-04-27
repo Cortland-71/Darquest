@@ -127,10 +127,14 @@ public class FightView {
 		return queueBox;
 	}
 	
+	private Label queueLabel;
 	private Label queueLabel() {
-		Label queueLabel = new Label("Queue");
+		queueLabel = new Label("Queue");
 		queueLabel.setId("queueLabel");
 		return queueLabel;
+	}
+	public void setQueueLabel(int points) {
+		queueLabel.setText("Queue: " + points + "/10");
 	}
 	
 	public void addCommandToQueue(String command) {
@@ -149,7 +153,7 @@ public class FightView {
 	//Enemy components \/\/\/\/\/\/\\/\/\/\/\/\/\/\/\/\/\/\/\/
 	private VBox enemyOutputBox() {
 		VBox enemyOutputBox = new VBox(10);
-		enemyOutputBox.setAlignment(Pos.TOP_RIGHT);
+		enemyOutputBox.setAlignment(Pos.CENTER);
 		enemyOutputBox.getChildren().add(enemyOutputLabel());
 		enemyOutputBox.getChildren().add(enemyOutputTextArea());
 		return enemyOutputBox;
@@ -170,12 +174,11 @@ public class FightView {
 	}
 	
 	public void setEnemyOutputTextArea(String text) {
-		enemyOutputTextArea.appendText(text+"\n");
+		enemyOutputTextArea.appendText(text);
 	}
 	
 	public void clearAllOutputTextAreas() {
 		clearEnemyOutputTextArea();
-		setPlayerOutputTextArea("");
 	}
 	
 	private Label enemyOutputLabel() {
@@ -488,6 +491,8 @@ public class FightView {
 		enemyTypeLabel.setTooltip(typeToolTip);
 		enemyIDLabel.setText("ID: " + p.getId());
 		enemyLimitLabel.setText("Limit: " + p.getLimit());
+		
+		
 		
 	}
 

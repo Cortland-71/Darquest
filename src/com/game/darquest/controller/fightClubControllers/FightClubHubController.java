@@ -103,6 +103,7 @@ class RandomFight implements Clickable {
 		c.getView().getFightClubView().clearCommandField();
 		c.getView().getHubView().showRandomFight();
 		c.getView().getFightClubView().setCommandFeildFocused();
+		c.getView().getFightClubView().setQueueLabel(0);
 		
 	}
 }
