@@ -16,7 +16,7 @@ public class FearRuleController implements Ruleable {
 		
 		
 		c.getFightClubController().runFire("fear 0", e);
-		
+		System.out.println("FearRule: did fear\n");
 	}
 
 }

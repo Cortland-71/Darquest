@@ -12,10 +12,10 @@ public class ItemHub {
 	// \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 	public List<Item> lowWeaponsList() {
 		return Arrays.asList(new Weapon("Studded Gloves", studedGlovesDes(), 150, .01, 8, 8, 5, 8),
-				new Weapon("Brass Knuckles", brassKnucklesDes(), 350, .05, 10, 10, 6, 10),
-				new Weapon("Scorpion", hammerDes(), 600, .08, 20, 20, 6, 15),
-				new Weapon("Switchblade", switchBladeDes(), 350, .02, 12, 12, 7, 10),
-				new Weapon("Tanto", tantoDes(), 800, .08, 30, 30, 7, 15));
+				new Weapon("Brass Knuckles", brassKnucklesDes(), 350, .05, 10, 10, 4, 10),
+				new Weapon("Scorpion", hammerDes(), 600, .08, 20, 20, 3, 15),
+				new Weapon("Switchblade", switchBladeDes(), 350, .02, 12, 12, 3, 10),
+				new Weapon("Tanto", tantoDes(), 800, .08, 30, 30, 3, 15));
 	}
 
 	public List<Item> midWeaponsList() {

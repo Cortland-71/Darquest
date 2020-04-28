@@ -16,6 +16,7 @@ public class DeceptionRuleController implements Ruleable {
 		Enemy e = c.getEnemyController().getEnemy();
 		
 		c.getFightClubController().runFire("dec 0", e);
+		System.out.println("DeceptionRule: did deception\n");
 	}
 
 }

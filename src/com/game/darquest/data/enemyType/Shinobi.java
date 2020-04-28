@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.game.darquest.controller.Controller;
 import com.game.darquest.data.Enemy;
+import com.game.darquest.data.Player;
 import com.game.darquest.data.items.Armor;
 import com.game.darquest.data.items.ItemHub;
 import com.game.darquest.data.items.Weapon;
@@ -18,6 +19,12 @@ public class Shinobi implements Classable {
 	private int maxStat;
 	
 	@Override
+	public int getGenerateAttack() {
+		return rand.nextInt((maxStat - minStat)+1)+minStat;
+	}
+	
+	
+	@Override
 	public int getGenerateDef() {
 		return rand.nextInt((maxStat - minStat)+1)+minStat;
 	}
@@ -29,6 +36,17 @@ public class Shinobi implements Classable {
 
 	@Override
 	public int getGenerateAwareness() {
+		return rand.nextInt((maxStat - minStat)+1)+minStat;
+	}
+	
+
+	@Override
+	public int getGenerateMutation() {
+		return rand.nextInt((maxStat - minStat)+1)+minStat;
+	}
+
+	@Override
+	public int getGenerateSecurity() {
 		return rand.nextInt((maxStat - minStat)+1)+minStat;
 	}
 
@@ -70,13 +88,50 @@ public class Shinobi implements Classable {
 		
 	}
 	
-	public int attackQuestions() {
-		Enemy e = (Enemy)c.getEnemyController().getEnemy();
-		int score = 5;
+	//Hostile questions
+		public int attackQuestions() {
+			int score = 4;
+			System.out.println("attack score: " + score);
+			return score;
+		}
 		
-		System.out.println("attack score: " + score);
-		return score;
-	}
+		public int healQuestions() {
+			Enemy e = (Enemy)c.getEnemyController().getEnemy();
+			Player p = (Player)c.getPlayer();
+			
+			int score = 0;
+			score += e.getHp() < 1 ? 1 : 0;
+			score *= (Math.round((1-e.getHp())*10d));
+	 		System.out.println("Heal score: " + score);
+			return score;
+		}
+
+		public int stealQuestions() {
+			Enemy e = (Enemy)c.getEnemyController().getEnemy();
+			Player p = (Player)c.getPlayer();
+			
+			int score = 0;
+			score += e.getCash() < 50 ? 2 : 0;
+			score *= (Math.round((1-e.getHp())*10d));
+			System.out.println("Steal score: " + score);
+			return score;
+		}
+		
+		public int preserveQuestions() {
+			Enemy e = (Enemy)c.getEnemyController().getEnemy();
+			Player p = (Player)c.getPlayer();
+			
+			int score = 0, dif = 0;
+			score += e.getAwareness() < e.getMaxAwareness() ? 1 : 0;
+			score += e.getDef() < e.getMaxDef() ? 1 : 0;
+			score += e.getStealth() < e.getMaxStealth() ? 1 : 0;
+			dif = e.getMaxAwareness() - e.getAwareness();
+			dif += e.getMaxDef() - e.getDef();
+			dif += e.getMaxStealth() - e.getStealth();
+			score *= dif;
+			System.out.println("Preserve score: " + score);
+			return score;
+		}
 
 	public int getNoScore() {
 		int score = 0;
@@ -86,19 +141,14 @@ public class Shinobi implements Classable {
 	@Override
 	public List<Integer> getAllScores() {
 		List<Integer> allScores = new ArrayList<>();
-		allScores.add(getNoScore()); //Eng
 		allScores.add(attackQuestions()); //Attack
-		allScores.add(getNoScore()); //Steal
-		allScores.add(getNoScore()); //Deception
-		allScores.add(getNoScore()); //Fear
+		allScores.add(stealQuestions()); //Steal
 		allScores.add(getNoScore()); //Heal
-		allScores.add(getNoScore()); //Truth
-		allScores.add(getNoScore()); //Valor
-		allScores.add(getNoScore()); //Light
-		allScores.add(getNoScore()); //Shadow
+		allScores.add(preserveQuestions()); //Preserve
 		
 		return allScores;
 	}
+	
 
 	@Override
 	public String getDescription() {

@@ -15,11 +15,15 @@ public class StealRuleController implements Ruleable {
 		Enemy e = c.getEnemyController().getEnemy();
 		
 		if (e.getStealth() < c.getPlayer().getAwareness()) {
-			c.getEnemyController().getDeceptionRuleController().getRule();
+			if(e.getStealth() < e.getMaxStealth()) {
+				c.getFightClubController().runFire("sh", e);
+				return;
+			}
+			c.getFightClubController().runFire("dec 0", e);
 			return;
 		}
 		c.getFightClubController().runFire("st 0", e);
-		
+		System.out.println("StealRule: Did steal\n");
 	}
 	
 }

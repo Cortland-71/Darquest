@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.game.darquest.data.Enemy;
 import com.game.darquest.data.Person;
-import com.game.darquest.view.View;
 
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -23,9 +22,22 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 
 public class FightView {
+	
+	
+	private Label enemyNameLabel = new Label();
+	private Label enemyLvlLabel = new Label();
+	private Label enemyCashLabel = new Label();
+	private Label enemyHpLabel = new Label();
+	private Label enemyAttackLabel = new Label();
+	private Label enemyDefLabel = new Label();
+	private Label enemyStealthLabel = new Label();
+	private Label enemyAwarenessLabel = new Label();
+	private Label enemyMutationLabel = new Label();
+	private Label enemySecurityLabel = new Label();
+	private Label enemyTypeLabel = new Label();
+	private Label enemyIDLabel = new Label();
 	
 	private List<Label> queueCommandLabels = new ArrayList<>();
 
@@ -232,51 +244,19 @@ public class FightView {
 		enemyRightStatsBox.setPadding(new Insets(10,0,0,5));
 		enemyRightStatsBox.setMinSize(200, 360);
 		enemyRightStatsBox.setMaxSize(200, 360);
-		enemyRightStatsBox.getChildren().addAll(enemyNameLabel(), enemyLvlLabel(),
-				enemyCashLabel(), enemyHpLabel() ,enemyHpBar(), enemyEngLabel(), enemyEngBar(), 
-				enemyDefLabel(), enemyStealthLabel(), enemyAwarenessLabel(), enemyMutationLabel(),
-				enemyPreserveLabel(), enemyTypeLabel(),
-				enemyIDLabel());
+		enemyRightStatsBox.getChildren().addAll(enemyNameLabel, enemyLvlLabel,
+				enemyCashLabel, enemyHpLabel ,enemyHpBar(), enemyAttackLabel,
+				enemyDefLabel, enemyStealthLabel, enemyAwarenessLabel, enemyMutationLabel,
+				enemySecurityLabel, enemyTypeLabel,
+				enemyIDLabel);
 		return enemyRightStatsBox;
 	}
 	
 	private final int barLength = 180;
 	private final int barWidth = 10;
 	
-	private Label enemyNameLabel;
-	private Label enemyNameLabel() {
-		enemyNameLabel = new Label("Name");
-		return enemyNameLabel;
-	}
-	public void setEnemyNameLabel(String name) {
-		enemyNameLabel.setText(name);
-	}
-	
-	private Label enemyLvlLabel;
-	private Label enemyLvlLabel() {
-		enemyLvlLabel = new Label("Lvl");
-		return enemyLvlLabel;
-	}
-	public void setEnemyLvlLabel(String Lvl) {
-		enemyLvlLabel.setText(Lvl);
-	}
-	
-	private Label enemyCashLabel;
-	private Label enemyCashLabel() {
-		enemyCashLabel = new Label("Cash");
-		return enemyCashLabel;
-	}
 	
 	
-	
-	private Label enemyHpLabel;
-	private Label enemyHpLabel() {
-		enemyHpLabel = new Label("Hp");
-		return enemyHpLabel;
-	}
-	public void setEnemyHpLabel(String Hp) {
-		enemyHpLabel.setText(Hp);
-	}
 	private ProgressBar enemyHpBar;
 	private ProgressBar enemyHpBar() {
 		enemyHpBar = new ProgressBar();
@@ -286,66 +266,8 @@ public class FightView {
 		return enemyHpBar;
 	}
 	
-	private Label enemyEngLabel;
-	private Label enemyEngLabel() {
-		enemyEngLabel = new Label("Eng");
-		return enemyEngLabel;
-	}
 	
-	private ProgressBar enemyEngBar;
-	private ProgressBar enemyEngBar() {
-		enemyEngBar = new ProgressBar();
-		enemyEngBar.setId("enemyEngBar");
-		enemyEngBar.setMinSize(barLength, barWidth);
-		enemyEngBar.setMaxSize(barLength, barWidth);
-		return enemyEngBar;
-	}
-	
-	private Label enemyDefLabel;
-	private Label enemyDefLabel() {
-		enemyDefLabel = new Label("Def");
-		return enemyDefLabel;
-	}
-	
-	private Label enemyStealthLabel;
-	private Label enemyStealthLabel() {
-		enemyStealthLabel = new Label("Stealth");
-		return enemyStealthLabel;
-	}
-	
-	private Label enemyAwarenessLabel;
-	private Label enemyAwarenessLabel() {
-		enemyAwarenessLabel = new Label("Awareness");
-		return enemyAwarenessLabel;
-	}
-	
-	private Label enemyMutationLabel;
-	private Label enemyMutationLabel() {
-		enemyMutationLabel = new Label("Mutation");
-		return enemyMutationLabel;
-	}
-	
-	private Label enemyPreserveLabel;
-	private Label enemyPreserveLabel() {
-		enemyPreserveLabel = new Label("Preserve");
-		return enemyPreserveLabel;
-	}
-	
-	
-	
-	private Label enemyTypeLabel;
-	private Label enemyTypeLabel() {
-		enemyTypeLabel = new Label("Type");
-		return enemyTypeLabel;
-	}
-	
-	private Label enemyIDLabel;
-	private Label enemyIDLabel() {
-		enemyIDLabel = new Label("ID");
-		return enemyIDLabel;
-	}
-	
-	//Enemy Bottom stats box \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
+	//Enemy Bottom stat's box \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 	private VBox enemyBottomStatsBox() {
 		VBox enemyBottomStatsBox = new VBox(2);
 		enemyBottomStatsBox.setId("enemyBottomStatsBox");
@@ -442,11 +364,16 @@ public class FightView {
 		enemyLvlLabel.setText("Lvl:\t" + p.getLvl());
 		enemyCashLabel.setText("Cash:\t" + p.getCashFormatted());
 		enemyHpLabel.setText("HP:\t" + p.getHp() + "/1.0");
-		enemyEngLabel.setText("Eng:\t" + p.getEng() + "/1.0");
+		
 
 		enemyHpBar.setProgress(p.getHp());
-		enemyEngBar.setProgress(p.getEng());
 		enemyLimitBar.setProgress(p.getLimit());
+		
+		if(p.getAttack() <= player.getDef()) {
+			enemyAttackLabel.setStyle("-fx-text-fill: red");
+		} else {
+			enemyAttackLabel.setStyle("-fx-text-fill: #cc6600");
+		}
 		
 		if(p.getDef() <= player.getEquippedWeapon().getMinDamage()) {
 			enemyDefLabel.setStyle("-fx-text-fill: red");
@@ -473,17 +400,18 @@ public class FightView {
 			enemyMutationLabel.setStyle("-fx-text-fill: #cc6600");
 		}
 		
-		if(p.getPreserve() < p.getMaxPreserve()) {
-			enemyPreserveLabel.setStyle("-fx-text-fill: red");
+		if(p.getSecurity() < p.getMaxSecurity()) {
+			enemySecurityLabel.setStyle("-fx-text-fill: red");
 		} else {
-			enemyPreserveLabel.setStyle("-fx-text-fill: #cc6600");
+			enemySecurityLabel.setStyle("-fx-text-fill: #cc6600");
 		}
 		
+		enemyAttackLabel.setText("Attack:    " + p.getAttack());
 		enemyDefLabel.setText("Defense:   " + p.getDef());
 		enemyStealthLabel.setText("Stealth:   " + p.getStealth());
 		enemyAwarenessLabel.setText("Awareness: " + p.getAwareness());
 		enemyMutationLabel.setText("Mutation:  " + p.getMutation());
-		enemyPreserveLabel.setText("Preserve:  " + p.getPreserve());
+		enemySecurityLabel.setText("Security:  " + p.getSecurity());
 		
 		enemyTypeLabel.setText("Type: "+p.getType().getName());
 		Tooltip typeToolTip = new Tooltip(p.getType().getDescription());

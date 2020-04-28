@@ -21,6 +21,6 @@ public class ValorRuleController implements Ruleable {
 		int id = e.getId();
 
 		c.getFightClubController().runFire("va " + id, e);
-		System.out.println("ValorRule: Did valor");
+		System.out.println("ValorRule: Did valor\n");
 	}
 }

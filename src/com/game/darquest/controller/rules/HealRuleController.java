@@ -30,5 +30,6 @@ public class HealRuleController implements Ruleable {
 //		}
 		
 		c.getFightClubController().runFire("he " + id, c.getEnemyController().getEnemy());
+		System.out.println("HealRule: did heal\n");
 	}
 }

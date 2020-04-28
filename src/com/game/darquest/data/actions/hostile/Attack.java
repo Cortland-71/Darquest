@@ -1,20 +1,15 @@
 package com.game.darquest.data.actions.hostile;
 
 import java.text.DecimalFormat;
-import java.util.List;
 import java.util.Random;
 
 import com.game.darquest.controller.Controller;
 import com.game.darquest.controller.fightClubControllers.FightClubWinController;
 import com.game.darquest.data.Enemy;
 import com.game.darquest.data.Person;
-import com.game.darquest.data.Player;
 import com.game.darquest.data.actions.Fireable;
 import com.game.darquest.data.items.Weapon;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.util.Duration;
 
 public class Attack implements Fireable {
 
@@ -38,15 +33,13 @@ public class Attack implements Fireable {
 		int weaponDamage = getWeaponDamage(w);
 		int def = choosen.getDef();
 		int minimumWeaponDamage = p.getEquippedWeapon().getMinDamage();
-		
-		double weaponDamageWithEngMult = getWeaponDamageWithEngMult(p, weaponDamage);
-		double finalDamage = getFinalWeaponDamage(def, weaponDamageWithEngMult);
-		double limitRaised = 0;
+		int minWepDamageAndAttackLevel = minimumWeaponDamage + 5;
+		double finalDamage = getFinalWeaponDamage(def, minWepDamageAndAttackLevel);
 		
 		if(!w.getName().equals("none")) w.setCondition(w.getCondition() - 1);
 		if(p instanceof Enemy) w.setCondition(w.getCondition() + 1);
 		
-		p.setEng(p.getEng() - .3);
+		//a p.setEng(p.getEng() - .3);
 		
 		if(minimumWeaponDamage < choosen.getDef()) {
 			output = "Attack missed.\n"
@@ -69,13 +62,8 @@ public class Attack implements Fireable {
 	}
 
 	
-	private double getFinalWeaponDamage(int def, double weaponDamageWithEngMult) {
-		return weaponDamageWithEngMult - ((def/2d)/100d);
-	}
-	
-	private double getWeaponDamageWithEngMult(Person p, int weaponDamage) {
-		double engMult = p.getEng();
-		return (weaponDamage / 100d) + (engMult / 2);
+	private double getFinalWeaponDamage(int def, int attackLevelAndMinWepDamage) {
+		return attackLevelAndMinWepDamage - ((def/2d)/100d);
 	}
 	
 	private int getWeaponDamage(Weapon w) {

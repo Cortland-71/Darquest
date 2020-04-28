@@ -12,9 +12,9 @@ public class Enemy extends Person {
 	private double limit = 0;
 	
 
-	public Enemy(String name, int maxDef, int maxStealth, int maxAwareness, int maxMutation, int maxPreservation, Weapon equippedWeapon, Armor equippedArmor,
+	public Enemy(String name, int maxAttack, int maxDef, int maxStealth, int maxAwareness, int maxMutation, int maxSecurity, Weapon equippedWeapon, Armor equippedArmor,
 			int lvl, double cash, Classable type, int id, String imagePath) {
-		super(name, maxDef, maxStealth, maxAwareness, maxMutation, maxPreservation, equippedWeapon, equippedArmor, lvl, cash);
+		super(name, maxAttack, maxDef, maxStealth, maxAwareness, maxMutation, maxSecurity, equippedWeapon, equippedArmor, lvl, cash);
 		this.type = type;
 		this.id = id;
 		this.imagePath = imagePath;

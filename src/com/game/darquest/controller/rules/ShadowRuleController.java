@@ -15,7 +15,7 @@ public class ShadowRuleController implements Ruleable {
 		
 		
 		c.getFightClubController().runFire("sh 0", e);	
-		
+		System.out.println("ShadowRule: did shadow\n");
 	}
 
 }

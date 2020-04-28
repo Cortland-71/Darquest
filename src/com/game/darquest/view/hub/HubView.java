@@ -53,11 +53,11 @@ public class HubView {
 	private Label weightLabel = new Label();
 	private Label hpLabel = new Label();
 	private Label cashLabel = new Label();
-	private Label engLabel = new Label();
 	private Label equippedWeaponLabel = new Label();
 	private Label equippedArmorLabel = new Label();
 	private Label equippedToolLabel = new Label();
 	
+	private Label attackLabel = new Label();
 	private Label defLabel = new Label();
 	private Label stealthLabel = new Label();
 	private Label awarenessLabel = new Label();
@@ -155,14 +155,13 @@ public class HubView {
 	private VBox statsBox() {
 		VBox equippedBox = new VBox(8);
 		equippedBox.setPadding(new Insets(20, 0, 0, 0));
-		equippedBox.getChildren().addAll(hpLabel, hpBar(), engLabel, engBar());
+		equippedBox.getChildren().addAll(hpLabel, hpBar());
 		return equippedBox;
 	}
 
 	private final int barLength = 270;
 	private final int barWidth = 15;
 	private ProgressBar hpBar;
-	private ProgressBar engBar;
 
 	private ProgressBar hpBar() {
 		hpBar = new ProgressBar();
@@ -170,14 +169,6 @@ public class HubView {
 		hpBar.setMinSize(barLength, barWidth);
 		hpBar.setMaxSize(barLength, barWidth);
 		return hpBar;
-	}
-
-	private ProgressBar engBar() {
-		engBar = new ProgressBar();
-		engBar.setId("engBar");
-		engBar.setMinSize(barLength, barWidth);
-		engBar.setMaxSize(barLength, barWidth);
-		return engBar;
 	}
 	
 	
@@ -193,6 +184,8 @@ public class HubView {
 	private VBox skillsBox() {
 		VBox skillsBox = new VBox(8);
 		skillsBox.setPadding(new Insets(20, 0, 0, 0));
+		attackLabel.setTooltip(new Tooltip("Attack\nThis is your base line attack level. Any equipped weapon will\n"
+				+ "add to this."));
 		defLabel.setTooltip(new Tooltip("Defense\nThis skill lowers the damage you take\n"
 				+ "when getting hit by an enemy."));
 		stealthLabel.setTooltip(new Tooltip("Stealth\nAllows you to steal cash more effectivly.\n"
@@ -201,7 +194,7 @@ public class HubView {
 				+ "or planting devices on you."));
 		mutationLabel.setTooltip(new Tooltip("Mutation"));
 		preserveLabel.setTooltip(new Tooltip("Preservation"));
-		skillsBox.getChildren().addAll(defLabel, stealthLabel, awarenessLabel,
+		skillsBox.getChildren().addAll(attackLabel, defLabel, stealthLabel, awarenessLabel,
 				mutationLabel, preserveLabel);
 		return skillsBox;
 	}
@@ -434,7 +427,6 @@ public class HubView {
 		cashLabel.setText("Cash:\t" + p.getCashFormatted());
 		weightLabel.setText("Weight: " + df.format(p.getWeight()) + "/1.0");
 		hpLabel.setText("HP:\t" + p.getHp() + "/1.0");
-		engLabel.setText("Eng:\t" + p.getEng() + "/1.0");
 
 		if(p.getXp() >= 1) {
 			buttonList.get(3).setStyle("-fx-text-fill: orange;"
@@ -448,12 +440,16 @@ public class HubView {
 		xpBar.setProgress(p.getXp());
 		weightBar.setProgress(p.getWeight());
 		hpBar.setProgress(p.getHp());
-		engBar.setProgress(p.getEng());
 
 		equippedWeaponLabel.setText("Wep:\t" + p.getEquippedWeaponString());
 		equippedArmorLabel.setText("Arm:\t" + p.getEquippedArmorString());
 		equippedToolLabel.setText("Tool:\t" + p.getEquippedToolString());
 		
+		if(p.getAttack() < p.getMaxAttack()) {
+			attackLabel.setStyle("-fx-text-fill: red");
+		} else {
+			attackLabel.setStyle("-fx-text-fill: _lightBlue");
+		}
 		
 		if(p.getDef() < p.getMaxDef()) {
 			defLabel.setStyle("-fx-text-fill: red");
@@ -479,17 +475,18 @@ public class HubView {
 			mutationLabel.setStyle("-fx-text-fill: _lightBlue");
 		}
 		
-		if(p.getPreserve() < p.getMaxPreserve()) {
+		if(p.getSecurity() < p.getMaxSecurity()) {
 			preserveLabel.setStyle("-fx-text-fill: red");
 		} else {
 			preserveLabel.setStyle("-fx-text-fill: _lightBlue");
 		}
 		
+		attackLabel.setText("Attack:    " + p.getAttack());
 		defLabel.setText("Defense:   " + p.getDef());
 		stealthLabel.setText("Stealth:   " + p.getStealth());
 		awarenessLabel.setText("Awareness: " + p.getAwareness());
 		mutationLabel.setText("Mutation:  " + p.getMutation());
-		preserveLabel.setText("Preserve:  " + p.getPreserve());
+		preserveLabel.setText("Security:  " + p.getSecurity());
 	}
 
 	public Scene getDownTownScene() {

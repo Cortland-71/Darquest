@@ -94,6 +94,8 @@ class RandomFight implements Clickable {
 		enemyGenerator = new EnemyGenerator(this.c);
 		enemyGenerator.generateEnemys();
 		List<Enemy> enemyList = enemyGenerator.getEnemyList();
+		c.getFightClubController().addEnemyId(enemyList);
+		
 		c.getPlayerWinController().setAllCountersToDefault();
 		c.getFightClubController().setEnemyList(enemyList);
 		

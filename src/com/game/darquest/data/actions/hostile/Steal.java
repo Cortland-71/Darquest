@@ -25,13 +25,8 @@ public class Steal implements Fireable {
 		int awarenessAmount = choosen.getAwareness();
 		int stealthAmount = p.getStealth();
 		double choosenCashBefore = choosen.getCash();
-		double eng = p.getEng();
 
-		double initStolen = getInitStolen(stealthAmount);
-		double stolenWithEngMult = getStealWithEngMult(eng, initStolen);
 		double finalAmountStolen = 0;
-
-		p.setEng(p.getEng() - (getPointCost()/10d));
 
 		if (p.getStealth() < choosen.getAwareness()) {
 			output = "Steal failed: " + p.getName() + "\n"
@@ -41,8 +36,14 @@ public class Steal implements Fireable {
 			return;
 		}
 
-		finalAmountStolen = getFinalStealAmount(stealthAmount, awarenessAmount, stolenWithEngMult, choosenCashBefore);
+		finalAmountStolen = getFinalStealAmount(stealthAmount, awarenessAmount, choosenCashBefore);
 
+		if(choosen instanceof Enemy) {
+			Enemy e = (Enemy)choosen;
+			if(e.getType().getName().equals("Observer")) {
+				e.setLimit(e.getLimit()+.2);
+			}
+		}
 		p.setCash(p.getCash() + finalAmountStolen);
 		choosen.setCash(choosen.getCash() - finalAmountStolen);
 		
@@ -56,14 +57,9 @@ public class Steal implements Fireable {
 		return stealthAmount * 25;
 	}
 
-	private double getStealWithEngMult(double eng, double initStolen) {
-		return initStolen + (eng * 200);
-	}
-
-	private double getFinalStealAmount(int stealth, int awareness, double stealWithEngMult, double choosenCash) {
+	private double getFinalStealAmount(int stealth, int awareness, double choosenCash) {
 		double amount = 0;
-		if (stealth == awareness) amount = stealWithEngMult;
-		else amount = stealWithEngMult + ((stealth - awareness) * 10);
+		amount = (stealth - awareness) * 10;
 		if (amount <= choosenCash) return amount;
 		return choosenCash;
 	}

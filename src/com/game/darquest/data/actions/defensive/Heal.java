@@ -22,7 +22,7 @@ public class Heal implements Fireable {
 		
 		if(p.getCash() >= requiredCash) {
 			p.setCash(p.getCash() - requiredCash);
-			double hpGained = (choosen.getPreserve()/2d) /10;
+			double hpGained = (choosen.getMutation()/2d) /10;
 			choosen.setHp(choosen.getHp() + hpGained);
 			
 			output = "Heal successful: " + p.getName() +

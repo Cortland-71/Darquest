@@ -18,9 +18,9 @@ public class EnemyGenerator {
 	private List<Enemy> enemyList;
 	private Random rand = new Random();
 	private Controller c;
-	
-	private List<String> enemyPics = Arrays.asList("Enforcer1Big.png", "Shinobi1Big.png", 
-			"Runner1.png", "Shinobi2Rev.png");
+
+	private List<String> enemyPics = Arrays.asList("Enforcer1Big.png", "Shinobi1Big.png", "Runner1.png",
+			"Shinobi2Rev.png");
 
 	public EnemyGenerator(Controller c) {
 		this.c = c;
@@ -43,21 +43,25 @@ public class EnemyGenerator {
 
 	private Enemy getEnemyObject(String name, int level, Classable type, int index, String imagePath) {
 		Classable t = type;
+		int attack = t.getGenerateAttack();
 		int def = t.getGenerateDef();
 		int stealth = t.getGenerateStealth();
 		int awareness = t.getGenerateAwareness();
-		
+		int mutation = t.getGenerateMutation();
+		int security = t.getGenerateSecurity();
+
 		Weapon wep = t.getGenerateWeapon();
 		Armor armor = t.getGenerateArmor();
 		double cash = t.getGeneratedCash();
 
-		return new Enemy(name, def, stealth, awareness, 5,5, wep, armor, level, cash, type, index + 1, imagePath);
+		return new Enemy(name, attack, def, stealth, awareness, mutation, security, wep, armor, level, cash, type, index + 1,
+				imagePath);
 	}
 
 	private Classable getRandomType() {
 		List<Classable> classList = Arrays.asList(
 				new Enforcer());
-				//new Observer(),
+				//new Observer());
 				//new Shinobi());
 		return classList.get(rand.nextInt(classList.size()));
 	}
@@ -82,17 +86,15 @@ public class EnemyGenerator {
 	}
 
 	private int getRandomNumberOfEnemies() {
-		//return rand.nextInt((3 - 1) + 1) + 1;
-		//return rand.nextInt((3 - 3) + 1) + 3;
+		 //return rand.nextInt((3 - 1) + 1) + 1;
+		// return rand.nextInt((3 - 3) + 1) + 3;
 		//return rand.nextInt((2 - 2) + 1) + 2;
-		return rand.nextInt((1 - 1) + 1) + 1;
-		
+		 return rand.nextInt((1 - 1) + 1) + 1;
+
 	}
 
 	public List<Enemy> getEnemyList() {
 		return enemyList;
 	}
-	
-	
 
 }

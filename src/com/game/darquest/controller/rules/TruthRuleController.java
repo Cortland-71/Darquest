@@ -20,6 +20,6 @@ public class TruthRuleController implements Ruleable {
 		int id = e.getId();
 		
 		c.getFightClubController().runFire("tr " + id, e);
-		System.out.println("TruthRule: Did truth");
+		System.out.println("TruthRule: Did truth\n");
 	}
 }

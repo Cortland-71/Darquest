@@ -16,5 +16,6 @@ public class LightRuleController implements Ruleable {
 		
 		
 		c.getFightClubController().runFire("ght 0", e);	
+		System.out.println("LightRule: did light\n");
 	}
 }

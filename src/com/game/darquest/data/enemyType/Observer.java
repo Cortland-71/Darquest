@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.game.darquest.controller.Controller;
 import com.game.darquest.data.Enemy;
+import com.game.darquest.data.Player;
 import com.game.darquest.data.items.Armor;
 import com.game.darquest.data.items.ItemHub;
 import com.game.darquest.data.items.Weapon;
@@ -14,23 +15,41 @@ public class Observer implements Classable {
 	private ItemHub ic;
 	private Controller c;
 
-	private int minStat = 5;
+	private int minStat;
 	private int maxStat;
+	
+	@Override
+	public int getGenerateAttack() {
+		return rand.nextInt((maxStat - minStat)+1)+minStat;
+	}
+	
 	
 	
 	@Override
 	public int getGenerateDef() {
-		return rand.nextInt((maxStat - minStat)+1)+minStat;
+		
+		return rand.nextInt((minStat-1)+1)+1;
 	}
 
 	@Override
 	public int getGenerateStealth() {
-		return 1;
+		return rand.nextInt((minStat-1)+1)+1;
 	}
 
 	@Override
 	public int getGenerateAwareness() {
 		return rand.nextInt((maxStat - minStat)+1)+minStat;
+	}
+	
+
+	@Override
+	public int getGenerateMutation() {
+		return rand.nextInt(((maxStat+minStat) - minStat)+1)+minStat;
+	}
+
+	@Override
+	public int getGenerateSecurity() {
+		return rand.nextInt(((maxStat+minStat) - minStat)+1)+minStat;
 	}
 
 	@Override
@@ -63,6 +82,7 @@ public class Observer implements Classable {
 
 	@Override
 	public void setLevel(int level) {
+		minStat = level*2;
 		maxStat = minStat + level;
 	}
 
@@ -72,12 +92,38 @@ public class Observer implements Classable {
 		this.c = c;
 		
 	}
-
+	
 	public int attackQuestions() {
-		Enemy e = (Enemy)c.getEnemyController().getEnemy();
-		int score = 5;
-		
+		int score = 4;
 		System.out.println("attack score: " + score);
+		return score;
+	}
+
+	public int healQuestions() {
+		Enemy e = (Enemy)c.getEnemyController().getEnemy();
+		Player p = (Player)c.getPlayer();
+		
+		int score = 0;
+		score += e.getHp() < 1 ? 1 : 0;
+		score *= (Math.round((1-e.getHp())*10d));
+ 		System.out.println("Heal score: " + score);
+		return score;
+	}
+	
+	
+	public int preserveQuestions() {
+		Enemy e = (Enemy)c.getEnemyController().getEnemy();
+		Player p = (Player)c.getPlayer();
+		
+		int score = 0, dif = 0;
+		score += e.getAwareness() < e.getMaxAwareness() ? 1 : 0;
+		score += e.getDef() < e.getMaxDef() ? 1 : 0;
+		score += e.getStealth() < e.getMaxStealth() ? 1 : 0;
+		dif = e.getMaxAwareness() - e.getAwareness();
+		dif += e.getMaxDef() - e.getDef();
+		dif += e.getMaxStealth() - e.getStealth();
+		score *= dif;
+		System.out.println("Preserve score: " + score);
 		return score;
 	}
 
@@ -89,16 +135,10 @@ public class Observer implements Classable {
 	@Override
 	public List<Integer> getAllScores() {
 		List<Integer> allScores = new ArrayList<>();
-		allScores.add(getNoScore()); //Eng
 		allScores.add(attackQuestions()); //Attack
 		allScores.add(getNoScore()); //Steal
-		allScores.add(getNoScore()); //Deception
-		allScores.add(getNoScore()); //Fear
-		allScores.add(getNoScore()); //Heal
-		allScores.add(getNoScore()); //Truth
-		allScores.add(getNoScore()); //Valor
-		allScores.add(getNoScore()); //Light
-		allScores.add(getNoScore()); //Shadow
+		allScores.add(healQuestions()); //Heal
+		allScores.add(preserveQuestions()); //Preserve
 		
 		return allScores;
 	}

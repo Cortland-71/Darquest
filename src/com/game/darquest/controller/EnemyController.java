@@ -10,6 +10,7 @@ import com.game.darquest.controller.rules.DeceptionRuleController;
 import com.game.darquest.controller.rules.FearRuleController;
 import com.game.darquest.controller.rules.HealRuleController;
 import com.game.darquest.controller.rules.LightRuleController;
+import com.game.darquest.controller.rules.PreserveRuleController;
 import com.game.darquest.controller.rules.Ruleable;
 import com.game.darquest.controller.rules.ShadowRuleController;
 import com.game.darquest.controller.rules.StealRuleController;
@@ -27,6 +28,7 @@ public class EnemyController {
 	private Enemy enemy;
 	private List<Enemy> enemyList;
 	private List<Ruleable> ruleList;
+	private List<Ruleable> subRuleList;
 	
 	private DeceptionRuleController deceptionRuleController;
 	private StealRuleController stealRuleController;
@@ -37,6 +39,7 @@ public class EnemyController {
 	private ValorRuleController valorRuleController;
 	private LightRuleController lightRuleController;
 	private ShadowRuleController shadowRuleController;
+	private PreserveRuleController preserveRuleController;
 	
 	public EnemyController(Controller c) {
 		this.c = c;
@@ -49,16 +52,19 @@ public class EnemyController {
 		valorRuleController = new ValorRuleController(this.c);
 		lightRuleController = new LightRuleController(this.c);
 		shadowRuleController = new ShadowRuleController(this.c);
-		this.ruleList = Arrays.asList(
-				attackRuleController, 
-				stealRuleController,
-				deceptionRuleController,
-				fearRuleController,
+		preserveRuleController = new PreserveRuleController(this.c);
+		
+		this.subRuleList = Arrays.asList(deceptionRuleController,fearRuleController,
 				lightRuleController,
-				healRuleController,
 				truthRuleController,
 				valorRuleController,
 				shadowRuleController);
+		
+		this.ruleList = Arrays.asList(
+				attackRuleController, 
+				stealRuleController,
+				healRuleController,
+				preserveRuleController);
 		
 	}
 	
@@ -167,6 +173,8 @@ public class EnemyController {
 		count = 0;
 		c.getView().getFightClubView().setDisableCommandField(false);
 		c.getView().getFightClubView().setCommandFeildFocused();
+		c.getView().getHubView().setPlayerInventoryTabPaneDisabled(false);
+		updateAllStats();
 	}
 
 	public Enemy getEnemy() {

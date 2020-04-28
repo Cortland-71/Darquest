@@ -17,6 +17,12 @@ public class Enforcer implements Classable {
 	private int maxStat;
 	
 	@Override
+	public int getGenerateAttack() {
+		return rand.nextInt((maxStat - minStat)+1)+minStat;
+	}
+	
+	
+	@Override
 	public int getGenerateDef() {
 		return rand.nextInt((maxStat - minStat)+1)+minStat;
 
@@ -29,6 +35,21 @@ public class Enforcer implements Classable {
 
 	@Override
 	public int getGenerateAwareness() {
+		return rand.nextInt((maxStat - minStat)+1)+minStat;
+	}
+	
+	@Override
+	public String getDescription() {
+		return "Enforcer description";
+	}
+
+	@Override
+	public int getGenerateMutation() {
+		return rand.nextInt((maxStat - minStat)+1)+minStat;
+	}
+
+	@Override
+	public int getGenerateSecurity() {
 		return rand.nextInt((maxStat - minStat)+1)+minStat;
 	}
 
@@ -49,8 +70,8 @@ public class Enforcer implements Classable {
 
 	@Override
 	public double getGeneratedCash() {
-		int min = 1;
-		int max = 100;
+		int min = 100;
+		int max = 1000;
 		
 		int dollars = rand.nextInt((max-min)+1)+min;
 		double cents = rand.nextDouble();
@@ -69,24 +90,11 @@ public class Enforcer implements Classable {
 		this.ic = c.getItemHub();
 		
 	}
-	public int attackQuestions() {
-		Enemy e = (Enemy)c.getEnemyController().getEnemy();
-		Player p = (Player)c.getPlayer();
-		
-		int score = 0;
-		score += e.getEquippedWeapon().getMinDamage() >= p.getDef() ? 2 : 0;
-		System.out.println("attack score: " + score);
-		return score;
-	}
 	
-	public int stealQuestions() {
-		Enemy e = (Enemy)c.getEnemyController().getEnemy();
-		Player p = (Player)c.getPlayer();
-		
-		int score = 0;
-		score += e.getCash() < 50 ? 2 : 0;
-		score *= (Math.round((1-e.getHp())*10d));
-		System.out.println("Steal score: " + score);
+	//Hostile questions
+	public int attackQuestions() {
+		int score = 4;
+		System.out.println("attack score: " + score);
 		return score;
 	}
 	
@@ -100,41 +108,33 @@ public class Enforcer implements Classable {
  		System.out.println("Heal score: " + score);
 		return score;
 	}
-	
-	public int truthQuestions() {
+
+	public int stealQuestions() {
 		Enemy e = (Enemy)c.getEnemyController().getEnemy();
 		Player p = (Player)c.getPlayer();
 		
 		int score = 0;
+		score += e.getCash() < 50 ? 2 : 0;
+		score *= (Math.round((1-e.getHp())*10d));
+		System.out.println("Steal score: " + score);
+		return score;
+	}
+	
+	public int preserveQuestions() {
+		Enemy e = (Enemy)c.getEnemyController().getEnemy();
+		Player p = (Player)c.getPlayer();
+		
+		int score = 0, dif = 0;
 		score += e.getAwareness() < e.getMaxAwareness() ? 1 : 0;
-		score *= (e.getMaxAwareness()-e.getAwareness());
-		System.out.println("Truth score: " + score);
-		return score;
-	}
-	
-	public int valorQuestions() {
-		Enemy e = (Enemy)c.getEnemyController().getEnemy();
-		Player p = (Player)c.getPlayer();
-		
-		int score = 0;
 		score += e.getDef() < e.getMaxDef() ? 1 : 0;
-		score *= (e.getMaxDef() - e.getDef());
-		System.out.println("Valor score: " + score);
-		return score;
-	}
-	
-	public int shadowQuestions() {
-		Enemy e = (Enemy)c.getEnemyController().getEnemy();
-		Player p = (Player)c.getPlayer();
-		
-		int score = 0;
 		score += e.getStealth() < e.getMaxStealth() ? 1 : 0;
-		score *= (e.getMaxStealth() - e.getStealth());
-		System.out.println("Shadow score: " + score);
+		dif = e.getMaxAwareness() - e.getAwareness();
+		dif += e.getMaxDef() - e.getDef();
+		dif += e.getMaxStealth() - e.getStealth();
+		score *= dif;
+		System.out.println("Preserve score: " + score);
 		return score;
 	}
-	
-	
 
 
 	public int getNoScore() {
@@ -144,33 +144,16 @@ public class Enforcer implements Classable {
 	
 	@Override
 	public List<Integer> getAllScores() {
-		
-//		attackRuleController, 
-//		stealRuleController,
-//		deceptionRuleController,
-//		fearRuleController,
-//		lightRuleController,
-//		healRuleController,
-//		truthRuleController,
-//		valorRuleController,
-//		shadowRuleController);
 		List<Integer> allScores = new ArrayList<>();
 		allScores.add(attackQuestions()); //Attack
 		allScores.add(stealQuestions()); //Steal
-		allScores.add(getNoScore()); //Deception
-		allScores.add(getNoScore()); //Fear
-		allScores.add(getNoScore()); //Light
 		allScores.add(healQuestions()); //Heal
-		allScores.add(truthQuestions()); //Truth
-		allScores.add(valorQuestions()); //Valor
-		allScores.add(shadowQuestions()); //Shadow
+		allScores.add(preserveQuestions()); //Preserve
 		
 		return allScores;
 	}
-	@Override
-	public String getDescription() {
-		return "Enforcer description";
-	}
+
+	
 	
 
 

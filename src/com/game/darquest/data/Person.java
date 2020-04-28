@@ -14,7 +14,6 @@ public abstract class Person {
 	private double cash = 1000.0;
 
 	private double hp = 1;
-	private double eng = 1;
 
 	private final int MIN = 0;
 	private final int MAX_BAR = 1;
@@ -23,37 +22,46 @@ public abstract class Person {
 	private Armor equippedArmor;
 	private Tool equippedTool;
 
+	private int attack;
+	private int maxAttack;
 	private int def;
 	private int maxDef;
+	
 	private int stealth;
 	private int maxStealth;
 	private int awareness;
 	private int maxAwareness;
+	
 	private int mutation;
 	private int maxMutation;
-	private int preservation;
-	private int maxPreservation;
+	private int security;
+	private int maxSecurity;
 
 	public Person() {
 	}
 
-	public Person(String name, int maxDef, int maxStealth, int maxAwareness, int maxMutation, int maxPreserve,
+	public Person(String name, int maxAttack, int maxDef, int maxStealth, int maxAwareness, int maxMutation, int maxSecurity,
 			Weapon equippedWeapon, Armor equippedArmor, int lvl, double cash) {
 		this.name = name;
 		this.equippedWeapon = equippedWeapon;
 		this.equippedArmor = equippedArmor;
 		this.lvl = lvl;
 		this.cash = cash;
+		
+		this.setMaxAttack(maxAttack);
+		this.setAttack(maxAttack);
 		this.setMaxDef(maxDef);
-		this.setMaxStealth(maxStealth);
-		this.setMaxAwareness(maxAwareness);
-		this.setMaxMutation(maxMutation);
-		this.setMaxPreserve(maxPreserve);
 		this.setDef(maxDef);
+		
+		this.setMaxStealth(maxStealth);
 		this.setStealth(maxStealth);
+		this.setMaxAwareness(maxAwareness);
 		this.setAwareness(maxAwareness);
+		
+		this.setMaxMutation(maxMutation);
 		this.setMutation(maxMutation);
-		this.setPreserve(maxPreserve);
+		this.setMaxSecurity(maxSecurity);
+		this.setSecurity(maxSecurity);
 	}
 
 	public void setEquippedItem(Item item) {
@@ -165,22 +173,6 @@ public abstract class Person {
 		this.hp = Math.round(hp * 100.0) / 100.0;
 	}
 
-	public double getEng() {
-		return eng;
-	}
-
-	public void setEng(double eng) {
-		if (eng > 1) {
-			this.eng = MAX_BAR;
-			return;
-		}
-		if (eng < 0) {
-			this.eng = MIN;
-			return;
-		}
-		this.eng = Math.round(eng * 100.0) / 100.0;
-	}
-
 
 	public double getCash() {
 		return cash;
@@ -258,21 +250,39 @@ public abstract class Person {
 		this.maxMutation = maxMutation;
 	}
 
-	public int getPreserve() {
-		return preservation;
+	public int getAttack() {
+		return attack;
 	}
 
-	public void setPreserve(int preservation) {
-		this.preservation = preservation;
+	public void setAttack(int attack) {
+		this.attack = attack;
 	}
 
-	public int getMaxPreserve() {
-		return maxPreservation;
+	public int getMaxAttack() {
+		return maxAttack;
 	}
 
-	public void setMaxPreserve(int maxPreservation) {
-		this.maxPreservation = maxPreservation;
+	public void setMaxAttack(int maxAttack) {
+		this.maxAttack = maxAttack;
 	}
+
+	public int getSecurity() {
+		return security;
+	}
+
+	public void setSecurity(int security) {
+		this.security = security;
+	}
+
+	public int getMaxSecurity() {
+		return maxSecurity;
+	}
+
+	public void setMaxSecurity(int maxSecurity) {
+		this.maxSecurity = maxSecurity;
+	}
+
+	
 	
 	
 
