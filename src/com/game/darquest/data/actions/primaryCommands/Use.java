@@ -1,4 +1,4 @@
-package com.game.darquest.data.actions;
+package com.game.darquest.data.actions.primaryCommands;
 
 import java.text.DecimalFormat;
 import java.util.Arrays;
@@ -7,6 +7,7 @@ import java.util.Random;
 
 import com.game.darquest.controller.Controller;
 import com.game.darquest.data.Person;
+import com.game.darquest.data.actions.Fireable;
 import com.game.darquest.data.actions.use.HpTool;
 import com.game.darquest.data.actions.use.Useable;
 import com.game.darquest.data.items.Tool;

@@ -8,7 +8,7 @@ public class UtilityCommands {
 	
 	
 	private String output = "Commands fall under 3 categories.\n"
-			+ "Essential, Hostile and Defensive\n\n"
+			+ "Primary, Mutation and Utility\n\n"
 			
 			+ "Essential:\n"
 			+ "eat - Eat [eat] raises the eat bar by .1 and\n"
@@ -52,7 +52,7 @@ public class UtilityCommands {
 		if(command.equals("clear")) {
 			c.getFightClubController().setCurrentMovePoints(0);
 			c.getView().getFightClubView().setQueueLabel(
-					c.getFightClubController().getCurrentMovePoints());
+					c.getFightClubController().getCurrentMovePoints(), c.getFightClubController().getMaxMovePoints());
 			System.out.println(c.getFightClubController().getCurrentMovePoints());
 			c.getView().getFightClubView().clearQueue();
 			c.getView().getFightClubView().clearCommandField();

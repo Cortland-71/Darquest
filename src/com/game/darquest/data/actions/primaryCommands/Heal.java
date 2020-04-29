@@ -1,4 +1,4 @@
-package com.game.darquest.data.actions.defensive;
+package com.game.darquest.data.actions.primaryCommands;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;

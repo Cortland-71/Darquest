@@ -1,4 +1,4 @@
-package com.game.darquest.data.actions.hostile;
+package com.game.darquest.data.actions.mutationCommands;
 
 import com.game.darquest.controller.fightClubControllers.FightClubWinController;
 import com.game.darquest.data.Person;
@@ -19,14 +19,24 @@ public class Deception implements Fireable {
 			return;
 		}
 		
-		int mutationEffect = p.getMutation() / 2;
-		int before = choosen.getAwareness();
-		choosen.setAwareness(choosen.getAwareness() - mutationEffect);
+		int mutationEffect = p.getMutation();
+
+		int awarenessBefore = choosen.getAwareness();
+		int awarenessAfter = choosen.getAwareness() - mutationEffect;
+		int stealthBefore = choosen.getStealth();
+		int stealthAfter = choosen.getStealth() + mutationEffect;
 		
-		output = "Deception successful: " + p.getName() + "\n"
-				+ choosen.getName() + " Awareness -" + mutationEffect + "\n"
-				+ choosen.getName() + " Awareness before: " + before + "\n"
-				+ choosen.getName() + " Awareness after: " + choosen.getAwareness() + "\n\n";
+		choosen.setAwareness(awarenessAfter);
+		choosen.setStealth(stealthAfter);
+		
+		output = "Deception successful from " + p.getName() + "\n"
+				+ "Effected: " + choosen.getName() + "\n"
+				+ "Awareness -" + mutationEffect + "\n"
+				+ "Stealth +" + mutationEffect + "\n"
+				+ "Awareness before: " + awarenessBefore + "\n"
+				+ "Awareness after:  " + awarenessAfter + "\n"
+				+ "Stealth before:   " + stealthBefore + "\n"
+				+ "Stealth after:    ," + stealthAfter + "\n\n";
 	}
 	
 	@Override
@@ -41,7 +51,7 @@ public class Deception implements Fireable {
 
 	@Override
 	public int getPointCost() {
-		return 2;
+		return 1;
 	}
 	@Override
 	public boolean isModifiable() {

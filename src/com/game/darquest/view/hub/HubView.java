@@ -62,7 +62,6 @@ public class HubView {
 	private Label stealthLabel = new Label();
 	private Label awarenessLabel = new Label();
 	private Label mutationLabel = new Label();
-	private Label preserveLabel = new Label();
 
 	public HubView() {
 		this.hubAnimation = new HubAnimation();
@@ -193,9 +192,8 @@ public class HubView {
 		awarenessLabel.setTooltip(new Tooltip("Awareness\nLowers the chances of the enemy stealing\n"
 				+ "or planting devices on you."));
 		mutationLabel.setTooltip(new Tooltip("Mutation"));
-		preserveLabel.setTooltip(new Tooltip("Preservation"));
 		skillsBox.getChildren().addAll(attackLabel, defLabel, stealthLabel, awarenessLabel,
-				mutationLabel, preserveLabel);
+				mutationLabel);
 		return skillsBox;
 	}
 	
@@ -475,18 +473,12 @@ public class HubView {
 			mutationLabel.setStyle("-fx-text-fill: _lightBlue");
 		}
 		
-		if(p.getSecurity() < p.getMaxSecurity()) {
-			preserveLabel.setStyle("-fx-text-fill: red");
-		} else {
-			preserveLabel.setStyle("-fx-text-fill: _lightBlue");
-		}
 		
 		attackLabel.setText("Attack:    " + p.getAttack());
 		defLabel.setText("Defense:   " + p.getDef());
 		stealthLabel.setText("Stealth:   " + p.getStealth());
 		awarenessLabel.setText("Awareness: " + p.getAwareness());
 		mutationLabel.setText("Mutation:  " + p.getMutation());
-		preserveLabel.setText("Security:  " + p.getSecurity());
 	}
 
 	public Scene getDownTownScene() {

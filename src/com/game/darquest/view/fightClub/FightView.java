@@ -35,7 +35,6 @@ public class FightView {
 	private Label enemyStealthLabel = new Label();
 	private Label enemyAwarenessLabel = new Label();
 	private Label enemyMutationLabel = new Label();
-	private Label enemySecurityLabel = new Label();
 	private Label enemyTypeLabel = new Label();
 	private Label enemyIDLabel = new Label();
 	
@@ -145,8 +144,8 @@ public class FightView {
 		queueLabel.setId("queueLabel");
 		return queueLabel;
 	}
-	public void setQueueLabel(int points) {
-		queueLabel.setText("Queue: " + points + "/10");
+	public void setQueueLabel(int points, int maxPoints) {
+		queueLabel.setText("Queue: " + points + "/" + maxPoints);
 	}
 	
 	public void addCommandToQueue(String command) {
@@ -247,8 +246,7 @@ public class FightView {
 		enemyRightStatsBox.getChildren().addAll(enemyNameLabel, enemyLvlLabel,
 				enemyCashLabel, enemyHpLabel ,enemyHpBar(), enemyAttackLabel,
 				enemyDefLabel, enemyStealthLabel, enemyAwarenessLabel, enemyMutationLabel,
-				enemySecurityLabel, enemyTypeLabel,
-				enemyIDLabel);
+				enemyTypeLabel, enemyIDLabel);
 		return enemyRightStatsBox;
 	}
 	
@@ -337,7 +335,7 @@ public class FightView {
 		return commandField;
 	}
 	
-	public void setDisableCommandField(boolean b) {
+	public void setCommandFieldDisabled(boolean b) {
 		commandField.setDisable(b);
 	}
 	 
@@ -371,47 +369,52 @@ public class FightView {
 		
 		if(p.getAttack() <= player.getDef()) {
 			enemyAttackLabel.setStyle("-fx-text-fill: red");
-		} else {
+		} else if(p.getAttack() == p.getMaxAttack()) {
 			enemyAttackLabel.setStyle("-fx-text-fill: #cc6600");
+		} else {
+			enemyAttackLabel.setStyle("-fx-text-fill: _lightBlue");
 		}
 		
 		if(p.getDef() <= player.getEquippedWeapon().getMinDamage()) {
 			enemyDefLabel.setStyle("-fx-text-fill: red");
-		} else {
+		} else if(p.getDef() == p.getMaxDef()){
 			enemyDefLabel.setStyle("-fx-text-fill: #cc6600");
+		} else {
+			enemyDefLabel.setStyle("-fx-text-fill: _lightBlue");
 		}
 		
 		if(p.getStealth() <= player.getAwareness()) {
 			enemyStealthLabel.setStyle("-fx-text-fill: red");
-		} else {
+		} else if (p.getStealth() == p.getMaxStealth()) {
 			enemyStealthLabel.setStyle("-fx-text-fill: #cc6600");
+		} else {
+			enemyStealthLabel.setStyle("-fx-text-fill: _lightBlue");
 		}
 		
 		
 		if(p.getAwareness() <= player.getStealth()) {
 			enemyAwarenessLabel.setStyle("-fx-text-fill: red");
-		} else {
+		} else if (p.getAwareness() == p.getMaxAwareness()){
 			enemyAwarenessLabel.setStyle("-fx-text-fill: #cc6600");
+		} else {
+			enemyAwarenessLabel.setStyle("-fx-text-fill: _lightBlue");
 		}
 		
 		if(p.getMutation() < p.getMaxMutation()) {
 			enemyMutationLabel.setStyle("-fx-text-fill: red");
-		} else {
+		} else if(p.getMutation() == p.getMaxMutation()){
 			enemyMutationLabel.setStyle("-fx-text-fill: #cc6600");
+		} else {
+			enemyMutationLabel.setStyle("-fx-text-fill: _lightBlue");
 		}
 		
-		if(p.getSecurity() < p.getMaxSecurity()) {
-			enemySecurityLabel.setStyle("-fx-text-fill: red");
-		} else {
-			enemySecurityLabel.setStyle("-fx-text-fill: #cc6600");
-		}
+		
 		
 		enemyAttackLabel.setText("Attack:    " + p.getAttack());
 		enemyDefLabel.setText("Defense:   " + p.getDef());
 		enemyStealthLabel.setText("Stealth:   " + p.getStealth());
 		enemyAwarenessLabel.setText("Awareness: " + p.getAwareness());
 		enemyMutationLabel.setText("Mutation:  " + p.getMutation());
-		enemySecurityLabel.setText("Security:  " + p.getSecurity());
 		
 		enemyTypeLabel.setText("Type: "+p.getType().getName());
 		Tooltip typeToolTip = new Tooltip(p.getType().getDescription());

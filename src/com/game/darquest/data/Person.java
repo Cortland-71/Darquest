@@ -34,8 +34,6 @@ public abstract class Person {
 	
 	private int mutation;
 	private int maxMutation;
-	private int security;
-	private int maxSecurity;
 
 	public Person() {
 	}
@@ -60,8 +58,6 @@ public abstract class Person {
 		
 		this.setMaxMutation(maxMutation);
 		this.setMutation(maxMutation);
-		this.setMaxSecurity(maxSecurity);
-		this.setSecurity(maxSecurity);
 	}
 
 	public void setEquippedItem(Item item) {
@@ -92,10 +88,7 @@ public abstract class Person {
 		if (def < 1) {
 			this.def = 1;
 			return;
-		} else if (def > this.getMaxDef()) {
-			this.def = this.getMaxDef();
-			return;
-		}
+		} 
 		this.def = def;
 	}
 
@@ -107,10 +100,7 @@ public abstract class Person {
 		if (stealth < 1) {
 			this.stealth = 1;
 			return;
-		} else if (stealth > this.getMaxStealth()) {
-			this.stealth = this.getMaxStealth();
-			return;
-		}
+		} 
 		this.stealth = stealth;
 	}
 
@@ -122,10 +112,7 @@ public abstract class Person {
 		if (awareness < 1) {
 			this.awareness = 1;
 			return;
-		} else if (awareness > this.getMaxAwareness()) {
-			this.awareness = this.getMaxAwareness();
-			return;
-		}
+		} 
 		this.awareness = awareness;
 	}
 
@@ -219,6 +206,7 @@ public abstract class Person {
 	}
 
 	public int getMaxStealth() {
+		
 		return maxStealth;
 	}
 
@@ -239,6 +227,13 @@ public abstract class Person {
 	}
 
 	public void setMutation(int mutation) {
+		if(mutation < 1) {
+			this.mutation = 1;
+			return;
+		} else if(mutation > maxMutation) {
+			this.mutation = maxMutation;
+			return;
+		}
 		this.mutation = mutation;
 	}
 
@@ -266,21 +261,6 @@ public abstract class Person {
 		this.maxAttack = maxAttack;
 	}
 
-	public int getSecurity() {
-		return security;
-	}
-
-	public void setSecurity(int security) {
-		this.security = security;
-	}
-
-	public int getMaxSecurity() {
-		return maxSecurity;
-	}
-
-	public void setMaxSecurity(int maxSecurity) {
-		this.maxSecurity = maxSecurity;
-	}
 
 	
 	

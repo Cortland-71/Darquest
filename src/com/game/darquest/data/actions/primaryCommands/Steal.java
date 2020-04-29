@@ -1,4 +1,4 @@
-package com.game.darquest.data.actions.hostile;
+package com.game.darquest.data.actions.primaryCommands;
 
 import java.text.NumberFormat;
 

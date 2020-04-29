@@ -9,17 +9,15 @@ import com.game.darquest.controller.rules.AttackRuleController;
 import com.game.darquest.controller.rules.DeceptionRuleController;
 import com.game.darquest.controller.rules.FearRuleController;
 import com.game.darquest.controller.rules.HealRuleController;
-import com.game.darquest.controller.rules.LightRuleController;
-import com.game.darquest.controller.rules.PreserveRuleController;
+import com.game.darquest.controller.rules.EchoRuleController;
 import com.game.darquest.controller.rules.Ruleable;
-import com.game.darquest.controller.rules.ShadowRuleController;
 import com.game.darquest.controller.rules.StealRuleController;
-import com.game.darquest.controller.rules.TruthRuleController;
-import com.game.darquest.controller.rules.ValorRuleController;
 import com.game.darquest.data.Enemy;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.util.Duration;
 
 public class EnemyController {
@@ -28,18 +26,14 @@ public class EnemyController {
 	private Enemy enemy;
 	private List<Enemy> enemyList;
 	private List<Ruleable> ruleList;
-	private List<Ruleable> subRuleList;
+	private int points = 0;
 	
 	private DeceptionRuleController deceptionRuleController;
 	private StealRuleController stealRuleController;
 	private HealRuleController healRuleController;
 	private AttackRuleController attackRuleController;
-	private TruthRuleController truthRuleController;
 	private FearRuleController fearRuleController;
-	private ValorRuleController valorRuleController;
-	private LightRuleController lightRuleController;
-	private ShadowRuleController shadowRuleController;
-	private PreserveRuleController preserveRuleController;
+	private EchoRuleController echoRuleController;
 	
 	public EnemyController(Controller c) {
 		this.c = c;
@@ -47,61 +41,16 @@ public class EnemyController {
 		stealRuleController = new StealRuleController(this.c);
 		healRuleController = new HealRuleController(this.c);
 		attackRuleController = new AttackRuleController(this.c);
-		truthRuleController = new TruthRuleController(this.c);
 		fearRuleController = new FearRuleController(this.c);
-		valorRuleController = new ValorRuleController(this.c);
-		lightRuleController = new LightRuleController(this.c);
-		shadowRuleController = new ShadowRuleController(this.c);
-		preserveRuleController = new PreserveRuleController(this.c);
-		
-		this.subRuleList = Arrays.asList(deceptionRuleController,fearRuleController,
-				lightRuleController,
-				truthRuleController,
-				valorRuleController,
-				shadowRuleController);
+		echoRuleController = new EchoRuleController(this.c);
 		
 		this.ruleList = Arrays.asList(
 				attackRuleController, 
 				stealRuleController,
 				healRuleController,
-				preserveRuleController);
-		
-	}
-	
-	public LightRuleController getLightRuleController() {
-		return lightRuleController;
-	}
-
-	public ShadowRuleController getShadowRuleController() {
-		return shadowRuleController;
-	}
-
-	public HealRuleController getHealRuleController() {
-		return healRuleController;
-	}
-
-	public AttackRuleController getAttackRuleController() {
-		return attackRuleController;
-	}
-
-	public DeceptionRuleController getDeceptionRuleController() {
-		return deceptionRuleController;
-	}
-	
-	public StealRuleController getStealRuleController() {
-		return stealRuleController;
-	}
-	
-	public TruthRuleController getTruthRuleController() {
-		return truthRuleController;
-	}
-
-	public FearRuleController getFearRuleController() {
-		return fearRuleController;
-	}
-
-	public ValorRuleController getValorRuleController() {
-		return valorRuleController;
+				deceptionRuleController,
+				fearRuleController,
+				echoRuleController);
 	}
 
 	int count = 0;
@@ -109,17 +58,23 @@ public class EnemyController {
 	public void enemyTurn(Enemy enemy, List<Enemy> enemyList) {
 		this.enemy = enemy;
 		this.enemyList = enemyList;
-		Timeline timeline = new Timeline(
-				new KeyFrame(Duration.millis(600), 
-						ae-> move()),
-				new KeyFrame(Duration.millis(600*2), 
-						ae-> move()),
-				new KeyFrame(Duration.millis(600*3), 
-						ae-> move()),
-				new KeyFrame(Duration.millis(600*3), 
-						ae-> enemyTurnEnd())
-				);
-			timeline.playFromStart();
+		Timeline timeline = new Timeline();
+		
+		if(points < 5) points++;
+		timeline.setCycleCount(points);
+		timeline.getKeyFrames().add(new KeyFrame(Duration.millis(600), 
+				e-> {
+					System.out.println("Test");
+					}));
+		
+		timeline.play();
+		timeline.setOnFinished(new EventHandler<ActionEvent>() {
+		    @Override
+		    public void handle(ActionEvent event) {
+		    	enemyTurnEnd();
+		    	System.out.println();
+		    }
+		});
 	}
 	
 
@@ -171,7 +126,7 @@ public class EnemyController {
 	
 	private void enemyTurnEnd() {
 		count = 0;
-		c.getView().getFightClubView().setDisableCommandField(false);
+		c.getView().getFightClubView().setCommandFieldDisabled(false);
 		c.getView().getFightClubView().setCommandFeildFocused();
 		c.getView().getHubView().setPlayerInventoryTabPaneDisabled(false);
 		updateAllStats();
