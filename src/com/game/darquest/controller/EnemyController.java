@@ -1,7 +1,6 @@
 package com.game.darquest.controller;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -16,34 +15,32 @@ import javafx.event.EventHandler;
 import javafx.util.Duration;
 
 public class EnemyController {
-	
 	private Controller c;
 	private Enemy enemy;
 	private List<Enemy> enemyList;
 	private int points = 0;
-	int count = 0;
+	int totalCostPoints = 0;
+	private int moveIndex = 0;
 	
 	public EnemyController(Controller c) {
 		this.c = c;
 	}
-
-	
 	
 	public void enemyTurn(Enemy enemy, List<Enemy> enemyList) {
 		this.enemy = enemy;
 		this.enemyList = enemyList;
-		Timeline timeline = new Timeline();
 		
-		if(points < 5) points++;
-		timeline.setCycleCount(points);
+		List<Fireable> finalList = getFinalListOfMoves();
+		
+		Timeline timeline = new Timeline();
+		timeline.setCycleCount(finalList.size());
 		timeline.getKeyFrames().add(new KeyFrame(Duration.millis(600), 
 				e-> {
-					//figure out how many points they have and what moves they can do
-					int numberOfPoints = timeline.getCycleCount();
-					move(numberOfPoints);
+					move(finalList.get(getMoveIndex()));
+					setMoveIndex(getMoveIndex()+1);
 					}));
-		
 		timeline.play();
+		
 		timeline.setOnFinished(new EventHandler<ActionEvent>() {
 		    @Override
 		    public void handle(ActionEvent event) {
@@ -53,11 +50,20 @@ public class EnemyController {
 		});
 	}
 	
-
-	private void move(int numberOfPoints) {
-		
-		List<Fireable> list = determineMoves(numberOfPoints);
-		Fireable choosenMove = getBestMove(list);
+	private List<Fireable> getFinalListOfMoves() {
+		if(points < 5) points++;
+		List<Fireable> finalList = new ArrayList<>();
+		List<Fireable> list = getAvailibleMoves(points);
+		for (int i = 0; i < points; i++) {
+			Fireable choosenMove = getBestMove(list);
+			totalCostPoints += choosenMove.getPointCost();
+			if(totalCostPoints <= points)
+				finalList.add(choosenMove);
+		}
+		return finalList;
+	}
+	
+	private void move(Fireable choosenMove) {
 		choosenMove.fire(enemy, c.getPlayer());
 		c.getView().getFightClubView().setEnemyOutputTextArea(choosenMove.getOutput());
 		updateAllStats();
@@ -73,12 +79,13 @@ public class EnemyController {
 
 
 
-	private List<Fireable> determineMoves(int numberOfPoints) {
-		List<Fireable> fireList = c.getFightClubController().getFireList();
+	private List<Fireable> getAvailibleMoves(int numberOfPoints) {
+		List<Fireable> fireList = new ArrayList<>(
+				c.getFightClubController().getFireList());
+		fireList.remove(0);
 		List<Fireable> availibleFireList = fireList.stream()
 				.filter(e->e.getPointCost() <= numberOfPoints)
 				.collect(Collectors.toList());
-		
 		return availibleFireList;
 	}
 	
@@ -92,7 +99,8 @@ public class EnemyController {
 	}
 	
 	private void enemyTurnEnd() {
-		count = 0;
+		totalCostPoints = 0;
+		setMoveIndex(0);
 		c.getView().getFightClubView().setCommandFieldDisabled(false);
 		c.getView().getFightClubView().setCommandFeildFocused();
 		c.getView().getHubView().setPlayerInventoryTabPaneDisabled(false);
@@ -104,5 +112,12 @@ public class EnemyController {
 	}
 	public List<Enemy> getEnemyList() {
 		return enemyList;
+	}
+	
+	private void setMoveIndex(int moveIndex) {
+		this.moveIndex = moveIndex;
+	}
+	private int getMoveIndex() {
+		return moveIndex;
 	}
 }

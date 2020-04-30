@@ -16,7 +16,7 @@ public class Fear implements Fireable {
 	public void fire(Person p, Person choosen) {
 		
 		if(choosen.getDef() < 2) {
-			output = "Target's Defense was already at it's minimum.";
+			output = "Target's Defense was already at it's minimum.\n\n";
 			FightClubWinController.setEfficiencyScore(FightClubWinController.getEfficiencyScore() - 5);
 			return;
 		}
@@ -32,12 +32,13 @@ public class Fear implements Fireable {
 		choosen.setAttack(attackAfter);
 		
 		output = "Fear successful from " + p.getName() + "\n"
-				+ choosen.getName() + " Defense -" + mutationEffect + "\n"
-				+ choosen.getName() + " Attack +" + mutationEffect + "\n"
-				+ choosen.getName() + " Defense before: " + defBefore + "\n"
-				+ choosen.getName() + " Defense after: " + defAfter + "\n"
-				+ choosen.getName() + " Attack before: " + attackBefore + "\n"
-				+ choosen.getName() + " Attack after: " + attackAfter + "\n\n";
+				+ "Target:         " + choosen.getName() + "\n"
+				+ "Defense        -" + mutationEffect + "\n"
+				+ "Attack         +" + mutationEffect + "\n"
+				+ "Defense before: " + defBefore + "\n"
+				+ "Defense after:  " + defAfter + "\n"
+				+ "Attack before:  " + attackBefore + "\n"
+				+ "Attack after:   " + attackAfter + "\n\n";
 	}
 
 	@Override

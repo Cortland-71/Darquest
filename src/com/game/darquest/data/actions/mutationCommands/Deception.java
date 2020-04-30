@@ -30,9 +30,9 @@ public class Deception implements Fireable {
 		choosen.setStealth(stealthAfter);
 		
 		output = "Deception successful from " + p.getName() + "\n"
-				+ "Effected: " + choosen.getName() + "\n"
-				+ "Awareness -" + mutationEffect + "\n"
-				+ "Stealth +" + mutationEffect + "\n"
+				+ "Target:           " + choosen.getName() + "\n"
+				+ "Awareness        -" + mutationEffect + "\n"
+				+ "Stealth          +" + mutationEffect + "\n"
 				+ "Awareness before: " + awarenessBefore + "\n"
 				+ "Awareness after:  " + awarenessAfter + "\n"
 				+ "Stealth before:   " + stealthBefore + "\n"

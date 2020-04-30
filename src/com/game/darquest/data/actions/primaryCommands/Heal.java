@@ -25,10 +25,10 @@ public class Heal implements Fireable {
 			double hpGained = (choosen.getMutation()/2d) /10;
 			choosen.setHp(choosen.getHp() + hpGained);
 			
-			output = "Heal successful: " + p.getName() +
-					"\nTarget: " + choosen.getName() +
-					"\nHP: +" + f2.format(hpGained) +
-					"\nCash: -" + NumberFormat.getCurrencyInstance().format(requiredCash) + "\n\n";
+			output = "Heal successful from " + p.getName() + "\n"
+					+ "Target: " + choosen.getName() + "\n"
+					+ "HP:    +" + f2.format(hpGained) + "\n"
+					+ "Cash:  -" + NumberFormat.getCurrencyInstance().format(requiredCash) + "\n\n";
 			return;
 		}
 		output = "Heal Failed: Must have at least " + NumberFormat.getCurrencyInstance().format(requiredCash);

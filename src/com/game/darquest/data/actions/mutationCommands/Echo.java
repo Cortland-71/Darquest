@@ -15,7 +15,7 @@ public class Echo implements Fireable {
 	@Override
 	public void fire(Person p, Person choosen) {
 		if(choosen.getStealth() < 2) {
-			output = "Target's Stealth was already at it's minimum.";
+			output = "Target's Stealth was already at it's minimum.\n\n";
 			FightClubWinController.setEfficiencyScore(FightClubWinController.getEfficiencyScore() - 5);
 			return;
 		}
@@ -30,13 +30,15 @@ public class Echo implements Fireable {
 		choosen.setAwareness(awarenessAfter);
 		choosen.setStealth(stealthAfter);
 		
-		output = "Deception successful from " + p.getName() + "\n"
-				+ choosen.getName() + " Stealth -" + mutationEffect + "\n"
-				+ choosen.getName() + " Awareness +" + mutationEffect + "\n"
-				+ choosen.getName() + " Stealth before: " + stealthBefore + "\n"
-				+ choosen.getName() + " Stealth after: " + stealthAfter + "\n"
-				+ choosen.getName() + " Awareness before: " + awarenessBefore + "\n"
-				+ choosen.getName() + " Awareness after: " + awarenessAfter + "\n\n";
+		output = "Echo successful from " + p.getName() + "\n"
+				+ "Target:           " + choosen.getName() + "\n"
+				+ "Stealth          -" + mutationEffect + "\n"
+				+ "Awareness        +" + mutationEffect + "\n"
+				+ "Stealth before:   " + stealthBefore + "\n"
+				+ "Stealth after:    " + stealthAfter + "\n"
+				+ "Awareness before: " + awarenessBefore + "\n"
+				+ "Awareness after:  " + awarenessAfter + "\n\n";
+				
 	}
 
 	@Override

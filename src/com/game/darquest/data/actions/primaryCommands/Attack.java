@@ -25,7 +25,6 @@ public class Attack implements Fireable {
 	@Override
 	public void fire(Person p, Person choosen) {
 		attackAction(p, choosen);
-		c.getFightClubController().setOutput(output, p);
 	}
 	
 	private void attackAction(Person p, Person choosen) {
@@ -53,9 +52,10 @@ public class Attack implements Fireable {
 		double after = choosen.getHp();
 		//c.getPlayerInvStatsController().removeItemWhenUsedUp(w);
 		output = "Attack successful: " + p.getName() + "\n"
-				+ choosen.getName() + " HP -" + finalDamage + "\n"
-				+ choosen.getName() + " HP before " + before + "\n"
-				+ choosen.getName() + " HP after " + after + "\n\n";
+				+ "Target:    " + choosen.getName() + "\n" 
+				+ "HP:       -" + finalDamage + "\n"
+				+ "HP before: " + before + "\n"
+				+ "HP after:  " + after + "\n\n";
 	}
 
 	

@@ -14,7 +14,7 @@ public class Shield implements Fireable {
 	@Override
 	public void fire(Person p, Person choosen) {
 		if(choosen.getAttack() < 2) {
-			output = "Target's Attack was already at it's minimum.";
+			output = "Target's Attack was already at it's minimum.\n\n";
 			FightClubWinController.setEfficiencyScore(FightClubWinController.getEfficiencyScore() - 5);
 			return;
 		}
@@ -31,12 +31,13 @@ public class Shield implements Fireable {
 		choosen.setAttack(attackAfter);
 		
 		output = "Shield successful from " + p.getName() + "\n"
-				+ choosen.getName() + " Attack -" + mutationEffect + "\n"
-				+ choosen.getName() + " Defense +" + mutationEffect + "\n"
-				+ choosen.getName() + " Attack before: " + attackBefore + "\n"
-				+ choosen.getName() + " Attack after: " + attackAfter + "\n"
-				+ choosen.getName() + " Defense before: " + defBefore + "\n"
-				+ choosen.getName() + " Defense after: " + defAfter + "\n\n";
+				+ "Target:         " + choosen.getName() + "\n"
+				+ "Attack         -" + mutationEffect + "\n"
+				+ "Defense        +" + mutationEffect + "\n"
+				+ "Attack before:  " + attackBefore + "\n"
+				+ "Attack after:   " + attackAfter + "\n"
+				+ "Defense before: " + defBefore + "\n"
+				+ "Defense after:  " + defAfter + "\n\n";
 	}
 
 	@Override

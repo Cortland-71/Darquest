@@ -14,7 +14,7 @@ public class Acid implements Fireable {
 	@Override
 	public void fire(Person p, Person choosen) {
 		if(choosen.getMutation() < 2) {
-			output = "Target's Mutation was already at it's minimum.";
+			output = "Target's Mutation was already at it's minimum.\n\n";
 			FightClubWinController.setEfficiencyScore(FightClubWinController.getEfficiencyScore() - 5);
 			return;
 		}
@@ -27,7 +27,7 @@ public class Acid implements Fireable {
 		choosen.setMutation(mutationAfter);
 		
 		output = "Acid successful from " + p.getName() + "\n"
-				+ "Effected: " + choosen.getName() + "\n"
+				+ "Target:          " + choosen.getName() + "\n"
 				+ "Mutation        -" + mutationEffect + "\n"
 				+ "Mutation before: " + mutationBefore + "\n"
 				+ "Mutation after:  " + mutationAfter + "\n\n";
