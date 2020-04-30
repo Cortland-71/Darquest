@@ -25,18 +25,17 @@ import javafx.scene.layout.VBox;
 
 public class FightView {
 	
-	
-	private Label enemyNameLabel = new Label();
-	private Label enemyLvlLabel = new Label();
-	private Label enemyCashLabel = new Label();
-	private Label enemyHpLabel = new Label();
-	private Label enemyAttackLabel = new Label();
-	private Label enemyDefLabel = new Label();
-	private Label enemyStealthLabel = new Label();
-	private Label enemyAwarenessLabel = new Label();
-	private Label enemyMutationLabel = new Label();
-	private Label enemyTypeLabel = new Label();
-	private Label enemyIDLabel = new Label();
+	private Label enemyNameLabel;
+	private Label enemyLvlLabel;
+	private Label enemyCashLabel;
+	private Label enemyHpLabel;
+	private Label enemyAttackLabel;
+	private Label enemyDefLabel;
+	private Label enemyStealthLabel;
+	private Label enemyAwarenessLabel;
+	private Label enemyMutationLabel;
+	private Label enemyTypeLabel;
+	private Label enemyIDLabel;
 	
 	private List<Label> queueCommandLabels = new ArrayList<>();
 
@@ -243,10 +242,10 @@ public class FightView {
 		enemyRightStatsBox.setPadding(new Insets(10,0,0,5));
 		enemyRightStatsBox.setMinSize(200, 360);
 		enemyRightStatsBox.setMaxSize(200, 360);
-		enemyRightStatsBox.getChildren().addAll(enemyNameLabel, enemyLvlLabel,
-				enemyCashLabel, enemyHpLabel ,enemyHpBar(), enemyAttackLabel,
-				enemyDefLabel, enemyStealthLabel, enemyAwarenessLabel, enemyMutationLabel,
-				enemyTypeLabel, enemyIDLabel);
+		enemyRightStatsBox.getChildren().addAll(enemyNameLabel = new Label(), enemyLvlLabel = new Label(),
+				enemyCashLabel = new Label(), enemyHpLabel = new Label() ,enemyHpBar(), enemyAttackLabel = new Label(),
+				enemyDefLabel = new Label(), enemyStealthLabel = new Label(), enemyAwarenessLabel = new Label(), enemyMutationLabel = new Label(),
+				enemyTypeLabel = new Label(), enemyIDLabel = new Label());
 		return enemyRightStatsBox;
 	}
 	

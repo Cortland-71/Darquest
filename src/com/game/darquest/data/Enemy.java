@@ -24,10 +24,7 @@ public class Enemy extends Person {
 		return type;
 	}
 
-	@Override
-	public String toString() {
-		return super.toString() + "Enemy [type=" + type + "]";
-	}
+	
 
 	public int getId() {
 		return id;
@@ -52,4 +49,12 @@ public class Enemy extends Person {
 		}
 		this.limit = Math.round(limit * 100.0) / 100.0;
 	}
+
+	@Override
+	public String toString() {
+		return "Enemy [type=" + type + ", id=" + id + ", imagePath=" + imagePath + ", limit=" + limit + ", toString()="
+				+ super.toString() + "]";
+	}
+	
+	
 }

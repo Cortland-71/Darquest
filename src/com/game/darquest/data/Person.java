@@ -261,6 +261,16 @@ public abstract class Person {
 		this.maxAttack = maxAttack;
 	}
 
+	@Override
+	public String toString() {
+		return "Person [name=" + name + ", lvl=" + lvl + ", cash=" + cash + ", hp=" + hp + ", MIN=" + MIN + ", MAX_BAR="
+				+ MAX_BAR + ", equippedWeapon=" + equippedWeapon + ", equippedArmor=" + equippedArmor
+				+ ", equippedTool=" + equippedTool + ", attack=" + attack + ", maxAttack=" + maxAttack + ", def=" + def
+				+ ", maxDef=" + maxDef + ", stealth=" + stealth + ", maxStealth=" + maxStealth + ", awareness="
+				+ awareness + ", maxAwareness=" + maxAwareness + ", mutation=" + mutation + ", maxMutation="
+				+ maxMutation + "]";
+	}
+
 
 	
 	
