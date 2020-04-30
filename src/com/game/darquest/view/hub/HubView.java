@@ -443,32 +443,44 @@ public class HubView {
 		equippedArmorLabel.setText("Arm:\t" + p.getEquippedArmorString());
 		equippedToolLabel.setText("Tool:\t" + p.getEquippedToolString());
 		
+		String darkGreen = "#00802b";
 		if(p.getAttack() < p.getMaxAttack()) {
 			attackLabel.setStyle("-fx-text-fill: red");
+		} else if(p.getAttack() == p.getMaxAttack()) {
+			attackLabel.setStyle("-fx-text-fill: "+darkGreen);
 		} else {
 			attackLabel.setStyle("-fx-text-fill: _lightBlue");
 		}
 		
 		if(p.getDef() < p.getMaxDef()) {
 			defLabel.setStyle("-fx-text-fill: red");
+		} else if(p.getDef() == p.getMaxDef()){
+			defLabel.setStyle("-fx-text-fill: "+darkGreen);
 		} else {
 			defLabel.setStyle("-fx-text-fill: _lightBlue");
 		}
 		
 		if(p.getStealth() < p.getMaxStealth()) {
 			stealthLabel.setStyle("-fx-text-fill: red");
+		} else if (p.getStealth() == p.getMaxStealth()) {
+			stealthLabel.setStyle("-fx-text-fill: "+darkGreen);
 		} else {
 			stealthLabel.setStyle("-fx-text-fill: _lightBlue");
 		}
 		
+		
 		if(p.getAwareness() < p.getMaxAwareness()) {
 			awarenessLabel.setStyle("-fx-text-fill: red");
+		} else if (p.getAwareness() == p.getMaxAwareness()){
+			awarenessLabel.setStyle("-fx-text-fill: "+darkGreen);
 		} else {
 			awarenessLabel.setStyle("-fx-text-fill: _lightBlue");
 		}
 		
 		if(p.getMutation() < p.getMaxMutation()) {
 			mutationLabel.setStyle("-fx-text-fill: red");
+		} else if(p.getMutation() == p.getMaxMutation()){
+			mutationLabel.setStyle("-fx-text-fill: "+darkGreen);
 		} else {
 			mutationLabel.setStyle("-fx-text-fill: _lightBlue");
 		}

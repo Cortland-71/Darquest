@@ -32,16 +32,13 @@ public class Attack implements Fireable {
 		Weapon w = p.getEquippedWeapon();
 		int weaponDamage = getWeaponDamage(w);
 		int def = choosen.getDef();
-		int minimumWeaponDamage = p.getEquippedWeapon().getMinDamage();
-		int minWepDamageAndAttackLevel = minimumWeaponDamage + 5;
-		double finalDamage = getFinalWeaponDamage(def, minWepDamageAndAttackLevel);
+		int minimumDamage = p.getAttack();
+		double finalDamage = getFinalWeaponDamage(def, minimumDamage+weaponDamage);
 		
 		if(!w.getName().equals("none")) w.setCondition(w.getCondition() - 1);
 		if(p instanceof Enemy) w.setCondition(w.getCondition() + 1);
 		
-		//a p.setEng(p.getEng() - .3);
-		
-		if(minimumWeaponDamage < choosen.getDef()) {
+		if(minimumDamage < choosen.getDef()) {
 			output = "Attack missed.\n"
 					+ "Minimum attack damage: " + weaponDamage + "\n" 
 					+ choosen.getName() + "'s Deffense: " + choosen.getDef() + "\n"
@@ -62,8 +59,10 @@ public class Attack implements Fireable {
 	}
 
 	
-	private double getFinalWeaponDamage(int def, int attackLevelAndMinWepDamage) {
-		return attackLevelAndMinWepDamage - ((def/2d)/100d);
+	private double getFinalWeaponDamage(int def, int attackLevelAndWepDamage) {
+		double attackAmount = (attackLevelAndWepDamage/100d) - ((def/2d)/100d);
+		System.out.println(attackAmount);
+		return attackAmount;
 	}
 	
 	private int getWeaponDamage(Weapon w) {
@@ -85,7 +84,7 @@ public class Attack implements Fireable {
 
 	@Override
 	public int getPointCost() {
-		return 4;
+		return 3;
 	}
 	@Override
 	public boolean isModifiable() {

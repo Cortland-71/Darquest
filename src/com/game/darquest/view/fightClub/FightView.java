@@ -374,7 +374,7 @@ public class FightView {
 			enemyAttackLabel.setStyle("-fx-text-fill: _lightBlue");
 		}
 		
-		if(p.getDef() <= player.getEquippedWeapon().getMinDamage()) {
+		if(p.getDef() <= player.getAttack()) {
 			enemyDefLabel.setStyle("-fx-text-fill: red");
 		} else if(p.getDef() == p.getMaxDef()){
 			enemyDefLabel.setStyle("-fx-text-fill: #cc6600");

@@ -79,6 +79,13 @@ public abstract class Person {
 		setAwareness(awar);
 	}
 	
+	public void setAttack(int attack) {
+		if (attack < 1) {
+			this.attack = 1;
+			return;
+		} 
+		this.attack = attack;
+	}
 
 	public int getDef() {
 		return def;
@@ -93,6 +100,7 @@ public abstract class Person {
 	}
 
 	public int getStealth() {
+		
 		return stealth;
 	}
 
@@ -249,9 +257,7 @@ public abstract class Person {
 		return attack;
 	}
 
-	public void setAttack(int attack) {
-		this.attack = attack;
-	}
+	
 
 	public int getMaxAttack() {
 		return maxAttack;

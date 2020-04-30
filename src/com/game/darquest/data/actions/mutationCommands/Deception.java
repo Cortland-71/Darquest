@@ -19,7 +19,7 @@ public class Deception implements Fireable {
 			return;
 		}
 		
-		int mutationEffect = p.getMutation();
+		int mutationEffect = (int)Math.ceil(p.getMutation()/2d);
 
 		int awarenessBefore = choosen.getAwareness();
 		int awarenessAfter = choosen.getAwareness() - mutationEffect;
@@ -36,7 +36,7 @@ public class Deception implements Fireable {
 				+ "Awareness before: " + awarenessBefore + "\n"
 				+ "Awareness after:  " + awarenessAfter + "\n"
 				+ "Stealth before:   " + stealthBefore + "\n"
-				+ "Stealth after:    ," + stealthAfter + "\n\n";
+				+ "Stealth after:    " + stealthAfter + "\n\n";
 	}
 	
 	@Override

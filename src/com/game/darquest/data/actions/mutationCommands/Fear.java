@@ -21,7 +21,7 @@ public class Fear implements Fireable {
 			return;
 		}
 		
-		int mutationEffect = p.getMutation();
+		int mutationEffect = (int)Math.ceil(p.getMutation()/2d);
 
 		int defBefore = choosen.getDef();
 		int defAfter = choosen.getDef() - mutationEffect;

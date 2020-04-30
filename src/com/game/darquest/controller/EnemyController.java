@@ -4,15 +4,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
-import com.game.darquest.controller.rules.AttackRuleController;
-import com.game.darquest.controller.rules.DeceptionRuleController;
-import com.game.darquest.controller.rules.FearRuleController;
-import com.game.darquest.controller.rules.HealRuleController;
-import com.game.darquest.controller.rules.EchoRuleController;
-import com.game.darquest.controller.rules.Ruleable;
-import com.game.darquest.controller.rules.StealRuleController;
 import com.game.darquest.data.Enemy;
+import com.game.darquest.data.actions.Fireable;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -25,35 +20,14 @@ public class EnemyController {
 	private Controller c;
 	private Enemy enemy;
 	private List<Enemy> enemyList;
-	private List<Ruleable> ruleList;
 	private int points = 0;
-	
-	private DeceptionRuleController deceptionRuleController;
-	private StealRuleController stealRuleController;
-	private HealRuleController healRuleController;
-	private AttackRuleController attackRuleController;
-	private FearRuleController fearRuleController;
-	private EchoRuleController echoRuleController;
+	int count = 0;
 	
 	public EnemyController(Controller c) {
 		this.c = c;
-		deceptionRuleController = new DeceptionRuleController(this.c);
-		stealRuleController = new StealRuleController(this.c);
-		healRuleController = new HealRuleController(this.c);
-		attackRuleController = new AttackRuleController(this.c);
-		fearRuleController = new FearRuleController(this.c);
-		echoRuleController = new EchoRuleController(this.c);
-		
-		this.ruleList = Arrays.asList(
-				attackRuleController, 
-				stealRuleController,
-				healRuleController,
-				deceptionRuleController,
-				fearRuleController,
-				echoRuleController);
 	}
 
-	int count = 0;
+	
 	
 	public void enemyTurn(Enemy enemy, List<Enemy> enemyList) {
 		this.enemy = enemy;
@@ -64,7 +38,9 @@ public class EnemyController {
 		timeline.setCycleCount(points);
 		timeline.getKeyFrames().add(new KeyFrame(Duration.millis(600), 
 				e-> {
-					System.out.println("Test");
+					//figure out how many points they have and what moves they can do
+					int numberOfPoints = timeline.getCycleCount();
+					move(numberOfPoints);
 					}));
 		
 		timeline.play();
@@ -78,44 +54,35 @@ public class EnemyController {
 	}
 	
 
-	private void move() {
-		System.out.println(enemy.getType().getName());
-		List<Integer> allScores = enemy.getType().getAllScores();
-		int index = getChoosenActionIndex(allScores);
-		ruleList.get(index).getRule();
+	private void move(int numberOfPoints) {
+		
+		List<Fireable> list = determineMoves(numberOfPoints);
+		Fireable choosenMove = getBestMove(list);
+		choosenMove.fire(enemy, c.getPlayer());
+		c.getView().getFightClubView().setEnemyOutputTextArea(choosenMove.getOutput());
 		updateAllStats();
 		if(c.getPlayer().getHp() <= 0) {
 			c.getView().getHubView().showHub();
 		}
 	}
 	
-	
-	private int getChoosenActionIndex(List<Integer> allScores) {
-		List<Integer> highScoreIndexes = new ArrayList<>();
-		int choosenIndex = 0;
-		int holder = 0;
+	private Fireable getBestMove(List<Fireable> list) {
 		Random rand = new Random();
-		
-		//Finds Highest score in the list of all scores.
-		for (int i = 0; i < allScores.size(); i++) {
-			if(allScores.get(i) > holder) {
-				holder = allScores.get(i);
-				choosenIndex = i;
-			}
-		}
-		
-		//Adds the index of duplicates of the highest score found to a list of highScoreIndexes.
-		for (int i = 0; i < allScores.size(); i++) {
-			if(allScores.get(i) == holder) {
-				highScoreIndexes.add(i);
-			}
-		}
-		
-		//If it finds there are two indexes with same high scores it will choose one randomly.
-		if(highScoreIndexes.size() > 1) 
-			choosenIndex = highScoreIndexes.get(rand.nextInt(highScoreIndexes.size()));
-		return choosenIndex;
+		return list.get(rand.nextInt(list.size()));
 	}
+
+
+
+	private List<Fireable> determineMoves(int numberOfPoints) {
+		List<Fireable> fireList = c.getFightClubController().getFireList();
+		List<Fireable> availibleFireList = fireList.stream()
+				.filter(e->e.getPointCost() <= numberOfPoints)
+				.collect(Collectors.toList());
+		
+		return availibleFireList;
+	}
+	
+	
 	
 	private void updateAllStats() {
 		List<Enemy> list = c.getFightClubController().getEnemyList();

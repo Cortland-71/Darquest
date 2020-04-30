@@ -11,27 +11,27 @@ public class ItemHub {
 	// Weapons
 	// \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 	public List<Item> lowWeaponsList() {
-		return Arrays.asList(new Weapon("Studded Gloves", studedGlovesDes(), 150, .01, 8, 8, 5, 8),
-				new Weapon("Brass Knuckles", brassKnucklesDes(), 350, .05, 10, 10, 4, 10),
-				new Weapon("Scorpion", hammerDes(), 600, .08, 20, 20, 3, 15),
-				new Weapon("Switchblade", switchBladeDes(), 350, .02, 12, 12, 3, 10),
-				new Weapon("Tanto", tantoDes(), 800, .08, 30, 30, 3, 15));
+		return Arrays.asList(new Weapon("Studded Gloves", studedGlovesDes(), 150, .01, 8, 8, 1, 2),
+				new Weapon("Brass Knuckles", brassKnucklesDes(), 350, .05, 10, 10, 1, 3),
+				new Weapon("Scorpion", hammerDes(), 600, .08, 20, 20, 1, 4),
+				new Weapon("Switchblade", switchBladeDes(), 350, .02, 12, 12, 1, 5),
+				new Weapon("Tanto", tantoDes(), 800, .08, 30, 30, 1, 6));
 	}
 
 	public List<Item> midWeaponsList() {
-		return Arrays.asList(new Weapon("Butterfly", macheteDes(), 1200, .07, 25, 25, 8, 15),
-				new Weapon("Wakizashi", macheteDes(), 1200, .07, 25, 25, 8, 15),
-				new Weapon("Snub", g26Des(), 1800, .35, 13, 13, 12, 22),
-				new Weapon("Throwing Stars", throwingStarDes(), 1500, .01, 3, 3, 10, 13),
-				new Weapon("Killcat", reeferDes(), 1800, .25, 8, 8, 10, 20));
+		return Arrays.asList(new Weapon("Butterfly", macheteDes(), 1200, .07, 25, 25, 1, 7),
+				new Weapon("Wakizashi", macheteDes(), 1200, .07, 25, 25, 1, 8),
+				new Weapon("Snub", g26Des(), 1800, .35, 13, 13, 1, 9),
+				new Weapon("Throwing Stars", throwingStarDes(), 1500, .01, 3, 3, 2, 9),
+				new Weapon("Killcat", reeferDes(), 1800, .25, 8, 8, 3, 9));
 	}
 
 	public List<Item> highWeaponsList() {
-		return Arrays.asList(new Weapon("Katana", katanaDes(), 2200, .1, 10, 50, 20, 50),
-				new Weapon("Winterfield .40", winterFieldDes(), 2000, .3, 12, 12, 12, 25),
-				new Weapon("AX-15", axDes(), 2500, .5, 20, 20, 15, 20),
-				new Weapon("Cherry", cherryDes(), 2100, .3, 12, 12, 12, 18),
-				new Weapon("Sniper Rifle", sniperRifleDes(), 3700, .6, 8, 8, 20, 30),
+		return Arrays.asList(new Weapon("Katana", katanaDes(), 2200, .1, 10, 50, 4, 9),
+				new Weapon("Winterfield .40", winterFieldDes(), 2000, .3, 12, 12, 5, 9),
+				new Weapon("AX-15", axDes(), 2500, .5, 20, 20, 6, 9),
+				new Weapon("Cherry", cherryDes(), 2100, .3, 12, 12, 7, 9),
+				new Weapon("Sniper Rifle", sniperRifleDes(), 3700, .6, 8, 8, 8, 9),
 				new Weapon("Shotgun", shotgunDes(), 4000, .4, 12, 12, 22, 40),
 				new Weapon("The Machine", machineDes(), 5500, .7, 100, 100, 25, 40),
 				new Weapon("Chainsaw", chainsawDes(), 5800, .5, 15, 15, 20, 35));

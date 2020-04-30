@@ -19,7 +19,7 @@ public class Shield implements Fireable {
 			return;
 		}
 		
-		int mutationEffect = p.getMutation();
+		int mutationEffect = (int)Math.ceil(p.getMutation()/2d);
 
 		int attackBefore = choosen.getAttack();
 		int attackAfter = choosen.getAttack() - mutationEffect;
