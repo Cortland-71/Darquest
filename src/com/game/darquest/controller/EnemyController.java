@@ -1,6 +1,7 @@
 package com.game.darquest.controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
@@ -17,6 +18,7 @@ public class EnemyController {
 	private int points = 0;
 	int totalCostPoints = 0;
 	private int moveIndex = 0;
+	private List<List<Fireable>> masterList;
 
 	public EnemyController(Controller c) {
 		this.c = c;
@@ -57,59 +59,85 @@ public class EnemyController {
 	private void getFinalListOfMoves() {
 		if (points < 5)
 			points++;
-		List<List<Fireable>> masterList = new ArrayList<>();
-		
-		int sum = 0;
+	
+		masterList = new ArrayList<>();
 		List<Fireable> list = getAvailibleMoves(points);
-		List<Fireable> allowedList = getAllowedMoves(list);
 		
-		for (int i = 0; i < allowedList.size(); i++) {
-			Fireable seed = allowedList.get(i);
-			
-			for (int j = 0; j < allowedList.size(); j++) {
-				List<Fireable> miniList = new ArrayList<>();
-				miniList.add(seed);
-				sum = seed.getPointCost();
-				
-				for (int k = j; k < allowedList.size(); k++) {
-					sum += allowedList.get(k).getPointCost();
-					if(sum <= points) {
-						miniList.add(allowedList.get(k));
-						continue;
-					}
+		List<Fireable> allowedList = getAllowedMoves(list);
 
-					masterList.add(miniList);
-					break;
-				}
-				
-			}
-		}
+		printCombinations(allowedList, allowedList.size());
+		Collections.reverse(allowedList);
+		printCombinations(allowedList, allowedList.size());
+
 		HashSet<List<Fireable>> set = new HashSet<List<Fireable>>();
 		for (int i = 0; i < masterList.size(); i++) {
 			set.add(masterList.get(i));
-			System.out.println(masterList.get(i));
 		}
 
-		System.out.println();
 		List<List<Fireable>> noDupList = new ArrayList<>(set); 
 		
-		for (int i = 0; i < noDupList.size(); i++) {
-			for (int j = 0; j < noDupList.get(i).size(); j++) {
-				System.out.print(noDupList.get(i).get(j).getCommandId() + ", ");
+		//printList(noDupList);
+
+		List<List<Fireable>> withPointsList = getPossibleMovesWithPoints(noDupList);
+		printList(withPointsList);
+		//return allowedList;
+	}
+	
+	private void printList(List<List<Fireable>> lists) {
+		for (int i = 0; i < lists.size(); i++) {
+			for (int j = 0; j < lists.get(i).size(); j++) {
+				System.out.print(lists.get(i).get(j).getCommandId() + ", ");
 			}
 			System.out.println();
 		}
-		
 		System.out.println();
-//		for (int i = 0; i < points; i++) {
-//			Fireable choosenMove = getBestMove(list);
-//			totalCostPoints += choosenMove.getPointCost();
-//			if (totalCostPoints <= points)
-//				finalList.add(choosenMove);
-//		}
-		//return allowedList;
 	}
-
+	
+	private List<List<Fireable>> getPossibleMovesWithPoints(List<List<Fireable>> noDupList) {
+		List<List<Fireable>> listWithPoints = new ArrayList<>();
+		int sum = 0;
+		for (int i = 0; i < noDupList.size(); i++) {
+			for (int j = 0; j < noDupList.get(i).size(); j++) {
+				sum += noDupList.get(i).get(j).getPointCost();
+			}
+			if(sum <= points) {
+				listWithPoints.add(noDupList.get(i));
+			}
+			sum = 0;
+		}
+		return listWithPoints;
+	}
+ 	
+	private void getSimulation(List<List<Fireable>> noDupList) {
+		
+	}
+	
+	private void printCombinations(List<Fireable> sequence, int N) {
+        Fireable[] data = new Fireable[N];
+        for (int r = 0; r < sequence.size(); r++)
+            combinations(sequence, data, 0, N - 1, 0, r);
+    }
+ 
+    private void combinations(List<Fireable> sequence, Fireable[] data, int start, int end,
+            int index, int r) {
+ 
+    	
+        if (index == r) {
+        	List<Fireable> miniList = new ArrayList<>();
+            for (int j = 0; j < r; j++) {
+            	miniList.add(data[j]);
+            	masterList.add(miniList);
+            }
+        }
+        for (int i = start; i <= end && ((end - i + 1) >= (r - index)); i++) {
+            data[index] = sequence.get(i);
+            combinations(sequence, data, i + 1, end, index + 1, r);
+        }
+    }
+	
+	
+	
+	
 	private List<Fireable> getAllowedMoves(List<Fireable> list) {
 		List<String> allowedList = enemy.getType().getAllowedMoves();
 		List<Fireable> finalList = list.stream()
