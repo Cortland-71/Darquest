@@ -154,4 +154,11 @@ public class Shinobi implements Classable {
 	public String getDescription() {
 		return "Shinobi description";
 	}
+
+
+	@Override
+	public List<String> getAllowedMoves() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

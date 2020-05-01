@@ -42,7 +42,7 @@ public class Shield implements Fireable {
 
 	@Override
 	public String getCommandId() {
-		return "sd";
+		return "shd";
 	}
 
 	@Override

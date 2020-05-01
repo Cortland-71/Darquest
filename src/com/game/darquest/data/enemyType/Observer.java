@@ -146,4 +146,12 @@ public class Observer implements Classable {
 	public String getDescription() {
 		return "Observer description";
 	}
+
+
+
+	@Override
+	public List<String> getAllowedMoves() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

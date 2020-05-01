@@ -1,6 +1,7 @@
 package com.game.darquest.data.enemyType;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.game.darquest.controller.Controller;
@@ -151,6 +152,12 @@ public class Enforcer implements Classable {
 		allScores.add(preserveQuestions()); //Preserve
 		
 		return allScores;
+	}
+
+
+	@Override
+	public List<String> getAllowedMoves() {
+		return Arrays.asList("dec", "fear", "ech", "hac", "shd", "acd", "att");
 	}
 
 	
