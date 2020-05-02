@@ -3,6 +3,7 @@ package com.game.darquest.controller;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -78,6 +79,11 @@ public class EnemyController {
 
 		List<List<Fireable>> withPointsList = getPossibleMovesWithPoints(noDupList);
 
+		withPointsList.sort((a,b)-> {
+				if(a.size() == b.size()) return 0;
+				return a.size() < b.size() ? -1 : 1;
+			});
+		
 		getHighestScoringList(withPointsList);
 		// return allowedList;
 	}
@@ -114,6 +120,7 @@ public class EnemyController {
 		simEnemy.setSimStats(enemyIntegerStats, enemyCash, enemyHp);
 		simEnemy.setId(id);
 		
+		//loop this for each withPointsList. Story the ids in a 3d list.
 		List<List<String>> ids = getIDCombinations(simEnemy.getId(), withPointsList.get(1).size());
 		
 		getCommandsWithIds(ids, withPointsList);
@@ -149,24 +156,34 @@ public class EnemyController {
 		ids.forEach(System.out::println);
 		
 
-		for (int k = 0; k < withPointsList.size(); k++) {
-			List<List<String>> commandsWithIds = new ArrayList<>();
-			for (int i = 0; i < ids.size(); i++) {
-				List<String> miniList = new ArrayList<>();
-				for (int j = 0; j < ids.get(i).size(); j++) {
-					String currentID = ids.get(i).get(j);
-					String currentCommand = withPointsList.get(k).get(j).getCommandId();
-					miniList.add(currentCommand + " " + currentID);
-				}
-				commandsWithIds.add(miniList);
-			}
-			allCommands.add(commandsWithIds);
-		}
-		allCommands.forEach(System.out::println);
+		//broken
+//		for (int k = 0; k < withPointsList.size(); k++) {
+//			List<List<String>> commandsWithIds = new ArrayList<>();
+//			for (int i = 0; i < ids.size(); i++) {
+//				List<String> miniList = new ArrayList<>();
+//				
+//				if(withPointsList.get(k).size() < ids.get(i).size()) {
+//					for (int j = 0; j < withPointsList.get(k).size(); j++) {
+//						String currentID = ids.get(i).get(j);
+//						String currentCommand = withPointsList.get(k).get(j).getCommandId();
+//						miniList.add(currentCommand + " " + currentID);
+//					}
+//					commandsWithIds.add(miniList);
+//					continue;
+//				}
+//				
+//				for (int j = 0; j < ids.get(i).size(); j++) {
+//					String currentID = ids.get(i).get(j);
+//					String currentCommand = withPointsList.get(k).get(j).getCommandId();
+//					miniList.add(currentCommand + " " + currentID);
+//				}
+//				commandsWithIds.add(miniList);
+//			}
+//			allCommands.add(commandsWithIds);
+//		}
+//		allCommands.forEach(System.out::println);
 	}
 	
-	
-
 	private void createCombinations(List<Fireable> sequence, int N) {
 		Fireable[] data = new Fireable[N];
 		for (int r = 0; r < sequence.size(); r++)
@@ -174,7 +191,6 @@ public class EnemyController {
 	}
 
 	private void combinations(List<Fireable> sequence, Fireable[] data, int start, int end, int index, int r) {
-
 		if (index == r) {
 			List<Fireable> miniList = new ArrayList<>();
 			for (int j = 0; j < r; j++) {
@@ -194,7 +210,6 @@ public class EnemyController {
 				.collect(Collectors.toList());
 		return finalList;
 	}
-
 
 	private List<Fireable> getAvailibleMoves(int numberOfPoints) {
 		List<Fireable> fireList = new ArrayList<>(c.getFightClubController().getFireList());
