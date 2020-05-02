@@ -15,7 +15,6 @@ public interface Classable {
 	int getGenerateStealth();
 	int getGenerateAwareness();
 	int getGenerateMutation();
-	int getGenerateSecurity();
 	List<String> getAllowedMoves();
 	double getGeneratedCash();
 	Weapon getGenerateWeapon();

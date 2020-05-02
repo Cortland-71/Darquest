@@ -50,11 +50,6 @@ public class Enforcer implements Classable {
 	}
 
 	@Override
-	public int getGenerateSecurity() {
-		return rand.nextInt((maxStat - minStat)+1)+minStat;
-	}
-
-	@Override
 	public Weapon getGenerateWeapon() {
 		return (Weapon)ic.lowWeaponsList().get(rand.nextInt(ic.lowWeaponsList().size()));
 	}
@@ -126,12 +121,12 @@ public class Enforcer implements Classable {
 		Player p = (Player)c.getPlayer();
 		
 		int score = 0, dif = 0;
-		score += e.getAwareness() < e.getMaxAwareness() ? 1 : 0;
-		score += e.getDef() < e.getMaxDef() ? 1 : 0;
-		score += e.getStealth() < e.getMaxStealth() ? 1 : 0;
-		dif = e.getMaxAwareness() - e.getAwareness();
-		dif += e.getMaxDef() - e.getDef();
-		dif += e.getMaxStealth() - e.getStealth();
+		score += e.getAwareness() < e.getDefaultAwareness() ? 1 : 0;
+		score += e.getDef() < e.getDefaultDef() ? 1 : 0;
+		score += e.getStealth() < e.getDefaultStealth() ? 1 : 0;
+		dif = e.getDefaultAwareness() - e.getAwareness();
+		dif += e.getDefaultDef() - e.getDef();
+		dif += e.getDefaultStealth() - e.getStealth();
 		score *= dif;
 		System.out.println("Preserve score: " + score);
 		return score;

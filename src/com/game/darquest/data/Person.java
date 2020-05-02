@@ -1,6 +1,8 @@
 package com.game.darquest.data;
 
 import java.text.NumberFormat;
+import java.util.Arrays;
+import java.util.List;
 
 import com.game.darquest.data.items.Armor;
 import com.game.darquest.data.items.Item;
@@ -23,41 +25,60 @@ public abstract class Person {
 	private Tool equippedTool;
 
 	private int attack;
-	private int maxAttack;
+	private int defaultAttack;
 	private int def;
-	private int maxDef;
-	
+	private int defaultDef;
+
 	private int stealth;
-	private int maxStealth;
+	private int defaultStealth;
 	private int awareness;
-	private int maxAwareness;
-	
+	private int defaultAwareness;
+
 	private int mutation;
-	private int maxMutation;
+	private int defaultMutation;
 
 	public Person() {
 	}
 
-	public Person(String name, int maxAttack, int maxDef, int maxStealth, int maxAwareness, int maxMutation, int maxSecurity,
+	public Person(String name, int defaultAttack, int defaultDef, int defaultStealth, int defaultAwareness, int defaultMutation,
 			Weapon equippedWeapon, Armor equippedArmor, int lvl, double cash) {
 		this.name = name;
 		this.equippedWeapon = equippedWeapon;
 		this.equippedArmor = equippedArmor;
 		this.lvl = lvl;
 		this.cash = cash;
+
+		this.setDefaultAttack(defaultAttack);
+		this.setAttack(defaultAttack);
+		this.setDefaultDef(defaultDef);
+		this.setDef(defaultDef);
+
+		this.setDefaultStealth(defaultStealth);
+		this.setStealth(defaultStealth);
+		this.setDefaultAwareness(defaultAwareness);
+		this.setAwareness(defaultAwareness);
+
+		this.setDefaultMutation(defaultMutation);
+		this.setMutation(defaultMutation);
+	}
+
+	public Person(int defaultAttack, int attack, int defaultDef, int def, int defaultStealth, int stealth, int defaultAwareness,
+			int awareness, int defaultMutation, int mutation, double cash, double hp) {
+		this.setDefaultAttack(defaultAttack);
+		this.setDefaultDef(defaultDef);
+		this.setDefaultStealth(defaultStealth);
+		this.setDefaultAwareness(defaultAwareness);
+		this.setDefaultMutation(defaultMutation);
 		
-		this.setMaxAttack(maxAttack);
-		this.setAttack(maxAttack);
-		this.setMaxDef(maxDef);
-		this.setDef(maxDef);
+		this.setAttack(attack);
+		this.setDef(def);
+		this.setStealth(stealth);
+		this.setAwareness(awareness);
+		this.setMutation(defaultMutation);
 		
-		this.setMaxStealth(maxStealth);
-		this.setStealth(maxStealth);
-		this.setMaxAwareness(maxAwareness);
-		this.setAwareness(maxAwareness);
-		
-		this.setMaxMutation(maxMutation);
-		this.setMutation(maxMutation);
+		this.setCash(cash);
+		this.setHp(hp);
+
 	}
 
 	public void setEquippedItem(Item item) {
@@ -69,21 +90,21 @@ public abstract class Person {
 			this.equippedTool = (Tool) item;
 
 	}
-	
+
 	public void setAllSkills(int def, int stealth, int awar) {
-		setMaxDef(def);
-		setMaxStealth(stealth);
-		setMaxAwareness(awar);
+		setDefaultDef(def);
+		setDefaultStealth(stealth);
+		setDefaultAwareness(awar);
 		setDef(def);
 		setStealth(stealth);
 		setAwareness(awar);
 	}
-	
+
 	public void setAttack(int attack) {
 		if (attack < 1) {
 			this.attack = 1;
 			return;
-		} 
+		}
 		this.attack = attack;
 	}
 
@@ -95,12 +116,12 @@ public abstract class Person {
 		if (def < 1) {
 			this.def = 1;
 			return;
-		} 
+		}
 		this.def = def;
 	}
 
 	public int getStealth() {
-		
+
 		return stealth;
 	}
 
@@ -108,7 +129,7 @@ public abstract class Person {
 		if (stealth < 1) {
 			this.stealth = 1;
 			return;
-		} 
+		}
 		this.stealth = stealth;
 	}
 
@@ -120,7 +141,7 @@ public abstract class Person {
 		if (awareness < 1) {
 			this.awareness = 1;
 			return;
-		} 
+		}
 		this.awareness = awareness;
 	}
 
@@ -168,7 +189,6 @@ public abstract class Person {
 		this.hp = Math.round(hp * 100.0) / 100.0;
 	}
 
-
 	public double getCash() {
 		return cash;
 	}
@@ -205,29 +225,29 @@ public abstract class Person {
 		return MAX_BAR;
 	}
 
-	public int getMaxAwareness() {
-		return maxAwareness;
+	public int getDefaultAwareness() {
+		return defaultAwareness;
 	}
 
-	public void setMaxAwareness(int maxAwareness) {
-		this.maxAwareness = maxAwareness;
+	public void setDefaultAwareness(int defaultAwareness) {
+		this.defaultAwareness = defaultAwareness;
 	}
 
-	public int getMaxStealth() {
-		
-		return maxStealth;
+	public int getDefaultStealth() {
+
+		return defaultStealth;
 	}
 
-	public void setMaxStealth(int maxStealth) {
-		this.maxStealth = maxStealth;
+	public void setDefaultStealth(int defaultStealth) {
+		this.defaultStealth = defaultStealth;
 	}
 
-	public int getMaxDef() {
-		return maxDef;
+	public int getDefaultDef() {
+		return defaultDef;
 	}
 
-	public void setMaxDef(int maxDef) {
-		this.maxDef = maxDef;
+	public void setDefaultDef(int defaultDef) {
+		this.defaultDef = defaultDef;
 	}
 
 	public int getMutation() {
@@ -235,50 +255,68 @@ public abstract class Person {
 	}
 
 	public void setMutation(int mutation) {
-		if(mutation < 1) {
+		if (mutation < 1) {
 			this.mutation = 1;
 			return;
-		} else if(mutation > maxMutation) {
-			this.mutation = maxMutation;
+		} else if (mutation > defaultMutation) {
+			this.mutation = defaultMutation;
 			return;
 		}
 		this.mutation = mutation;
 	}
 
-	public int getMaxMutation() {
-		return maxMutation;
+	public int getDefaultMutation() {
+		return defaultMutation;
 	}
 
-	public void setMaxMutation(int maxMutation) {
-		this.maxMutation = maxMutation;
+	public void setDefaultMutation(int defaultMutation) {
+		this.defaultMutation = defaultMutation;
 	}
 
 	public int getAttack() {
 		return attack;
 	}
 
-	
-
-	public int getMaxAttack() {
-		return maxAttack;
+	public int getDefaultAttack() {
+		return defaultAttack;
 	}
 
-	public void setMaxAttack(int maxAttack) {
-		this.maxAttack = maxAttack;
+	public void setDefaultAttack(int defaultAttack) {
+		this.defaultAttack = defaultAttack;
 	}
 
 	@Override
 	public String toString() {
 		return "Person [name=" + name + ", lvl=" + lvl + ", cash=" + cash + ", hp=" + hp + ", MIN=" + MIN + ", MAX_BAR="
 				+ MAX_BAR + ", equippedWeapon=" + equippedWeapon + ", equippedArmor=" + equippedArmor
-				+ ", equippedTool=" + equippedTool + ", attack=" + attack + ", maxAttack=" + maxAttack + ", def=" + def
-				+ ", maxDef=" + maxDef + ", stealth=" + stealth + ", maxStealth=" + maxStealth + ", awareness="
-				+ awareness + ", maxAwareness=" + maxAwareness + ", mutation=" + mutation + ", maxMutation="
-				+ maxMutation + "]";
+				+ ", equippedTool=" + equippedTool + ", attack=" + attack + ", defaultAttack=" + defaultAttack + ", def=" + def
+				+ ", defaultDef=" + defaultDef + ", stealth=" + stealth + ", defaultStealth=" + defaultStealth + ", awareness="
+				+ awareness + ", defaultAwareness=" + defaultAwareness + ", mutation=" + mutation + ", defaultMutation="
+				+ defaultMutation + "]";
+	}
+	
+	public List<Integer> getAllIntegerStatsForSimulation() {
+		return Arrays.asList(this.getDefaultAttack(), this.getAttack(), this.getDefaultDef(), this.getDef(),
+				this.getDefaultStealth(), this.getStealth(), this.getDefaultAwareness(), this.getAwareness(),
+				this.getDefaultMutation(), this.getMutation());
+		
 	}
 
-
 	
+	public void setSimStats(List<Integer> list, double cash, double hp) {
+		this.setCash(cash);
+		this.setHp(hp);
+		this.setDefaultAttack(list.get(0));
+		this.setAttack(list.get(1));
+		this.setDefaultDef(list.get(2));
+		this.setDef(list.get(3));
+		this.setDefaultStealth(list.get(4));
+		this.setStealth(list.get(5));
+		this.setDefaultAwareness(list.get(6));
+		this.setAwareness(list.get(7));
+		this.setDefaultMutation(list.get(8));
+		this.setMutation(list.get(9));
+	}
 	
 	
 

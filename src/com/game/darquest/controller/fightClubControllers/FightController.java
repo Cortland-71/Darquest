@@ -274,9 +274,9 @@ public class FightController implements EventHandler<KeyEvent> {
 			List<String> listOfWinStats = Arrays.asList(totalMoves, formattedXp, efficiencyScore, 
 					cash, bonusCash,totalCashEarned, loot, rating);
 			c.getView().getFightWinView().setWinStats(listOfWinStats);
-			p.setDef(p.getMaxDef());
-			p.setStealth(p.getMaxStealth());
-			p.setAwareness(p.getMaxAwareness());
+			p.setDef(p.getDefaultDef());
+			p.setStealth(p.getDefaultStealth());
+			p.setAwareness(p.getDefaultAwareness());
 			c.getPlayerInvStatsController().updateAllPlayerStats();
 			c.getView().getHubView().showWin();
 			return true;

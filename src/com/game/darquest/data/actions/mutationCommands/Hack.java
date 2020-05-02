@@ -12,7 +12,7 @@ public class Hack implements Fireable {
 
 	@Override
 	public void fire(Person p, Person choosen) {
-		if(choosen.getMutation() >= choosen.getMaxMutation()) {
+		if(choosen.getMutation() >= choosen.getDefaultMutation()) {
 			output = "Target's Mutation was already at it's maximum.\n\n";
 			FightClubWinController.setEfficiencyScore(FightClubWinController.getEfficiencyScore() - 5);
 			return;

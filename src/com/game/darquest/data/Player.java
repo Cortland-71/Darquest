@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.game.darquest.data.enemyType.Classable;
 import com.game.darquest.data.items.Armor;
 import com.game.darquest.data.items.Item;
 import com.game.darquest.data.items.Weapon;
@@ -24,6 +25,10 @@ public class Player extends Person {
 	private double remainingXp = 0;
 	private final double maxXp = 1;
 	private final double minXp = 0;
+	
+	public Player() {}
+	
+
 	
 	//implement this
 	private int kills = 0;

@@ -53,11 +53,11 @@ public class NewPlayerController implements EventHandler<KeyEvent> {
 	private void setNameAndStats() {
 		p.setName(c.getView().getNewPlayerView().getNameText());
 		
-		p.setMaxAttack(5);
-		p.setMaxDef(5);
-		p.setMaxStealth(5);
-		p.setMaxAwareness(5);
-		p.setMaxMutation(5);
+		p.setDefaultAttack(5);
+		p.setDefaultDef(5);
+		p.setDefaultStealth(5);
+		p.setDefaultAwareness(5);
+		p.setDefaultMutation(5);
 
 		
 		p.setAttack(5);

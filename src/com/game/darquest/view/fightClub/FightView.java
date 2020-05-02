@@ -368,7 +368,7 @@ public class FightView {
 		
 		if(p.getAttack() <= player.getDef()) {
 			enemyAttackLabel.setStyle("-fx-text-fill: red");
-		} else if(p.getAttack() == p.getMaxAttack()) {
+		} else if(p.getAttack() == p.getDefaultAttack()) {
 			enemyAttackLabel.setStyle("-fx-text-fill: #cc6600");
 		} else {
 			enemyAttackLabel.setStyle("-fx-text-fill: _lightBlue");
@@ -376,7 +376,7 @@ public class FightView {
 		
 		if(p.getDef() <= player.getAttack()) {
 			enemyDefLabel.setStyle("-fx-text-fill: red");
-		} else if(p.getDef() == p.getMaxDef()){
+		} else if(p.getDef() == p.getDefaultDef()){
 			enemyDefLabel.setStyle("-fx-text-fill: #cc6600");
 		} else {
 			enemyDefLabel.setStyle("-fx-text-fill: _lightBlue");
@@ -384,7 +384,7 @@ public class FightView {
 		
 		if(p.getStealth() <= player.getAwareness()) {
 			enemyStealthLabel.setStyle("-fx-text-fill: red");
-		} else if (p.getStealth() == p.getMaxStealth()) {
+		} else if (p.getStealth() == p.getDefaultStealth()) {
 			enemyStealthLabel.setStyle("-fx-text-fill: #cc6600");
 		} else {
 			enemyStealthLabel.setStyle("-fx-text-fill: _lightBlue");
@@ -393,15 +393,15 @@ public class FightView {
 		
 		if(p.getAwareness() <= player.getStealth()) {
 			enemyAwarenessLabel.setStyle("-fx-text-fill: red");
-		} else if (p.getAwareness() == p.getMaxAwareness()){
+		} else if (p.getAwareness() == p.getDefaultAwareness()){
 			enemyAwarenessLabel.setStyle("-fx-text-fill: #cc6600");
 		} else {
 			enemyAwarenessLabel.setStyle("-fx-text-fill: _lightBlue");
 		}
 		
-		if(p.getMutation() < p.getMaxMutation()) {
+		if(p.getMutation() < p.getDefaultMutation()) {
 			enemyMutationLabel.setStyle("-fx-text-fill: red");
-		} else if(p.getMutation() == p.getMaxMutation()){
+		} else if(p.getMutation() == p.getDefaultMutation()){
 			enemyMutationLabel.setStyle("-fx-text-fill: #cc6600");
 		} else {
 			enemyMutationLabel.setStyle("-fx-text-fill: _lightBlue");

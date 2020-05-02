@@ -444,42 +444,42 @@ public class HubView {
 		equippedToolLabel.setText("Tool:\t" + p.getEquippedToolString());
 		
 		String darkGreen = "#00802b";
-		if(p.getAttack() < p.getMaxAttack()) {
+		if(p.getAttack() < p.getDefaultAttack()) {
 			attackLabel.setStyle("-fx-text-fill: red");
-		} else if(p.getAttack() == p.getMaxAttack()) {
+		} else if(p.getAttack() == p.getDefaultAttack()) {
 			attackLabel.setStyle("-fx-text-fill: "+darkGreen);
 		} else {
 			attackLabel.setStyle("-fx-text-fill: _lightBlue");
 		}
 		
-		if(p.getDef() < p.getMaxDef()) {
+		if(p.getDef() < p.getDefaultDef()) {
 			defLabel.setStyle("-fx-text-fill: red");
-		} else if(p.getDef() == p.getMaxDef()){
+		} else if(p.getDef() == p.getDefaultDef()){
 			defLabel.setStyle("-fx-text-fill: "+darkGreen);
 		} else {
 			defLabel.setStyle("-fx-text-fill: _lightBlue");
 		}
 		
-		if(p.getStealth() < p.getMaxStealth()) {
+		if(p.getStealth() < p.getDefaultStealth()) {
 			stealthLabel.setStyle("-fx-text-fill: red");
-		} else if (p.getStealth() == p.getMaxStealth()) {
+		} else if (p.getStealth() == p.getDefaultStealth()) {
 			stealthLabel.setStyle("-fx-text-fill: "+darkGreen);
 		} else {
 			stealthLabel.setStyle("-fx-text-fill: _lightBlue");
 		}
 		
 		
-		if(p.getAwareness() < p.getMaxAwareness()) {
+		if(p.getAwareness() < p.getDefaultAwareness()) {
 			awarenessLabel.setStyle("-fx-text-fill: red");
-		} else if (p.getAwareness() == p.getMaxAwareness()){
+		} else if (p.getAwareness() == p.getDefaultAwareness()){
 			awarenessLabel.setStyle("-fx-text-fill: "+darkGreen);
 		} else {
 			awarenessLabel.setStyle("-fx-text-fill: _lightBlue");
 		}
 		
-		if(p.getMutation() < p.getMaxMutation()) {
+		if(p.getMutation() < p.getDefaultMutation()) {
 			mutationLabel.setStyle("-fx-text-fill: red");
-		} else if(p.getMutation() == p.getMaxMutation()){
+		} else if(p.getMutation() == p.getDefaultMutation()){
 			mutationLabel.setStyle("-fx-text-fill: "+darkGreen);
 		} else {
 			mutationLabel.setStyle("-fx-text-fill: _lightBlue");

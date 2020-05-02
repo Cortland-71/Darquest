@@ -48,13 +48,12 @@ public class EnemyGenerator {
 		int stealth = t.getGenerateStealth();
 		int awareness = t.getGenerateAwareness();
 		int mutation = t.getGenerateMutation();
-		int security = t.getGenerateSecurity();
 
 		Weapon wep = t.getGenerateWeapon();
 		Armor armor = t.getGenerateArmor();
 		double cash = t.getGeneratedCash();
 
-		return new Enemy(name, attack, def, stealth, awareness, mutation, security, wep, armor, level, cash, type, index + 1,
+		return new Enemy(name, attack, def, stealth, awareness, mutation, wep, armor, level, cash, type, index + 1,
 				imagePath);
 	}
 
