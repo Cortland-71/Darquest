@@ -62,25 +62,6 @@ public abstract class Person {
 		this.setMutation(defaultMutation);
 	}
 
-	public Person(int defaultAttack, int attack, int defaultDef, int def, int defaultStealth, int stealth, int defaultAwareness,
-			int awareness, int defaultMutation, int mutation, double cash, double hp) {
-		this.setDefaultAttack(defaultAttack);
-		this.setDefaultDef(defaultDef);
-		this.setDefaultStealth(defaultStealth);
-		this.setDefaultAwareness(defaultAwareness);
-		this.setDefaultMutation(defaultMutation);
-		
-		this.setAttack(attack);
-		this.setDef(def);
-		this.setStealth(stealth);
-		this.setAwareness(awareness);
-		this.setMutation(defaultMutation);
-		
-		this.setCash(cash);
-		this.setHp(hp);
-
-	}
-
 	public void setEquippedItem(Item item) {
 		if (item instanceof Weapon)
 			this.equippedWeapon = (Weapon) item;
@@ -303,7 +284,8 @@ public abstract class Person {
 	}
 
 	
-	public void setSimStats(List<Integer> list, double cash, double hp) {
+	public void setSimStats(List<Integer> list, double cash, double hp, String name) {
+		this.setName(name);
 		this.setCash(cash);
 		this.setHp(hp);
 		this.setDefaultAttack(list.get(0));

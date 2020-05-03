@@ -380,5 +380,9 @@ public class FightController implements EventHandler<KeyEvent> {
 			modifiers.add(Integer.toString(list.get(i).getId()));
 		}
 	}
+	
+	public CommandHandler getCommandHandler() {
+		return this.ch;
+	}
 }
 
