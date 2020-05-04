@@ -40,8 +40,8 @@ public abstract class Person {
 	public Person() {
 	}
 
-	public Person(String name, int defaultAttack, int defaultDef, int defaultStealth, int defaultAwareness, int defaultMutation,
-			Weapon equippedWeapon, Armor equippedArmor, int lvl, double cash) {
+	public Person(String name, int defaultAttack, int defaultDef, int defaultStealth, int defaultAwareness,
+			int defaultMutation, Weapon equippedWeapon, Armor equippedArmor, int lvl, double cash) {
 		this.name = name;
 		this.equippedWeapon = equippedWeapon;
 		this.equippedArmor = equippedArmor;
@@ -268,23 +268,25 @@ public abstract class Person {
 
 	@Override
 	public String toString() {
-		return "Person [name=" + name + ", lvl=" + lvl + ", cash=" + cash + ", hp=" + hp + ", MIN=" + MIN + ", MAX_BAR="
-				+ MAX_BAR + ", equippedWeapon=" + equippedWeapon + ", equippedArmor=" + equippedArmor
-				+ ", equippedTool=" + equippedTool + ", attack=" + attack + ", defaultAttack=" + defaultAttack + ", def=" + def
-				+ ", defaultDef=" + defaultDef + ", stealth=" + stealth + ", defaultStealth=" + defaultStealth + ", awareness="
-				+ awareness + ", defaultAwareness=" + defaultAwareness + ", mutation=" + mutation + ", defaultMutation="
-				+ defaultMutation + "]";
+		return "name=" + name + 
+				"\nlvl=" + lvl + 
+				"\ncash=" + cash + 
+				"\nhp=" + hp +
+				"\nattack=" + attack + 
+				"\ndef=" + def + 
+				"\nstealth=" + stealth + 
+				"\nawareness=" + awareness + 
+				"\nmutation=" + mutation;
 	}
-	
+
 	public List<Integer> getAllIntegerStatsForSimulation() {
 		return Arrays.asList(this.getDefaultAttack(), this.getAttack(), this.getDefaultDef(), this.getDef(),
 				this.getDefaultStealth(), this.getStealth(), this.getDefaultAwareness(), this.getAwareness(),
 				this.getDefaultMutation(), this.getMutation());
-		
+
 	}
 
-	
-	public void setSimStats(List<Integer> list, double cash, double hp, String name) {
+	public void setSimStats(List<Integer> list, double cash, double hp, String name, Weapon weapon) {
 		this.setName(name);
 		this.setCash(cash);
 		this.setHp(hp);
@@ -298,8 +300,15 @@ public abstract class Person {
 		this.setAwareness(list.get(7));
 		this.setDefaultMutation(list.get(8));
 		this.setMutation(list.get(9));
+		this.setEquippedItem(weapon);
 	}
-	
-	
+
+	public List<Double> getListOfMainStatsDouble() {
+		return Arrays.asList(this.getCash(), this.getHp());
+		
+	}
+	public List<Integer> getListOfMainStatsInts() {
+		return Arrays.asList(this.getAttack(), this.getDef(), this.getStealth(), this.getAwareness(), this.getMutation());
+	}
 
 }

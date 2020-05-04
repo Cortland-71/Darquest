@@ -1,17 +1,26 @@
 package com.game.darquest.controller;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 import com.game.darquest.data.Enemy;
 import com.game.darquest.data.Person;
 import com.game.darquest.data.Player;
 import com.game.darquest.data.actions.Fireable;
+import com.game.darquest.data.items.Weapon;
+
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.util.Duration;
 
 public class EnemyController {
 	private Controller c;
@@ -19,48 +28,54 @@ public class EnemyController {
 	private List<Enemy> enemyList;
 	private int points = 0;
 	private List<List<Fireable>> masterList;
+	private int moveIndex = 0;
 
 	public EnemyController(Controller c) {
 		this.c = c;
+	}
+	
+	private int getMoveIndex() {
+		return moveIndex;
+	}
+	private void setMoveIndex(int index) {
+		this.moveIndex = index;
 	}
 
 	public void enemyTurn(Enemy enemy, List<Enemy> enemyList) {
 		this.enemy = enemy;
 		this.enemyList = enemyList;
 
-		getFinalListOfMoves();
-		enemyTurnEnd();
-//		Timeline timeline = new Timeline();
-//		timeline.setCycleCount(finalList.size());
-//		timeline.getKeyFrames().add(new KeyFrame(Duration.millis(600), e -> {
-//			move(finalList.get(getMoveIndex()));
-//			setMoveIndex(getMoveIndex() + 1);
-//		}));
-//		timeline.play();
-//
-//		timeline.setOnFinished(new EventHandler<ActionEvent>() {
-//			@Override
-//			public void handle(ActionEvent event) {
-//				enemyTurnEnd();
-//				System.out.println();
-//			}
-//		});
+		List<String> finalList = getFinalListOfMoves();
+
+		Timeline timeline = new Timeline();
+		timeline.setCycleCount(finalList.size());
+		timeline.getKeyFrames().add(new KeyFrame(Duration.millis(600), e -> {
+			move(finalList.get(getMoveIndex()));
+			setMoveIndex(getMoveIndex() + 1);
+		}));
+		timeline.play();
+
+		timeline.setOnFinished(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				enemyTurnEnd();
+				System.out.println();
+			}
+		});
 	}
 
-	private void move(Fireable choosenMove) {
-		choosenMove.fire(enemy, c.getPlayer());
-		c.getView().getFightClubView().setEnemyOutputTextArea(choosenMove.getOutput());
+	private void move(String command) {
+		c.getFightClubController().runFire(command, enemy);
 		updateAllStats();
 		if (c.getPlayer().getHp() <= 0) {
 			c.getView().getHubView().showHub();
 		}
 	}
 
-	private void getFinalListOfMoves() {
-		if (points < 5) {
+	private List<String> getFinalListOfMoves() {
+		if (points < c.getFightClubController().getTotalMovePoints()) {
 			points++;
 		}
-			
 
 		masterList = new ArrayList<>();
 		List<Fireable> list = getAvailibleMoves(points);
@@ -80,12 +95,13 @@ public class EnemyController {
 
 		List<List<Fireable>> withPointsList = getPossibleMovesWithPoints(noDupList);
 
-		withPointsList.sort((a,b)-> {
-				if(a.size() == b.size()) return 0;
-				return a.size() < b.size() ? -1 : 1;
-			});
-		
-		getHighestScoringList(withPointsList);
+		withPointsList.sort((a, b) -> {
+			if (a.size() == b.size())
+				return 0;
+			return a.size() < b.size() ? -1 : 1;
+		});
+
+		return getHighestScoringCommands(withPointsList);
 		// return allowedList;
 	}
 
@@ -104,66 +120,121 @@ public class EnemyController {
 		return listWithPoints;
 	}
 
-	private void getHighestScoringList(List<List<Fireable>> withPointsList) {
-		
+	private List<String> getHighestScoringCommands(List<List<Fireable>> withPointsList) {
+
 		List<Person> people = new ArrayList<>(getSimPeople());
-		
+
 		List<List<List<String>>> allIds = new ArrayList<>();
-		
+
 		int withPointsListSize = 0;
 		for (int i = 0; i < withPointsList.size(); i++) {
-			if(withPointsList.get(i).size() > withPointsListSize) {
-				List<List<String>> ids = getIDCombinations(((Enemy)people.get(1)).getId(), withPointsList.get(i).size());
+			if (withPointsList.get(i).size() > withPointsListSize) {
+				List<List<String>> ids = getIDCombinations(((Enemy) people.get(1)).getId(),
+						withPointsList.get(i).size());
 				allIds.add(ids);
 				withPointsListSize = withPointsList.get(i).size();
 			}
 		}
 		List<List<List<String>>> allCommands = getCommandsWithIds(allIds, withPointsList);
-		allCommands.forEach(System.out::println);
-		getMasterListOfCommands(allCommands, (Player)people.get(0), (Enemy)people.get(1));
+		List<List<String>> masterCommands = getMasterListOfCommands(allCommands, (Player) people.get(0),
+				(Enemy) people.get(1));
+		return getChoosenCommands(masterCommands);
 	}
 	
-	private void getMasterListOfCommands(List<List<List<String>>> allCommands, Player simPlayer, Enemy simEnemy) {
-		
-		List<List<Fireable>> masterList = new ArrayList<>();
+	private List<String> getChoosenCommands(List<List<String>> masterCommands) {
+		Random rand = new Random();
+		return masterCommands.get(rand.nextInt(masterCommands.size()));
+	}
+
+	private List<List<String>> getMasterListOfCommands(List<List<List<String>>> allCommands, Player simPlayer,
+			Enemy simEnemy) {
+		List<List<String>> masterCommands = new ArrayList<>();
+		List<Double> miniScores = new ArrayList<>();
+		List<List<String>> miniCommands = new ArrayList<>();
 		for (int i = 0; i < allCommands.size(); i++) {
 			for (int j = 0; j < allCommands.get(i).size(); j++) {
-				List<Double> innerScore = new ArrayList<>();
-				
 				for (int j2 = 0; j2 < allCommands.get(i).get(j).size(); j2++) {
 					String command = allCommands.get(i).get(j).get(j2);
 					runSimFire(command, simPlayer, simEnemy);
-					
 				}
-				
-				//Compare enemy and player stats
-				//Set score for that command set
-				//rest simPlayer and simEnemy
+				miniScores.add(getScore(simPlayer, simEnemy));
+				miniCommands.add(allCommands.get(i).get(j));
+				List<Person> people = getSimPeople();
+				simPlayer = (Player) people.get(0);
+				simEnemy = (Enemy) people.get(1);
 			}
 		}
+		System.out.println(miniScores.size());
+		System.out.println(miniCommands.size());
+		System.out.println(miniScores);
+		System.out.println(miniCommands);
+
+		double maxScore = Collections.max(miniScores);
+		System.out.println("max score: " + maxScore);
+		for (int i = 0; i < miniScores.size(); i++) {
+			if (miniScores.get(i) == maxScore) {
+				masterCommands.add(miniCommands.get(i));
+			}
+		}
+
+		masterCommands.forEach(System.out::println);
+		return masterCommands;
 	}
-	
-	private void getScore(Player simPlayer, Enemy simEnemy) {
-		Player p = (Player)c.getPlayer();
+
+	private double getScore(Player simPlayer, Enemy simEnemy) {
+		Player p = (Player) c.getPlayer();
 		Enemy e = enemy;
-		
-		
-		
-		
+
+		List<Double> playerBeforeListDouble = p.getListOfMainStatsDouble();
+		List<Integer> playerBeforeListInt = p.getListOfMainStatsInts();
+		List<Double> playerAfterListDouble = simPlayer.getListOfMainStatsDouble();
+		List<Integer> playerAfterListInt = simPlayer.getListOfMainStatsInts();
+
+		List<Double> enemyBeforeListDouble = e.getListOfMainStatsDouble();
+		List<Integer> enemyBeforeListInt = e.getListOfMainStatsInts();
+		List<Double> enemyAfterListDouble = simEnemy.getListOfMainStatsDouble();
+		List<Integer> enemyAfterListInt = simEnemy.getListOfMainStatsInts();
+
+		double playerSum = 0.0;
+		double enemySum = 0.0;
+
+		// Get the sums
+		for (int i = 0; i < playerBeforeListInt.size(); i++) {
+			double playerDif = playerBeforeListInt.get(i) - playerAfterListInt.get(i);
+			playerSum += playerDif;
+			double enemyDif = enemyBeforeListInt.get(i) - enemyAfterListInt.get(i);
+			enemySum += enemyDif;
+		}
+		for (int i = 0; i < playerBeforeListDouble.size(); i++) {
+			double playerDif = playerBeforeListDouble.get(i) - playerAfterListDouble.get(i);
+			playerSum += playerDif;
+			double enemyDif = enemyBeforeListDouble.get(i) - enemyAfterListDouble.get(i);
+			enemySum += enemyDif;
+		}
+		return getPlayerEnemyCombinationScore(enemySum, playerSum);
 	}
-	
+
+	private static double getPlayerEnemyCombinationScore(double enemySum, double playerSum) {
+		double finalScore = 0.0;
+		finalScore -= enemySum / 100d;
+		finalScore += playerSum / 100d;
+		DecimalFormat df = new DecimalFormat(".##");
+		df.setRoundingMode(RoundingMode.UP);
+		finalScore = Double.parseDouble(df.format(finalScore));
+		return finalScore;
+	}
+
 	private void runSimFire(String command, Player simPlayer, Enemy simEnemy) {
 		List<Fireable> fireList = c.getFightClubController().getFireList();
 		Person choosen = assignReceivingSimPerson(command, simPlayer, simEnemy);
 		String finalCommand = c.getFightClubController().getCommandHandler().getCommandWithoutModifiers(command);
-		
+
 		for (int i = 0; i < fireList.size(); i++) {
 			if (finalCommand.equals(fireList.get(i).getCommandId())) {
 				fireList.get(i).fire(simEnemy, choosen);
-				System.out.println(fireList.get(i).getOutput());
 				return;
 			}
-		} 
+		}
 	}
 
 	private Person assignReceivingSimPerson(String command, Player simPlayer, Enemy simEnemy) {
@@ -171,64 +242,60 @@ public class EnemyController {
 			return simPlayer;
 		return simEnemy;
 	}
-	
-	
+
 	private List<Person> getSimPeople() {
 		List<Integer> playerIntegerStats = c.getPlayer().getAllIntegerStatsForSimulation();
 		double playerCash = c.getPlayer().getCash();
 		double playerHp = c.getPlayer().getHp();
 		String playerName = c.getPlayer().getName();
+		Weapon playerWeapon = c.getPlayer().getEquippedWeapon();
 
 		List<Integer> enemyIntegerStats = enemy.getAllIntegerStatsForSimulation();
 		double enemyCash = enemy.getCash();
 		double enemyHp = enemy.getHp();
 		int id = enemy.getId();
 		String enemyName = enemy.getName();
+		Weapon enemyWeapon = enemy.getEquippedWeapon();
 
 		Player simPlayer = new Player();
-		simPlayer.setSimStats(playerIntegerStats, playerCash, playerHp, playerName);
+		simPlayer.setSimStats(playerIntegerStats, playerCash, playerHp, playerName, playerWeapon);
 
 		Enemy simEnemy = new Enemy();
-		simEnemy.setSimStats(enemyIntegerStats, enemyCash, enemyHp, enemyName);
+		simEnemy.setSimStats(enemyIntegerStats, enemyCash, enemyHp, enemyName, enemyWeapon);
 		simEnemy.setId(id);
 		return Arrays.asList(simPlayer, simEnemy);
 	}
-	
 
 	private List<List<String>> getIDCombinations(Integer id, int size) {
-		int n = size-1; // This would be the number of elements-1
-		int N = (int)Math.pow(2, n); // this is the total number of loops
+		int n = size - 1; // This would be the number of elements-1
+		int N = (int) Math.pow(2, n); // this is the total number of loops
 		List<List<String>> first = new ArrayList<>();
-		
+
 		for (int i = 0; i < N; i++) {
 			String[] arr = new String[n];
-			String a = Integer.toBinaryString(N|i);
+			String a = Integer.toBinaryString(N | i);
 			a = a.replace("1", id.toString());
 			arr = a.split("");
 			first.add(Arrays.asList(arr));
-			a = "0" + a.substring(1);			
+			a = "0" + a.substring(1);
 			arr = a.split("");
 			first.add(Arrays.asList(arr));
 		}
 		return first;
 	}
-	
-	private List<List<List<String>>> getCommandsWithIds(List<List<List<String>>> allIds, 
+
+	private List<List<List<String>>> getCommandsWithIds(List<List<List<String>>> allIds,
 			List<List<Fireable>> withPointsList) {
-		
+
 		List<List<List<String>>> allCommands = new ArrayList<List<List<String>>>();
-		
-		printLists(withPointsList);
-		System.out.println();
-		allIds.forEach(System.out::println);
-		
+
 		int withPointsListSize = 0;
 		int idListIndex = -1;
 
-		//broken
+		// broken
 		for (int k = 0; k < withPointsList.size(); k++) {
 			List<List<String>> commandsWithIds = new ArrayList<>();
-			if(withPointsList.get(k).size() > withPointsListSize) {
+			if (withPointsList.get(k).size() > withPointsListSize) {
 				idListIndex++;
 				withPointsListSize = withPointsList.get(k).size();
 			}
@@ -245,7 +312,7 @@ public class EnemyController {
 		}
 		return allCommands;
 	}
-	
+
 	private void createCombinations(List<Fireable> sequence, int N) {
 		Fireable[] data = new Fireable[N];
 		for (int r = 0; r < sequence.size(); r++)
@@ -289,6 +356,7 @@ public class EnemyController {
 	}
 
 	private void enemyTurnEnd() {
+		setMoveIndex(0);
 		c.getView().getFightClubView().setCommandFieldDisabled(false);
 		c.getView().getFightClubView().setCommandFeildFocused();
 		c.getView().getHubView().setPlayerInventoryTabPaneDisabled(false);
@@ -302,7 +370,7 @@ public class EnemyController {
 	public List<Enemy> getEnemyList() {
 		return enemyList;
 	}
-	
+
 	private void printLists(List<List<Fireable>> lists) {
 		for (int i = 0; i < lists.size(); i++) {
 			for (int j = 0; j < lists.get(i).size(); j++) {

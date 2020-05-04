@@ -42,6 +42,7 @@ public class FightController implements EventHandler<KeyEvent> {
 	private List<String> commandQueue;
 	private int maxMovePoints = 1;
 	private int currentMovePoints = 0;
+	private int totalMovePoints = 7;
 	private CommandHandler ch;
 	
 	private List<String> modifiers = new ArrayList<>();
@@ -98,7 +99,7 @@ public class FightController implements EventHandler<KeyEvent> {
 	private boolean commandWasExe(String command) {
 		if(command.equals("exe")) {
 			currentMovePoints = 0;
-			if(maxMovePoints < 5)
+			if(maxMovePoints < totalMovePoints)
 				maxMovePoints++;
 			c.getView().getFightClubView().clearPlayerOutputTextArea();
 			
@@ -192,7 +193,7 @@ public class FightController implements EventHandler<KeyEvent> {
 			if (finalCommand.equals(fireList.get(i).getCommandId())) {
 				fireList.get(i).fire(person, choosen);
 				output = fireList.get(i).getOutput();
-				if(!fireList.get(i).getCommandId().equals("att")) setOutput(output, person);
+				setOutput(output, person);
 				return;
 			}
 		} 
@@ -383,6 +384,10 @@ public class FightController implements EventHandler<KeyEvent> {
 	
 	public CommandHandler getCommandHandler() {
 		return this.ch;
+	}
+	
+	public int getTotalMovePoints() {
+		return this.totalMovePoints;
 	}
 }
 

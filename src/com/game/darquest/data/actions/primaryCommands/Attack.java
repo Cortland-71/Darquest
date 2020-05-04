@@ -61,7 +61,6 @@ public class Attack implements Fireable {
 	
 	private double getFinalWeaponDamage(int def, int attackLevelAndWepDamage) {
 		double attackAmount = (attackLevelAndWepDamage/100d) - ((def/2d)/100d);
-		System.out.println(attackAmount);
 		return attackAmount;
 	}
 	

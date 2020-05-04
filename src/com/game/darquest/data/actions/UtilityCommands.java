@@ -71,7 +71,6 @@ public class UtilityCommands {
 			c.getFightClubController().setCurrentMovePoints(0);
 			c.getView().getFightClubView().setQueueLabel(
 					c.getFightClubController().getCurrentMovePoints(), c.getFightClubController().getMaxMovePoints());
-			System.out.println(c.getFightClubController().getCurrentMovePoints());
 			c.getView().getFightClubView().clearQueue();
 			c.getView().getFightClubView().clearCommandField();
 			c.getView().getFightClubView().setCommandFeildFocused();
