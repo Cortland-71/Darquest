@@ -20,11 +20,13 @@ public class Shield implements Fireable {
 		}
 		
 		int mutationEffect = (int)Math.ceil(p.getMutation()/2d);
-
-		int attackBefore = choosen.getAttack();
-		int attackAfter = choosen.getAttack() - mutationEffect;
+		
 		int defBefore = choosen.getDef();
-		int defAfter = choosen.getDef() + mutationEffect;
+		int attackBefore = choosen.getAttack();
+		
+		int finalEffect = getFinalEffect(mutationEffect, attackBefore);
+		int attackAfter = choosen.getAttack() - finalEffect;
+		int defAfter = choosen.getDef() + finalEffect;
 	
 		
 		choosen.setDef(defAfter);
@@ -38,6 +40,12 @@ public class Shield implements Fireable {
 				+ "Attack after:   " + attackAfter + "\n"
 				+ "Defense before: " + defBefore + "\n"
 				+ "Defense after:  " + defAfter + "\n\n";
+	}
+	
+	private int getFinalEffect(int mutationEffect, int before) {
+		int dif = before - mutationEffect;
+		if(dif >= 1) return mutationEffect;
+		return (mutationEffect + dif)-1;
 	}
 
 	@Override

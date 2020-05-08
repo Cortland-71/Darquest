@@ -1,6 +1,7 @@
 package com.game.darquest.data.enemyType;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.game.darquest.controller.Controller;
@@ -146,7 +147,6 @@ public class Observer implements Classable {
 
 	@Override
 	public List<String> getAllowedMoves() {
-		// TODO Auto-generated method stub
-		return null;
+		return Arrays.asList("dec", "fear", "ech", "hac", "shd", "acd", "att", "he");
 	}
 }

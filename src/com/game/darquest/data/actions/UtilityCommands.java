@@ -6,6 +6,9 @@ public class UtilityCommands {
 
 	private Controller c;
 	
+	public UtilityCommands(Controller c) {
+		this.c = c;
+	}
 	
 	private String output = "Commands fall under 3 categories.\n"
 			+ "Mutation, Hostile and Utility\n\n"
@@ -62,9 +65,7 @@ public class UtilityCommands {
 			+ "help - Help commands shows this page.\n"
 			+ "Point cost: 0";
 
-	public UtilityCommands(Controller c) {
-		this.c = c;
-	}
+	
 	
 	public boolean commandWasClear(String command) {
 		if(command.equals("clear")) {

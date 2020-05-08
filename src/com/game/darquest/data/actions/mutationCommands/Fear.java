@@ -22,11 +22,13 @@ public class Fear implements Fireable {
 		}
 		
 		int mutationEffect = (int)Math.ceil(p.getMutation()/2d);
-
-		int defBefore = choosen.getDef();
-		int defAfter = choosen.getDef() - mutationEffect;
+		
 		int attackBefore = choosen.getAttack();
-		int attackAfter = choosen.getAttack() + mutationEffect;
+		int defBefore = choosen.getDef();
+		
+		int finalEffect = getFinalEffect(mutationEffect, defBefore);
+		int defAfter = choosen.getDef() - finalEffect;
+		int attackAfter = choosen.getAttack() + finalEffect;
 		
 		choosen.setDef(defAfter);
 		choosen.setAttack(attackAfter);
@@ -39,6 +41,12 @@ public class Fear implements Fireable {
 				+ "Defense after:  " + defAfter + "\n"
 				+ "Attack before:  " + attackBefore + "\n"
 				+ "Attack after:   " + attackAfter + "\n\n";
+	}
+	
+	private int getFinalEffect(int mutationEffect, int before) {
+		int dif = before - mutationEffect;
+		if(dif >= 1) return mutationEffect;
+		return (mutationEffect + dif)-1;
 	}
 
 	@Override

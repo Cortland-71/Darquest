@@ -17,7 +17,7 @@ import com.game.darquest.data.actions.mutationCommands.Acid;
 import com.game.darquest.data.actions.mutationCommands.Deception;
 import com.game.darquest.data.actions.mutationCommands.Echo;
 import com.game.darquest.data.actions.mutationCommands.Fear;
-import com.game.darquest.data.actions.mutationCommands.Hack;
+import com.game.darquest.data.actions.mutationCommands.VitaminC;
 import com.game.darquest.data.actions.mutationCommands.Shield;
 import com.game.darquest.data.actions.primaryCommands.Attack;
 import com.game.darquest.data.actions.primaryCommands.Heal;
@@ -42,28 +42,34 @@ public class FightController implements EventHandler<KeyEvent> {
 	private List<String> commandQueue;
 	private int maxMovePoints = 1;
 	private int currentMovePoints = 0;
-	private int totalMovePoints = 7;
+	private int totalMovePoints = 8;
 	private CommandHandler ch;
 	
 	private List<String> modifiers = new ArrayList<>();
 
 	private Controller c;
 	private Player p;
+	
+	private Exe exe;
+	private Heal heal;
 
 	public FightController(Controller c) {
 		c.getView().getFightClubView().addCommandFieldListener(this);
 		this.c = c;
 		
+		exe = new Exe();
+		heal = new Heal();
+		
 		fireList = Arrays.asList(
-				new Exe(),  
-				new Heal(), 
+				exe,  
+				heal, 
 				new Attack(this.c), 
 				new Steal(), 
 				new Deception(), 
 				new Fear(),
 				new Echo(),
 				new Shield(),
-				new Hack(),
+				new VitaminC(),
 				new Acid());
 		
 //		new Use(this.c);
@@ -275,9 +281,11 @@ public class FightController implements EventHandler<KeyEvent> {
 			List<String> listOfWinStats = Arrays.asList(totalMoves, formattedXp, efficiencyScore, 
 					cash, bonusCash,totalCashEarned, loot, rating);
 			c.getView().getFightWinView().setWinStats(listOfWinStats);
+			p.setAttack(p.getDefaultAttack());
 			p.setDef(p.getDefaultDef());
 			p.setStealth(p.getDefaultStealth());
 			p.setAwareness(p.getDefaultAwareness());
+			p.setMutation(p.getDefaultMutation());
 			c.getPlayerInvStatsController().updateAllPlayerStats();
 			c.getView().getHubView().showWin();
 			return true;

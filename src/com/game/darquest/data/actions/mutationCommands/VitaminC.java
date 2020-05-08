@@ -4,16 +4,16 @@ import com.game.darquest.controller.fightClubControllers.FightClubWinController;
 import com.game.darquest.data.Person;
 import com.game.darquest.data.actions.Fireable;
 
-public class Hack implements Fireable {
+public class VitaminC implements Fireable {
 	private String output;
-	public Hack() {
+	public VitaminC() {
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void fire(Person p, Person choosen) {
 		if(choosen.getMutation() >= choosen.getDefaultMutation()) {
-			output = "Target's Mutation was already at it's maximum.\n\n";
+			output = choosen.getName() + "'s Mutation was already at it's maximum.\n\n";
 			FightClubWinController.setEfficiencyScore(FightClubWinController.getEfficiencyScore() - 5);
 			return;
 		}
@@ -25,16 +25,16 @@ public class Hack implements Fireable {
 
 		choosen.setMutation(mutationAfter);
 		
-		output = "Hack successful from " + p.getName() + "\n"
+		output = "Vitamin C successful from " + p.getName() + "\n"
 				+ "Effected: " + choosen.getName() + "\n"
 				+ "Mutation        +" + mutationEffect + "\n"
 				+ "Mutation before: " + mutationBefore + "\n"
 				+ "Mutation after:  " + mutationAfter + "\n\n";	
 	}
-
+	
 	@Override
 	public String getCommandId() {
-		return "hac";
+		return "vc";
 	}
 
 	@Override
@@ -44,7 +44,7 @@ public class Hack implements Fireable {
 
 	@Override
 	public int getPointCost() {
-		return 1;
+		return 2;
 	}
 
 	@Override

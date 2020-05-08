@@ -47,7 +47,7 @@ public class Heal implements Fireable {
 	
 	@Override
 	public int getPointCost() {
-		return 3;
+		return 2;
 	}
 	@Override
 	public boolean isModifiable() {

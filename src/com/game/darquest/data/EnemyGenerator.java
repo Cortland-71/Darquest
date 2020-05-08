@@ -52,6 +52,9 @@ public class EnemyGenerator {
 		Weapon wep = t.getGenerateWeapon();
 		Armor armor = t.getGenerateArmor();
 		double cash = t.getGeneratedCash();
+		
+//		return new Enemy(name, 5, 5,5, 5, 5, wep, armor, level, cash, type, index + 1,
+//				imagePath);
 
 		return new Enemy(name, attack, def, stealth, awareness, mutation, wep, armor, level, cash, type, index + 1,
 				imagePath);
@@ -59,8 +62,8 @@ public class EnemyGenerator {
 
 	private Classable getRandomType() {
 		List<Classable> classList = Arrays.asList(
-				new Enforcer());
-				//new Observer(),
+				new Enforcer(),
+				new Observer());
 				//new Shinobi());
 		return classList.get(rand.nextInt(classList.size()));
 	}
@@ -86,9 +89,9 @@ public class EnemyGenerator {
 
 	private int getRandomNumberOfEnemies() {
 		 //return rand.nextInt((3 - 1) + 1) + 1;
-		//return rand.nextInt((3 - 3) + 1) + 3;
+		return rand.nextInt((3 - 3) + 1) + 3;
 		//return rand.nextInt((2 - 2) + 1) + 2;
-		 return rand.nextInt((1 - 1) + 1) + 1;
+		 //return rand.nextInt((1 - 1) + 1) + 1;
 
 	}
 

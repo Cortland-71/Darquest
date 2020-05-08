@@ -26,6 +26,10 @@ public class Enemy extends Person {
 	public Classable getType() {
 		return type;
 	}
+	
+	public void setType(Classable type) {
+		this.type = type;
+	}
 
 	public int getId() {
 		return id;

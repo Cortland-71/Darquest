@@ -304,7 +304,8 @@ public abstract class Person {
 	}
 
 	public List<Double> getListOfMainStatsDouble() {
-		return Arrays.asList(this.getCash(), this.getHp());
+		return Arrays.asList(this.getHp());
+//		return Arrays.asList(this.getCash(), this.getHp());
 		
 	}
 	public List<Integer> getListOfMainStatsInts() {

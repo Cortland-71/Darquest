@@ -84,7 +84,7 @@ public class Steal implements Fireable {
 	
 	@Override
 	public int getPointCost() {
-		return 4;
+		return 2;
 	}
 	@Override
 	public boolean isModifiable() {

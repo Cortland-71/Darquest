@@ -14,6 +14,7 @@ import com.game.darquest.data.Enemy;
 import com.game.darquest.data.Person;
 import com.game.darquest.data.Player;
 import com.game.darquest.data.actions.Fireable;
+import com.game.darquest.data.enemyType.Classable;
 import com.game.darquest.data.items.Weapon;
 
 import javafx.animation.KeyFrame;
@@ -33,10 +34,11 @@ public class EnemyController {
 	public EnemyController(Controller c) {
 		this.c = c;
 	}
-	
+
 	private int getMoveIndex() {
 		return moveIndex;
 	}
+
 	private void setMoveIndex(int index) {
 		this.moveIndex = index;
 	}
@@ -140,7 +142,7 @@ public class EnemyController {
 				(Enemy) people.get(1));
 		return getChoosenCommands(masterCommands);
 	}
-	
+
 	private List<String> getChoosenCommands(List<List<String>> masterCommands) {
 		Random rand = new Random();
 		return masterCommands.get(rand.nextInt(masterCommands.size()));
@@ -164,8 +166,7 @@ public class EnemyController {
 				simEnemy = (Enemy) people.get(1);
 			}
 		}
-		System.out.println(miniScores.size());
-		System.out.println(miniCommands.size());
+
 		System.out.println(miniScores);
 		System.out.println(miniCommands);
 
@@ -189,6 +190,10 @@ public class EnemyController {
 		List<Integer> playerBeforeListInt = p.getListOfMainStatsInts();
 		List<Double> playerAfterListDouble = simPlayer.getListOfMainStatsDouble();
 		List<Integer> playerAfterListInt = simPlayer.getListOfMainStatsInts();
+		
+		List<Integer> playerAfterListIntOrg = Arrays.asList(playerAfterListInt.get(1),
+				playerAfterListInt.get(0), playerAfterListInt.get(3), playerAfterListInt.get(2),
+				playerAfterListInt.get(4));
 
 		List<Double> enemyBeforeListDouble = e.getListOfMainStatsDouble();
 		List<Integer> enemyBeforeListInt = e.getListOfMainStatsInts();
@@ -196,20 +201,23 @@ public class EnemyController {
 		List<Integer> enemyAfterListInt = simEnemy.getListOfMainStatsInts();
 
 		double playerSum = 0.0;
-		double enemySum = 0.0;
+		double enemySum = 0;
 
 		// Get the sums
-		for (int i = 0; i < playerBeforeListInt.size(); i++) {
+		for (int i = 0; i < enemyAfterListInt.size(); i++) {
 			double playerDif = playerBeforeListInt.get(i) - playerAfterListInt.get(i);
 			playerSum += playerDif;
+			
 			double enemyDif = enemyBeforeListInt.get(i) - enemyAfterListInt.get(i);
 			enemySum += enemyDif;
+			if(simPlayer.getAttack() < p.getAttack()) enemySum += p.getAttack() - simPlayer.getAttack();
 		}
 		for (int i = 0; i < playerBeforeListDouble.size(); i++) {
 			double playerDif = playerBeforeListDouble.get(i) - playerAfterListDouble.get(i);
 			playerSum += playerDif;
 			double enemyDif = enemyBeforeListDouble.get(i) - enemyAfterListDouble.get(i);
 			enemySum += enemyDif;
+			
 		}
 		return getPlayerEnemyCombinationScore(enemySum, playerSum);
 	}
@@ -256,6 +264,7 @@ public class EnemyController {
 		int id = enemy.getId();
 		String enemyName = enemy.getName();
 		Weapon enemyWeapon = enemy.getEquippedWeapon();
+		Classable enemyType = enemy.getType();
 
 		Player simPlayer = new Player();
 		simPlayer.setSimStats(playerIntegerStats, playerCash, playerHp, playerName, playerWeapon);
@@ -263,6 +272,7 @@ public class EnemyController {
 		Enemy simEnemy = new Enemy();
 		simEnemy.setSimStats(enemyIntegerStats, enemyCash, enemyHp, enemyName, enemyWeapon);
 		simEnemy.setId(id);
+		simEnemy.setType(enemyType);
 		return Arrays.asList(simPlayer, simEnemy);
 	}
 
@@ -369,15 +379,5 @@ public class EnemyController {
 
 	public List<Enemy> getEnemyList() {
 		return enemyList;
-	}
-
-	private void printLists(List<List<Fireable>> lists) {
-		for (int i = 0; i < lists.size(); i++) {
-			for (int j = 0; j < lists.get(i).size(); j++) {
-				System.out.print(lists.get(i).get(j).getCommandId() + ", ");
-			}
-			System.out.println();
-		}
-		System.out.println();
 	}
 }

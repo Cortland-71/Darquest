@@ -7,6 +7,7 @@ import com.game.darquest.controller.Controller;
 import com.game.darquest.controller.fightClubControllers.FightClubWinController;
 import com.game.darquest.data.Enemy;
 import com.game.darquest.data.Person;
+import com.game.darquest.data.Player;
 import com.game.darquest.data.actions.Fireable;
 import com.game.darquest.data.items.Weapon;
 
@@ -47,6 +48,10 @@ public class Attack implements Fireable {
 		}
 		
 		
+		finalDamage = playerIsAttackingEnforcer(p, choosen, finalDamage);
+		finalDamage = enemyIsEnforcer(p, choosen, finalDamage);
+		finalDamage = limitIsFull(p, choosen, finalDamage);
+		
 		double before = choosen.getHp();
 		choosen.setHp(choosen.getHp() - finalDamage);
 		double after = choosen.getHp();
@@ -58,6 +63,15 @@ public class Attack implements Fireable {
 				+ "HP after:  " + after + "\n\n";
 	}
 
+	private double limitIsFull(Person p, Person choosen, double finalDamage) {
+		if(p instanceof Player && choosen instanceof Enemy) {
+			Enemy e = (Enemy)choosen;
+			if(e.getLimit() == 1) {
+				finalDamage *= 5;
+			}
+		}
+		return finalDamage;
+	}
 	
 	private double getFinalWeaponDamage(int def, int attackLevelAndWepDamage) {
 		double attackAmount = (attackLevelAndWepDamage/100d) - ((def/2d)/100d);
@@ -69,6 +83,28 @@ public class Attack implements Fireable {
 		int min = w.getMinDamage();
 		int max = w.getMaxDamage();
 		return rand.nextInt((max - min) + 1) + min;
+	}
+	
+	private double enemyIsEnforcer(Person p, Person choosen, double finalDamage) {
+		if(p instanceof Enemy && choosen instanceof Player) {
+			Enemy e = (Enemy)p;
+			if(e.getType().getName().equals("Enforcer")) 
+				return finalDamage *= 2;
+		}
+		return finalDamage;
+	}
+	
+	private double playerIsAttackingEnforcer(Person p, Person choosen, double finalDamage) {
+		if(p instanceof Player && choosen instanceof Enemy) {
+			Enemy e = (Enemy)choosen;
+			if(e.getType().getName().equals("Enforcer")) {
+				if(e.getLimit() < 1)
+					e.setLimit(e.getLimit() + finalDamage*2);
+				else
+					return finalDamage *= 3;
+			}
+		} 
+		return finalDamage;
 	}
 
 	@Override

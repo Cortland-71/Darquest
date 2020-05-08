@@ -21,11 +21,14 @@ public class Echo implements Fireable {
 		}
 		
 		int mutationEffect = (int)Math.ceil(p.getMutation()/2d);
-
-		int stealthBefore = choosen.getStealth();
-		int stealthAfter = choosen.getStealth() - mutationEffect;
+		
 		int awarenessBefore = choosen.getAwareness();
-		int awarenessAfter = choosen.getAwareness() + mutationEffect;
+		int stealthBefore = choosen.getStealth();
+		
+		int finalEffect = getFinalEffect(mutationEffect, awarenessBefore);
+		int stealthAfter = choosen.getStealth() - finalEffect;
+		
+		int awarenessAfter = choosen.getAwareness() + finalEffect;
 		
 		choosen.setAwareness(awarenessAfter);
 		choosen.setStealth(stealthAfter);
@@ -41,6 +44,11 @@ public class Echo implements Fireable {
 				
 	}
 
+	private int getFinalEffect(int mutationEffect, int before) {
+		int dif = before - mutationEffect;
+		if(dif >= 1) return mutationEffect;
+		return (mutationEffect + dif)-1;
+	}
 	@Override
 	public String getCommandId() {
 		return "ech";
