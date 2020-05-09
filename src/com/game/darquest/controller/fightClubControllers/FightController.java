@@ -40,9 +40,8 @@ public class FightController implements EventHandler<KeyEvent> {
 	private FightClubWinController pwc;
 	private String output = "";
 	private List<String> commandQueue;
-	private int maxMovePoints = 1;
+	private int maxMovePoints = 8;
 	private int currentMovePoints = 0;
-	private int totalMovePoints = 8;
 	private CommandHandler ch;
 	
 	private List<String> modifiers = new ArrayList<>();
@@ -56,6 +55,7 @@ public class FightController implements EventHandler<KeyEvent> {
 	public FightController(Controller c) {
 		c.getView().getFightClubView().addCommandFieldListener(this);
 		this.c = c;
+		
 		
 		exe = new Exe();
 		heal = new Heal();
@@ -75,6 +75,7 @@ public class FightController implements EventHandler<KeyEvent> {
 //		new Use(this.c);
 		this.pwc = this.c.getPlayerWinController();  
 		this.p = (Player)c.getPlayer();
+
 	}
 
 	@Override
@@ -105,8 +106,6 @@ public class FightController implements EventHandler<KeyEvent> {
 	private boolean commandWasExe(String command) {
 		if(command.equals("exe")) {
 			currentMovePoints = 0;
-			if(maxMovePoints < totalMovePoints)
-				maxMovePoints++;
 			c.getView().getFightClubView().clearPlayerOutputTextArea();
 			
 			//check if player?
@@ -392,10 +391,6 @@ public class FightController implements EventHandler<KeyEvent> {
 	
 	public CommandHandler getCommandHandler() {
 		return this.ch;
-	}
-	
-	public int getTotalMovePoints() {
-		return this.totalMovePoints;
 	}
 }
 

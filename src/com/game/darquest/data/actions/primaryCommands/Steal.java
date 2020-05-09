@@ -53,13 +53,10 @@ public class Steal implements Fireable {
 				+ choosen.getName() + " Cash after " + choosen.getCash() + "\n\n";
 	}
 
-	private double getInitStolen(int stealthAmount) {
-		return stealthAmount * 25;
-	}
 
 	private double getFinalStealAmount(int stealth, int awareness, double choosenCash) {
 		double amount = 0;
-		amount = (stealth - awareness) * 10;
+		amount = ((stealth - awareness)+1) * 50;
 		if (amount <= choosenCash) return amount;
 		return choosenCash;
 	}

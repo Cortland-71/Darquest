@@ -49,7 +49,7 @@ public class Attack implements Fireable {
 		
 		
 		finalDamage = playerIsAttackingEnforcer(p, choosen, finalDamage);
-		finalDamage = enemyIsEnforcer(p, choosen, finalDamage);
+		finalDamage = enemyIsAttacking(p, choosen, finalDamage);
 		finalDamage = limitIsFull(p, choosen, finalDamage);
 		
 		double before = choosen.getHp();
@@ -85,11 +85,9 @@ public class Attack implements Fireable {
 		return rand.nextInt((max - min) + 1) + min;
 	}
 	
-	private double enemyIsEnforcer(Person p, Person choosen, double finalDamage) {
+	private double enemyIsAttacking(Person p, Person choosen, double finalDamage) {
 		if(p instanceof Enemy && choosen instanceof Player) {
-			Enemy e = (Enemy)p;
-			if(e.getType().getName().equals("Enforcer")) 
-				return finalDamage *= 2;
+			return finalDamage *= 2;
 		}
 		return finalDamage;
 	}

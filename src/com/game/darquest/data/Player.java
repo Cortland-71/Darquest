@@ -131,4 +131,8 @@ public class Player extends Person {
 	public void setChallengeBoolsByIndex(int index, boolean value) {
 		this.challengeBools.set(index, value);
 	}
+	
+	public List<Integer> getListOfMainStatsInts() {
+		return Arrays.asList(this.getDef(), this.getAttack(), this.getAwareness(), this.getStealth(), this.getMutation());
+	}
 }
