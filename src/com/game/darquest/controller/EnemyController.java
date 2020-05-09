@@ -65,7 +65,6 @@ public class EnemyController {
 				System.out.println();
 			}
 		});
-
 	}
 
 	private void move(String command) {
@@ -95,24 +94,9 @@ public class EnemyController {
 	}
 	
 	private List<String> attackFocused(List<String> moveList, Player simP, Enemy simE) {
-		
-
-		if(simE.getMutation() < simE.getDefaultMutation()) {
-			moveList.add("vc " + simE.getId()); currentPoints += fireList.get(8).getPointCost();
-		} else if(simE.getAttack() < simP.getDef()) {
-			moveList.add("fear " + simE.getId()); currentPoints += fireList.get(5).getPointCost();
-		} else {
-			if(maxPoints - currentPoints >= fireList.get(2).getPointCost()) {
-				moveList.add("att 0"); currentPoints += fireList.get(2).getPointCost();
-			} else {
-				moveList.add("shd " + simE.getId()); currentPoints += fireList.get(7).getPointCost();
-			}
-		}
-	
+		attackLogic(moveList, simP, simE);
 		for (int i = 0; i < moveList.size(); i++) runSimFire(moveList.get(i), simP, simE);
-		
 		if(currentPoints < maxPoints) attackFocused(moveList, simP, simE);
-		
 		currentPoints = 0;
 		return moveList;
 	}
@@ -120,11 +104,7 @@ public class EnemyController {
 	private List<String> stealFocused(List<String> moveList, Player simP, Enemy simE) {
 		if(c.getPlayer().getCash() > 100) {
 			if(simE.getAttack() >= simP.getDef()*2) {
-				if(maxPoints - currentPoints >= fireList.get(2).getPointCost()) {
-					moveList.add("att 0"); currentPoints += fireList.get(2).getPointCost();
-				} else {
-					moveList.add("shd " + simE.getId()); currentPoints += fireList.get(7).getPointCost();
-				}
+				canAttack(moveList, simE);
 			}
 			else if(simE.getMutation() < simE.getDefaultMutation()) {
 				moveList.add("vc " + simE.getId()); currentPoints += currentPoints += fireList.get(8).getPointCost();
@@ -141,21 +121,8 @@ public class EnemyController {
 				}
 			}
 		} else {
-			System.out.println("hit insidee else");
-			if(simE.getMutation() < simE.getDefaultMutation()) {
-				moveList.add("vc " + simE.getId()); currentPoints += fireList.get(8).getPointCost();
-			} else if(simE.getAttack() < simP.getDef()) {
-				moveList.add("fear " + simE.getId()); currentPoints += fireList.get(5).getPointCost();
-			} else {
-				if(maxPoints - currentPoints >= fireList.get(2).getPointCost()) {
-					moveList.add("att 0"); currentPoints += fireList.get(2).getPointCost();
-				} else {
-					moveList.add("shd " + simE.getId()); currentPoints += fireList.get(7).getPointCost();
-				}
-			}
+			attackLogic(moveList, simP, simE);
 		}
-	
-		
 	
 		for (int i = 0; i < moveList.size(); i++) runSimFire(moveList.get(i), simP, simE);
 		
@@ -163,6 +130,24 @@ public class EnemyController {
 		
 		currentPoints = 0;
 		return moveList;
+	}
+	
+	private void attackLogic(List<String> moveList, Player simP, Enemy simE) {
+		if(simE.getMutation() < simE.getDefaultMutation()) {
+			moveList.add("vc " + simE.getId()); currentPoints += fireList.get(8).getPointCost();
+		} else if(simE.getAttack() < simP.getDef()) {
+			moveList.add("fear " + simE.getId()); currentPoints += fireList.get(5).getPointCost();
+		} else {
+			canAttack(moveList, simE);
+		}
+	}
+	
+	private void canAttack(List<String> moveList, Enemy simE) {
+		if(maxPoints - currentPoints >= fireList.get(2).getPointCost()) {
+			moveList.add("att 0"); currentPoints += fireList.get(2).getPointCost();
+		} else {
+			moveList.add("shd " + simE.getId()); currentPoints += fireList.get(7).getPointCost();
+		}
 	}
 
 	private void runSimFire(String command, Player simPlayer, Enemy simEnemy) {
