@@ -39,7 +39,6 @@ public class FightController implements EventHandler<KeyEvent> {
 	private int numberOfEnemys = 0;
 	private FightClubWinController pwc;
 	private String output = "";
-	private List<String> commandQueue;
 	private int maxMovePoints = 8;
 	private int currentMovePoints = 0;
 	private CommandHandler ch;
@@ -109,8 +108,8 @@ public class FightController implements EventHandler<KeyEvent> {
 			c.getView().getFightClubView().clearPlayerOutputTextArea();
 			
 			//check if player?
-			commandQueue = c.getView().getFightClubView().getQueueCommands();
-			addChainedCommands();
+			List<String> commandQueue = c.getView().getFightClubView().getQueueCommands();
+			commandQueue = addChainedCommands(commandQueue);
 			
 			c.getView().getFightClubView().clearQueue();
 			if(noCommandsInQueue(commandQueue.size())) return true;
@@ -121,33 +120,31 @@ public class FightController implements EventHandler<KeyEvent> {
 		return false;
 	}
 	
-	private void addChainedCommands() {
-		int enemyListSize = enemyList.size();
-		
-		List<Integer> indexesForInsertion = new ArrayList<>();
-		List<List<String>> commandsToBeInserted = new ArrayList<>();
+	private List<String> addChainedCommands(List<String> commandQueue) {
+		List<String> newList = new ArrayList<>();
 		
 		for (int i = 0; i < commandQueue.size(); i++) {
-			if (commandQueue.get(i).contains("att")) {
-				if (ch.hasModifier(commandQueue.get(i))) {
-					indexesForInsertion.add(i);
-					List<String> currentListToBeAdded = new ArrayList<>();
-					Person personBeingAttacked = assignReceivingPerson(commandQueue.get(i));
-					int indexOfPerson = enemyList.indexOf(personBeingAttacked);
-					for (int j = indexOfPerson+1; j < enemyListSize; j++) {
-						currentListToBeAdded.add("att " + (j+1));
+			if(commandQueue.get(i).contains("att")) {
+				if(ch.hasModifier(commandQueue.get(i))) {
+					List<String> smallList = new ArrayList<>();
+					int mod = ch.getCurrentMod();
+					int indexOfEnemy = 0;
+					for (int j = 0; j < enemyList.size(); j++) {
+						if(enemyList.get(j).getId() == mod) {
+							indexOfEnemy = j;
+							break;
+						}
 					}
-					commandsToBeInserted.add(currentListToBeAdded);
+					for (int j = indexOfEnemy; j < enemyList.size(); j++) {
+						smallList.add("att " + (j+1));
+					}
+					newList.addAll(smallList);
 				}
-
+				continue;
 			}
+			newList.add(commandQueue.get(i));
 		}
-		Collections.reverse(commandsToBeInserted);
-		Collections.reverse(indexesForInsertion);
-		
-		for (int i = 0; i < commandsToBeInserted.size(); i++) {
-			commandQueue.addAll(indexesForInsertion.get(i)+1, commandsToBeInserted.get(i));
-		}
+		return newList;
 	}
 	
 	//Enemy will still do this when they have a list of moves to do.\/\/\/\/\/\/\/\/\/\/\/\/\/\

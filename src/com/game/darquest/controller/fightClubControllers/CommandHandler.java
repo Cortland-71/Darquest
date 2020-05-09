@@ -12,6 +12,7 @@ public class CommandHandler {
 	private int currentMovePoints;
 	private int maxMovePoints;
 	private List<String> modifiers;
+	private String currentMod;
 	private FightController fc;
 	
 	public CommandHandler(FightController fc) {
@@ -52,9 +53,15 @@ public class CommandHandler {
 	
 	public boolean hasModifier(String command) {
 		for (String e : modifiers)
-			if (command.contains(e))
+			if (command.contains(e)) {
+				currentMod = e;
 				return true;
+			}
 		return false;
+	}
+	
+	public int getCurrentMod() {
+		return Integer.parseInt(currentMod);
 	}
 
 }
