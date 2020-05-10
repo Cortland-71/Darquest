@@ -1,6 +1,8 @@
 package com.game.darquest.data.actions.primaryCommands;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import com.game.darquest.controller.Controller;
@@ -50,7 +52,8 @@ public class Attack implements Fireable {
 		
 		finalDamage = playerIsAttackingEnforcer(p, choosen, finalDamage);
 		finalDamage = enemyIsAttacking(p, choosen, finalDamage);
-		finalDamage = limitIsFull(p, choosen, finalDamage);
+		finalDamage = playerIsAttackingSelf(p, choosen, finalDamage);
+
 		
 		double before = choosen.getHp();
 		choosen.setHp(choosen.getHp() - finalDamage);
@@ -61,16 +64,6 @@ public class Attack implements Fireable {
 				+ "HP:       -" + finalDamage + "\n"
 				+ "HP before: " + before + "\n"
 				+ "HP after:  " + after + "\n\n";
-	}
-
-	private double limitIsFull(Person p, Person choosen, double finalDamage) {
-		if(p instanceof Player && choosen instanceof Enemy) {
-			Enemy e = (Enemy)choosen;
-			if(e.getLimit() == 1) {
-				finalDamage *= 5;
-			}
-		}
-		return finalDamage;
 	}
 	
 	private double getFinalWeaponDamage(int def, int attackLevelAndWepDamage) {
@@ -97,12 +90,27 @@ public class Attack implements Fireable {
 			Enemy e = (Enemy)choosen;
 			if(e.getType().getName().equals("Enforcer")) {
 				if(e.getLimit() < 1)
-					e.setLimit(e.getLimit() + finalDamage*2);
+					e.setLimit(e.getLimit() + finalDamage*3);
 				else
 					return finalDamage *= 3;
 			}
 		} 
 		return finalDamage;
+	}
+	
+	private double playerIsAttackingSelf(Person p, Person choosen, double finalDamage) {
+		if(p instanceof Player && choosen instanceof Player) {
+			List<Enemy> enemyList = c.getFightClubController().getEnemyList();
+			for (int i = 0; i < enemyList.size(); i++) {
+				if(enemyList.get(i).getType().getName().equals("Shinobi")) {
+					if(enemyList.get(i).getLimit() < 1)
+						enemyList.get(i).setLimit(enemyList.get(i).getLimit() + finalDamage*3);
+					else
+						return finalDamage * 3;
+				}
+			}
+		}
+		return finalDamage*3;
 	}
 
 	@Override

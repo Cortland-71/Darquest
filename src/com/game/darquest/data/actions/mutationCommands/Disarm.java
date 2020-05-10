@@ -4,10 +4,10 @@ import com.game.darquest.controller.fightClubControllers.FightClubWinController;
 import com.game.darquest.data.Person;
 import com.game.darquest.data.actions.Fireable;
 
-public class Shield implements Fireable {
+public class Disarm implements Fireable {
 
 	private String output;
-	public Shield() {
+	public Disarm() {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -50,7 +50,7 @@ public class Shield implements Fireable {
 
 	@Override
 	public String getCommandId() {
-		return "shd";
+		return "da";
 	}
 
 	@Override

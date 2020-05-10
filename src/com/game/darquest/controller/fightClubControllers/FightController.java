@@ -18,7 +18,7 @@ import com.game.darquest.data.actions.mutationCommands.Deception;
 import com.game.darquest.data.actions.mutationCommands.Echo;
 import com.game.darquest.data.actions.mutationCommands.Fear;
 import com.game.darquest.data.actions.mutationCommands.VitaminC;
-import com.game.darquest.data.actions.mutationCommands.Shield;
+import com.game.darquest.data.actions.mutationCommands.Disarm;
 import com.game.darquest.data.actions.primaryCommands.Attack;
 import com.game.darquest.data.actions.primaryCommands.Heal;
 import com.game.darquest.data.actions.primaryCommands.Steal;
@@ -48,8 +48,16 @@ public class FightController implements EventHandler<KeyEvent> {
 	private Controller c;
 	private Player p;
 	
-	private Exe exe;
-	private Heal heal;
+	private final Exe exe;
+	private final Heal heal;
+	private final  Attack attack;
+	private final  Steal steal;
+	private final Deception deception;
+	private final  Fear fear;
+	private final  Echo echo;
+	private final  Disarm disarm;
+	private final  VitaminC vitaminc;
+	private final  Acid acid;
 
 	public FightController(Controller c) {
 		c.getView().getFightClubView().addCommandFieldListener(this);
@@ -58,18 +66,16 @@ public class FightController implements EventHandler<KeyEvent> {
 		
 		exe = new Exe();
 		heal = new Heal();
+		attack = new Attack(this.c);
+		steal = new Steal();
+		deception = new Deception();
+		fear = new Fear();
+		echo = new Echo();
+		disarm = new Disarm();
+		vitaminc = new VitaminC();
+		acid = new Acid();
 		
-		fireList = Arrays.asList(
-				exe,  
-				heal, 
-				new Attack(this.c), 
-				new Steal(), 
-				new Deception(), 
-				new Fear(),
-				new Echo(),
-				new Shield(),
-				new VitaminC(),
-				new Acid());
+		fireList = Arrays.asList(exe, heal, attack, steal, deception, fear, echo, disarm, vitaminc, acid);
 		
 //		new Use(this.c);
 		this.pwc = this.c.getPlayerWinController();  
@@ -124,7 +130,7 @@ public class FightController implements EventHandler<KeyEvent> {
 		List<String> newList = new ArrayList<>();
 		
 		for (int i = 0; i < commandQueue.size(); i++) {
-			if(commandQueue.get(i).contains("att")) {
+			if(commandQueue.get(i).contains("att ")) {
 				if(ch.hasModifier(commandQueue.get(i))) {
 					List<String> smallList = new ArrayList<>();
 					int mod = ch.getCurrentMod();
@@ -389,5 +395,47 @@ public class FightController implements EventHandler<KeyEvent> {
 	public CommandHandler getCommandHandler() {
 		return this.ch;
 	}
+
+	public Exe getExe() {
+		return exe;
+	}
+
+	public Heal getHeal() {
+		return heal;
+	}
+
+	public Attack getAttack() {
+		return attack;
+	}
+
+	public Steal getSteal() {
+		return steal;
+	}
+
+	public Deception getDeception() {
+		return deception;
+	}
+
+	public Fear getFear() {
+		return fear;
+	}
+
+	public Echo getEcho() {
+		return echo;
+	}
+
+	public Disarm getDisarm() {
+		return disarm;
+	}
+
+	public VitaminC getVitaminc() {
+		return vitaminc;
+	}
+
+	public Acid getAcid() {
+		return acid;
+	}
+	
+	
 }
 

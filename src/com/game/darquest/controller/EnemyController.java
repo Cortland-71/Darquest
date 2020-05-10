@@ -1,27 +1,14 @@
 package com.game.darquest.controller;
 
-import java.math.RoundingMode;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Random;
-import java.util.stream.Collectors;
 
+import com.game.darquest.controller.fightClubControllers.FightController;
 import com.game.darquest.data.Enemy;
 import com.game.darquest.data.Person;
 import com.game.darquest.data.Player;
 import com.game.darquest.data.actions.Fireable;
-import com.game.darquest.data.actions.mutationCommands.Acid;
-import com.game.darquest.data.actions.mutationCommands.Deception;
-import com.game.darquest.data.actions.mutationCommands.Echo;
-import com.game.darquest.data.actions.mutationCommands.Fear;
-import com.game.darquest.data.actions.mutationCommands.Shield;
-import com.game.darquest.data.actions.mutationCommands.VitaminC;
-import com.game.darquest.data.actions.primaryCommands.Attack;
-import com.game.darquest.data.actions.primaryCommands.Steal;
 import com.game.darquest.data.enemyType.Classable;
 import com.game.darquest.data.items.Weapon;
 
@@ -38,16 +25,16 @@ public class EnemyController {
 	private int maxPoints = 8;
 	private int currentPoints = 0;
 	private int moveIndex = 0;
-	private List<Fireable> fireList;
+	private FightController fc;
 
 	public EnemyController(Controller c) {
 		this.c = c;
+		this.fc = this.c.getFightClubController();
 	}
 
 	public void enemyTurn(Enemy enemy, List<Enemy> enemyList) {
 		this.enemy = enemy;
 		this.enemyList = enemyList;
-		fireList = c.getFightClubController().getFireList();
 		List<String> finalList = getFinalListOfMoves();
 
 		Timeline timeline = new Timeline();
@@ -107,17 +94,22 @@ public class EnemyController {
 				canAttack(moveList, simE);
 			}
 			else if(simE.getMutation() < simE.getDefaultMutation()) {
-				moveList.add("vc " + simE.getId()); currentPoints += currentPoints += fireList.get(8).getPointCost();
+				moveList.add(fc.getVitaminc().getCommandId() + " " + simE.getId()); 
+				currentPoints += fc.getVitaminc().getPointCost();
 			} else if(simE.getDef() < simE.getDefaultDef()) {
-				moveList.add("shd " + simE.getId()); currentPoints += fireList.get(7).getPointCost();
+				moveList.add(fc.getDisarm().getCommandId() + " " + simE.getId()); 
+				currentPoints += fc.getDisarm().getPointCost();
 			}
 			else if(simE.getStealth() < simP.getAwareness()) {
-				moveList.add("dec " + simE.getId()); currentPoints += fireList.get(4).getPointCost();
+				moveList.add(fc.getDeception().getCommandId() + " " + simE.getId()); 
+				currentPoints += fc.getDeception().getPointCost();
 			} else {
-				if(maxPoints - currentPoints >= fireList.get(3).getPointCost()) {
-					moveList.add("st 0"); currentPoints += fireList.get(3).getPointCost();
+				if(maxPoints - currentPoints >= fc.getAttack().getPointCost()) {
+					moveList.add(fc.getSteal().getCommandId() + " 0"); 
+					currentPoints += fc.getSteal().getPointCost();
 				} else {
-					moveList.add("ech " + simE.getId()); currentPoints += fireList.get(6).getPointCost();
+					moveList.add(fc.getEcho().getCommandId() + " " + simE.getId()); 
+					currentPoints += fc.getEcho().getPointCost();
 				}
 			}
 		} else {
@@ -134,19 +126,26 @@ public class EnemyController {
 	
 	private void attackLogic(List<String> moveList, Player simP, Enemy simE) {
 		if(simE.getMutation() < simE.getDefaultMutation()) {
-			moveList.add("vc " + simE.getId()); currentPoints += fireList.get(8).getPointCost();
-		} else if(simE.getAttack() < simP.getDef()) {
-			moveList.add("fear " + simE.getId()); currentPoints += fireList.get(5).getPointCost();
+			moveList.add(fc.getVitaminc().getCommandId() + " " + simE.getId()); 
+			currentPoints += fc.getVitaminc().getPointCost();
+		} else if(currentPoints < 3 && simE.getAttack() < simP.getDef()) {
+			moveList.add(fc.getFear().getCommandId() + " " + simE.getId()); 
+			currentPoints += fc.getFear().getPointCost();
+		} else if(currentPoints > 6 && simE.getDef() < simP.getAttack()) {
+			moveList.add(fc.getDisarm().getCommandId() + " " + simE.getId()); 
+			currentPoints += fc.getDisarm().getPointCost();
 		} else {
 			canAttack(moveList, simE);
 		}
 	}
 	
 	private void canAttack(List<String> moveList, Enemy simE) {
-		if(maxPoints - currentPoints >= fireList.get(2).getPointCost()) {
-			moveList.add("att 0"); currentPoints += fireList.get(2).getPointCost();
+		if(maxPoints - currentPoints >= fc.getAttack().getPointCost()) {
+			moveList.add(fc.getAttack().getCommandId() + " 0"); 
+			currentPoints += fc.getAttack().getPointCost();
 		} else {
-			moveList.add("shd " + simE.getId()); currentPoints += fireList.get(7).getPointCost();
+			moveList.add(fc.getDisarm().getCommandId() + " " + simE.getId()); 
+			currentPoints += fc.getDisarm().getPointCost();
 		}
 	}
 
