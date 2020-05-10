@@ -2,6 +2,7 @@ package com.game.darquest.data.actions.mutationCommands;
 
 import com.game.darquest.controller.fightClubControllers.FightClubWinController;
 import com.game.darquest.data.Person;
+import com.game.darquest.data.Player;
 import com.game.darquest.data.actions.Fireable;
 
 public class Echo implements Fireable {
@@ -16,11 +17,13 @@ public class Echo implements Fireable {
 	public void fire(Person p, Person choosen) {
 		if(choosen.getStealth() < 2) {
 			output = "Target's Stealth was already at it's minimum.\n\n";
-			FightClubWinController.setEfficiencyScore(FightClubWinController.getEfficiencyScore() - 5);
+			if(p instanceof Player)
+				FightClubWinController.setEfficiencyScore(FightClubWinController.getEfficiencyScore() - 5);
 			return;
 		}
 		
-		int mutationEffect = (int)Math.ceil(p.getMutation()/2d);
+		int mutationEffect = p.getMutation();
+		System.out.println(mutationEffect);
 		
 		int awarenessBefore = choosen.getAwareness();
 		int stealthBefore = choosen.getStealth();
@@ -45,9 +48,11 @@ public class Echo implements Fireable {
 	}
 
 	private int getFinalEffect(int mutationEffect, int before) {
-		int dif = before - mutationEffect;
-		if(dif >= 1) return mutationEffect;
-		return (mutationEffect + dif)-1;
+         
+		int dif = mutationEffect - before;
+		if(dif < 0 ) return mutationEffect-1;
+		else if(dif > 0) return dif;
+		else return mutationEffect - 1;
 	}
 	@Override
 	public String getCommandId() {

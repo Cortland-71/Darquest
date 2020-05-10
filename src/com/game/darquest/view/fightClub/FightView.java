@@ -77,6 +77,7 @@ public class FightView {
 	//Player components \/\/\/\/\/\/\\/\/\/\/\/\/\/\/\/\/\/\/\/
 	private VBox playerOutputBox() {
 		VBox playerOutputBox = new VBox(10);
+		playerOutputBox.setAlignment(Pos.CENTER);
 		playerOutputBox.getChildren().add(playerOutputLabel());
 		playerOutputBox.getChildren().add(playerOutputTextArea());
 		return playerOutputBox;

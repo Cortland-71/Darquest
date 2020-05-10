@@ -16,7 +16,7 @@ public class Observer implements Classable {
 	private ItemHub ic;
 	private Controller c;
 
-	private int minStat;
+	private int minStat = 5;
 	private int maxStat;
 	
 	@Override

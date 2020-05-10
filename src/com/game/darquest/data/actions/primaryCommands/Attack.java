@@ -42,7 +42,7 @@ public class Attack implements Fireable {
 		
 		if(minimumDamage < choosen.getDef()) {
 			output = "Attack missed.\n"
-					+ "Minimum attack damage: " + weaponDamage + "\n" 
+					+ "Minimum attack damage: " + minimumDamage + "\n" 
 					+ choosen.getName() + "'s Deffense: " + choosen.getDef() + "\n"
 					+ "Deffense to high.\n\n";
 			FightClubWinController.setEfficiencyScore(FightClubWinController.getEfficiencyScore() - 5);
@@ -51,8 +51,8 @@ public class Attack implements Fireable {
 		
 		
 		finalDamage = playerIsAttackingEnforcer(p, choosen, finalDamage);
-		finalDamage = enemyIsAttacking(p, choosen, finalDamage);
 		finalDamage = playerIsAttackingSelf(p, choosen, finalDamage);
+		finalDamage = enemyIsAttacking(p, choosen, finalDamage);
 
 		
 		double before = choosen.getHp();
@@ -80,7 +80,7 @@ public class Attack implements Fireable {
 	
 	private double enemyIsAttacking(Person p, Person choosen, double finalDamage) {
 		if(p instanceof Enemy && choosen instanceof Player) {
-			return finalDamage *= 2;
+			return finalDamage * 2;
 		}
 		return finalDamage;
 	}
@@ -92,7 +92,7 @@ public class Attack implements Fireable {
 				if(e.getLimit() < 1)
 					e.setLimit(e.getLimit() + finalDamage*3);
 				else
-					return finalDamage *= 3;
+					return finalDamage * 2;
 			}
 		} 
 		return finalDamage;
@@ -103,14 +103,15 @@ public class Attack implements Fireable {
 			List<Enemy> enemyList = c.getFightClubController().getEnemyList();
 			for (int i = 0; i < enemyList.size(); i++) {
 				if(enemyList.get(i).getType().getName().equals("Shinobi")) {
-					if(enemyList.get(i).getLimit() < 1)
+					if(enemyList.get(i).getLimit() < 1) {
 						enemyList.get(i).setLimit(enemyList.get(i).getLimit() + finalDamage*3);
-					else
-						return finalDamage * 3;
+					} else {
+						return finalDamage * 2;
+					}
 				}
 			}
 		}
-		return finalDamage*3;
+		return finalDamage;
 	}
 
 	@Override

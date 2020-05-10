@@ -26,6 +26,7 @@ public class EnemyController {
 	private int currentPoints = 0;
 	private int moveIndex = 0;
 	private FightController fc;
+	private Timeline timeline;
 
 	public EnemyController(Controller c) {
 		this.c = c;
@@ -37,7 +38,7 @@ public class EnemyController {
 		this.enemyList = enemyList;
 		List<String> finalList = getFinalListOfMoves();
 
-		Timeline timeline = new Timeline();
+		timeline = new Timeline();
 		timeline.setCycleCount(finalList.size());
 		timeline.getKeyFrames().add(new KeyFrame(Duration.millis(600), e -> {
 			move(finalList.get(getMoveIndex()));
@@ -58,6 +59,7 @@ public class EnemyController {
 		c.getFightClubController().runFire(command, enemy);
 		updateAllStats();
 		if (c.getPlayer().getHp() <= 0) {
+			timeline.stop();
 			c.getView().getHubView().showHub();
 		}
 	}
@@ -89,33 +91,29 @@ public class EnemyController {
 	}
 	
 	private List<String> stealFocused(List<String> moveList, Player simP, Enemy simE) {
-		if(c.getPlayer().getCash() > 100) {
-			if(simE.getAttack() >= simP.getDef()*2) {
-				canAttack(moveList, simE);
+		if(simE.getAttack() >= simP.getDef() || simP.getCash() <= 200) {
+			attackLogic(moveList, simP, simE);
+		} else if(currentPoints < 3 && simE.getStealth() < simP.getAwareness()) {
+			if(simE.getAwareness() > 1) {
+				moveList.add(fc.getDeception().getCommandId() + " " + simE.getId());
+				currentPoints += fc.getDeception().getPointCost();
+			} else {
+				moveList.add(fc.getDeception().getCommandId() + " 0");
+				currentPoints += fc.getDeception().getPointCost();
 			}
-			else if(simE.getMutation() < simE.getDefaultMutation()) {
-				moveList.add(fc.getVitaminc().getCommandId() + " " + simE.getId()); 
-				currentPoints += fc.getVitaminc().getPointCost();
-			} else if(simE.getDef() < simE.getDefaultDef()) {
+		} else if(currentPoints > 6 && simE.getDef() < simP.getAttack()) {
+			if(simE.getAwareness() == 1) {
+				moveList.add(fc.getEcho().getCommandId() + " " + simE.getId()); 
+				currentPoints += fc.getEcho().getPointCost();
+			} else {
 				moveList.add(fc.getDisarm().getCommandId() + " " + simE.getId()); 
 				currentPoints += fc.getDisarm().getPointCost();
 			}
-			else if(simE.getStealth() < simP.getAwareness()) {
-				moveList.add(fc.getDeception().getCommandId() + " " + simE.getId()); 
-				currentPoints += fc.getDeception().getPointCost();
-			} else {
-				if(maxPoints - currentPoints >= fc.getAttack().getPointCost()) {
-					moveList.add(fc.getSteal().getCommandId() + " 0"); 
-					currentPoints += fc.getSteal().getPointCost();
-				} else {
-					moveList.add(fc.getEcho().getCommandId() + " " + simE.getId()); 
-					currentPoints += fc.getEcho().getPointCost();
-				}
-			}
 		} else {
-			attackLogic(moveList, simP, simE);
+			moveList.add(fc.getSteal().getCommandId() + " 0"); 
+			currentPoints += fc.getSteal().getPointCost();
 		}
-	
+		
 		for (int i = 0; i < moveList.size(); i++) runSimFire(moveList.get(i), simP, simE);
 		
 		if(currentPoints < maxPoints) stealFocused(moveList, simP, simE);
@@ -157,7 +155,6 @@ public class EnemyController {
 		for (int i = 0; i < fireList.size(); i++) {
 			if (finalCommand.equals(fireList.get(i).getCommandId())) {
 				fireList.get(i).fire(simEnemy, choosen);
-				return;
 			}
 		}
 	}

@@ -2,6 +2,7 @@ package com.game.darquest.data.actions.mutationCommands;
 
 import com.game.darquest.controller.fightClubControllers.FightClubWinController;
 import com.game.darquest.data.Person;
+import com.game.darquest.data.Player;
 import com.game.darquest.data.actions.Fireable;
 
 public class Disarm implements Fireable {
@@ -14,12 +15,13 @@ public class Disarm implements Fireable {
 	@Override
 	public void fire(Person p, Person choosen) {
 		if(choosen.getAttack() < 2) {
-			output = "Target's Attack was already at it's minimum.\n\n";
-			FightClubWinController.setEfficiencyScore(FightClubWinController.getEfficiencyScore() - 5);
+			output = choosen.getName() + "'s Attack was already at it's minimum.\n\n";
+			if(p instanceof Player)
+				FightClubWinController.setEfficiencyScore(FightClubWinController.getEfficiencyScore() - 5);
 			return;
 		}
 		
-		int mutationEffect = (int)Math.ceil(p.getMutation()/2d);
+		int mutationEffect = p.getMutation();
 		
 		int defBefore = choosen.getDef();
 		int attackBefore = choosen.getAttack();
@@ -32,7 +34,7 @@ public class Disarm implements Fireable {
 		choosen.setDef(defAfter);
 		choosen.setAttack(attackAfter);
 		
-		output = "Shield successful from " + p.getName() + "\n"
+		output = "Disarm successful from " + p.getName() + "\n"
 				+ "Target:         " + choosen.getName() + "\n"
 				+ "Attack         -" + mutationEffect + "\n"
 				+ "Defense        +" + mutationEffect + "\n"
@@ -43,9 +45,10 @@ public class Disarm implements Fireable {
 	}
 	
 	private int getFinalEffect(int mutationEffect, int before) {
-		int dif = before - mutationEffect;
-		if(dif >= 1) return mutationEffect;
-		return (mutationEffect + dif)-1;
+		int dif = mutationEffect - before;
+		if(dif < 0 ) return mutationEffect-1;
+		else if(dif > 0) return dif;
+		else return mutationEffect - 1;
 	}
 
 	@Override

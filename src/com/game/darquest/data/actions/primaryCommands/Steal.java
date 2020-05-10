@@ -56,7 +56,7 @@ public class Steal implements Fireable {
 
 	private double getFinalStealAmount(int stealth, int awareness, double choosenCash) {
 		double amount = 0;
-		amount = ((stealth - awareness)+1) * 50;
+		amount = ((stealth - awareness)+1) * 25;
 		if (amount <= choosenCash) return amount;
 		return choosenCash;
 	}
