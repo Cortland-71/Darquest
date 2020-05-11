@@ -165,7 +165,9 @@ public class FightController implements EventHandler<KeyEvent> {
 				e-> {
 					timeline.setCycleCount(timeline.getCycleCount()-1);
 					runFire(commandList.get(timeline.getCycleCount()), p);
+					removeDeadEnemyFromList();
 					c.getHubController().drawAllEnemyBoxes(enemyList);
+					c.getPlayerInvStatsController().updateAllPlayerStats();
 					c.getPlayerInvStatsController().
 					captureSelectedItemsUpdateInvAndStatsReEquipItems();
 					}));
@@ -243,15 +245,11 @@ public class FightController implements EventHandler<KeyEvent> {
 		    @Override
 		    public void handle(ActionEvent event) {
 		    	pwc.setNumPlayerMoves(pwc.getNumPlayerMoves() + 1);
-				removeDeadEnemyFromList();
 				if (playerWins())
 					return;
 				c.getView().getFightClubView().clearCommandField();
 				c.getView().getFightClubView().setQueueLabel(currentMovePoints, maxMovePoints);
 				// c.getView().getFightClubView().animateWorkBar((Player)p);
-				c.getPlayerInvStatsController().updateAllPlayerStats();
-				c.getHubController().drawAllEnemyBoxes(enemyList);
-				addEnemyId(enemyList);
 		    	doEnemyTurnIfPlayerTurnHasEnded();
 		    }
 		});
@@ -322,6 +320,7 @@ public class FightController implements EventHandler<KeyEvent> {
 				pwc.addXpToPlayer(((Player) p).getXpAddedBeatEnemy());
 			}
 		}
+		addEnemyId(enemyList);
 	}
 
 	private int currentEnemyIndex = 0;
@@ -390,6 +389,7 @@ public class FightController implements EventHandler<KeyEvent> {
 		for (int i = 0; i < list.size(); i++) {
 			modifiers.add(Integer.toString(list.get(i).getId()));
 		}
+		System.out.println("fight Controller mod list " + modifiers);
 	}
 	
 	public CommandHandler getCommandHandler() {

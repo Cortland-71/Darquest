@@ -13,7 +13,7 @@ public class Acid implements Fireable {
 	
 	@Override
 	public void fire(Person p, Person choosen) {
-		if(choosen.getMutation() < 2) {
+		if(choosen.getMutation() <= minStat) {
 			output = choosen.getName() + "'s Mutation was already at it's minimum.\n\n";
 			FightClubWinController.setEfficiencyScore(FightClubWinController.getEfficiencyScore() - 5);
 			return;

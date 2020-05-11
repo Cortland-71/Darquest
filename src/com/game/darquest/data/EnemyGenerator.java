@@ -36,28 +36,35 @@ public class EnemyGenerator {
 			int level = getRandomLevel();
 			Classable type = getRandomType();
 			type.setController(this.c);
-			type.setLevel(level);
 			enemyList.add(getEnemyObject(name, level, type, i, picture));
 		}
 	}
 
 	private Enemy getEnemyObject(String name, int level, Classable type, int index, String imagePath) {
 		Classable t = type;
-		int attack = t.getGenerateAttack();
-		int def = t.getGenerateDef();
-		int stealth = t.getGenerateStealth();
-		int awareness = t.getGenerateAwareness();
-		int mutation = t.getGenerateMutation();
+		int pointsToSpend = 0;
+		int attack = 5;
+		int def = 5;
+		int stealth = 5;
+		int awareness = 5;
+		int mutation = 5;
+		List<Integer> statList = Arrays.asList(attack, def, stealth, awareness, mutation);
+		
+		if(level > 1) {
+			for (int i = 0; i < level-1; i++) pointsToSpend += 3;
+		}
+		
+		for (int i = 0; i < pointsToSpend; i++) {
+			Random rand = new Random();
+			int choosenIndex = rand.nextInt(statList.size());
+			statList.set(choosenIndex, statList.get(choosenIndex)+1);	
+		}
 
 		Weapon wep = t.getGenerateWeapon();
 		Armor armor = t.getGenerateArmor();
 		double cash = t.getGeneratedCash();
-		
-//		return new Enemy(name, 5, 5,5, 5, 5, wep, armor, level, cash, type, index + 1,
-//				imagePath);
 
-		return new Enemy(name, attack, def, stealth, awareness, mutation, wep, armor, level, cash, type, index + 1,
-				imagePath);
+		return new Enemy(name, wep, armor, level, cash, type, index + 1, imagePath, statList);
 	}
 
 	private Classable getRandomType() {
@@ -71,13 +78,7 @@ public class EnemyGenerator {
 	private int getRandomLevel() {
 		int playerLevel = c.getPlayer().getLvl();
 		int min = 1;
-		int max = (playerLevel * 2) + 1;
-
-		if (playerLevel < 3)
-			min = 1;
-		else
-			min = (max - playerLevel) - 3;
-
+		int max = playerLevel * 2;
 		return rand.nextInt((max - min) + 1) + min;
 	}
 

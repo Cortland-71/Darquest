@@ -14,7 +14,7 @@ public class Deception implements Fireable {
 
 	@Override
 	public void fire(Person p, Person choosen) {
-		if(choosen.getAwareness() < 2) {
+		if(choosen.getAwareness() <= minStat) {
 			output = "Target's Awareness was already at it's minimum.\n\n";
 			if(p instanceof Player)
 				FightClubWinController.setEfficiencyScore(FightClubWinController.getEfficiencyScore() - 5);
@@ -44,10 +44,9 @@ public class Deception implements Fireable {
 	}
 	
 	private int getFinalEffect(int mutationEffect, int before) {
-		int dif = mutationEffect - before;
-		if(dif < 0 ) return mutationEffect-1;
-		else if(dif > 0) return dif;
-		else return mutationEffect - 1;
+		int dif = before - mutationEffect;
+		if(dif >= 0 ) return mutationEffect;
+		else return mutationEffect + dif;
 	}
 	
 	@Override

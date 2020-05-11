@@ -1,5 +1,7 @@
 package com.game.darquest.data;
 
+import java.util.List;
+
 import com.game.darquest.data.enemyType.Classable;
 import com.game.darquest.data.items.Armor;
 import com.game.darquest.data.items.Weapon;
@@ -11,11 +13,9 @@ public class Enemy extends Person {
 	private String imagePath;
 	private double limit = 0;
 
-	public Enemy(String name, int defaultAttack, int defaultDef, int defaultStealth, int defaultAwareness,
-			int defaultMutation, Weapon equippedWeapon, Armor equippedArmor, int lvl, double cash, Classable type,
-			int id, String imagePath) {
-		super(name, defaultAttack, defaultDef, defaultStealth, defaultAwareness, defaultMutation, equippedWeapon,
-				equippedArmor, lvl, cash);
+	public Enemy(String name, Weapon equippedWeapon, Armor equippedArmor, int lvl, double cash, Classable type,
+			int id, String imagePath, List<Integer> statList) {
+		super(name, equippedWeapon, equippedArmor, lvl, cash, statList);
 		this.type = type;
 		this.id = id;
 		this.imagePath = imagePath;

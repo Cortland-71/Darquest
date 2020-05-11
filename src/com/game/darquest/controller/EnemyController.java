@@ -94,7 +94,7 @@ public class EnemyController {
 		if(simE.getAttack() >= simP.getDef() || simP.getCash() <= 200) {
 			attackLogic(moveList, simP, simE);
 		} else if(currentPoints < 3 && simE.getStealth() < simP.getAwareness()) {
-			if(simE.getAwareness() > 1) {
+			if(simE.getAwareness() > 0) {
 				moveList.add(fc.getDeception().getCommandId() + " " + simE.getId());
 				currentPoints += fc.getDeception().getPointCost();
 			} else {
@@ -102,7 +102,7 @@ public class EnemyController {
 				currentPoints += fc.getDeception().getPointCost();
 			}
 		} else if(currentPoints > 6 && simE.getDef() < simP.getAttack()) {
-			if(simE.getAwareness() == 1) {
+			if(simE.getAwareness() < simP.getStealth()) {
 				moveList.add(fc.getEcho().getCommandId() + " " + simE.getId()); 
 				currentPoints += fc.getEcho().getPointCost();
 			} else {

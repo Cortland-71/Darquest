@@ -10,18 +10,10 @@ import com.game.darquest.data.items.Weapon;
 
 public interface Classable {
 	Random rand = new Random();
-	int getGenerateAttack();
-	int getGenerateDef();
-	int getGenerateStealth();
-	int getGenerateAwareness();
-	int getGenerateMutation();
-	List<String> getAllowedMoves();
 	double getGeneratedCash();
 	Weapon getGenerateWeapon();
 	Armor getGenerateArmor();
 	String getName();
-	void setLevel(int level);
 	void setController(Controller c);
-	List<Integer> getAllScores();
 	String getDescription();
 }

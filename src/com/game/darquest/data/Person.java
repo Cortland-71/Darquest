@@ -40,27 +40,27 @@ public abstract class Person {
 	public Person() {
 	}
 
-	public Person(String name, int defaultAttack, int defaultDef, int defaultStealth, int defaultAwareness,
-			int defaultMutation, Weapon equippedWeapon, Armor equippedArmor, int lvl, double cash) {
+	public Person(String name, Weapon equippedWeapon, Armor equippedArmor, int lvl, double cash, List<Integer> statList) {
 		this.name = name;
 		this.equippedWeapon = equippedWeapon;
 		this.equippedArmor = equippedArmor;
 		this.lvl = lvl;
 		this.cash = cash;
 
-		this.setDefaultAttack(defaultAttack);
-		this.setAttack(defaultAttack);
-		this.setDefaultDef(defaultDef);
-		this.setDef(defaultDef);
+		this.setDefaultAttack(statList.get(0));
+		this.setAttack(statList.get(0));
+		this.setDefaultDef(statList.get(1));
+		this.setDef(statList.get(1));
 
-		this.setDefaultStealth(defaultStealth);
-		this.setStealth(defaultStealth);
-		this.setDefaultAwareness(defaultAwareness);
-		this.setAwareness(defaultAwareness);
+		this.setDefaultStealth(statList.get(2));
+		this.setStealth(statList.get(2));
+		this.setDefaultAwareness(statList.get(3));
+		this.setAwareness(statList.get(3));
 
-		this.setDefaultMutation(defaultMutation);
-		this.setMutation(defaultMutation);
+		this.setDefaultMutation(statList.get(4));
+		this.setMutation(statList.get(4));
 	}
+	
 
 	public void setEquippedItem(Item item) {
 		if (item instanceof Weapon)
@@ -82,8 +82,8 @@ public abstract class Person {
 	}
 
 	public void setAttack(int attack) {
-		if (attack < 1) {
-			this.attack = 1;
+		if (attack < 0) {
+			this.attack = 0;
 			return;
 		}
 		this.attack = attack;
@@ -94,8 +94,8 @@ public abstract class Person {
 	}
 
 	public void setDef(int def) {
-		if (def < 1) {
-			this.def = 1;
+		if (def < 0) {
+			this.def = 0;
 			return;
 		}
 		this.def = def;
@@ -107,8 +107,8 @@ public abstract class Person {
 	}
 
 	public void setStealth(int stealth) {
-		if (stealth < 1) {
-			this.stealth = 1;
+		if (stealth < 0) {
+			this.stealth = 0;
 			return;
 		}
 		this.stealth = stealth;
@@ -119,11 +119,22 @@ public abstract class Person {
 	}
 
 	public void setAwareness(int awareness) {
-		if (awareness < 1) {
-			this.awareness = 1;
+		if (awareness < 0) {
+			this.awareness = 0;
 			return;
 		}
 		this.awareness = awareness;
+	}
+	
+	public void setMutation(int mutation) {
+		if (mutation < 0) {
+			this.mutation = 0;
+			return;
+		} else if (mutation > defaultMutation) {
+			this.mutation = defaultMutation;
+			return;
+		}
+		this.mutation = mutation;
 	}
 
 	public Weapon getEquippedWeapon() {
@@ -235,16 +246,7 @@ public abstract class Person {
 		return mutation;
 	}
 
-	public void setMutation(int mutation) {
-		if (mutation < 1) {
-			this.mutation = 1;
-			return;
-		} else if (mutation > defaultMutation) {
-			this.mutation = defaultMutation;
-			return;
-		}
-		this.mutation = mutation;
-	}
+	
 
 	public int getDefaultMutation() {
 		return defaultMutation;

@@ -16,7 +16,7 @@ public class Fear implements Fireable {
 	@Override
 	public void fire(Person p, Person choosen) {
 		
-		if(choosen.getDef() < 2) {
+		if(choosen.getDef() <= minStat) {
 			output = "Target's Defense was already at it's minimum.\n\n";
 			if(p instanceof Player)
 				FightClubWinController.setEfficiencyScore(FightClubWinController.getEfficiencyScore() - 5);
@@ -46,10 +46,9 @@ public class Fear implements Fireable {
 	}
 	
 	private int getFinalEffect(int mutationEffect, int before) {
-		int dif = mutationEffect - before;
-		if(dif < 0 ) return mutationEffect-1;
-		else if(dif > 0) return dif;
-		else return mutationEffect - 1;
+		int dif = before - mutationEffect;
+		if(dif >= 0 ) return mutationEffect;
+		else return mutationEffect + dif;
 	}
 
 	@Override
